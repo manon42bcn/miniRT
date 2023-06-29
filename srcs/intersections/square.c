@@ -1,0 +1,26 @@
+#include "minirt.h"
+
+double			square_solver(t_v3d origin, t_v3d dir, t_obj *sqr)
+{
+	t_v3d	inter_point;
+	t_sq	square;
+	double	inter_distance;
+	double	cos_sqr;
+	double	max_limit;
+
+	inter_distance = plane_hit(origin, dir, sqr->elm.sq.centre, sqr->normal);
+	inter_point = ft_plus_v3d(origin, ft_scalar_v3d(inter_distance, dir));
+	if (fabs(sqr->normal.y) == 1)
+		square.floor = (t_v3d){1, 0, 0};
+	else
+		square.floor = (t_v3d){0, 1, 0};
+	square.half_size = ft_cross_v3d(sqr->normal, square.floor);
+	square.center_to_ip = ft_minus_v3d(inter_point, sqr->elm.sq.centre);
+	cos_sqr = fabs(ft_cos_v3d(square.half_size, square.center_to_ip));
+	if (cos_sqr < SQRT2_2)
+		cos_sqr = cos(M_PI_2 - acos(cos_sqr));
+	max_limit = (sqr->elm.sq.side / 2) / cos_sqr;
+	if (ft_mag_v3d(square.center_to_ip) <= max_limit)
+		return (inter_distance);
+	return (INFINITY);
+}
