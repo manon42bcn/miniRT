@@ -27,6 +27,9 @@
 # define REFLECTION_LIMIT 3
 # define ERROR 1
 # define SUCCESS 0
+# ifndef BONUS
+#  define BONUS 0
+# endif
 
 typedef int t_bool;
 typedef struct s_mrt    t_mrt;

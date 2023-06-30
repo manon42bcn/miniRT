@@ -12,21 +12,20 @@
 
 #include "minirt.h"
 
-static inline void	check_color_range(t_rgb color[3], char *elem)
+static inline void	check_color_range(t_rgb color[3])
 {
-	if (color[R_I] < 0 && color[R_I] > 255)
+	if (color[R_I] < 0 || color[R_I] > 255)
 		msg_error_parsing("Color R range should be 0-255");
-	if (color[G_I] < 0 && color[G_I] > 255)
+	if (color[G_I] < 0 || color[G_I] > 255)
 		msg_error_parsing("Color G range should be 0-255");
-	if (color[B_I] < 0 && color[B_I] > 255)
+	if (color[B_I] < 0 || color[B_I] > 255)
 		msg_error_parsing("Color B range should be 0-255");
 }
 
-t_rgb	get_color(char *line, char *elem)
+t_rgb	get_color(char *line)
 {
 	char	**tmp;
 	t_rgb	rgb[3];
-	t_rgb	aux;
 
 	tmp = ft_split(line, ',');
 	if (tmp == NULL || ft_count_tab(tmp) != 3)
@@ -38,7 +37,7 @@ t_rgb	get_color(char *line, char *elem)
 	rgb[G_I] = ft_atoi(tmp[G_I]);
 	rgb[B_I] = ft_atoi(tmp[B_I]);
 	ft_clear_tabs(tmp);
-	check_color_range(rgb, elem);
+	check_color_range(rgb);
 	rgb[R_I] <<= 16;
 	rgb[G_I] <<= 8;
 	return (rgb[R_I] | rgb[G_I] | rgb[B_I]);

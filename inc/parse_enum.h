@@ -108,11 +108,11 @@ typedef enum e_camera_parse
 	CAM_FOV = 3
 }	t_camera_parse;
 
-enum e_triangle_intersection
+enum e_array_intersections
 {
 	IP1,
 	IP2,
-	TOP_CENTRE
+	C_DIST
 };
 
 #endif

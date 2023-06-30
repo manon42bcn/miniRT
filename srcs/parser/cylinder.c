@@ -16,9 +16,9 @@ void	inp_cylinder(t_mrt *mrt)
 {
 	mrt->obj = object_builder(CYLINDER, mrt->obj);
 	mrt->obj->elm.cyl.centre = get_v3d(mrt->tab[CYL_CENTRE],
-			V3D_COOR, "Cylinder");
+			V3D_COOR);
 	mrt->obj->elm.cyl.dir = get_v3d(mrt->tab[CYL_ORIENTATION],
-			V3D_NORM, "Cylinder");
+			V3D_NORM);
 	mrt->obj->elm.cyl.radius = ft_atolf(mrt->tab[CYL_DIAM]) / 2.0f;
 	check_range(mrt->obj->elm.cyl.radius, 0, INFINITY, "Cylinder radius");
 	mrt->obj->elm.cyl.height = ft_atolf(mrt->tab[CYL_HEIGHT]);

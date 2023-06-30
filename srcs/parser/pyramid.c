@@ -16,7 +16,7 @@ void	inp_pyramid(t_mrt *mrt)
 {
 	mrt->obj = object_builder(PYRAMID, mrt->obj);
 	mrt->obj->elm.sq.centre = get_v3d(mrt->tab[PYR_CENTRE],
-			V3D_COOR, "Pyramid");
+			V3D_COOR);
 	mrt->obj->elm.sq.side = ft_atolf(mrt->tab[PYR_SIDE]);
 	check_range(mrt->obj->elm.sq.side, 0, INFINITY, "Pyramid side");
 	get_common(mrt, PYR_SIDE, "Cube");

@@ -30,8 +30,8 @@ void		inp_light(t_mrt *mrt);
 // Parser readfile
 int			readfile_parser(char const *filename, t_mrt *rt);
 // Parser common
-t_rgb		get_color(char *line, char *elem);
-t_v3d		get_v3d(char *line, int mode, char *elem);
+t_rgb		get_color(char *line);
+t_v3d		get_v3d(char *line, int mode);
 void		get_common(t_mrt *mrt, int last, char *elem);
 void		check_range(double value, double min, double max, char *msg);
 void		msg_error_parsing(char *message);

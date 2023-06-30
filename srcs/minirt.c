@@ -59,6 +59,7 @@ int main(int argc, char const *argv[])
 	mrt.mlx = mlx_init();
 	my_mlx_getScreenSize(&(mrt.scn.w_x), &(mrt.scn.w_y));
 	printf("%d - %d \n", mrt.scn.w_x, mrt.scn.w_y);
+	printf("BONUS %d\n", BONUS);
 	readfile_parser(argv[1], &mrt);
 	mlx_starter(&mrt);
 	render_main(&mrt);

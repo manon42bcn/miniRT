@@ -34,7 +34,6 @@ static inline int	parser_dict(char *id)
 static inline t_bool	load_object(t_mrt *mrt)
 {
 	int			type;
-	static int	bonus = FALSE;
 	static void	(*build[])(t_mrt *) = {
 		inp_sphere, inp_plane, inp_cylinder, inp_square, inp_triangle, inp_cube,
 		inp_pyramid, inp_resolution, inp_ambient, inp_camera, inp_light};

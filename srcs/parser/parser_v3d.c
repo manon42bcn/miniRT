@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-t_v3d	get_v3d(char *line, int mode, char *elem)
+t_v3d	get_v3d(char *line, int mode)
 {
 	char	**tmp;
 	t_v3d	rst;

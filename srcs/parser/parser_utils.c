@@ -24,7 +24,7 @@ void	get_common(t_mrt *mrt, int last, char *elem)
 	check_range(mrt->obj->texture, 0, 5, elem);
 	if (mrt->obj->texture == 2)
 		mrt->obj->wavelength = ft_atolf(mrt->tab[++last]);
-	mrt->obj->color = get_color(mrt->tab[++last], elem);
+	mrt->obj->color = get_color(mrt->tab[++last]);
 }
 
 void	check_range(double value, double min, double max, char *msg)

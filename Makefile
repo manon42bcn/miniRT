@@ -68,28 +68,12 @@ HEAD_FILES		=	inc/minirt.h \
 					mlx/mlx.h
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
-# CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS			=	-Wall -Wextra -Werror
 INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(HEAD_DIR)
 LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -Lmlx -lmlx -framework OpenGL -framework AppKit 
 RM				=	rm -rf
 
 # ---------------------
-
-MACOS_MACRO = -D MACOS
-
-LINUX_MACRO = -D LINUX
-UNAME := $(shell uname)
-
-ifeq ($(UNAME),Darwin)
-	NUM_THREADS = $(shell sysctl -n hw.ncpu)
-	CFLAGS += $(MACOS_MACRO)
-	LIB_MLX = mlx
-endif
-ifeq ($(UNAME),Linux)
-	NUM_THREADS = $(shell nproc --all)
-	CFLAGS += $(LINUX_MACRO)
-	LIB_MLX = mlx
-endif
 # -----------------------
 all: $(OBJ_SUBS) library $(NAME)
 
@@ -124,6 +108,11 @@ fclean: clean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(NAME)
 	$(RM) $(OBJ_SUBS)
+
+bonus: clean
+	$(eval CFLAGS += -DBONUS=1)
+	echo $CFLAGS
+	$(MAKE) all
 
 re:	fclean all
 
