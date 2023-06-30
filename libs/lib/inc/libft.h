@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 12:34:55 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/08 00:11:22 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/06/30 21:26:26 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define LIBFT_H
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_list
 {
@@ -24,6 +25,8 @@ typedef struct s_list
 # define BUFFER_SIZE	1024
 # define TRUE			1
 # define FALSE			0
+# define ERROR			1
+# define SUCCESS		0
 
 typedef int	t_bool;
 
@@ -66,6 +69,9 @@ char		*ft_strtrim_clean(char *s1, char const *set);
 void		ft_clear_tabs(char **tab);
 size_t		ft_count_tab(char **s);
 void		ft_sort_str_tab(char **tab);
+void		*ft_sec_malloc(size_t size);
+void		*ft_sec_calloc(size_t size);
+void		ft_perror(char *msg);
 //gnl
 char		*get_next_line(int fd);
 int			ft_strlen_gnl(char *s);

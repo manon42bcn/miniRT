@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   definitions.h                                      :+:      :+:    :+:   */
+/*   parser_light.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/25 23:17:00 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:24:37 by mporras-         ###   ########.fr       */
+/*   Created: 2023/06/13 00:06:05 by mporras-          #+#    #+#             */
+/*   Updated: 2023/06/24 17:48:03 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINITIONS_H
-# define DEFINITIONS_H
+#include "parse.h"
 
-# define EPSILON 0.00001
-# define SQRT2_2 0.7071067811865476
-# define TRUE	1
-# define FALSE	0
-# define MATCH	0
-
-# define CHECKBOARD 1
-# define WAVES 2
-# define RAINBOW 3
-# define REFLECTION_LIMIT 3
-# define ERROR 1
-# define SUCCESS 0
-# ifndef BONUS
-#  define BONUS 0
-# endif
-
-typedef int t_bool;
-typedef struct s_mrt    t_mrt;
-typedef int t_pixel;
-
-#endif
+void	inp_light(t_mrt *mrt)
+{
+	mrt->scn.light = light_builder(mrt->scn.light);
+	mrt->scn.light->origin = get_v3d(mrt->tab[LIGHT_CENTRE], V3D_COOR);
+	mrt->scn.light->bright = ft_atolf(mrt->tab[LIGHT_RATIO]);
+	check_range(mrt->scn.light->bright, 0, 1, "Light ratio");
+	mrt->scn.light->color = get_color(mrt->tab[LIGHT_COLOR]);
+}

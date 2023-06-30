@@ -1,36 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   definitions.h                                      :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/25 23:17:00 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:24:37 by mporras-         ###   ########.fr       */
+/*   Created: 2023/06/12 00:00:47 by mporras-          #+#    #+#             */
+/*   Updated: 2023/06/24 21:53:17 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINITIONS_H
-# define DEFINITIONS_H
+#include "parse.h"
 
-# define EPSILON 0.00001
-# define SQRT2_2 0.7071067811865476
-# define TRUE	1
-# define FALSE	0
-# define MATCH	0
-
-# define CHECKBOARD 1
-# define WAVES 2
-# define RAINBOW 3
-# define REFLECTION_LIMIT 3
-# define ERROR 1
-# define SUCCESS 0
-# ifndef BONUS
-#  define BONUS 0
-# endif
-
-typedef int t_bool;
-typedef struct s_mrt    t_mrt;
-typedef int t_pixel;
-
-#endif
+void	inp_sphere(t_mrt *mrt)
+{
+	mrt->obj = object_builder(SPHERE, mrt->obj);
+	mrt->obj->elm.sph.centre = get_v3d(mrt->tab[SPH_CENTRE],
+			V3D_COOR);
+	mrt->obj->elm.sph.radius = ft_atolf(mrt->tab[SPH_DIAM]) / 2.0f;
+	check_range(mrt->obj->elm.sph.radius, 0, INFINITY, "Sphere radius");
+	get_common(mrt, SPH_DIAM, "Sphere");
+//	mrt->obj->solver = sphere_solver;
+}

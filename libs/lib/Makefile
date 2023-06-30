@@ -62,6 +62,7 @@ SRCS		=	ft/ft_atoi.c \
 				ext/ft_strstr.c \
 				ext/ft_strtrim_clean.c \
 				ext/ft_tab_utl.c \
+				ext/ft_secure_alloc.c \
 				lst/ft_lstadd_back.c \
 				lst/ft_lstadd_front.c \
 				lst/ft_lstclear.c \
@@ -80,7 +81,7 @@ OBJS_SUBS	= 	obj/ \
 				obj/lst
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -I.
+CFLAGS 		=	-Wall -Wextra -Werror -Iinc
 NAME		=	libft.a
 HEADER		=	inc/libft.h
 OBJS_DIR	=	obj
@@ -91,7 +92,7 @@ $(NAME): $(OBJS_SUBS) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) -Iinc $(CFLAGS) -c $< -o $@
+	$(CC) -Iinc $(CFLAGS) -g -c $< -o $@
 
 $(OBJS_SUBS):
 	-@mkdir $(OBJS_SUBS)
@@ -102,6 +103,8 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(OBJS_SUBS)
+
+bonus: all
 
 re:	fclean $(NAME)
 

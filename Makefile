@@ -27,6 +27,7 @@ LIBS_DIR		=	libs
 LIB_FT			= 	$(LIBS_DIR)/lib
 LIB_V3D			= 	$(LIBS_DIR)/v3d
 LIB_RGB			=	$(LIBS_DIR)/rgb
+LIB_PARSER		=	$(LIBS_DIR)/parser
 LIB_MLX			= 	mlx
 SRCS_FILES		= 	intersections/sphere.c \
 					intersections/plane.c \
@@ -82,9 +83,10 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
 library:
-	$(MAKE) -C $(LIB_FT)
+	$(MAKE) -C $(LIB_FT) $(LIB_DET)
 	$(MAKE) -C $(LIB_V3D)
 	$(MAKE) -C $(LIB_RGB)
+	$(MAKE) -C $(LIB_PARSER) $(LIB_DET)
 	# $(MAKE) -C $(LIB_MLX)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -97,6 +99,7 @@ clean:
 	$(MAKE) -C $(LIB_FT) clean
 	$(MAKE) -C $(LIB_V3D) clean
 	$(MAKE) -C $(LIB_RGB) clean
+	$(MAKE) -C $(LIB_PARSER) clean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(MLX)
 	$(RM) $(OBJS)
@@ -105,14 +108,17 @@ fclean: clean
 	$(MAKE) -C $(LIB_FT) fclean
 	$(MAKE) -C $(LIB_V3D) fclean
 	$(MAKE) -C $(LIB_RGB) fclean
+	$(MAKE) -C $(LIB_PARSER) fclean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(NAME)
 	$(RM) $(OBJ_SUBS)
 
+librosca:
+	$(MAKE) -C $(LIB_PARSER) $(LIB_DET)
+	$(MAKE) -C $(LIB_FT) $(LIB_DET)
+
 bonus: clean
-	$(eval CFLAGS += -DBONUS=1)
-	echo $CFLAGS
-	$(MAKE) all
+	$(MAKE) LIB_DET=bonus library
 
 re:	fclean all
 

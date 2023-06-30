@@ -13,9 +13,10 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-typedef struct s_obj t_obj;
+typedef struct s_obj	t_obj;
+typedef int				t_pixel;
 
-typedef struct		s_cmr
+typedef struct s_cmr
 {
 	t_v3d			position;
 	t_v3d			dir;
@@ -30,7 +31,7 @@ typedef struct		s_cmr
 	struct s_cmr	*next;
 }					t_cmr;
 
-typedef struct		s_light
+typedef struct s_light
 {
 	t_v3d			origin;
 	double			bright;
@@ -38,7 +39,7 @@ typedef struct		s_light
 	struct s_light	*next;
 }					t_light;
 
-typedef struct		s_scene
+typedef struct s_scene
 {
 	int				res_init;
 	int				w_x;
@@ -47,13 +48,13 @@ typedef struct		s_scene
 	double			bright;
 	int				amb_rgb;
 	double			ratio;
-	t_rgb				bgr;
+	t_rgb			bgr;
 }					t_scene;
 
-typedef struct		s_obj
+typedef struct s_obj
 {
 	int				type;
-	int 			id;
+	int				id;
 	union u_figures	elm;
 	t_rgb			color;
 	int				specular;
@@ -66,21 +67,16 @@ typedef struct		s_obj
 	struct s_obj	*next;
 }					t_obj;
 
-typedef struct s_solvers
+typedef struct s_mrt
 {
-
-}   t_solvers;
-
-typedef struct		s_mrt
-{
-	t_bool      to_img;
+	t_bool		to_img;
 	void		*mlx;
 	void		*mlx_win;
 	t_scene		scn;
 	t_obj		*obj;
 	t_light		*light;
-	t_cmr	*cmr;
-	t_cmr	*main_cam;
+	t_cmr		*cmr;
+	t_cmr		*main_cam;
 	t_pixel		x;
 	t_pixel		y;
 	char		*aux;

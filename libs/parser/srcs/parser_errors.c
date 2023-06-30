@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   definitions.h                                      :+:      :+:    :+:   */
+/*   parser_errors.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/25 23:17:00 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:24:37 by mporras-         ###   ########.fr       */
+/*   Created: 2023/06/30 22:12:23 by mporras-          #+#    #+#             */
+/*   Updated: 2023/06/30 22:12:29 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINITIONS_H
-# define DEFINITIONS_H
+#include "parse.h"
 
-# define EPSILON 0.00001
-# define SQRT2_2 0.7071067811865476
-# define TRUE	1
-# define FALSE	0
-# define MATCH	0
-
-# define CHECKBOARD 1
-# define WAVES 2
-# define RAINBOW 3
-# define REFLECTION_LIMIT 3
-# define ERROR 1
-# define SUCCESS 0
-# ifndef BONUS
-#  define BONUS 0
-# endif
-
-typedef int t_bool;
-typedef struct s_mrt    t_mrt;
-typedef int t_pixel;
-
-#endif
+void	parse_error(char *message)
+{
+	ft_putstr_fd("miniRT [Parse Module] ERROR :", STDERR_FILENO);
+	if (message)
+		ft_putstr_fd(message, STDERR_FILENO);
+	ft_putstr_fd("\n", STDERR_FILENO);
+	exit(ERROR);
+}

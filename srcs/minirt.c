@@ -40,7 +40,6 @@ void		my_loop(t_mrt *mrt)
 	mlx_loop(mrt->mlx);
 }
 
-
 int main(int argc, char const *argv[])
 {
 	t_mrt	mrt;

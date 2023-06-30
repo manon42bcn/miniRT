@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   definitions.h                                      :+:      :+:    :+:   */
+/*   ft_secure_alloc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/25 23:17:00 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:24:37 by mporras-         ###   ########.fr       */
+/*   Created: 2023/06/30 21:05:08 by mporras-          #+#    #+#             */
+/*   Updated: 2023/06/30 21:44:53 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINITIONS_H
-# define DEFINITIONS_H
+#include "libft.h"
 
-# define EPSILON 0.00001
-# define SQRT2_2 0.7071067811865476
-# define TRUE	1
-# define FALSE	0
-# define MATCH	0
+void	*ft_sec_malloc(size_t size)
+{
+	void	*rst;
 
-# define CHECKBOARD 1
-# define WAVES 2
-# define RAINBOW 3
-# define REFLECTION_LIMIT 3
-# define ERROR 1
-# define SUCCESS 0
-# ifndef BONUS
-#  define BONUS 0
-# endif
+	rst = malloc(size);
+	if (!rst)
+		ft_perror("Secure Malloc failed.");
+	return (rst);
+}
 
-typedef int t_bool;
-typedef struct s_mrt    t_mrt;
-typedef int t_pixel;
+void	*ft_sec_calloc(size_t size)
+{
+	void	*rst;
 
-#endif
+	rst = ft_calloc(size, 1);
+	if (!rst)
+		ft_perror("Secure Calloc failed.");
+	return (rst);
+}
+
+void	ft_perror(char *msg)
+{
+	ft_putstr_fd("[Libft]", STDERR_FILENO);
+	perror(msg);
+	exit(ERROR);
+}

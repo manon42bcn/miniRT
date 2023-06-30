@@ -20,7 +20,6 @@
 # include "rgb.h"
 # include "v3d.h"
 # include "figures.h"
-# include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
