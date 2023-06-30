@@ -63,7 +63,6 @@ typedef struct s_obj
 	int				texture;
 	t_v3d			normal;
 	double			wavelength;
-	double			(*solver)(t_v3d, t_v3d, t_obj *);
 	struct s_obj	*next;
 }					t_obj;
 

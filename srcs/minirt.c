@@ -42,8 +42,9 @@ void		my_loop(t_mrt *mrt)
 
 int main(int argc, char const *argv[])
 {
-	t_mrt	mrt;
+	t_mrt	*mrt;
 
+	mrt = (t_mrt *) ft_sec_calloc(sizeof(t_mrt));
 	// Hace poco cambiaron el subject, lo que me dejó un poco movido...
 	// La cosa es que es relativamente fácil encontrar archivos 
 	// para probar los viejos, no tanto los nuevos. Por esta razón 
@@ -54,15 +55,14 @@ int main(int argc, char const *argv[])
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
 	// Incluir la opción de --help para mostrar mensaje de ayuda.
-	ft_memset(&mrt, 0, sizeof(t_mrt));
-	mrt.mlx = mlx_init();
-	my_mlx_getScreenSize(&(mrt.scn.w_x), &(mrt.scn.w_y));
-	printf("%d - %d \n", mrt.scn.w_x, mrt.scn.w_y);
+	mrt->mlx = mlx_init();
+	my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
+	printf("%d - %d \n", mrt->scn.w_x, mrt->scn.w_y);
 	printf("BONUS %d\n", BONUS);
-	readfile_parser(argv[1], &mrt);
-	mlx_starter(&mrt);
-	render_main(&mrt);
-	my_loop(&mrt);
+	readfile_parser(argv[1], mrt);
+	mlx_starter(mrt);
+	render_main(mrt);
+	my_loop(mrt);
 	// Crear funcion para limpiar todo al salir...
 	return (SUCCESS);
 }

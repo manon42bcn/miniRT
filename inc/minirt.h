@@ -19,13 +19,10 @@
 # include "libft.h"
 # include "rgb.h"
 # include "v3d.h"
-# include "figures.h"
+# include "parse.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
-
-# include "structs.h"
-# include "parse.h"
 
 
 typedef struct		s_ray
@@ -77,6 +74,7 @@ typedef struct		s_pyramid
 	double		intersection;
 }					t_pyr;
 
+typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 //intersections
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
@@ -106,8 +104,5 @@ void		    texturize(int texture, t_inter *inter, t_obj *obj);
 // utl
 void			msg_instructions(void);
 void			msg_error_exit(char *message);
-void			*ft_sec_malloc(size_t size);
-void			*ft_sec_calloc(size_t size);
 void 			ft_safe_free(void *ptr);
-void			ft_perror(char *msg);
 #endif

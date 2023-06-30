@@ -41,22 +41,6 @@ SRCS_FILES		= 	intersections/sphere.c \
 					rays/tracer.c \
 					rays/rays.c \
 					render/render.c \
-					parser/readfile.c \
-					parser/parser_builders.c \
-					parser/parser_utils.c \
-					parser/parser_rgb.c \
-					parser/parser_v3d.c \
-					parser/sphere.c \
-					parser/plane.c \
-					parser/cylinder.c \
-					parser/square.c \
-					parser/triangle.c \
-					parser/cube.c \
-					parser/pyramid.c \
-					parser/parser_resolution.c \
-					parser/parser_ambient.c \
-					parser/parser_camera.c \
-					parser/parser_light.c \
 					utl/utilities.c \
 					utl/error_handling.c \
 					sampler/supersample.c \
@@ -70,8 +54,8 @@ HEAD_FILES		=	inc/minirt.h \
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
 CFLAGS			=	-Wall -Wextra -Werror
-INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(HEAD_DIR)
-LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -Lmlx -lmlx -framework OpenGL -framework AppKit 
+INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(LIB_PARSER)/$(HEAD_DIR) -I$(HEAD_DIR)
+LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 
 # ---------------------
@@ -112,10 +96,6 @@ fclean: clean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(NAME)
 	$(RM) $(OBJ_SUBS)
-
-librosca:
-	$(MAKE) -C $(LIB_PARSER) $(LIB_DET)
-	$(MAKE) -C $(LIB_FT) $(LIB_DET)
 
 bonus: clean
 	$(MAKE) LIB_DET=bonus library

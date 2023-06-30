@@ -20,6 +20,5 @@ void	inp_square(t_mrt *mrt)
 	mrt->obj->elm.sq.side = ft_atolf(mrt->tab[SQR_SIDE]);
 	check_range(mrt->obj->elm.sq.side, 0, INFINITY, "Square side");
 	get_common(mrt, SQR_SIDE, "Square");
-//	mrt->obj->solver = square_solver;
 	mrt->obj->normal = mrt->obj->elm.sq.orient;
 }

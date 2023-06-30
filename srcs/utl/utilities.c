@@ -45,9 +45,9 @@ void ft_safe_free(void *ptr)
 	ptr = NULL;
 }
 
-void	ft_perror(char *msg)
-{
-//	ft_putstr_fd("miniRT: ", STDERR_FILENO);
-	perror(msg);
-	exit(ERROR);
-}
+//void	ft_perror(char *msg)
+//{
+////	ft_putstr_fd("miniRT: ", STDERR_FILENO);
+//	perror(msg);
+//	exit(ERROR);
+//}

@@ -24,6 +24,5 @@ void	inp_cylinder(t_mrt *mrt)
 	mrt->obj->elm.cyl.height = ft_atolf(mrt->tab[CYL_HEIGHT]);
 	check_range(mrt->obj->elm.cyl.height, 0, INFINITY, "Cylinder height");
 	get_common(mrt, CYL_HEIGHT, "Cylinder");
-//	mrt->obj->solver = cylinder_solver;
 	mrt->obj->normal = mrt->obj->elm.cyl.dir;
 }

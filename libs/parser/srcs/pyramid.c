@@ -20,5 +20,4 @@ void	inp_pyramid(t_mrt *mrt)
 	mrt->obj->elm.sq.side = ft_atolf(mrt->tab[PYR_SIDE]);
 	check_range(mrt->obj->elm.sq.side, 0, INFINITY, "Pyramid side");
 	get_common(mrt, PYR_SIDE, "Cube");
-//	mrt->obj->solver = pyramid_solver;
 }

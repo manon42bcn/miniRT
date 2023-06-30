@@ -20,5 +20,4 @@ void	inp_sphere(t_mrt *mrt)
 	mrt->obj->elm.sph.radius = ft_atolf(mrt->tab[SPH_DIAM]) / 2.0f;
 	check_range(mrt->obj->elm.sph.radius, 0, INFINITY, "Sphere radius");
 	get_common(mrt, SPH_DIAM, "Sphere");
-//	mrt->obj->solver = sphere_solver;
 }

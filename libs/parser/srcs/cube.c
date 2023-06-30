@@ -19,5 +19,4 @@ void	inp_cube(t_mrt *mrt)
 	mrt->obj->elm.sq.side = ft_atolf(mrt->tab[CUBE_SIDE]);
 	check_range(mrt->obj->elm.sq.side, 0, INFINITY, "Cube side");
 	get_common(mrt, CUBE_SIDE, "Cube");
-//	mrt->obj->solver = cube_solver;
 }

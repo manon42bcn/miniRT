@@ -27,5 +27,4 @@ void	inp_triangle(t_mrt *mrt)
 			);
 	get_common(mrt, TRG_VERTEX_3, "Triangle");
 	mrt->obj->normal = mrt->obj->elm.trg.orient;
-//	mrt->obj->solver = triangle_solver;
 }
