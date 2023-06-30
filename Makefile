@@ -15,7 +15,6 @@ HEAD_DIR		= 	inc
 SRC_DIR			= 	srcs
 OBJ_DIR			= 	objs
 OBJ_SUBS		= 	objs \
-					objs/parser \
 					objs/utl \
 					objs/sampler \
 					objs/texture \
