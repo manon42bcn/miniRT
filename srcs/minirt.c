@@ -12,6 +12,10 @@
 
 #include "minirt.h"
 
+// minilibx esta generando leaks, ya que no estamos liberando bien la memoria
+// de las imagenes y la ventana. No lo he visto en detalle, pero creo que es
+// el unico punto de leaks so far...
+
 int main(int argc, char const *argv[])
 {
 	t_mrt	*mrt;
