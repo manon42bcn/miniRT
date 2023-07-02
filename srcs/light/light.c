@@ -15,24 +15,13 @@
 static inline t_bool	lighted(t_v3d origin, t_v3d dir, t_obj *obj)
 {
 	double			evl;
-
+	static t_solver solve[] = {&sphere_solver, &plane_solver,
+	                           &cylinder_solver, &square_solver,
+	                           &triangle_solver, &cube_solver,
+	                           &pyramid_solver};
 	while (obj)
 	{
-		// evl = obj->solver(ray.from, ray.to, obj);
-		if (obj->type == SPHERE)
-			evl = sphere_solver(origin, dir, obj);
-		else if (obj->type == PLANE)
-			evl = plane_solver(origin, dir, obj);
-		else if (obj->type == TRIANGLE)
-			evl = triangle_solver(origin, dir, obj);
-		else if (obj->type == SQUARE)
-			evl = square_solver(origin, dir, obj);
-		else if (obj->type == CYLINDER)
-			evl = cylinder_solver(origin, dir, obj);
-		else if (obj->type == CUBE)
-			evl = cube_solver(origin, dir, obj);
-		else if (obj->type == PYRAMID)
-			evl = pyramid_solver(origin, dir, obj);
+		evl = solve[obj->type](origin, dir, obj);
 		if (evl > EPSILON && evl < 1)
 			return (FALSE);
 		obj = obj->next;

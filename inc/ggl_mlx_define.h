@@ -13,6 +13,24 @@
 #ifndef GGL_MLX_DEFINE_H
 # define GGL_MLX_DEFINE_H
 
+# define K_SPACE		49
+# define K_ESC			53
+# define K_Q			12
+# define K_C			8
+# define K_M 			46
+# define K_B			11
+# define K_F 			3
+# define K_PLUS			24
+# define K_MINUS		27
+# define K_PAD_PLUS		69
+# define K_PAD_MINUS	78
+# define K_UP			126
+# define K_DOWN			125
+# define K_LEFT			123
+# define K_RIGHT		124
+# define K_I 			34
+# define K_O 			31
+
 /*
 ** # define NOEVENTMASK 0L
 ** # define KEYPRESSMASK (1L<<0)

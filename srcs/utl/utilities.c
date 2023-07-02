@@ -12,31 +12,6 @@
 
 #include "minirt.h"
 
-//void *ft_sec_malloc(size_t size)
-//{
-//	void	*rst;
-//
-//	rst = malloc(size);
-//	if (!rst)
-//	{
-//		perror("[miniRT] Error ");
-//		exit(ERROR);
-//	}
-//	return (rst);
-//}
-//
-//void	*ft_sec_calloc(size_t size)
-//{
-//	void	*rst;
-//	rst = ft_calloc(size, 1);
-//	if (!rst)
-//	{
-//		perror("[miniRT] Error ");
-//		exit(ERROR);
-//	}
-//	return (rst);
-//}
-
 void ft_safe_free(void *ptr)
 {
 	if (!ptr)
@@ -45,9 +20,57 @@ void ft_safe_free(void *ptr)
 	ptr = NULL;
 }
 
-//void	ft_perror(char *msg)
-//{
-////	ft_putstr_fd("miniRT: ", STDERR_FILENO);
-//	perror(msg);
-//	exit(ERROR);
-//}
+static inline void    clean_objects(t_mrt *mrt)
+{
+	t_obj   *node;
+
+	node = mrt->obj;
+	while (node)
+	{
+		node = node->next;
+		mrt->obj = NULL;
+		ft_safe_free(mrt->obj);
+		mrt->obj = node;
+	}
+}
+
+static inline void    clean_lights(t_mrt *mrt)
+{
+	t_light   *node;
+
+	node = mrt->light;
+	while (node)
+	{
+		node = node->next;
+		mrt->light = NULL;
+		ft_safe_free(mrt->light);
+		mrt->light = node;
+	}
+}
+
+static inline void    clean_cameras(t_mrt *mrt)
+{
+	t_cmr   *node;
+
+	node = mrt->cmr;
+	while (node)
+	{
+		node = node->next;
+		mlx_destroy_image(mrt->mlx, mrt->cmr->img_ptr);
+		mrt->cmr->img_ptr = NULL;
+		ft_safe_free(mrt->cmr);
+		mrt->cmr = node;
+	}
+	mrt->main_cam = NULL;
+}
+
+int    clear_all(t_mrt *mrt, int status)
+{
+	clean_objects(mrt);
+	clean_lights(mrt);
+	clean_cameras(mrt);
+	ft_clear_tabs(mrt->tab);
+	ft_safe_free(mrt->aux);
+	mlx_destroy_window(mrt->mlx, mrt->mlx_win);
+	exit(status);
+}

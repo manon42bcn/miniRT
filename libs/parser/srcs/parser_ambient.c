@@ -17,7 +17,7 @@ void	inp_ambient(t_mrt *mrt)
 	static t_bool	parsed = FALSE;
 
 	if (parsed == TRUE)
-		parse_error("Ambient light founded more then one time");
+		parse_error("Ambient light should be declared just once");
 	mrt->scn.bright = ft_atolf(mrt->tab[AMB_LIGHT]);
 	check_range(mrt->scn.bright, 0, 1, "Ambient light");
 	mrt->scn.amb_rgb = get_color(mrt->tab[AMB_COLOR]);

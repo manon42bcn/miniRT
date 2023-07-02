@@ -11,7 +11,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	cube.c \
+SRCS		=	cleaners.c \
+				cube.c \
 				cylinder.c \
 				parser_ambient.c \
 				parser_builders.c \
@@ -33,7 +34,7 @@ OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 OBJS_SUBS	= 	obj
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -Iinc
+CFLAGS 		=	-Wall -Wextra -Werror -I.inc
 NAME		=	libparser.a
 HEADER		=	inc/parse.h \
 				inc/objects.h \

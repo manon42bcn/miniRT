@@ -35,6 +35,8 @@
 # define ERROR 1
 # define SUCCESS 0
 
+// Cleaners
+t_bool      parse_clean_all(t_mrt *mrt, int status);
 // Parsing objects
 void		inp_sphere(t_mrt *mrt);
 void		inp_plane(t_mrt *mrt);

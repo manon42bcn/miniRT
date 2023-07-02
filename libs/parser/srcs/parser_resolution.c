@@ -17,7 +17,7 @@ void	inp_resolution(t_mrt *mrt)
 	static t_bool	parsed = FALSE;
 
 	if (parsed == TRUE)
-		parse_error("Resolution founded more then one time");
+		parse_error("Ambient light should be declared just once");
 	mrt->scn.w_x = ft_atoi(mrt->tab[RES_PARSE_X]);
 	mrt->scn.w_y = ft_atoi(mrt->tab[RES_PARSE_Y]);
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;

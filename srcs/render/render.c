@@ -52,7 +52,6 @@ static inline void	render_scene(t_mrt *mrt)
 		while (mrt->x < mrt->scn.w_x)
 		{
 			color = calc_pixel_color(edges, sides, mrt);
-//			my_mlx_pixel_put(mrt, mrt->x, mrt->y, color);
 			mrt->cmr->addr[mrt->y * mrt->scn.w_x + mrt->x] = color;
 			mrt->x++;
 		}

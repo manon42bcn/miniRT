@@ -39,6 +39,7 @@ SRCS_FILES		= 	intersections/sphere.c \
 					light/light.c \
 					rays/tracer.c \
 					rays/rays.c \
+					render/mlx_hooks.c \
 					render/render.c \
 					utl/utilities.c \
 					utl/error_handling.c \
@@ -57,10 +58,7 @@ INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(L
 LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 
-# ---------------------
-# -----------------------
 all: $(OBJ_SUBS) library $(NAME)
-
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)

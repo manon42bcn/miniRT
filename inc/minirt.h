@@ -13,13 +13,14 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include "definitions.h"
 # include "../mlx/mlx.h"
+# include "definitions.h"
 # include "ggl_mlx_define.h"
 # include "libft.h"
 # include "rgb.h"
 # include "v3d.h"
 # include "parse.h"
+#include "../libs/parser/inc/parse.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
@@ -96,6 +97,10 @@ t_rgb			calc_ray(int n, t_pix pix, t_mrt *mrt);
 t_rgb			tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth);
 //Render
 void	        render_main(t_mrt *mrt);
+void            mlx_starter(t_mrt *mrt);
+int             to_win(t_mrt *mrt);
+int             window_handler(t_mrt *mrt);
+int	            keys_handler(int key, t_mrt *mrt);
 //Sampler
 int				*sample_pixel(int *edges, int sides[2], t_pix pix, t_mrt *mrt);
 t_rgb	        supersample(int *color, t_pix pix, t_mrt *mrt);
@@ -105,4 +110,5 @@ void		    texturize(int texture, t_inter *inter, t_obj *obj);
 void			msg_instructions(void);
 void			msg_error_exit(char *message);
 void 			ft_safe_free(void *ptr);
+int             clear_all(t_mrt *mrt, int status);
 #endif
