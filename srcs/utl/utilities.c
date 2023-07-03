@@ -57,6 +57,7 @@ static inline void    clean_cameras(t_mrt *mrt)
 	{
 		node = node->next;
 		mlx_destroy_image(mrt->mlx, mrt->cmr->img_ptr);
+//		ft_safe_free(mrt->cmr->addr);
 		mrt->cmr->img_ptr = NULL;
 		ft_safe_free(mrt->cmr);
 		mrt->cmr = node;

@@ -20,7 +20,6 @@ int main(int argc, char const *argv[])
 {
 	t_mrt	*mrt;
 
-	mrt = (t_mrt *) ft_sec_calloc(sizeof(t_mrt));
 	// Hace poco cambiaron el subject, lo que me dejó un poco movido...
 	// La cosa es que es relativamente fácil encontrar archivos 
 	// para probar los viejos, no tanto los nuevos. Por esta razón 
@@ -30,6 +29,7 @@ int main(int argc, char const *argv[])
 		msg_error_exit("Args error. Type --help for instructions.");
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
+	mrt = (t_mrt *) ft_sec_calloc(sizeof(t_mrt));
 	// Incluir la opción de --help para mostrar mensaje de ayuda.
 	mrt->mlx = mlx_init();
 	my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
