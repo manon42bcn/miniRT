@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "solvers.h"
 
 static void		pyramid_base_values(t_pyr *pyr, t_obj *obj)
 {

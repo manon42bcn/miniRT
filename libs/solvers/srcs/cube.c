@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "solvers.h"
 
 static void		cube_base_values(t_cube *cube, t_obj *obj)
 {

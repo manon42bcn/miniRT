@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "solvers.h"
 
 static inline void	sphere_hit_area(double points[2], t_v3d origin,
 		t_v3d dir, t_obj *sph)

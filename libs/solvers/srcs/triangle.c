@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "solvers.h"
 
 static inline t_bool triangle_hit(t_v3d v1, t_v3d v2, t_v3d v3, t_v3d inter_point)
 {

@@ -13,8 +13,14 @@
 #ifndef DEFINITIONS_H
 # define DEFINITIONS_H
 
-# define EPSILON 0.00001
-# define SQRT2_2 0.7071067811865476
+# ifndef EPSILON
+#  define EPSILON 0.00001
+# endif
+
+# ifndef SQRT2_2
+#  define SQRT2_2 0.7071067811865476
+# endif
+
 # define TRUE	1
 # define FALSE	0
 # define MATCH	0

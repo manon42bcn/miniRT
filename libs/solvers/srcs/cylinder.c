@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "solvers.h"
 
 static t_bool   cyl_is_hit(double x[2], t_v3d origin, t_v3d dir, t_obj *cyl)
 {

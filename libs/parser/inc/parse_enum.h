@@ -108,11 +108,4 @@ enum e_camera_parse
 	CAM_FOV = 3
 };
 
-enum e_array_intersections
-{
-	IP1,
-	IP2,
-	C_DIST
-};
-
 #endif

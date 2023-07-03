@@ -20,11 +20,9 @@
 # include "rgb.h"
 # include "v3d.h"
 # include "parse.h"
-#include "../libs/parser/inc/parse.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
-
 
 typedef struct		s_ray
 {
@@ -49,31 +47,6 @@ typedef struct		s_inter
 	t_v3d			hit;
 	t_ray			ray;
 }					t_inter;
-
-typedef struct		s_sq
-{
-	t_v3d			half_size;
-	t_v3d			floor;
-	t_v3d			center_to_ip;
-}					t_sq;
-
-typedef struct		s_cube
-{
-	t_obj			sq;
-	t_v3d			center;
-	t_v3d			normal[6];
-}					t_cube;
-
-typedef struct		s_pyramid
-{
-	t_obj		sq;
-	t_obj		trg;
-	t_v3d		tr_center;
-	t_v3d		normal[5];
-	t_v3d		corner[4];
-	double		closest;
-	double		intersection;
-}					t_pyr;
 
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 //intersections

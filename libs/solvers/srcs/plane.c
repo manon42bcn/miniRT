@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "solvers.h"
 
 double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
 {

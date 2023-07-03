@@ -1,4 +1,4 @@
-#include "minirt.h"
+#include "solvers.h"
 
 double			square_solver(t_v3d origin, t_v3d dir, t_obj *sqr)
 {
