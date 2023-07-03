@@ -8,15 +8,13 @@ t_v3d		reflect_ray(t_v3d ray, t_v3d normal)
 void		try_all_intersections(t_ray ray, t_obj *obj,
 					t_obj *closest_figure, double *closest_intersection)
 {
-	static t_solver solve[] = {&sphere_solver, &plane_solver,
-	                           &cylinder_solver, &square_solver,
-							   &triangle_solver, &cube_solver,
-							   &pyramid_solver};
-	double dist;
-	
+	double      dist;
+	t_solver    solve;
+
 	while (obj)
 	{
-		dist = solve[obj->type](ray.from, ray.to, obj);
+		solve = get_solver(obj->type);
+		dist = solve(ray.from, ray.to, obj);
 		if (dist > EPSILON && dist < *closest_intersection)
 		{
 			*closest_figure = *obj;

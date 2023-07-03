@@ -77,6 +77,7 @@ typedef struct		s_pyramid
 
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 //intersections
+t_solver        get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
 void		    try_all_intersections(t_ray ray, t_obj *obj,

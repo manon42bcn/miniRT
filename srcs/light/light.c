@@ -15,13 +15,12 @@
 static inline t_bool	lighted(t_v3d origin, t_v3d dir, t_obj *obj)
 {
 	double			evl;
-	static t_solver solve[] = {&sphere_solver, &plane_solver,
-	                           &cylinder_solver, &square_solver,
-	                           &triangle_solver, &cube_solver,
-	                           &pyramid_solver};
+	t_solver        solve;
+
 	while (obj)
 	{
-		evl = solve[obj->type](origin, dir, obj);
+		solve = get_solver(obj->type);
+		evl = solve(origin, dir, obj);
 		if (evl > EPSILON && evl < 1)
 			return (FALSE);
 		obj = obj->next;

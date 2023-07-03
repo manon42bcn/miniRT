@@ -28,7 +28,8 @@ LIB_V3D			= 	$(LIBS_DIR)/v3d
 LIB_RGB			=	$(LIBS_DIR)/rgb
 LIB_PARSER		=	$(LIBS_DIR)/parser
 LIB_MLX			= 	mlx
-SRCS_FILES		= 	intersections/sphere.c \
+SRCS_FILES		= 	intersections/solvers.c \
+					intersections/sphere.c \
 					intersections/plane.c \
 					intersections/square.c \
 					intersections/triangle.c \
