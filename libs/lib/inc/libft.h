@@ -72,6 +72,7 @@ void		ft_sort_str_tab(char **tab);
 void		*ft_sec_malloc(size_t size);
 void		*ft_sec_calloc(size_t size);
 void		ft_perror(char *msg);
+void        ft_my_perror(char *exc, char *msg);
 //gnl
 char		*get_next_line(int fd);
 int			ft_strlen_gnl(char *s);

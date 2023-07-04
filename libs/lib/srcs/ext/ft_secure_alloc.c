@@ -38,3 +38,11 @@ void	ft_perror(char *msg)
 	perror(msg);
 	exit(ERROR);
 }
+
+void    ft_my_perror(char *exc, char *msg)
+{
+	if (exc)
+		ft_putstr_fd(exc, STDERR_FILENO);
+	perror(msg);
+	exit(ERROR);
+}

@@ -35,6 +35,8 @@
 # define ERROR 1
 # define SUCCESS 0
 
+typedef void    (*t_build)(t_mrt *);
+
 // Cleaners
 t_bool      parse_clean_all(t_mrt *mrt, int status);
 // Parsing objects
@@ -62,5 +64,6 @@ t_obj		*object_builder(int id, t_obj *next);
 t_light		*light_builder(t_light *next);
 t_cmr		*camera_builder(void);
 // Errors
+t_build     get_builder(int index);
 void		parse_error(char *message);
 #endif

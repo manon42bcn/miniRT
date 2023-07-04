@@ -11,7 +11,8 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	cleaners.c \
+SRCS		=	builders.c \
+				cleaners.c \
 				cube.c \
 				cylinder.c \
 				parser_ambient.c \
@@ -52,6 +53,8 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
 
 $(OBJS_SUBS):
 	-@mkdir $(OBJS_SUBS)
+
+bonus: all
 
 clean:
 	$(RM) $(OBJS)
