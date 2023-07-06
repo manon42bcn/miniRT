@@ -13,18 +13,6 @@
 #ifndef PARSE_ENUM_H
 # define PARSE_ENUM_H
 
-enum e_fig
-{
-	CLOSE_OBJ=-1,
-	SPHERE=0,
-	PLANE=1,
-	CYLINDER=2,
-	SQUARE=3,
-	TRIANGLE=4,
-	CUBE=5,
-	PYRAMID=6
-};
-
 enum e_sph_parse
 {
 	SPH_ID = 0,

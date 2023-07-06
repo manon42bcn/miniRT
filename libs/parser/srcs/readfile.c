@@ -12,31 +12,10 @@
 
 #include "parse.h"
 
-static inline int	parser_dict(char *id)
-{
-	int			i;
-	static char	*dictionary[] = {
-		"sp", "pl", "cy", "sq", "tr", "cu",
-		"py", "R", "A", "c", "l", NULL};
-
-	i = 0;
-	if (ft_match_cmp(id, "#"))
-		return (IDX_COMMENT);
-	while (dictionary[i])
-	{
-		if (ft_match_cmp(dictionary[i], id))
-			return (i);
-		i++;
-	}
-	return (IDX_ERR);
-}
-
 static inline t_bool	load_object(t_mrt *mrt)
 {
 	int			type;
-	static void	(*build[])(t_mrt *) = {
-		inp_sphere, inp_plane, inp_cylinder, inp_square, inp_triangle, inp_cube,
-		inp_pyramid, inp_resolution, inp_ambient, inp_camera, inp_light};
+	t_build		build;
 
 	if (ft_match_cmp(mrt->aux, "\n"))
 		return (FALSE);
@@ -49,7 +28,8 @@ static inline t_bool	load_object(t_mrt *mrt)
 		ft_perror("element not founded");
 	if (type == IDX_COMMENT)
 		return (FALSE);
-	build[type](mrt);
+	build = get_builder(type);
+	build(mrt);
 	return (TRUE);
 }
 

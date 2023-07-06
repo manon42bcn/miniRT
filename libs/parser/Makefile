@@ -11,9 +11,12 @@
 #                                                                              #
 # **************************************************************************** #
 
+SRCS_b		=	cube.c \
+				pyramid.c \
+				square.c \
+				triangle.c
 SRCS		=	builders.c \
 				cleaners.c \
-				cube.c \
 				cylinder.c \
 				parser_ambient.c \
 				parser_builders.c \
@@ -25,11 +28,9 @@ SRCS		=	builders.c \
 				parser_utils.c \
 				parser_v3d.c \
 				plane.c \
-				pyramid.c \
 				readfile.c \
-				sphere.c \
-				square.c \
-				triangle.c
+				sphere.c
+
 SRCS_DIR	=	srcs
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 OBJS_SUBS	= 	obj

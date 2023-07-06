@@ -35,10 +35,6 @@ t_bool      parse_clean_all(t_mrt *mrt, int status);
 void		inp_sphere(t_mrt *mrt);
 void		inp_plane(t_mrt *mrt);
 void		inp_cylinder(t_mrt *mrt);
-void		inp_square(t_mrt *mrt);
-void		inp_triangle(t_mrt *mrt);
-void		inp_cube(t_mrt *mrt);
-void		inp_pyramid(t_mrt *mrt);
 void		inp_resolution(t_mrt *mrt);
 void		inp_ambient(t_mrt *mrt);
 void		inp_camera(t_mrt *mrt);
@@ -56,6 +52,15 @@ t_obj		*object_builder(int id, t_obj *next);
 t_light		*light_builder(t_light *next);
 t_cmr		*camera_builder(void);
 // Errors
-t_build     get_builder(int index);
+int			parser_dict(char *id);
+t_build		get_builder(int index);
 void		parse_error(char *message);
+
+# ifdef BONUS
+void		inp_square(t_mrt *mrt);
+void		inp_triangle(t_mrt *mrt);
+void		inp_cube(t_mrt *mrt);
+void		inp_pyramid(t_mrt *mrt);
+# endif
+
 #endif

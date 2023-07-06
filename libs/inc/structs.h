@@ -16,6 +16,18 @@
 typedef struct s_obj	t_obj;
 typedef int				t_pixel;
 
+enum e_fig
+{
+	CLOSE_OBJ=-1,
+	SPHERE=0,
+	PLANE=1,
+	CYLINDER=2,
+	SQUARE=3,
+	TRIANGLE=4,
+	CUBE=5,
+	PYRAMID=6
+};
+
 typedef struct s_cmr
 {
 	t_v3d			position;
