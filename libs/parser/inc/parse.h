@@ -13,10 +13,9 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-#  include "../../v3d/inc/v3d.h"
-#  include "../../rgb/inc/rgb.h"
-#  include "../../lib/inc/libft.h"
-
+# include "../../v3d/inc/v3d.h"
+# include "../../rgb/inc/rgb.h"
+# include "../../lib/inc/libft.h"
 # include <fcntl.h>
 # include "parse_enum.h"
 # include "../../inc/objects.h"
@@ -27,10 +26,10 @@
 # define ERROR 1
 # define SUCCESS 0
 
-typedef void    (*t_build)(t_mrt *);
+typedef void	(*t_build)(t_mrt *);
 
 // Cleaners
-t_bool      parse_clean_all(t_mrt *mrt, int status);
+t_bool		parse_clean_all(t_mrt *mrt, int status);
 // Parsing objects
 void		inp_sphere(t_mrt *mrt);
 void		inp_plane(t_mrt *mrt);
@@ -57,10 +56,12 @@ t_build		get_builder(int index);
 void		parse_error(char *message);
 
 # ifdef BONUS
+
 void		inp_square(t_mrt *mrt);
 void		inp_triangle(t_mrt *mrt);
 void		inp_cube(t_mrt *mrt);
 void		inp_pyramid(t_mrt *mrt);
+
 # endif
 
 #endif

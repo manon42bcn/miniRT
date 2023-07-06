@@ -16,6 +16,22 @@
 // de las imagenes y la ventana. No lo he visto en detalle, pero creo que es
 // el unico punto de leaks so far...
 
+static inline void	parse_fix(t_mrt *mrt)
+{
+	t_cmr	*node;
+
+	node = mrt->cmr;
+	if (mrt->scn.parsed == FALSE)
+		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
+	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
+	while (node)
+	{
+		node->ratio = mrt->scn.ratio;
+		node = node->next;
+	}
+	mrt->main_cam = mrt->cmr;
+}
+
 int main(int argc, char const *argv[])
 {
 	t_mrt	*mrt;
@@ -30,11 +46,11 @@ int main(int argc, char const *argv[])
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
 	mrt = readfile_parser(argv[1]);
+	parse_fix(mrt);
 	// Incluir la opción de --help para mostrar mensaje de ayuda.
 	mrt->mlx = mlx_init();
-	my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
 	mlx_starter(mrt);
-	render_main(mrt);
+//	render_main(mrt);
 	printf("%d TOIMG\n", mrt->to_img);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y,"miniRT");
 	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);

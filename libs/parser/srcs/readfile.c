@@ -33,19 +33,6 @@ static inline t_bool	load_object(t_mrt *mrt)
 	return (TRUE);
 }
 
-static inline void	parse_fix(t_mrt *rt)
-{
-	t_cmr	*node;
-
-	node = rt->cmr;
-	while (node)
-	{
-		node->ratio = (double)rt->scn.w_x / (double)rt->scn.w_y;
-		node = node->next;
-	}
-	rt->main_cam = rt->cmr;
-}
-
 t_mrt	*readfile_parser(char const *filename)
 {
 	int		fd;
@@ -66,6 +53,5 @@ t_mrt	*readfile_parser(char const *filename)
 	}
 	ft_safe_free_char(&rt->aux);
 	close(fd);
-	parse_fix(rt);
 	return (rt);
 }

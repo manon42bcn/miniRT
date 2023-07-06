@@ -29,6 +29,7 @@ void mlx_starter(t_mrt *mrt)
 int to_win(t_mrt *mrt) {
 	if (mrt->to_img == FALSE)
 	{
+		render_main(mrt);
 		mlx_put_image_to_window(mrt->mlx, mrt->mlx_win, mrt->cmr->img_ptr, 0, 0);
 		mrt->to_img = TRUE;
 	}
@@ -48,10 +49,25 @@ static inline void change_camera(t_mrt *mrt)
 		mrt->cmr = mrt->cmr->next;
 }
 
+void sphere_diam (t_mrt *mrt)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	while (node)
+	{
+		if (node->type == SPHERE)
+			node->elm.sph.radius *= 1.1f;
+		node = node->next;
+	}
+}
+
 int	keys_handler(int key, t_mrt *mrt)
 {
 	if (key == K_ESC)
 		exit(clear_all(mrt, 0));
+	if (key == K_D)
+		sphere_diam(mrt);
 	else if (key == K_SPACE)
 		change_camera(mrt);
 	mrt->to_img = FALSE;
