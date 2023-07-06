@@ -18,7 +18,7 @@ OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 OBJS_SUBS	= 	obj
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -I.
+CFLAGS 		=	-Wall -Wextra -Werror -Iinc
 NAME		=	librgb.a
 HEADER		=	inc/rgb.h
 OBJS_DIR	=	obj
@@ -29,7 +29,7 @@ $(NAME): $(OBJS_SUBS) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) -Iinc $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJS_SUBS):
 	-@mkdir $(OBJS_SUBS)
@@ -40,6 +40,9 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(OBJS_SUBS)
+
+bonus: CFLAGS += -DBONUS
+bonus: fclean all
 
 re:	fclean $(NAME)
 

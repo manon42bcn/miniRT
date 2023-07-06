@@ -13,22 +13,14 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-# ifndef V3D_H
 #  include "../../v3d/inc/v3d.h"
-# endif
-
-# ifndef RGB_H
 #  include "../../rgb/inc/rgb.h"
-# endif
-
-# ifndef LIBFT_H
 #  include "../../lib/inc/libft.h"
-# endif
 
 # include <fcntl.h>
 # include "parse_enum.h"
-# include "objects.h"
-# include "structs.h"
+# include "../../inc/objects.h"
+# include "../../inc/structs.h"
 # define SEP " \t\n"
 # define IDX_ERR	-1
 # define IDX_COMMENT -2
@@ -52,7 +44,7 @@ void		inp_ambient(t_mrt *mrt);
 void		inp_camera(t_mrt *mrt);
 void		inp_light(t_mrt *mrt);
 // Parser readfile
-int			readfile_parser(char const *filename, t_mrt *rt);
+t_mrt		*readfile_parser(char const *filename);
 // Parser common
 t_rgb		get_color(char *line);
 t_v3d		get_v3d(char *line, int mode);

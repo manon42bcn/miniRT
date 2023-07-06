@@ -35,12 +35,12 @@ OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 OBJS_SUBS	= 	obj
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -I.inc
+CFLAGS 		=	-Wall -Wextra -Werror -Iinc -I../inc
 NAME		=	libparser.a
 HEADER		=	inc/parse.h \
-				inc/objects.h \
 				inc/parse_enum.h \
-				inc/structs.h
+				../inc/objects.h \
+				../inc/structs.h
 OBJS_DIR	=	obj
 
 all: $(NAME) $(HEADER)
@@ -49,12 +49,13 @@ $(NAME): $(OBJS_SUBS) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) -Iinc $(CFLAGS) -g -c $< -o $@
+	$(CC) $(CFLAGS) -g -c $< -o $@
 
 $(OBJS_SUBS):
 	-@mkdir $(OBJS_SUBS)
 
-bonus: all
+bonus: CFLAGS += -DBONUS
+bonus: fclean all
 
 clean:
 	$(RM) $(OBJS)

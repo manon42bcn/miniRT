@@ -29,11 +29,10 @@ int main(int argc, char const *argv[])
 		msg_error_exit("Args error. Type --help for instructions.");
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
-	mrt = (t_mrt *) ft_sec_calloc(sizeof(t_mrt));
+	mrt = readfile_parser(argv[1]);
 	// Incluir la opción de --help para mostrar mensaje de ayuda.
 	mrt->mlx = mlx_init();
 	my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
-	readfile_parser(argv[1], mrt);
 	mlx_starter(mrt);
 	render_main(mrt);
 	printf("%d TOIMG\n", mrt->to_img);

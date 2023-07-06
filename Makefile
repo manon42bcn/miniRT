@@ -43,7 +43,7 @@ SRCS_FILES		= 	intersections/intersections.c \
 					minirt.c \
 					debug_print.c
 HEAD_FILES		=	inc/minirt.h \
-					inc/ggl_mlx_define \
+					inc/ggl_mlx_define.h \
 					mlx/mlx.h
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
@@ -60,8 +60,8 @@ $(NAME): $(OBJS)
 
 library:
 	$(MAKE) -C $(LIB_FT) $(LIB_DET)
-	$(MAKE) -C $(LIB_V3D)
-	$(MAKE) -C $(LIB_RGB)
+	$(MAKE) -C $(LIB_V3D) $(LIB_DET)
+	$(MAKE) -C $(LIB_RGB) $(LIB_DET)
 	$(MAKE) -C $(LIB_PARSER) $(LIB_DET)
 	$(MAKE) -C $(LIB_SOLVER) $(LIB_DET)
 	# $(MAKE) -C $(LIB_MLX)
@@ -92,11 +92,14 @@ fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(OBJ_SUBS)
 
-memory:
+memory: $(OBJ_SUBS) $(OBJS) $(HEAD_FILES)
 	$(MAKE) CFLAGS+=-fsanitize=address re
 
-bonus: clean
+bonus: fclean
 	$(MAKE) LIB_DET=bonus library
+	$(MAKE) CFLAGS+=-DBONUS
+
+
 
 re:	fclean all
 

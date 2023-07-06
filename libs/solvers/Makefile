@@ -47,8 +47,9 @@ fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(OBJS_SUBS)
 
-bonus: all
+bonus: CFLAGS += -DBONUS
+bonus: fclean all
 
 re:	fclean $(NAME)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus

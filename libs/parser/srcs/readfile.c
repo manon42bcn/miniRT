@@ -66,13 +66,15 @@ static inline void	parse_fix(t_mrt *rt)
 	rt->main_cam = rt->cmr;
 }
 
-int	readfile_parser(char const *filename, t_mrt *rt)
+t_mrt	*readfile_parser(char const *filename)
 {
-	int	fd;
+	int		fd;
+	t_mrt	*rt;
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		ft_perror("Loading file error");
+	rt = (t_mrt *)ft_sec_calloc(sizeof(t_mrt));
 	while (TRUE)
 	{
 		ft_safe_free_char(&rt->aux);
@@ -85,5 +87,5 @@ int	readfile_parser(char const *filename, t_mrt *rt)
 	ft_safe_free_char(&rt->aux);
 	close(fd);
 	parse_fix(rt);
-	return (TRUE);
+	return (rt);
 }
