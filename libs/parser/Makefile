@@ -11,7 +11,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_b		=	cube.c \
+SRCS_B		=	cube.c \
 				pyramid.c \
 				square.c \
 				triangle.c
@@ -30,9 +30,12 @@ SRCS		=	builders.c \
 				plane.c \
 				readfile.c \
 				sphere.c
-
 SRCS_DIR	=	srcs
+OBJS_DIR	=	obj
+BNS_DIR		=	bns
+OBJS_B_DIR	=	obj_bns
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
+OBJS_BNS 	=	$(addprefix $(OBJS_B_DIR)/,$(SRCS_B:.c=.o))
 OBJS_SUBS	= 	obj
 CC			=	gcc
 RM			=	@rm -rf
@@ -42,28 +45,34 @@ HEADER		=	inc/parse.h \
 				inc/parse_enum.h \
 				../inc/objects.h \
 				../inc/structs.h
-OBJS_DIR	=	obj
 
 all: $(NAME) $(HEADER)
 
-$(NAME): $(OBJS_SUBS) $(OBJS)
+$(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
 	$(CC) $(CFLAGS) -g -c $< -o $@
 
-$(OBJS_SUBS):
-	-@mkdir $(OBJS_SUBS)
+$(OBJS_DIR):
+	-@mkdir $(OBJS_DIR)
 
 bonus: CFLAGS += -DBONUS
-bonus: fclean all
+bonus: fclean $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
+	ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
+
+$(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
+	$(CC) $(CFLAGS) -g -c $< -o $@
+
+$(OBJS_B_DIR):
+	-@mkdir $(OBJS_B_DIR)
 
 clean:
 	$(RM) $(OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) $(OBJS_SUBS)
+	$(RM) $(OBJS_DIR) $(OBJS_B_DIR)
 
 re:	fclean $(NAME)
 

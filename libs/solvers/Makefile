@@ -11,34 +11,36 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	cube.c \
-				cylinder.c \
-				plane.c \
+SRCS_B		=	cube.c \
 				pyramid.c \
-				solvers.c \
-				sphere.c \
 				square.c \
 				triangle.c
+SRCS		=	cylinder.c \
+				plane.c \
+				solvers.c \
+				sphere.c
 SRCS_DIR	=	srcs
+OBJS_DIR	=	obj
+BNS_DIR		=	bns
+OBJS_B_DIR	=	obj_bns
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
-OBJS_SUBS	= 	obj
+OBJS_BNS 	=	$(addprefix $(OBJS_B_DIR)/,$(SRCS_B:.c=.o))
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -I.inc
+CFLAGS 		=	-Wall -Wextra -Werror -Iinc -I../inc
 NAME		=	libsolvers.a
 HEADER		=	inc/solvers.h
-OBJS_DIR	=	obj
 
 all: $(NAME) $(HEADER)
 
-$(NAME): $(OBJS_SUBS) $(OBJS)
+$(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) -Iinc -g -c $< -o $@
+	$(CC) $(CFLAGS) -g -c $< -o $@
 
-$(OBJS_SUBS):
-	-@mkdir $(OBJS_SUBS)
+$(OBJS_DIR):
+	-@mkdir $(OBJS_DIR)
 
 clean:
 	$(RM) $(OBJS)
@@ -48,7 +50,14 @@ fclean: clean
 	$(RM) $(OBJS_SUBS)
 
 bonus: CFLAGS += -DBONUS
-bonus: fclean all
+bonus: fclean $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
+	ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
+
+$(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
+	$(CC) $(CFLAGS) -g -c $< -o $@
+
+$(OBJS_B_DIR):
+	-@mkdir $(OBJS_B_DIR)
 
 re:	fclean $(NAME)
 
