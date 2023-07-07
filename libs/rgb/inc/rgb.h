@@ -14,13 +14,14 @@
 # define RGB_H
 
 # define RGB_MASK	255
+# include "../../lib/inc/libft.h"
 
 typedef enum e_rgb_indx
 {
 	R_I=0,
 	G_I=1,
 	B_I=2
-} t_rgb_indx;
+}	t_rgb_indx;
 
 typedef int	t_rgb;
 

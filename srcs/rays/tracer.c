@@ -12,6 +12,30 @@
 
 #include "minirt.h"
 
+static inline void	clean_rgb_interactions(t_obj *closest)
+{
+	if (closest->type != CLOSE_OBJ)
+		return ;
+	closest->reflex = 0;
+	closest->refract = 0;
+}
+
+static inline t_v3d	get_hits(t_inter inter, t_obj *obj, t_obj *closest)
+{
+	double	close_dist;
+	t_v3d	origin;
+	t_v3d	dir;
+
+	close_dist = INFINITY;
+	origin = inter.ray.from;
+	dir = inter.ray.to;
+	closest->type = CLOSE_OBJ;
+	try_all_intersections(inter.ray, obj, closest, &close_dist);
+	return (ft_plus_v3d(origin, ft_scalar_v3d(close_dist, dir)));
+}
+
+#ifdef BONUS
+
 static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 {
 	double	cos_theta;
@@ -37,33 +61,12 @@ static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc), dir)));
 }
 
-static inline void	clean_rgb_interactions(t_obj *closest)
-{
-	if (closest->type != CLOSE_OBJ)
-		return ;
-	closest->reflex = 0;
-	closest->refract = 0;
-}
-
-static inline t_v3d	get_hits(t_inter inter, t_obj *obj, t_obj *closest)
-{
-	double	close_dist;
-	t_v3d	origin;
-	t_v3d	dir;
-
-	close_dist = INFINITY;
-	origin = inter.ray.from;
-	dir = inter.ray.to;
-	closest->type = CLOSE_OBJ;
-	try_all_intersections(inter.ray, obj, closest, &close_dist);
-	return (ft_plus_v3d(origin, ft_scalar_v3d(close_dist, dir)));
-}
-
 t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_obj		close_obj;
 	t_inter		inter;
 
+	depth = depth * 2;
 	inter.ray.from = origin;
 	inter.ray.to = dir;
 	inter.hit = get_hits(inter, mrt->obj, &close_obj);
@@ -85,3 +88,27 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	return (ft_rgb_add(ft_rgb_dot(inter.color, 1 - close_obj.reflex),
 			ft_rgb_dot(inter.ref_color, close_obj.reflex)));
 }
+
+#else
+
+t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
+{
+	t_obj		close_obj;
+	t_inter		inter;
+
+	depth = depth * 2;
+	inter.ray.from = origin;
+	inter.ray.to = dir;
+	inter.hit = get_hits(inter, mrt->obj, &close_obj);
+	hit_direction(inter.hit, dir, &(inter.normal), &close_obj);
+	if (close_obj.type != CLOSE_OBJ)
+		inter.color = close_obj.color;
+	else
+		inter.color = mrt->scn.bgr;
+	ligth_hit(inter.ray, &inter, mrt->scn, mrt->obj);
+	clean_rgb_interactions(&close_obj);
+	return (ft_rgb_add(ft_rgb_dot(inter.color, 1 - close_obj.reflex),
+			ft_rgb_dot(inter.ref_color, close_obj.reflex)));
+}
+
+#endif

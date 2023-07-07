@@ -21,14 +21,14 @@ static inline t_v3d camera_eye(int n, t_pix pix, t_mrt *mrt)
 	x_ofs = ((n % 3) * 0.5);
 	y_ofs = ((n / 3) * 0.5);
 	p.x = ((2 * ((pix.x + x_ofs) / pix.w_x)) - 1)
-        * mrt->scn.ratio * mrt->cmr->fov;
+		* mrt->scn.ratio * mrt->cmr->fov;
 	p.y = (1 - (2 * ((pix.y + y_ofs) / pix.w_y))) * mrt->cmr->fov;
 	p.x = -p.x;
 	p.z = 1;
 	return (p);
 }
 
-static inline t_v3d		set_view(t_v3d dir, t_v3d cam_dir)
+static inline t_v3d	set_view(t_v3d dir, t_v3d cam_dir)
 {
 	t_v3d	x_ax;
 	t_v3d	y_ax;
@@ -54,7 +54,7 @@ static inline t_v3d		set_view(t_v3d dir, t_v3d cam_dir)
 	return (rst);
 }
 
-t_rgb				calc_ray(int n, t_pix pix, t_mrt *mrt)
+t_rgb	calc_ray(int n, t_pix pix, t_mrt *mrt)
 {
 	t_v3d	dir;
 	t_rgb	color;

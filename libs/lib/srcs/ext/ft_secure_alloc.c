@@ -39,10 +39,18 @@ void	ft_perror(char *msg)
 	exit(ERROR);
 }
 
-void    ft_my_perror(char *exc, char *msg)
+void	ft_my_perror(char *exc, char *msg)
 {
 	if (exc)
 		ft_putstr_fd(exc, STDERR_FILENO);
 	perror(msg);
 	exit(ERROR);
+}
+
+void	ft_sec_free(void *ptr)
+{
+	if (!ptr)
+		return ;
+	free(ptr);
+	ptr = NULL;
 }

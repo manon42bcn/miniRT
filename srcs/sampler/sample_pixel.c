@@ -95,8 +95,7 @@ static inline t_rgb	*centre_pixel(int *edges, int sides[2],
 	return (color);
 }
 
-int					*sample_pixel(int *edges, int sides[2],
-											t_pix pix, t_mrt *mrt)
+int	*sample_pixel(int *edges, int sides[2], t_pix pix, t_mrt *mrt)
 {
 	int		*color;
 
