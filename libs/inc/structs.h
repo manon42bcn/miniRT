@@ -86,7 +86,6 @@ typedef struct s_mrt
 	void		*mlx_win;
 	t_scene		scn;
 	t_obj		*obj;
-	t_light		*light;
 	t_cmr		*cmr;
 	t_cmr		*main_cam;
 	t_pixel		x;

@@ -1,4 +1,5 @@
 project(miniRT)
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--stack,16777216")
 
 # Agrega los subdirectorios de las librerías
 add_subdirectory(libs/lib)

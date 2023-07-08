@@ -40,7 +40,7 @@ static inline void	brightness(double (*rgb)[3], double coef, int color)
 	(*rgb)[2] += coef * (color & mask) / RGB_MASK;
 }
 
-double	specular_transform(t_ray ray, t_inter *inter, t_scene scn, t_obj *lst)
+double	specular_transform(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
 {
 	double	light;
 	t_v3d	direction;
@@ -51,14 +51,14 @@ double	specular_transform(t_ray ray, t_inter *inter, t_scene scn, t_obj *lst)
 	p_to_cam = ft_minus_v3d(ray.from, inter->hit);
 	reflected = reflect_ray(direction, inter->normal);
 	if (ft_dot_v3d(reflected, p_to_cam) > 0)
-		light = scn.light->bright *
-                pow(ft_cos_v3d(reflected, p_to_cam), lst->specular);
+		light = scn.light->bright
+			* pow(ft_cos_v3d(reflected, p_to_cam), obj->specular);
 	else
 		light = 0;
 	return (light);
 }
 
-void	ligth_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *lst)
+void	ligth_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
 {
 	double			light;
 	double			rgb[3];
@@ -70,15 +70,15 @@ void	ligth_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *lst)
 	while (scn.light)
 	{
 		direction = ft_minus_v3d(scn.light->origin, inter->hit);
-		if (lighted(inter->hit, direction, lst)
+		if (lighted(inter->hit, direction, obj)
 			&& ft_dot_v3d(inter->normal, direction) > 0)
 		{
 			light = scn.light->bright * ft_cos_v3d(inter->normal, direction);
 			brightness(&rgb, light, scn.light->color);
 		}
-		if (lst->specular)
+		if (obj->specular)
 		{
-			light = specular_transform(ray, inter, scn, lst);
+			light = specular_transform(ray, inter, scn, obj);
 			brightness(&rgb, light, scn.light->color);
 		}
 		scn.light = scn.light->next;

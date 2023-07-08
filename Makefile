@@ -40,8 +40,7 @@ SRCS_FILES		= 	intersections/intersections.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \
-					minirt.c \
-					debug_print.c
+					minirt.c
 HEAD_FILES		=	inc/minirt.h \
 					inc/ggl_mlx_define.h \
 					mlx/mlx.h

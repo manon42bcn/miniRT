@@ -77,7 +77,7 @@ static inline t_rgb   texture_rainbow(t_inter *inter)
 	return (((t_rgb)color[0] << 16) | ((t_rgb)color[1] << 8) | (t_rgb)color[2]);
 }
 
-void		texturize(int texture, t_inter *inter, t_obj *obj)
+void	texturize(int texture, t_inter *inter, t_obj *obj)
 {
 	if (texture == CHECKBOARD)
 		inter->color = texture_checkboard(inter);

@@ -12,6 +12,11 @@
 
 #include "minirt.h"
 
+int	create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b)
+{
+	return (*(int *)(unsigned char [4]){b, g, r, t});
+}
+
 void mlx_starter(t_mrt *mrt)
 {
 	t_cmr *node;
@@ -36,7 +41,7 @@ int to_win(t_mrt *mrt) {
 	return (TRUE);
 }
 
-int window_handler(t_mrt *mrt)
+int	window_handler(t_mrt *mrt)
 {
 	exit(clear_all(mrt, 0));
 }
@@ -49,25 +54,39 @@ static inline void change_camera(t_mrt *mrt)
 		mrt->cmr = mrt->cmr->next;
 }
 
-void sphere_diam (t_mrt *mrt)
+void	sphere_diam(t_mrt *mrt, int key)
 {
 	t_obj	*node;
 
 	node = mrt->obj;
-	while (node)
+	if (key == K_D)
 	{
-		if (node->type == SPHERE)
-			node->elm.sph.radius *= 1.1f;
-		node = node->next;
+		while (node)
+		{
+			if (node->type == SPHERE)
+				node->elm.sph.radius *= 1.1f;
+			node = node->next;
+		}
+	}
+	else
+	{
+		while (node)
+		{
+			if (node->type == SPHERE)
+				if (node->elm.sph.radius / 1.1f > 0)
+					node->elm.sph.radius /= 1.1f;
+			node = node->next;
+		}
 	}
 }
 
 int	keys_handler(int key, t_mrt *mrt)
 {
+	printf("%d - key\n", key);
 	if (key == K_ESC)
 		exit(clear_all(mrt, 0));
-	if (key == K_D)
-		sphere_diam(mrt);
+	if (key == K_D || key == K_E)
+		sphere_diam(mrt, key);
 	else if (key == K_SPACE)
 		change_camera(mrt);
 	mrt->to_img = FALSE;

@@ -23,6 +23,7 @@ static inline void	parse_fix(t_mrt *mrt)
 	node = mrt->cmr;
 	if (mrt->scn.parsed == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
+	printf("%d width - %d height\n", mrt->scn.w_x, mrt->scn.w_y);
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 	while (node)
 	{
@@ -30,6 +31,22 @@ static inline void	parse_fix(t_mrt *mrt)
 		node = node->next;
 	}
 	mrt->main_cam = mrt->cmr;
+}
+
+void print_all_mrt(const t_mrt *mrt)
+{
+	printf("to_img: %d, %p\n", mrt->to_img, &(mrt->to_img));
+	printf("mlx: %p, %p\n", mrt->mlx, &(mrt->mlx));
+	printf("mlx_win: %p, %p\n", mrt->mlx_win, &(mrt->mlx_win));
+	printf("scn: %p, %p\n", &(mrt->scn), &(mrt->scn));
+	printf("obj: %p, %p\n", mrt->obj, &(mrt->obj));
+	printf("cmr: %p, %p\n", mrt->cmr, &(mrt->cmr));
+	printf("main_cam: %p, %p\n", mrt->main_cam, &(mrt->main_cam));
+	printf("x: %d, %p\n", mrt->x, &(mrt->x));
+	printf("y: %d, %p\n", mrt->y, &(mrt->y));
+	printf("aux: %s, %p\n", mrt->aux, &(mrt->aux));
+	printf("tab: %p, %p\n", mrt->tab, &(mrt->tab));
+	printf("bonus: %d, %p\n", mrt->bonus, &(mrt->bonus));
 }
 
 int main(int argc, char const *argv[])
@@ -51,8 +68,9 @@ int main(int argc, char const *argv[])
 	mrt->mlx = mlx_init();
 	mlx_starter(mrt);
 //	render_main(mrt);
-	printf("%d TOIMG\n", mrt->to_img);
+	print_all_mrt(mrt);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y,"miniRT");
+	printf("%p mlx - %p mlx win\n", mrt->mlx, mrt->mlx_win);
 	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
 	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
 	mlx_loop_hook(mrt->mlx, to_win, mrt);
