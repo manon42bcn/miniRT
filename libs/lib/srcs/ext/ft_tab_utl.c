@@ -26,7 +26,7 @@ void	ft_clear_tabs(char **tab)
 		tab[i] = NULL;
 	}
 	free(tab);
-	*tab = NULL;
+	tab = NULL;
 }
 
 size_t	ft_count_tab(char **s)

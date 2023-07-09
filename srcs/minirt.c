@@ -32,8 +32,6 @@ static inline void	parse_fix(t_mrt *mrt)
 	}
 	mrt->main_cam = mrt->cmr;
 	mrt->window = FALSE;
-	ft_safe_free(mrt->aux);
-	ft_clear_tabs(mrt->tab);
 }
 
 void print_all_mrt(const t_mrt *mrt)
@@ -50,6 +48,16 @@ void print_all_mrt(const t_mrt *mrt)
 	printf("aux: %s, %p\n", mrt->aux, &(mrt->aux));
 	printf("tab: %p, %p\n", mrt->tab, &(mrt->tab));
 	printf("bonus: %d, %p\n", mrt->bonus, &(mrt->bonus));
+}
+
+int	mouse_handler(int mouse_code, int x, int y, t_mrt *mrt)
+{
+	int x_c;
+	int y_c;
+
+	mlx_mouse_get_pos(mrt->mlx_win, &x_c, &y_c);
+	printf("%d %d code %d x %d y [%d - %d]\n", mrt->to_img, mouse_code, x, y, x_c, y_c);
+	return (TRUE);
 }
 
 int main(int argc, char const *argv[])
@@ -75,8 +83,9 @@ int main(int argc, char const *argv[])
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y,"miniRT");
 	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
 	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
+	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_handler, mrt);
+	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_handler, mrt);
 	mlx_loop_hook(mrt->mlx, to_win, mrt);
 	mlx_loop(mrt->mlx);
-	// Crear funcion para limpiar todo al salir...
 	return (SUCCESS);
 }

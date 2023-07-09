@@ -116,6 +116,56 @@ void	cylinder_height(t_mrt *mrt, int key)
 	}
 }
 
+void	sphere_plus_translate(t_mrt *mrt, int key)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	while (key == K_Y && node)
+	{
+		if (node->type == SPHERE)
+			node->elm.sph.centre.x += 0.1f;
+		node = node->next;
+	}
+	while (key == K_H && node)
+	{
+		if (node->type == SPHERE)
+			node->elm.sph.centre.y += 1.1f;
+		node = node->next;
+	}
+	while (key == K_N && node)
+	{
+		if (node->type == SPHERE)
+			node->elm.sph.centre.z += 1.1f;
+		node = node->next;
+	}
+}
+
+void	sphere_minus_translate(t_mrt *mrt, int key)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	while (key == K_U && node)
+	{
+		if (node->type == SPHERE)
+			node->elm.sph.centre.x -= 0.1f;
+		node = node->next;
+	}
+	while (key == K_J && node)
+	{
+		if (node->type == SPHERE)
+			node->elm.sph.centre.y -= 1.1f;
+		node = node->next;
+	}
+	while (key == K_M && node)
+	{
+		if (node->type == SPHERE)
+			node->elm.sph.centre.z -= 1.1f;
+		node = node->next;
+	}
+}
+
 int	keys_handler(int key, t_mrt *mrt)
 {
 	printf("%d - key\n", key);
@@ -127,6 +177,10 @@ int	keys_handler(int key, t_mrt *mrt)
 		cylinder_radius(mrt, key);
 	else if (key == K_G || key == K_T)
 		cylinder_height(mrt, key);
+	else if (key == K_Y || key == K_H || key == K_N)
+		sphere_plus_translate(mrt, key);
+	else if (key == K_Y || key == K_H || key == K_N)
+		sphere_minus_translate(mrt, key);
 	else if (key == K_SPACE)
 		change_camera(mrt);
 	mrt->to_img = FALSE;

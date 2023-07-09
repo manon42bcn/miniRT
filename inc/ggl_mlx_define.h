@@ -20,9 +20,15 @@
 # define K_R			15
 # define K_G			5
 # define K_T			17
+# define K_Y 			16
+# define K_H 			4
+# define K_N 			45
+# define K_U 			32
+# define K_J			38
+# define K_M 			46
 # define K_Q			12
 # define K_C			8
-# define K_M 			46
+
 # define K_B			11
 # define K_F 			3
 # define K_PLUS			24
@@ -112,6 +118,8 @@
 ** Letters keys
 */
 
+
+
 # define A_KEY 97
 # define B_KEY 11
 # define C_KEY 8
@@ -125,18 +133,18 @@
 # define K_KEY 40
 # define L_KEY 37
 # define M_KEY 46
-# define N_KEY 45
+
 # define O_KEY 31
 # define P_KEY 35
 # define Q_KEY 12
 # define R_KEY 15
 # define S_KEY 115
 # define T_KEY 17
-# define U_KEY 32
+
 # define V_KEY 9
 # define W_KEY 119
 # define X_KEY 7
-# define Y_KEY 16
+
 # define Z_KEY 6
 
 /*
