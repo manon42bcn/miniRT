@@ -12,11 +12,6 @@
 
 #include "minirt.h"
 
-int	create_trgb(unsigned char t, unsigned char r, unsigned char g, unsigned char b)
-{
-	return (*(int *)(unsigned char [4]){b, g, r, t});
-}
-
 void mlx_starter(t_mrt *mrt)
 {
 	t_cmr *node;
@@ -26,17 +21,20 @@ void mlx_starter(t_mrt *mrt)
 	{
 		node->img_ptr = mlx_new_image(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y);
 		node->addr = (int *)mlx_get_data_addr(node->img_ptr,
-		                                      &node->bpp, &node->size, &node->endian);
+				&node->bpp, &node->size, &node->endian);
 		node = node->next;
 	}
 }
 
-int to_win(t_mrt *mrt) {
+int	to_win(t_mrt *mrt) {
 	if (mrt->to_img == FALSE)
 	{
-		render_main(mrt);
-		mlx_put_image_to_window(mrt->mlx, mrt->mlx_win, mrt->cmr->img_ptr, 0, 0);
+		if (mrt->window == TRUE)
+			render_main(mrt);
+		mlx_put_image_to_window(mrt->mlx, mrt->mlx_win,
+			mrt->cmr->img_ptr, 0, 0);
 		mrt->to_img = TRUE;
+		mrt->window = TRUE;
 	}
 	return (TRUE);
 }
@@ -80,13 +78,55 @@ void	sphere_diam(t_mrt *mrt, int key)
 	}
 }
 
+void	cylinder_radius(t_mrt *mrt, int key)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	while (key == K_F && node)
+	{
+		if (node->type == CYLINDER)
+			node->elm.cyl.radius *= 1.1f;
+		node = node->next;
+	}
+	while (key == K_R && node)
+	{
+		if (node->type == CYLINDER && (node->elm.cyl.radius / 1.1f > 0))
+			node->elm.cyl.radius /= 1.1f;
+		node = node->next;
+	}
+}
+
+void	cylinder_height(t_mrt *mrt, int key)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	while (key == K_G && node)
+	{
+		if (node->type == CYLINDER)
+			node->elm.cyl.height *= 1.1f;
+		node = node->next;
+	}
+	while (key == K_T && node)
+	{
+		if (node->type == CYLINDER && (node->elm.cyl.height / 1.1f > 0))
+			node->elm.cyl.height /= 1.1f;
+		node = node->next;
+	}
+}
+
 int	keys_handler(int key, t_mrt *mrt)
 {
 	printf("%d - key\n", key);
 	if (key == K_ESC)
 		exit(clear_all(mrt, 0));
-	if (key == K_D || key == K_E)
+	else if (key == K_D || key == K_E)
 		sphere_diam(mrt, key);
+	else if (key == K_F || key == K_R)
+		cylinder_radius(mrt, key);
+	else if (key == K_G || key == K_T)
+		cylinder_height(mrt, key);
 	else if (key == K_SPACE)
 		change_camera(mrt);
 	mrt->to_img = FALSE;

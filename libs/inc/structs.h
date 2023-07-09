@@ -82,6 +82,7 @@ typedef struct s_obj
 typedef struct s_mrt
 {
 	t_bool		to_img;
+	t_bool		window;
 	void		*mlx;
 	void		*mlx_win;
 	t_scene		scn;

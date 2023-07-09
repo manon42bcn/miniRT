@@ -31,6 +31,9 @@ static inline void	parse_fix(t_mrt *mrt)
 		node = node->next;
 	}
 	mrt->main_cam = mrt->cmr;
+	mrt->window = FALSE;
+	ft_safe_free(mrt->aux);
+	ft_clear_tabs(mrt->tab);
 }
 
 void print_all_mrt(const t_mrt *mrt)
@@ -67,10 +70,9 @@ int main(int argc, char const *argv[])
 	// Incluir la opción de --help para mostrar mensaje de ayuda.
 	mrt->mlx = mlx_init();
 	mlx_starter(mrt);
-//	render_main(mrt);
 	print_all_mrt(mrt);
+	render_main(mrt);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y,"miniRT");
-	printf("%p mlx - %p mlx win\n", mrt->mlx, mrt->mlx_win);
 	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
 	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
 	mlx_loop_hook(mrt->mlx, to_win, mrt);
