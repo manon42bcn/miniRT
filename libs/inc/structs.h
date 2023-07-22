@@ -93,6 +93,7 @@ typedef struct s_mrt
 	t_pixel		y;
 	char		*aux;
 	char		**tab;
+	int			fd;
 	t_bool		bonus;
 }					t_mrt;
 

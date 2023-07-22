@@ -12,6 +12,8 @@
 
 #include "parse.h"
 
+#ifdef BONUS
+
 void	inp_camera(t_mrt *mrt)
 {
 	static t_cmr	*last = NULL;
@@ -29,3 +31,21 @@ void	inp_camera(t_mrt *mrt)
 	new->fov = tan((new->inp_fov * M_PI / 180) / 2);
 	last = new;
 }
+
+#else
+
+void	inp_camera(t_mrt *mrt)
+{
+	if (mrt->cmr != NULL)
+		msg_error_parsing("Only one camera can be declared");
+	mrt->cmr = camera_builder();
+	mrt->cmr->position = get_v3d(mrt->tab[CAM_CENTRE], V3D_COOR);
+	mrt->cmr->dir = get_v3d(mrt->tab[CAM_ORIENT], V3D_NORM);
+	mrt->cmr->inp_fov = ft_atoi(mrt->tab[CAM_FOV]);
+	check_range(mrt->cmr->inp_fov, 0, 180, "Camera fov");
+	mrt->cmr->fov = tan((mrt->cmr->inp_fov * M_PI / 180) / 2);
+}
+
+#endif
+
+

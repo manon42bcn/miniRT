@@ -81,8 +81,8 @@ t_rgb			supersample(int *color, t_pix pix, t_mrt *mrt);
 // utl
 void			msg_instructions(void);
 void			msg_error_exit(char *message);
-void 			ft_safe_free(void *ptr);
-int             clear_all(t_mrt *mrt, int status);
+//void 			ft_safe_free(void *ptr);
+//int             clear_all(t_mrt *mrt, int status);
 
 # ifdef BONUS
 

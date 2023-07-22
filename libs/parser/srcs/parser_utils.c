@@ -12,6 +12,20 @@
 
 #include "parse.h"
 
+static inline t_bool	check_common(t_mrt *mrt, int last)
+{
+	int	len;
+
+	len = 0;
+	while (mrt->tab[++last])
+		len++;
+	if (len != LAST_COMMON)
+		return (FALSE);
+	return (TRUE);
+}
+
+#ifdef BONUS
+
 void	get_common(t_mrt *mrt, int last, char *elem)
 {
 	mrt->obj->specular = ft_atolf(mrt->tab[++last]);
@@ -27,6 +41,17 @@ void	get_common(t_mrt *mrt, int last, char *elem)
 	mrt->obj->color = get_color(mrt->tab[++last]);
 }
 
+#else
+
+void	get_common(t_mrt *mrt, int last, char *elem)
+{
+	if (check_common(mrt, last) == FALSE)
+		msg_error_parsing(elem);
+	mrt->obj->color = get_color(mrt->tab[++last]);
+}
+
+#endif
+
 void	check_range(double value, double min, double max, char *msg)
 {
 	if (value < min || value > max)
@@ -35,7 +60,7 @@ void	check_range(double value, double min, double max, char *msg)
 
 void	msg_error_parsing(char *message)
 {
-	ft_putstr_fd("miniRT PARSE ERROR: ", STDERR_FILENO);
+	ft_putstr_fd("[miniRT PARSE ERROR]: ", STDERR_FILENO);
 	if (message)
 		ft_putstr_fd(message, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);

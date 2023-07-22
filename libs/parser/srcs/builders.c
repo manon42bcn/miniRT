@@ -76,7 +76,7 @@ t_build	get_builder(int index)
 		&inp_light};
 
 	if (index > (int)(sizeof(builder) / sizeof(t_build)) || index < 0)
-		ft_my_perror("[MiniRT]", "[Parser]: builder out of index");
+		msg_error_parsing("builder out of index");
 	return (builder[index]);
 }
 

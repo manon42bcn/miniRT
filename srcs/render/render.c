@@ -57,7 +57,7 @@ static inline void	render_scene(t_mrt *mrt)
 		}
 		mrt->y++;
 	}
-	ft_safe_free(edges);
+	ft_sec_free(edges);
 }
 
 void	render_main(t_mrt *mrt)

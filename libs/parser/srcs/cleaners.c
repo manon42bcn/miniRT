@@ -1,7 +1,7 @@
 
 #include "parse.h"
 
-static inline void	ft_safe_free(void *ptr)
+void ft_safe_free(void *ptr)
 {
 	if (!ptr)
 		return ;
@@ -9,54 +9,64 @@ static inline void	ft_safe_free(void *ptr)
 	ptr = NULL;
 }
 
-static inline void	clean_objects(t_mrt *mrt)
+static inline void    clean_objects(t_mrt *mrt)
 {
-	t_obj	*node;
+	t_obj   *node;
 
 	node = mrt->obj;
 	while (node)
 	{
 		node = node->next;
 		mrt->obj = NULL;
-		ft_safe_free(mrt->obj);
+		ft_sec_free(mrt->obj);
 		mrt->obj = node;
 	}
 }
 
-static inline void	clean_lights(t_mrt *mrt)
+static inline void    clean_lights(t_mrt *mrt)
 {
-	t_light	*node;
+	t_light   *node;
 
 	node = mrt->scn.light;
 	while (node)
 	{
 		node = node->next;
-		ft_safe_free(mrt->scn.light);
+		ft_sec_free(mrt->scn.light);
 		mrt->scn.light = node;
 	}
 	mrt->scn.light = NULL;
 }
 
-static inline void	clean_cameras(t_mrt *mrt)
+static inline void	clean_cameras(t_mrt *mrt, int (*img)(void *, void *))
 {
-	t_cmr	*node;
+	t_cmr   *node;
 
 	node = mrt->cmr;
 	while (node)
 	{
 		node = node->next;
-		ft_safe_free(mrt->cmr);
+		if (img)
+			img(mrt->mlx, mrt->cmr->img_ptr);
+//		ft_safe_free(mrt->cmr->addr);
+		mrt->cmr->img_ptr = NULL;
+		ft_sec_free(mrt->cmr);
 		mrt->cmr = node;
 	}
 	mrt->main_cam = NULL;
 }
 
-t_bool	parse_clean_all(t_mrt *mrt, int status)
+int	clear_all(t_mrt *mrt, int status, int (*win)(void *, void *), int (*img)(void *, void *))
 {
 	clean_objects(mrt);
 	clean_lights(mrt);
-	clean_cameras(mrt);
+	clean_cameras(mrt, img);
 	ft_clear_tabs(mrt->tab);
-	ft_safe_free(mrt->aux);
+	ft_sec_free(mrt->aux);
+	if (win)
+		win(mrt->mlx, mrt->mlx_win);
+	if (mrt->fd)
+		close(mrt->fd);
+	ft_sec_free(mrt);
+//	exit(status);
 	return (status);
 }

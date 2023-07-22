@@ -29,7 +29,8 @@
 typedef void	(*t_build)(t_mrt *);
 
 // Cleaners
-t_bool		parse_clean_all(t_mrt *mrt, int status);
+int			clear_all(t_mrt *mrt, int status, int (*win)(void *, void *),
+				int (*img)(void *, void *));
 // Parsing objects
 void		inp_sphere(t_mrt *mrt);
 void		inp_plane(t_mrt *mrt);
@@ -57,11 +58,15 @@ void		parse_error(char *message);
 
 # ifdef BONUS
 
+#  define LAST_COMMON 5
+
 void		inp_square(t_mrt *mrt);
 void		inp_triangle(t_mrt *mrt);
 void		inp_cube(t_mrt *mrt);
 void		inp_pyramid(t_mrt *mrt);
 
+# else
+#  define LAST_COMMON 1
 # endif
 
 #endif

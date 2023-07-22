@@ -12,10 +12,6 @@
 
 #include "minirt.h"
 
-// minilibx esta generando leaks, ya que no estamos liberando bien la memoria
-// de las imagenes y la ventana. No lo he visto en detalle, pero creo que es
-// el unico punto de leaks so far...
-
 static inline void	parse_fix(t_mrt *mrt)
 {
 	t_cmr	*node;
@@ -87,5 +83,6 @@ int main(int argc, char const *argv[])
 	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_handler, mrt);
 	mlx_loop_hook(mrt->mlx, to_win, mrt);
 	mlx_loop(mrt->mlx);
+	clear_all(mrt, SUCCESS, NULL, NULL);
 	return (SUCCESS);
 }

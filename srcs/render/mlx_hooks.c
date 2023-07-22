@@ -41,7 +41,7 @@ int	to_win(t_mrt *mrt) {
 
 int	window_handler(t_mrt *mrt)
 {
-	exit(clear_all(mrt, 0));
+	exit(clear_all(mrt, 0, &mlx_clear_window, &mlx_destroy_image));
 }
 
 static inline void change_camera(t_mrt *mrt)
@@ -171,7 +171,7 @@ int	keys_handler(int key, t_mrt *mrt)
 {
 	printf("%d - key\n", key);
 	if (key == K_ESC)
-		exit(clear_all(mrt, 0));
+		exit(clear_all(mrt, 0, &mlx_clear_window, &mlx_destroy_image));
 	else if (key == K_D || key == K_E)
 		sphere_diam(mrt, key);
 	else if (key == K_F || key == K_R)
