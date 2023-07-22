@@ -12,7 +12,7 @@
 
 #include "parse.h"
 
-t_v3d	get_v3d(char *line, int mode)
+t_v3d	get_v3d(t_mrt *mrt, char *line, int mode)
 {
 	char	**tmp;
 	t_v3d	rst;
@@ -28,6 +28,6 @@ t_v3d	get_v3d(char *line, int mode)
 	rst.z = ft_atolf(tmp[Z_C]);
 	ft_clear_tabs(tmp);
 	if (mode == V3D_NORM && ft_is_normal_v3d(&rst) == FALSE)
-		msg_error_parsing("v3d is not normal.");
+		msg_error_parsing("v3d is not normal.", mrt);
 	return (rst);
 }

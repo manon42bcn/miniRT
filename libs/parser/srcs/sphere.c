@@ -15,9 +15,10 @@
 void	inp_sphere(t_mrt *mrt)
 {
 	mrt->obj = object_builder(SPHERE, mrt->obj);
-	mrt->obj->elm.sph.centre = get_v3d(mrt->tab[SPH_CENTRE],
+	mrt->obj->elm.sph.centre = get_v3d(mrt, mrt->tab[SPH_CENTRE],
 			V3D_COOR);
 	mrt->obj->elm.sph.radius = ft_atolf(mrt->tab[SPH_DIAM]) / 2.0f;
-	check_range(mrt->obj->elm.sph.radius, 0, INFINITY, "Sphere radius");
+	if (!check_range(mrt->obj->elm.sph.radius, 0, INFINITY))
+		msg_error_parsing("Sphere radius out of range", mrt);
 	get_common(mrt, SPH_DIAM, "Sphere");
 }

@@ -17,10 +17,11 @@ void	inp_ambient(t_mrt *mrt)
 	static t_bool	parsed = FALSE;
 
 	if (parsed == TRUE)
-		parse_error("Ambient light should be declared just once");
+		msg_error_parsing("Ambient light should be declared just once", mrt);
 	mrt->scn.bright = ft_atolf(mrt->tab[AMB_LIGHT]);
-	check_range(mrt->scn.bright, 0, 1, "Ambient light");
-	mrt->scn.amb_rgb = get_color(mrt->tab[AMB_COLOR]);
+	if (!check_range(mrt->scn.bright, 0, 1))
+		msg_error_parsing("Ambient light ratio out of range", mrt);
+	mrt->scn.amb_rgb = get_color(mrt->tab[AMB_COLOR], mrt);
 	mrt->scn.bgr = 0x202020;
 	parsed = TRUE;
 }

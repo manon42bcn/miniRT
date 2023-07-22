@@ -14,8 +14,8 @@
 
 static inline t_bool	lighted(t_v3d origin, t_v3d dir, t_obj *obj)
 {
-	double			evl;
-	t_solver        solve;
+	double		evl;
+	t_solver	solve;
 
 	while (obj)
 	{

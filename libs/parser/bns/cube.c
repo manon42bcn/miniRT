@@ -15,8 +15,9 @@
 void	inp_cube(t_mrt *mrt)
 {
 	mrt->obj = object_builder(CUBE, mrt->obj);
-	mrt->obj->elm.sq.centre = get_v3d(mrt->tab[CUBE_CENTRE], V3D_COOR);
+	mrt->obj->elm.sq.centre = get_v3d(mrt, mrt->tab[CUBE_CENTRE], V3D_COOR);
 	mrt->obj->elm.sq.side = ft_atolf(mrt->tab[CUBE_SIDE]);
-	check_range(mrt->obj->elm.sq.side, 0, INFINITY, "Cube side");
+	if (!check_range(mrt->obj->elm.sq.side, 0, INFINITY))
+		msg_error_parsing("Cube side out of range", mrt);
 	get_common(mrt, CUBE_SIDE, "Cube");
 }

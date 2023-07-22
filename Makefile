@@ -35,7 +35,6 @@ SRCS_FILES		= 	intersections/intersections.c \
 					rays/rays.c \
 					render/mlx_hooks.c \
 					render/render.c \
-					utl/utilities.c \
 					utl/error_handling.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \

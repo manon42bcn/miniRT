@@ -19,6 +19,9 @@ static inline void	parse_fix(t_mrt *mrt)
 	node = mrt->cmr;
 	if (mrt->scn.parsed == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
+// Para el debug, 1/3 de screen size
+	mrt->scn.w_x /= 3;
+	mrt->scn.w_y /= 3;
 	printf("%d width - %d height\n", mrt->scn.w_x, mrt->scn.w_y);
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 	while (node)

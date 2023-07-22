@@ -15,10 +15,11 @@
 void	inp_square(t_mrt *mrt)
 {
 	mrt->obj = object_builder(SQUARE, mrt->obj);
-	mrt->obj->elm.sq.centre = get_v3d(mrt->tab[SQR_CENTRE], V3D_COOR);
-	mrt->obj->elm.sq.orient = get_v3d(mrt->tab[SQR_ORIENT], V3D_NORM);
+	mrt->obj->elm.sq.centre = get_v3d(mrt, mrt->tab[SQR_CENTRE], V3D_COOR);
+	mrt->obj->elm.sq.orient = get_v3d(mrt, mrt->tab[SQR_ORIENT], V3D_NORM);
 	mrt->obj->elm.sq.side = ft_atolf(mrt->tab[SQR_SIDE]);
-	check_range(mrt->obj->elm.sq.side, 0, INFINITY, "Square side");
+	if (!check_range(mrt->obj->elm.sq.side, 0, INFINITY))
+		msg_error_parsing("Square side out of range", mrt);
 	get_common(mrt, SQR_SIDE, "Square");
 	mrt->obj->normal = mrt->obj->elm.sq.orient;
 }

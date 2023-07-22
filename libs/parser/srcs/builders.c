@@ -33,7 +33,7 @@ int	parser_dict(char *id)
 	return (IDX_ERR);
 }
 
-t_build	get_builder(int index)
+t_build	get_builder(int index, t_mrt *mrt)
 {
 	static t_build	builder[] = {&inp_sphere, &inp_plane,
 		&inp_cylinder, &inp_square,
@@ -43,7 +43,7 @@ t_build	get_builder(int index)
 		&inp_light};
 
 	if (index > (int)(sizeof(builder) / sizeof(t_build)) || index < 0)
-		ft_my_perror("[MiniRT]", "[Parser]: builder out of index");
+		msg_error_parsing("builder out of index", mrt);
 	return (builder[index]);
 }
 
@@ -68,7 +68,7 @@ int	parser_dict(char *id)
 	return (IDX_ERR);
 }
 
-t_build	get_builder(int index)
+t_build	get_builder(int index, t_mrt *mrt)
 {
 	static t_build	builder[] = {&inp_sphere, &inp_plane,
 		&inp_cylinder, &inp_resolution,
@@ -76,7 +76,7 @@ t_build	get_builder(int index)
 		&inp_light};
 
 	if (index > (int)(sizeof(builder) / sizeof(t_build)) || index < 0)
-		msg_error_parsing("builder out of index");
+		msg_error_parsing("builder out of index", mrt);
 	return (builder[index]);
 }
 

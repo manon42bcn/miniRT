@@ -12,17 +12,17 @@
 
 #include "parse.h"
 
-static inline void	check_color_range(t_rgb color[3])
+static inline void	check_color_range(t_rgb color[3], t_mrt *mrt)
 {
 	if (color[R_I] < 0 || color[R_I] > 255)
-		msg_error_parsing("Color R range should be 0-255");
+		msg_error_parsing("Color R range should be 0-255", mrt);
 	if (color[G_I] < 0 || color[G_I] > 255)
-		msg_error_parsing("Color G range should be 0-255");
+		msg_error_parsing("Color G range should be 0-255", mrt);
 	if (color[B_I] < 0 || color[B_I] > 255)
-		msg_error_parsing("Color B range should be 0-255");
+		msg_error_parsing("Color B range should be 0-255", mrt);
 }
 
-t_rgb	get_color(char *line)
+t_rgb	get_color(char *line, t_mrt *mrt)
 {
 	char	**tmp;
 	t_rgb	rgb[3];
@@ -37,7 +37,7 @@ t_rgb	get_color(char *line)
 	rgb[G_I] = ft_atoi(tmp[G_I]);
 	rgb[B_I] = ft_atoi(tmp[B_I]);
 	ft_clear_tabs(tmp);
-	check_color_range(rgb);
+	check_color_range(rgb, mrt);
 	rgb[R_I] <<= 16;
 	rgb[G_I] <<= 8;
 	return (rgb[R_I] | rgb[G_I] | rgb[B_I]);

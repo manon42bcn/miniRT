@@ -24,10 +24,11 @@ void	inp_camera(t_mrt *mrt)
 		mrt->cmr = new;
 	else
 		last->next = new;
-	new->position = get_v3d(mrt->tab[CAM_CENTRE], V3D_COOR);
-	new->dir = get_v3d(mrt->tab[CAM_ORIENT], V3D_NORM);
+	new->position = get_v3d(mrt, mrt->tab[CAM_CENTRE], V3D_COOR);
+	new->dir = get_v3d(mrt, mrt->tab[CAM_ORIENT], V3D_NORM);
 	new->inp_fov = ft_atoi(mrt->tab[CAM_FOV]);
-	check_range(new->inp_fov, 0, 180, "Camera fov");
+	if (!check_range(mrt->cmr->inp_fov, 0, 180))
+		msg_error_parsing("Camera fov out of range", mrt);
 	new->fov = tan((new->inp_fov * M_PI / 180) / 2);
 	last = new;
 }
@@ -37,12 +38,13 @@ void	inp_camera(t_mrt *mrt)
 void	inp_camera(t_mrt *mrt)
 {
 	if (mrt->cmr != NULL)
-		msg_error_parsing("Only one camera can be declared");
+		msg_error_parsing("Only one camera can be declared", mrt);
 	mrt->cmr = camera_builder();
-	mrt->cmr->position = get_v3d(mrt->tab[CAM_CENTRE], V3D_COOR);
-	mrt->cmr->dir = get_v3d(mrt->tab[CAM_ORIENT], V3D_NORM);
+	mrt->cmr->position = get_v3d(mrt, mrt->tab[CAM_CENTRE], V3D_COOR);
+	mrt->cmr->dir = get_v3d(mrt, mrt->tab[CAM_ORIENT], V3D_NORM);
 	mrt->cmr->inp_fov = ft_atoi(mrt->tab[CAM_FOV]);
-	check_range(mrt->cmr->inp_fov, 0, 180, "Camera fov");
+	if (!check_range(mrt->cmr->inp_fov, 0, 180))
+		msg_error_parsing("Camera fov out of range", mrt);
 	mrt->cmr->fov = tan((mrt->cmr->inp_fov * M_PI / 180) / 2);
 }
 

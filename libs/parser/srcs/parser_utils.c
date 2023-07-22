@@ -28,17 +28,23 @@ static inline t_bool	check_common(t_mrt *mrt, int last)
 
 void	get_common(t_mrt *mrt, int last, char *elem)
 {
+	if (check_common(mrt, last) == FALSE)
+		msg_error_parsing(elem, mrt);
 	mrt->obj->specular = ft_atolf(mrt->tab[++last]);
-	check_range(mrt->obj->specular, 0, INFINITY, elem);
+	if (!check_range(mrt->obj->specular, 0, INFINITY))
+		msg_error_parsing(elem, mrt);
 	mrt->obj->reflex = ft_atolf(mrt->tab[++last]);
-	check_range(mrt->obj->reflex, 0, INFINITY, elem);
+	if (!check_range(mrt->obj->reflex, 0, INFINITY))
+		msg_error_parsing(elem, mrt);
 	mrt->obj->refract = ft_atolf(mrt->tab[++last]);
-	check_range(mrt->obj->refract, 0, INFINITY, elem);
+	if (!check_range(mrt->obj->refract, 0, INFINITY))
+		msg_error_parsing(elem, mrt);
 	mrt->obj->texture = ft_atoi(mrt->tab[++last]);
-	check_range(mrt->obj->texture, 0, 5, elem);
+	if (!check_range(mrt->obj->texture, 0, 5))
+		msg_error_parsing(elem, mrt);
 	if (mrt->obj->texture == 2)
 		mrt->obj->wavelength = ft_atolf(mrt->tab[++last]);
-	mrt->obj->color = get_color(mrt->tab[++last]);
+	mrt->obj->color = get_color(mrt->tab[++last], mrt);
 }
 
 #else
@@ -46,23 +52,26 @@ void	get_common(t_mrt *mrt, int last, char *elem)
 void	get_common(t_mrt *mrt, int last, char *elem)
 {
 	if (check_common(mrt, last) == FALSE)
-		msg_error_parsing(elem);
-	mrt->obj->color = get_color(mrt->tab[++last]);
+		msg_error_parsing(elem, mrt);
+	mrt->obj->color = get_color(mrt->tab[++last], mrt);
 }
 
 #endif
 
-void	check_range(double value, double min, double max, char *msg)
+t_bool	check_range(double value, double min, double max)
 {
 	if (value < min || value > max)
-		msg_error_parsing(msg);
+		return (FALSE);
+	return (TRUE);
 }
 
-void	msg_error_parsing(char *message)
+void	msg_error_parsing(char *message, t_mrt *mrt)
 {
 	ft_putstr_fd("[miniRT PARSE ERROR]: ", STDERR_FILENO);
 	if (message)
 		ft_putstr_fd(message, STDERR_FILENO);
 	ft_putstr_fd("\n", STDERR_FILENO);
+	if (mrt)
+		clear_all(mrt, ERROR, NULL, NULL);
 	exit(ERROR);
 }

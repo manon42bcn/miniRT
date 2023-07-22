@@ -12,12 +12,23 @@
 
 #include "parse.h"
 
+#ifdef BONUS
+
 void	inp_resolution(t_mrt *mrt)
 {
 	if (mrt->scn.parsed == TRUE)
-		parse_error("Ambient light should be declared just once");
+		msg_error_parsing("Resolution should be declared once", mrt);
 	mrt->scn.parsed = TRUE;
 	mrt->scn.w_x = ft_atoi(mrt->tab[RES_PARSE_X]);
 	mrt->scn.w_y = ft_atoi(mrt->tab[RES_PARSE_Y]);
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 }
+
+#else
+
+void	inp_resolution(t_mrt *mrt)
+{
+	msg_error_parsing("Resolution is not supported at mandatory version", mrt);
+}
+
+#endif

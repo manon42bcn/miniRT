@@ -42,18 +42,18 @@ void		inp_light(t_mrt *mrt);
 // Parser readfile
 t_mrt		*readfile_parser(char const *filename);
 // Parser common
-t_rgb		get_color(char *line);
-t_v3d		get_v3d(char *line, int mode);
+t_rgb		get_color(char *line, t_mrt *mrt);
+t_v3d		get_v3d(t_mrt *mrt, char *line, int mode);
 void		get_common(t_mrt *mrt, int last, char *elem);
-void		check_range(double value, double min, double max, char *msg);
-void		msg_error_parsing(char *message);
+t_bool		check_range(double value, double min, double max);
+void		msg_error_parsing(char *message, t_mrt *mrt);
 // Parser builders
 t_obj		*object_builder(int id, t_obj *next);
 t_light		*light_builder(t_light *next);
 t_cmr		*camera_builder(void);
 // Errors
 int			parser_dict(char *id);
-t_build		get_builder(int index);
+t_build		get_builder(int index, t_mrt *mrt);
 void		parse_error(char *message);
 
 # ifdef BONUS

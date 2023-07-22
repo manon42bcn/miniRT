@@ -28,26 +28,9 @@ static inline t_bool	load_object(t_mrt *mrt)
 		ft_perror("element not founded");
 	if (type == IDX_COMMENT)
 		return (FALSE);
-	build = get_builder(type);
+	build = get_builder(type, mrt);
 	build(mrt);
 	return (TRUE);
-}
-
-void print_all_mrt_parser(const t_mrt *mrt)
-{
-	printf("POINTER BASIC %p\n", mrt);
-	printf("to_img: %d, %p\n", mrt->to_img, &(mrt->to_img));
-	printf("mlx: %p, %p\n", mrt->mlx, &(mrt->mlx));
-	printf("mlx_win: %p, %p\n", mrt->mlx_win, &(mrt->mlx_win));
-	printf("scn: %p, %p\n", &(mrt->scn), &(mrt->scn));
-	printf("obj: %p, %p\n", mrt->obj, &(mrt->obj));
-	printf("cmr: %p, %p\n", mrt->cmr, &(mrt->cmr));
-	printf("main_cam: %p, %p\n", mrt->main_cam, &(mrt->main_cam));
-	printf("x: %d, %p\n", mrt->x, &(mrt->x));
-	printf("y: %d, %p\n", mrt->y, &(mrt->y));
-	printf("aux: %s, %p\n", mrt->aux, &(mrt->aux));
-	printf("tab: %p, %p\n", mrt->tab, &(mrt->tab));
-	printf("bonus: %d, %p\n", mrt->bonus, &(mrt->bonus));
 }
 
 t_mrt	*readfile_parser(char const *filename)
@@ -57,9 +40,8 @@ t_mrt	*readfile_parser(char const *filename)
 
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		msg_error_parsing("Loading file error");
+		msg_error_parsing("Loading file error", NULL);
 	rt = (t_mrt *)ft_sec_calloc(sizeof(t_mrt));
-	print_all_mrt_parser(rt);
 	rt->fd = fd;
 	while (TRUE)
 	{
