@@ -166,6 +166,7 @@ void	sphere_minus_translate(t_mrt *mrt, int key)
 	}
 }
 
+//TODO: camera and objects rotation
 int	keys_handler(int key, t_mrt *mrt)
 {
 	printf("%d - key\n", key);

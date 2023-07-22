@@ -1,15 +1,15 @@
 #include "solvers.h"
 
-static t_bool   cyl_is_hit(double x[2], t_v3d origin, t_v3d dir, t_obj *cyl)
+static t_bool	cyl_is_hit(double x[2], t_v3d origin, t_v3d dir, t_obj *cyl)
 {
 	t_v3d	v;
 	t_v3d	u;
-	double  qr[3];
+	double	qr[3];
 
 	v = ft_scalar_v3d(ft_dot_v3d(dir, cyl->elm.cyl.dir), cyl->elm.cyl.dir);
 	v = ft_minus_v3d(dir, v);
 	u = ft_scalar_v3d(ft_dot_v3d(ft_minus_v3d(origin, cyl->elm.cyl.centre),
-								 cyl->elm.cyl.dir),cyl->elm.cyl.dir);
+				cyl->elm.cyl.dir),cyl->elm.cyl.dir);
 	u = ft_minus_v3d(ft_minus_v3d(origin, cyl->elm.cyl.centre), u);
 	qr[0] = ft_dot_v3d(v, v);
 	qr[1] = 2 * ft_dot_v3d(v, u);
@@ -25,20 +25,20 @@ static t_bool   cyl_is_hit(double x[2], t_v3d origin, t_v3d dir, t_obj *cyl)
 	return (TRUE);
 }
 
-static t_v3d		cyl_orientation(double x2[2], t_v3d from, t_v3d to, t_obj *cyl)
+static t_v3d	cyl_orientation(double x2[2], t_v3d from, t_v3d to, t_obj *cyl)
 {
 	double	dist;
 	double	x;
 
 	if ((cyl->elm.cyl.d1 >= 0 && cyl->elm.cyl.d1 <= cyl->elm.cyl.height
-	     && x2[0] > EPSILON) && (cyl->elm.cyl.d2 >= 0
-	                             && cyl->elm.cyl.d2 <= cyl->elm.cyl.height && x2[1] > EPSILON))
+			&& x2[0] > EPSILON) && (cyl->elm.cyl.d2 >= 0
+			&& cyl->elm.cyl.d2 <= cyl->elm.cyl.height && x2[1] > EPSILON))
 	{
 		dist = x2[0] < x2[1] ? cyl->elm.cyl.d1 : cyl->elm.cyl.d2;
 		x = x2[0] < x2[1] ? x2[0] : x2[1];
 	}
 	else if (cyl->elm.cyl.d1 >= 0 && cyl->elm.cyl.d1 <= cyl->elm.cyl.height
-	         && x2[0] > EPSILON)
+			&& x2[0] > EPSILON)
 	{
 		dist = cyl->elm.cyl.d1;
 		x = x2[0];
@@ -50,7 +50,7 @@ static t_v3d		cyl_orientation(double x2[2], t_v3d from, t_v3d to, t_obj *cyl)
 	}
 	x2[0] = x;
 	return (ft_normal_v3d(ft_minus_v3d(ft_minus_v3d(ft_scalar_v3d(x, to),
-	                                        ft_scalar_v3d(dist, cyl->elm.cyl.dir)), ft_minus_v3d(cyl->elm.cyl.centre, from))));
+					ft_scalar_v3d(dist, cyl->elm.cyl.dir)), ft_minus_v3d(cyl->elm.cyl.centre, from))));
 }
 
 static double	body_intersect(t_v3d o, t_v3d d, t_v3d *normal, t_obj *lst)
@@ -60,12 +60,12 @@ static double	body_intersect(t_v3d o, t_v3d d, t_v3d *normal, t_obj *lst)
 	if (cyl_is_hit(x2, o, d, lst) == FALSE)
 		return (INFINITY);
 	lst->elm.cyl.d1 = ft_dot_v3d(lst->elm.cyl.dir, ft_minus_v3d(ft_scalar_v3d(x2[0], d),
-	                                                     ft_minus_v3d(lst->elm.cyl.centre, o)));
+				ft_minus_v3d(lst->elm.cyl.centre, o)));
 	lst->elm.cyl.d2 = ft_dot_v3d(lst->elm.cyl.dir, ft_minus_v3d(ft_scalar_v3d(x2[1], d),
-	                                                     ft_minus_v3d(lst->elm.cyl.centre, o)));
+				ft_minus_v3d(lst->elm.cyl.centre, o)));
 	if (!((lst->elm.cyl.d1 >= 0 && lst->elm.cyl.d1 <= lst->elm.cyl.height
-	       && x2[0] > EPSILON) || (lst->elm.cyl.d2 >= 0
-	                               && lst->elm.cyl.d2 <= lst->elm.cyl.height && x2[0] > EPSILON)))
+		&& x2[0] > EPSILON) || (lst->elm.cyl.d2 >= 0
+		&& lst->elm.cyl.d2 <= lst->elm.cyl.height && x2[0] > EPSILON)))
 		return (INFINITY);
 	*normal = cyl_orientation(x2, o, d, lst);
 	return (x2[0]);
@@ -75,7 +75,7 @@ static double	top_intersect(t_v3d o, t_v3d d, t_obj *lst)
 {
 	double	id1;
 	double	id2;
-	t_v3d   p[3];
+	t_v3d	p[3];
 
 	p[C_DIST] = ft_plus_v3d(lst->elm.cyl.centre, ft_scalar_v3d(lst->elm.cyl.height, lst->elm.cyl.dir));
 	id1 = plane_hit(o, d, lst->elm.cyl.centre, lst->elm.cyl.dir);
@@ -85,13 +85,13 @@ static double	top_intersect(t_v3d o, t_v3d d, t_obj *lst)
 		p[IP1] = ft_plus_v3d(o, ft_scalar_v3d(id1, d));
 		p[IP2] = ft_plus_v3d(o, ft_scalar_v3d(id2, d));
 		if ((id1 < INFINITY && ft_distance_v3d(p[IP1], lst->elm.cyl.centre) <= lst->elm.cyl.radius)
-		    && (id2 < INFINITY && ft_distance_v3d(p[IP2], p[C_DIST]) <= lst->elm.cyl.radius))
-		    if (id1 < id2)
-		    	return (id1);
-		    else
-		    	return (id2);
+			&& (id2 < INFINITY && ft_distance_v3d(p[IP2], p[C_DIST]) <= lst->elm.cyl.radius))
+			if (id1 < id2)
+				return (id1);
+			else
+				return (id2);
 		else if (id1 < INFINITY
-		         && ft_distance_v3d(p[IP1], lst->elm.cyl.centre) <= lst->elm.cyl.radius)
+			&& ft_distance_v3d(p[IP1], lst->elm.cyl.centre) <= lst->elm.cyl.radius)
 			return (id1);
 		else if (id2 < INFINITY && ft_distance_v3d(p[IP2], p[C_DIST]) <= lst->elm.cyl.radius)
 			return (id2);
@@ -100,7 +100,7 @@ static double	top_intersect(t_v3d o, t_v3d d, t_obj *lst)
 	return (INFINITY);
 }
 
-double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl)
+double	cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl)
 {
 	double	cylinder_inter;
 	double	caps_inter;
