@@ -38,7 +38,6 @@ static inline t_bool	load_object(t_mrt *mrt)
 	if (type == IDX_COMMENT)
 		return (FALSE);
 	build = get_builder(type, mrt);
-	printf("%d type\n", type);
 	build(mrt);
 	return (TRUE);
 }

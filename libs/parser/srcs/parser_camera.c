@@ -49,5 +49,3 @@ void	inp_camera(t_mrt *mrt)
 }
 
 #endif
-
-

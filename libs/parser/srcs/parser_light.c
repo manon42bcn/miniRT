@@ -12,6 +12,18 @@
 
 #include "parse.h"
 
+static inline t_bool	check_light_color(t_mrt *mrt, int last)
+{
+	int	len;
+
+	len = 0;
+	while (mrt->tab[++last])
+		len++;
+	if (len == 0)
+		return (FALSE);
+	return (TRUE);
+}
+
 void	inp_light(t_mrt *mrt)
 {
 	mrt->scn.light = light_builder(mrt->scn.light);
@@ -19,5 +31,6 @@ void	inp_light(t_mrt *mrt)
 	mrt->scn.light->bright = ft_atolf(mrt->tab[LIGHT_RATIO]);
 	if (!check_range(mrt->scn.light->bright, 0, 1))
 		msg_error_parsing("Light ratio out of range", mrt);
-	mrt->scn.light->color = get_color(mrt->tab[LIGHT_COLOR], mrt);
+	if (check_light_color(mrt, LIGHT_RATIO))
+		mrt->scn.light->color = get_color(mrt->tab[LIGHT_COLOR], mrt);
 }

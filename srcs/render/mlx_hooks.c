@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-void mlx_starter(t_mrt *mrt)
+void	mlx_starter(t_mrt *mrt)
 {
-	t_cmr *node;
+	t_cmr	*node;
 
 	node = mrt->cmr;
 	while (node)
@@ -26,7 +26,8 @@ void mlx_starter(t_mrt *mrt)
 	}
 }
 
-int	to_win(t_mrt *mrt) {
+int	to_win(t_mrt *mrt)
+{
 	if (mrt->to_img == FALSE)
 	{
 		if (mrt->window == TRUE)

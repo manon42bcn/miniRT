@@ -54,7 +54,7 @@ typedef struct s_light
 typedef struct s_scene
 {
 	t_bool			parsed;
-	int				res_init;
+	t_bool			res_init;
 	int				w_x;
 	int				w_y;
 	t_light			*light;

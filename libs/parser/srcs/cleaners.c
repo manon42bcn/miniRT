@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cleaners.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/23 22:09:15 by mporras-          #+#    #+#             */
+/*   Updated: 2023/07/23 22:09:19 by mporras-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "parse.h"
 
@@ -52,7 +63,8 @@ static inline void	clean_cameras(t_mrt *mrt, int (*img)(void *, void *))
 	mrt->main_cam = NULL;
 }
 
-int	clear_all(t_mrt *mrt, int status, int (*win)(void *, void *), int (*img)(void *, void *))
+int	clear_all(t_mrt *mrt, int status, int (*win)(void *, void *),
+			int (*img)(void *, void *))
 {
 	clean_objects(mrt);
 	clean_lights(mrt);
