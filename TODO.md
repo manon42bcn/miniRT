@@ -9,3 +9,4 @@
 * [ ] Igual que antes, pero en los errores de ejecución
 * [ ] Revisar los mensajes de error para homologar los textos (unificar criterios).
 * [ ] Revisar Makefile, versiones bonus y mandatory (make bonus -> make... estupidez pero bueno...)
+* [x] Chequear que hay suficientes elementos para iniciar render.

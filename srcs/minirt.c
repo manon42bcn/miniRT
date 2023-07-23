@@ -12,26 +12,26 @@
 
 #include "minirt.h"
 
-static inline void	parse_fix(t_mrt *mrt)
-{
-	t_cmr	*node;
-
-	node = mrt->cmr;
-	if (mrt->scn.parsed == FALSE)
-		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
-// Para el debug, 1/3 de screen size
-	mrt->scn.w_x /= 3;
-	mrt->scn.w_y /= 3;
-	printf("%d width - %d height\n", mrt->scn.w_x, mrt->scn.w_y);
-	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
-	while (node)
-	{
-		node->ratio = mrt->scn.ratio;
-		node = node->next;
-	}
-	mrt->main_cam = mrt->cmr;
-	mrt->window = FALSE;
-}
+//static inline void	parse_fix(t_mrt *mrt)
+//{
+//	t_cmr	*node;
+//
+//	node = mrt->cmr;
+//	if (mrt->scn.parsed == FALSE)
+//		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
+//// Para el debug, 1/3 de screen size
+//	mrt->scn.w_x /= 3;
+//	mrt->scn.w_y /= 3;
+//	printf("%d width - %d height\n", mrt->scn.w_x, mrt->scn.w_y);
+//	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
+//	while (node)
+//	{
+//		node->ratio = mrt->scn.ratio;
+//		node = node->next;
+//	}
+//	mrt->main_cam = mrt->cmr;
+//	mrt->window = FALSE;
+//}
 
 void print_all_mrt(const t_mrt *mrt)
 {
@@ -73,19 +73,19 @@ int main(int argc, char const *argv[])
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
 	mrt = readfile_parser(argv[1]);
-	parse_fix(mrt);
+//	parse_fix(mrt);
 	// Incluir la opción de --help para mostrar mensaje de ayuda.
-	mrt->mlx = mlx_init();
-	mlx_starter(mrt);
+//	mrt->mlx = mlx_init();
+//	mlx_starter(mrt);
 	print_all_mrt(mrt);
-	render_main(mrt);
-	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y,"miniRT");
-	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
-	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
-	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_handler, mrt);
-	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_handler, mrt);
-	mlx_loop_hook(mrt->mlx, to_win, mrt);
-	mlx_loop(mrt->mlx);
+//	render_main(mrt);
+//	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y,"miniRT");
+//	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
+//	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
+//	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_handler, mrt);
+//	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_handler, mrt);
+//	mlx_loop_hook(mrt->mlx, to_win, mrt);
+//	mlx_loop(mrt->mlx);
 	clear_all(mrt, SUCCESS, NULL, NULL);
 	return (SUCCESS);
 }

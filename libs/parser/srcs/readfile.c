@@ -12,6 +12,17 @@
 
 #include "parse.h"
 
+static inline t_bool	checking_parse(t_mrt *mrt)
+{
+	if (!mrt->cmr)
+		return (FALSE);
+	if (!mrt->obj)
+		return (FALSE);
+	if (!mrt->scn.parsed)
+		return (FALSE);
+	return (TRUE);
+}
+
 static inline t_bool	load_object(t_mrt *mrt)
 {
 	int			type;
@@ -54,5 +65,7 @@ t_mrt	*readfile_parser(char const *filename)
 	}
 	ft_safe_free_char(&rt->aux);
 	close(rt->fd);
+	if (!checking_parse(rt))
+		msg_error_parsing("Not enough elements to create a scene", rt);
 	return (rt);
 }
