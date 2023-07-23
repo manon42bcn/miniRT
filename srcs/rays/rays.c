@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static inline t_v3d camera_eye(int n, t_pix pix, t_mrt *mrt)
+static inline t_v3d	camera_eye(int n, t_pix pix, t_mrt *mrt)
 {
 	double	x_ofs;
 	double	y_ofs;

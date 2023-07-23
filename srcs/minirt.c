@@ -50,14 +50,42 @@ void print_all_mrt(const t_mrt *mrt)
 	printf("bonus: %d, %p\n", mrt->bonus, &(mrt->bonus));
 }
 
+static inline t_v3d	pix_to_win(int n, t_pix pix, t_mrt *mrt)
+{
+	double	x_ofs;
+	double	y_ofs;
+	t_v3d	p;
+
+	x_ofs = ((n % 3) * 0.5);
+	y_ofs = ((n / 3) * 0.5);
+	p.x = ((2 * ((pix.x + x_ofs) / pix.w_x)) - 1)
+		  * mrt->scn.ratio * mrt->cmr->fov;
+	p.y = (1 - (2 * ((pix.y + y_ofs) / pix.w_y))) * mrt->cmr->fov;
+	p.x = -p.x;
+	p.z = 1;
+	return (p);
+}
+
+
 int	mouse_handler(int mouse_code, int x, int y, t_mrt *mrt)
 {
 	int x_c;
 	int y_c;
+	t_pix	to_pix;
+	t_v3d	to_img;
 
+	to_pix.x = x;
+	to_pix.y = y;
+	to_pix.w_x = mrt->scn.w_x;
+	to_pix.w_y = mrt->scn.w_y;
+	to_img = pix_to_win(8, to_pix, mrt);
+	printf("[%f x] [%f y]\n", to_img.x, to_img.y);
 	mlx_mouse_get_pos(mrt->mlx_win, &x_c, &y_c);
 	printf("%d %d code %d x %d y [%d - %d]\n", mrt->to_img, mouse_code, x, y, x_c, y_c);
-	return (TRUE);
+	mrt->cmr->position.x = to_img.x;
+	mrt->cmr->position.y = to_img.y;
+	mrt->to_img = FALSE;
+	return (to_win(mrt));
 }
 
 int main(int argc, char const *argv[])
