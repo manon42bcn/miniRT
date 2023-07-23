@@ -14,6 +14,9 @@
 
 void	inp_sphere(t_mrt *mrt)
 {
+	t_obj	*current;
+
+	current = mrt->obj;
 	mrt->obj = object_builder(SPHERE, mrt->obj);
 	mrt->obj->elm.sph.centre = get_v3d(mrt, mrt->tab[SPH_CENTRE],
 			V3D_COOR);
@@ -21,4 +24,5 @@ void	inp_sphere(t_mrt *mrt)
 	if (!check_range(mrt->obj->elm.sph.radius, 0, INFINITY))
 		msg_error_parsing("Sphere radius out of range", mrt);
 	get_common(mrt, SPH_DIAM, "Sphere");
+	mrt->obj->next = current;
 }

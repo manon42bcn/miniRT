@@ -28,8 +28,6 @@ static inline t_bool	load_object(t_mrt *mrt)
 	int			type;
 	t_build		build;
 
-	if (ft_match_cmp(mrt->aux, "\n"))
-		return (FALSE);
 	ft_clear_tabs(mrt->tab);
 	mrt->tab = ft_split_cs(mrt->aux, SEP);
 	if (mrt->tab == NULL)
@@ -40,6 +38,7 @@ static inline t_bool	load_object(t_mrt *mrt)
 	if (type == IDX_COMMENT)
 		return (FALSE);
 	build = get_builder(type, mrt);
+	printf("%d type\n", type);
 	build(mrt);
 	return (TRUE);
 }
@@ -53,6 +52,7 @@ t_mrt	*readfile_parser(char const *filename)
 	if (fd < 0)
 		msg_error_parsing("Loading file error", NULL);
 	rt = (t_mrt *)ft_sec_calloc(sizeof(t_mrt));
+	rt->scn.parsed = FALSE;
 	rt->fd = fd;
 	while (TRUE)
 	{
@@ -60,7 +60,7 @@ t_mrt	*readfile_parser(char const *filename)
 		rt->aux = get_next_line(fd);
 		if (!rt->aux)
 			break ;
-		if (rt->aux[0] != '#')
+		if (rt->aux[0] != '#' && rt->aux[0] != '\n')
 			load_object(rt);
 	}
 	ft_safe_free_char(&rt->aux);

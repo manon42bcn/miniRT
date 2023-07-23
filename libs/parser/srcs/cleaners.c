@@ -13,11 +13,10 @@ static inline void	clean_objects(t_mrt *mrt)
 {
 	t_obj	*node;
 
-	node = mrt->obj;
-	while (node)
+	while (mrt->obj)
 	{
-		node = node->next;
-		mrt->obj = NULL;
+		node = mrt->obj->next;
+		mrt->obj->next = NULL;
 		ft_sec_free(mrt->obj);
 		mrt->obj = node;
 	}
@@ -27,27 +26,26 @@ static inline void	clean_lights(t_mrt *mrt)
 {
 	t_light	*node;
 
-	node = mrt->scn.light;
-	while (node)
+	while (mrt->scn.light)
 	{
-		node = node->next;
+		node = mrt->scn.light->next;
+		mrt->scn.light->next = NULL;
 		ft_sec_free(mrt->scn.light);
 		mrt->scn.light = node;
 	}
-	mrt->scn.light = NULL;
 }
 
 static inline void	clean_cameras(t_mrt *mrt, int (*img)(void *, void *))
 {
 	t_cmr	*node;
 
-	node = mrt->cmr;
-	while (node)
+	while (mrt->cmr)
 	{
-		node = node->next;
+		node = mrt->cmr->next;
 		if (img)
 			img(mrt->mlx, mrt->cmr->img_ptr);
 		mrt->cmr->img_ptr = NULL;
+		mrt->cmr->next = NULL;
 		ft_sec_free(mrt->cmr);
 		mrt->cmr = node;
 	}

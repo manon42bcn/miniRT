@@ -16,12 +16,14 @@
 
 void	inp_resolution(t_mrt *mrt)
 {
-	if (mrt->scn.parsed == TRUE)
+	static t_bool	parsed_resolution = FALSE;
+
+	if (parsed_resolution == TRUE)
 		msg_error_parsing("Resolution should be declared once", mrt);
-	mrt->scn.parsed = TRUE;
 	mrt->scn.w_x = ft_atoi(mrt->tab[RES_PARSE_X]);
 	mrt->scn.w_y = ft_atoi(mrt->tab[RES_PARSE_Y]);
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
+	parsed_resolution = TRUE;
 }
 
 #else
