@@ -87,20 +87,26 @@ void moveCamera(t_cmr *camera, double angle, t_v3d center, double radius) {
 	camera->position.z = center.z;
 
 	// actualizar la dirección de la cámara para que mire hacia el centro
+	printingv3d(&camera->position, "New position");
 	camera->dir = ft_normal_v3d(ft_minus_v3d(center, camera->position));
+	printingv3d(&camera->dir, "New direction");
 }
 
 
 int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 {
 	printf("%d %d %d\n", mouse_code, mouseX, mouseY);
+	static int angle = 0;
 
+	if (angle == 360)
+		angle = 0;
 	t_v3d camaraPosition = mrt->cmr->position; // la posición de la cámara
 	t_v3d cameraDirection = mrt->cmr->dir; // el vector de dirección de la cámara (normalizado)
 
 	t_v3d lookAtPoint = ft_plus_v3d(camaraPosition, cameraDirection);
 	printingv3d(&lookAtPoint, " Looking at ");
-	moveCamera(mrt->cmr, 45, (t_v3d){0, 0, 0}, 50);
+	angle += 45;
+	moveCamera(mrt->cmr, angle, (t_v3d){0, 0, 0}, 50);
 
 //	double angleInDegrees = 90;  // ángulo para rotar en grados.
 //	double angleInRadians = angleInDegrees * M_PI / 180.0;  // convierte el ángulo a radianes.
