@@ -17,6 +17,7 @@
 # include "../../rgb/inc/rgb.h"
 # include "../../lib/inc/libft.h"
 # include <fcntl.h>
+# include <math.h>
 # include "parse_enum.h"
 # include "../../inc/objects.h"
 # include "../../inc/structs.h"

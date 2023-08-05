@@ -27,4 +27,5 @@ void	inp_cylinder(t_mrt *mrt)
 		msg_error_parsing("Cylinder height out of range", mrt);
 	get_common(mrt, CYL_HEIGHT, "Cylinder");
 	mrt->obj->normal = mrt->obj->elm.cyl.dir;
+	mrt->obj->position = ft_copy_v3d(&mrt->obj->elm.cyl.centre);
 }

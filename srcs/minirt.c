@@ -12,10 +12,56 @@
 
 #include "minirt.h"
 
+t_obj	*closer_object(t_cmr *camera, t_obj *obj)
+{
+	double	dist;
+	double	target;
+	t_obj	*rst;
+
+	target = 0;
+	rst = NULL;
+	while (obj)
+	{
+		dist = fabs(ft_distance_v3d(camera->position, obj->position));
+		if (rst == NULL)
+		{
+			rst = obj;
+			target = dist;
+		}
+		if (dist < target)
+		{
+			rst = obj;
+			target = dist;
+		}
+		obj = obj->next;
+	}
+	return (rst);
+}
+
 void	printingv3d(t_v3d *vector, char *msg)
 {
 	printf("%s - ", msg);
 	printf("[%f x %f y %f z]\n", vector->x, vector->y, vector->z);
+}
+
+void	close_to_cam(t_mrt *mrt)
+{
+	t_cmr	*node;
+
+	node = mrt->cmr;
+	while (node)
+	{
+		printf("%p previous pointer\n", node->close_obj);
+		node->close_obj = closer_object(node, mrt->obj);
+		printf("%p post check pointer\n", node->close_obj);
+		node->orbit = sqrt(node->position.x * node->position.x
+						   + node->position.y * node->position.y
+						   + node->position.z * node->position.z);
+		printf("%f why??\n", node->position.x * node->position.x
+							 + node->position.y * node->position.y
+							 + node->position.z * node->position.z);
+		node = node->next;
+	}
 }
 
 static inline void	parse_fix(t_mrt *mrt)
@@ -36,6 +82,7 @@ static inline void	parse_fix(t_mrt *mrt)
 		node->ratio = mrt->scn.ratio;
 		node = node->next;
 	}
+	close_to_cam(mrt);
 	mrt->main_cam = mrt->cmr;
 	mrt->window = FALSE;
 }
@@ -78,59 +125,53 @@ t_v3d rotateY(t_v3d v, double theta) {
 	};
 }
 
-void moveCamera(t_cmr *camera, double angle, t_v3d center, double radius) {
-	double radianAngle = angle * (M_PI / 180.0);  // convierte grados a radianes
+void moveCamera(t_cmr *camera, double radianAngle, t_v3d center, double radius) {
+//	double radianAngle = angle * (M_PI / 180.0);  // convierte grados a radianes
 
 	// calcular la nueva posición de la cámara
+//	camera->position.x = center.x + radius * cos(radianAngle);
+//	camera->position.y = center.y + radius * sin(radianAngle);
+//	camera->position.z = center.z;
+
+//	camera->position.x = center.x;
+//	camera->position.y = center.y + radius * cos(radianAngle);
+//	camera->position.z = center.z + radius * sin(radianAngle);
+
+//	camera->position.x = center.x + radius * cos(radianAngle);
+//	camera->position.y = center.y;
+//	camera->position.z = center.z + radius * sin(radianAngle);
+
 	camera->position.x = center.x + radius * cos(radianAngle);
-	camera->position.y = center.y + radius * sin(radianAngle);
-	camera->position.z = center.z;
+	camera->position.y = center.y;
+	camera->position.z = center.z + radius * sin(radianAngle);
 
 	// actualizar la dirección de la cámara para que mire hacia el centro
 	printingv3d(&camera->position, "New position");
 	camera->dir = ft_normal_v3d(ft_minus_v3d(center, camera->position));
 	printingv3d(&camera->dir, "New direction");
 }
-
+// Implementar:
+// primero key y luego mouse, para rotar camara...
+// rotar sobre objeto o sobre el centro del los ejes cartesianos...
 
 int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 {
 	printf("%d %d %d\n", mouse_code, mouseX, mouseY);
-	static int angle = 0;
+	static double angle = 0;
 
-	if (angle == 360)
-		angle = 0;
 	t_v3d camaraPosition = mrt->cmr->position; // la posición de la cámara
 	t_v3d cameraDirection = mrt->cmr->dir; // el vector de dirección de la cámara (normalizado)
 
 	t_v3d lookAtPoint = ft_plus_v3d(camaraPosition, cameraDirection);
 	printingv3d(&lookAtPoint, " Looking at ");
-	angle += 45;
-	moveCamera(mrt->cmr, angle, (t_v3d){0, 0, 0}, 50);
-
-//	double angleInDegrees = 90;  // ángulo para rotar en grados.
-//	double angleInRadians = angleInDegrees * M_PI / 180.0;  // convierte el ángulo a radianes.
-//
-//// asumimos que cameraDir es la dirección actual de la cámara.
-//	double newX = mrt->cmr->dir.x * cos(angleInRadians) - mrt->cmr->dir.z * sin(angleInRadians);
-//	double newZ = mrt->cmr->dir.x * sin(angleInRadians) + mrt->cmr->dir.z * cos(angleInRadians);
-//
-//// nueva dirección de la cámara.
-//	t_v3d newCameraDir = {newX, mrt->cmr->dir.y, newZ};
-//
-//	mrt->cmr->dir = newCameraDir;
-
-//	printf("%d \n", mouse_code);
-//	double x = (2.0 * (double )mouseX / (double )mrt->scn.w_x) - 1.0;
-//	double y = 1.0 - (2.0 * (double )mouseY / (double)mrt->scn.w_y);
-//	double imageAspectRatio = (double )mrt->scn.w_x / (double)mrt->scn.w_y;
-//	double Px = (2 * x - 1) * tan(mrt->cmr->inp_fov/2 * M_PI/180) * imageAspectRatio;
-//	double Py = (1 - 2 * y) * tan(mrt->cmr->inp_fov/2 * M_PI/180);
-//	t_v3d rayDir = ft_normal_v3d(ft_new_v3d(Px, Py, -1));  // la cámara asume que mira hacia -z
-//	printf("%f x - %f - y %f z\n", rayDir.x, rayDir.y, rayDir.z);
-//	mrt->cmr->position.x += Px;
-//	mrt->cmr->position.y += Py;
-	mrt->to_img = FALSE;
+	if (mouse_code == RIGHT_CLICK)
+		angle += RAD_ANGLE;
+	else
+		angle -= RAD_ANGLE;
+	double rad = sqrt(mrt->cmr->position.x * mrt->cmr->position.x + mrt->cmr->position.y * mrt->cmr->position.y + mrt->cmr->position.z * mrt->cmr->position.z);
+	printf("%f distance? %f orbit?\n", rad, mrt->cmr->orbit);
+	moveCamera(mrt->cmr, angle, mrt->cmr->close_obj->position, 25);
+	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }
 

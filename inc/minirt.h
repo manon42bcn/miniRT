@@ -49,13 +49,15 @@ typedef struct		s_inter
 }					t_inter;
 
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
+//hooks
+int				mouse_handler(int mouse_code, int x, int y, t_mrt *mrt);
 //intersections
-t_solver        get_solver(int index);
+t_solver		get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
-void		    try_all_intersections(t_ray ray, t_obj *obj,
-                                  t_obj *closest_figure, double *closest_intersection);
-t_v3d		    reflect_ray(t_v3d ray, t_v3d normal);
+void			try_all_intersections(t_ray ray, t_obj *obj,
+					t_obj *closest_figure, double *closest_intersection);
+t_v3d			reflect_ray(t_v3d ray, t_v3d normal);
 double			plane_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir);
 double			pyramid_solver(t_v3d origin, t_v3d dir, t_obj *obj);

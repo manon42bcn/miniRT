@@ -24,5 +24,6 @@ void	inp_sphere(t_mrt *mrt)
 	if (!check_range(mrt->obj->elm.sph.radius, 0, INFINITY))
 		msg_error_parsing("Sphere radius out of range", mrt);
 	get_common(mrt, SPH_DIAM, "Sphere");
+	mrt->obj->position = ft_copy_v3d(&mrt->obj->elm.sph.centre);
 	mrt->obj->next = current;
 }

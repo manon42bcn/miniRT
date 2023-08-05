@@ -28,13 +28,14 @@ void	mlx_starter(t_mrt *mrt)
 
 int	to_win(t_mrt *mrt)
 {
-	if (mrt->to_img == FALSE)
+//	mlx_png_file_to_image(mrt->mlx, "icon.png", &mrt->scn.w_x, &mrt->scn.w_y);
+	if (mrt->to_img == TO_RENDER)
 	{
 		if (mrt->window == TRUE)
 			render_main(mrt);
 		mlx_put_image_to_window(mrt->mlx, mrt->mlx_win,
 			mrt->cmr->img_ptr, 0, 0);
-		mrt->to_img = TRUE;
+		mrt->to_img = RENDERED;
 		mrt->window = TRUE;
 	}
 	return (TRUE);

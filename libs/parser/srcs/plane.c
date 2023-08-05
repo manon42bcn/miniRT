@@ -21,4 +21,5 @@ void	inp_plane(t_mrt *mrt)
 			V3D_NORM);
 	get_common(mrt, PLN_ORIENTATION, "Plane");
 	mrt->obj->normal = mrt->obj->elm.pl.orient;
+	mrt->obj->position = ft_copy_v3d(&mrt->obj->elm.pl.centre);
 }

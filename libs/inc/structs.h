@@ -35,6 +35,9 @@ typedef struct s_cmr
 	int				inp_fov;
 	double			fov;
 	double			ratio;
+	double			orbit;
+	t_obj			*close_obj;
+	int				rotate_over;
 	void			*img_ptr;
 	int				*addr;
 	int				bpp;
@@ -74,6 +77,7 @@ typedef struct s_obj
 	double			reflex;
 	double			refract;
 	int				texture;
+	t_v3d			position;
 	t_v3d			normal;
 	double			wavelength;
 	struct s_obj	*next;

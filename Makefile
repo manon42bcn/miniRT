@@ -15,6 +15,7 @@ HEAD_DIR		= 	inc
 SRC_DIR			= 	srcs
 OBJ_DIR			= 	objs
 OBJ_SUBS		= 	objs \
+					objs/hooks \
 					objs/utl \
 					objs/sampler \
 					objs/texture \
@@ -39,6 +40,7 @@ SRCS_FILES		= 	intersections/intersections.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \
+					hooks/mouse_handler.c \
 					minirt.c
 HEAD_FILES		=	inc/minirt.h \
 					inc/ggl_mlx_define.h \

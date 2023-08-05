@@ -21,9 +21,17 @@
 #  define SQRT2_2 0.7071067811865476
 # endif
 
+# define RAD_ANGLE 0.17453
+# define ROTATE_X 0
+# define ROTATE_Y 1
+# define ROTATE_Z 2
 # define TRUE	1
 # define FALSE	0
 # define MATCH	0
+# define TO_RENDER 0
+# define RENDERED 1
+# define RIGHT_CLICK 1
+# define LEFT_CLICK 2
 
 # define CHECKBOARD 1
 # define WAVES 2
