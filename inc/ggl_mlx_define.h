@@ -13,8 +13,11 @@
 #ifndef GGL_MLX_DEFINE_H
 # define GGL_MLX_DEFINE_H
 
+// behaviour ...
+# define NO_HOOK		0
 # define K_SPACE		49
 # define K_ESC			53
+# define K_ENTER		36
 # define K_D			2
 # define K_E			14
 # define K_R			15
@@ -28,6 +31,11 @@
 # define K_M 			46
 # define K_Q			12
 # define K_C			8
+# define K_S			115
+# define K_X			7
+# define K_Z			16
+# define K_A			97
+# define K_L			37
 
 # define K_B			11
 # define K_F 			3

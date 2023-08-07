@@ -46,39 +46,19 @@ int	window_handler(t_mrt *mrt)
 	exit(clear_all(mrt, 0, &mlx_clear_window, &mlx_destroy_image));
 }
 
-static inline void change_camera(t_mrt *mrt)
+static inline int	change_camera(t_mrt *mrt)
 {
+	if (mrt->cmr->next == NULL && mrt->cmr == mrt->main_cam)
+		return (FALSE);
 	if (mrt->cmr->next == NULL)
 		mrt->cmr = mrt->main_cam;
 	else
 		mrt->cmr = mrt->cmr->next;
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
 }
 
-void	sphere_diam(t_mrt *mrt, int key)
-{
-	t_obj	*node;
 
-	node = mrt->obj;
-	if (key == K_D)
-	{
-		while (node)
-		{
-			if (node->type == SPHERE)
-				node->elm.sph.radius *= 1.1f;
-			node = node->next;
-		}
-	}
-	else
-	{
-		while (node)
-		{
-			if (node->type == SPHERE)
-				if (node->elm.sph.radius / 1.1f > 0)
-					node->elm.sph.radius /= 1.1f;
-			node = node->next;
-		}
-	}
-}
 
 void	cylinder_radius(t_mrt *mrt, int key)
 {
@@ -168,24 +148,61 @@ void	sphere_minus_translate(t_mrt *mrt, int key)
 	}
 }
 
+void handler_informator(int key)
+{
+	if (key == K_S)
+		ft_putstr_fd(" Sphere ", STDOUT_FILENO);
+	if (key == K_C)
+		ft_putstr_fd(" Cylinder ", STDOUT_FILENO);
+	if (key == K_E)
+		ft_putstr_fd(" Camera ", STDOUT_FILENO);
+	if (key == K_D)
+		ft_putstr_fd(" Radius ", STDOUT_FILENO);
+	if (key == K_H)
+		ft_putstr_fd(" Height", STDOUT_FILENO);
+	if (key == K_T)
+		ft_putstr_fd(" Translate ", STDOUT_FILENO);
+	if (key == K_X)
+		ft_putstr_fd(" X axis ", STDOUT_FILENO);
+	if (key == K_Y)
+		ft_putstr_fd(" Y axis ", STDOUT_FILENO);
+	if (key == K_Z)
+		ft_putstr_fd(" Z axis ", STDOUT_FILENO);
+	if (key == K_O)
+		ft_putstr_fd(" Orbit ", STDOUT_FILENO);
+	if (key == K_A)
+		ft_putstr_fd(" AROUND CLOSED ", STDOUT_FILENO);
+	if (key == K_ENTER)
+		ft_putstr_fd(" INTRO ", STDOUT_FILENO);
+	if (key == K_L)
+		ft_putstr_fd(" LIGHTS ", STDOUT_FILENO);
+	if (key == K_R)
+		ft_putstr_fd(" ROTATION ", STDOUT_FILENO);
+}
+
 //TODO: camera and objects rotation
 int	keys_handler(int key, t_mrt *mrt)
 {
-	printf("%d - key\n", key);
+	printf("%d key\n", key);
 	if (key == K_ESC)
 		exit(clear_all(mrt, 0, &mlx_clear_window, &mlx_destroy_image));
-	else if (key == K_D || key == K_E)
-		sphere_diam(mrt, key);
-	else if (key == K_F || key == K_R)
-		cylinder_radius(mrt, key);
-	else if (key == K_G || key == K_T)
-		cylinder_height(mrt, key);
-	else if (key == K_Y || key == K_H || key == K_N)
-		sphere_plus_translate(mrt, key);
-	else if (key == K_U || key == K_J || key == K_M)
-		sphere_minus_translate(mrt, key);
-	else if (key == K_SPACE)
-		change_camera(mrt);
-	mrt->to_img = FALSE;
-	return (to_win(mrt));
+	if (key == K_SPACE)
+		return (change_camera(mrt));
+	if (mrt->key_press == 0)
+		mrt->behaviour = 0;
+	if (mrt->key_press == 2 || key == K_Q)
+	{
+		ft_putstr_fd(" BEHAVIOUR RESET TO 0\n", STDOUT_FILENO);
+		mrt->key_press = 0;
+		return (FALSE);
+	}
+	mrt->behaviour += key;
+	mrt->key_press++;
+	handler_informator(key);
+	if (mrt->key_press == 2)
+	{
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		mrt->key_press = 0;
+	}
+	return (TRUE);
 }

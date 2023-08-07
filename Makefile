@@ -40,7 +40,10 @@ SRCS_FILES		= 	intersections/intersections.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \
+					hooks/cylinder_hooks.c \
+					hooks/main_hooks.c \
 					hooks/mouse_handler.c \
+					hooks/sphere_hooks.c \
 					minirt.c
 HEAD_FILES		=	inc/minirt.h \
 					inc/ggl_mlx_define.h \

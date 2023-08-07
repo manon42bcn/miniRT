@@ -51,6 +51,7 @@ typedef struct		s_inter
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 //hooks
 int				mouse_handler(int mouse_code, int x, int y, t_mrt *mrt);
+void	sphere_diam(t_mrt *mrt, int x, int y, int mouse_code);
 //intersections
 t_solver		get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);

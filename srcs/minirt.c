@@ -125,7 +125,8 @@ t_v3d rotateY(t_v3d v, double theta) {
 	};
 }
 
-void moveCamera(t_cmr *camera, double radianAngle, t_v3d center, double radius) {
+void moveCamera(t_cmr *camera, double radianAngle, t_v3d center, double radius)
+{
 //	double radianAngle = angle * (M_PI / 180.0);  // convierte grados a radianes
 
 	// calcular la nueva posición de la cámara
@@ -156,23 +157,33 @@ void moveCamera(t_cmr *camera, double radianAngle, t_v3d center, double radius) 
 
 int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 {
-	printf("%d %d %d\n", mouse_code, mouseX, mouseY);
-	static double angle = 0;
+//	printf("%d %d %d\n", mouse_code, mouseX, mouseY);
+//	static double angle = 0;
+//
+//	t_v3d camaraPosition = mrt->cmr->position; // la posición de la cámara
+//	t_v3d cameraDirection = mrt->cmr->dir; // el vector de dirección de la cámara (normalizado)
+//
+//	t_v3d lookAtPoint = ft_plus_v3d(camaraPosition, cameraDirection);
+//	printingv3d(&lookAtPoint, " Looking at ");
+//	if (mouse_code == RIGHT_CLICK)
+//		angle += RAD_ANGLE;
+//	else
+//		angle -= RAD_ANGLE;
+//	double rad = sqrt(mrt->cmr->position.x * mrt->cmr->position.x + mrt->cmr->position.y * mrt->cmr->position.y + mrt->cmr->position.z * mrt->cmr->position.z);
+//	printf("%f distance? %f orbit?\n", rad, mrt->cmr->orbit);
+//	moveCamera(mrt->cmr, angle, mrt->cmr->close_obj->position, 25);
+	t_hook	changes;
 
-	t_v3d camaraPosition = mrt->cmr->position; // la posición de la cámara
-	t_v3d cameraDirection = mrt->cmr->dir; // el vector de dirección de la cámara (normalizado)
-
-	t_v3d lookAtPoint = ft_plus_v3d(camaraPosition, cameraDirection);
-	printingv3d(&lookAtPoint, " Looking at ");
-	if (mouse_code == RIGHT_CLICK)
-		angle += RAD_ANGLE;
-	else
-		angle -= RAD_ANGLE;
-	double rad = sqrt(mrt->cmr->position.x * mrt->cmr->position.x + mrt->cmr->position.y * mrt->cmr->position.y + mrt->cmr->position.z * mrt->cmr->position.z);
-	printf("%f distance? %f orbit?\n", rad, mrt->cmr->orbit);
-	moveCamera(mrt->cmr, angle, mrt->cmr->close_obj->position, 25);
+	changes = mrt->hooks[mrt->behaviour];
+	if (changes)
+		changes(mrt, mouseX, mouseY, mouse_code);
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
+}
+
+void load_hooks_fnc(t_mrt *mrt)
+{
+	mrt->hooks[31] = &sphere_diam;
 }
 
 int main(int argc, char const *argv[])
@@ -185,6 +196,7 @@ int main(int argc, char const *argv[])
 		msg_error_exit("invalid argument\n");
 	mrt = readfile_parser(argv[1]);
 	parse_fix(mrt);
+	load_hooks_fnc(mrt);
 	mrt->mlx = mlx_init();
 	mlx_starter(mrt);
 	print_all_mrt(mrt);

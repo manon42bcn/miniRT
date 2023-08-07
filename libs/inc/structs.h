@@ -15,6 +15,8 @@
 
 typedef struct s_obj	t_obj;
 typedef int				t_pixel;
+typedef struct s_mrt	t_mrt;
+typedef void			(*t_hook)(t_mrt *, int, int, int);
 
 enum e_fig
 {
@@ -83,6 +85,13 @@ typedef struct s_obj
 	struct s_obj	*next;
 }					t_obj;
 
+typedef struct s_hooks
+{
+	int				keys;
+	t_hook			fnc;
+	struct t_hooks	*next;
+}				t_hooks;
+
 typedef struct s_mrt
 {
 	t_bool		to_img;
@@ -95,6 +104,9 @@ typedef struct s_mrt
 	t_cmr		*main_cam;
 	t_pixel		x;
 	t_pixel		y;
+	int			behaviour;
+	int			key_press;
+	t_hook		hooks[256];
 	char		*aux;
 	char		**tab;
 	int			fd;
