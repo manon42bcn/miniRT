@@ -13,37 +13,79 @@
 #include "minirt.h"
 
 
-//void	sphere_minus_translate(t_mrt *mrt, int key)
-//{
-//	t_obj	*node;
-//
-//	node = mrt->obj;
-//	while (key == K_U && node)
-//	{
-//		if (node->type == SPHERE)
-//			node->elm.sph.centre.x -= 0.1f;
-//		node = node->next;
-//	}
-//	while (key == K_J && node)
-//	{
-//		if (node->type == SPHERE)
-//			node->elm.sph.centre.y -= 0.1f;
-//		node = node->next;
-//	}
-//	while (key == K_M && node)
-//	{
-//		if (node->type == SPHERE)
-//			node->elm.sph.centre.z -= 0.1f;
-//		node = node->next;
-//	}
-//}
+void	sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	(void)x;
+	(void)y;
+	while (node)
+	{
+		if (node->type == SPHERE && mouse_code == LEFT_CLICK)
+			node->elm.sph.centre.y += 0.1f;
+		if (node->type == SPHERE && mouse_code == RIGHT_CLICK)
+			node->elm.sph.centre.y -= 0.1f;
+		if (node->type == SPHERE)
+		{
+			node->position = ft_copy_v3d(&node->elm.sph.centre);
+			mrt->to_img = TO_RENDER;
+		}
+		node = node->next;
+	}
+}
+
+void	sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	(void)x;
+	(void)y;
+	while (node)
+	{
+		if (node->type == SPHERE && mouse_code == LEFT_CLICK)
+			node->elm.sph.centre.x += 0.1f;
+		if (node->type == SPHERE && mouse_code == RIGHT_CLICK)
+			node->elm.sph.centre.x -= 0.1f;
+		if (node->type == SPHERE)
+		{
+			node->position = ft_copy_v3d(&node->elm.sph.centre);
+			mrt->to_img = TO_RENDER;
+		}
+		node = node->next;
+	}
+}
+
+void	sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	(void)x;
+	(void)y;
+	while (node)
+	{
+		if (node->type == SPHERE && mouse_code == LEFT_CLICK)
+			node->elm.sph.centre.z += 0.1f;
+		if (node->type == SPHERE && mouse_code == RIGHT_CLICK)
+			node->elm.sph.centre.z -= 0.1f;
+		if (node->type == SPHERE)
+		{
+			node->position = ft_copy_v3d(&node->elm.sph.centre);
+			mrt->to_img = TO_RENDER;
+		}
+		node = node->next;
+	}
+}
+
 
 void	sphere_diam(t_mrt *mrt, int x, int y, int mouse_code)
 {
 	t_obj	*node;
 
 	(void)x;
-	y = 0;
+	(void)y;
 	node = mrt->obj;
 	while (node)
 	{
@@ -53,9 +95,7 @@ void	sphere_diam(t_mrt *mrt, int x, int y, int mouse_code)
 			&& (node->elm.sph.radius / 1.1f > 0))
 			node->elm.sph.radius /= 1.1f;
 		if (node->type == SPHERE)
-			y++;
+			mrt->to_img = TO_RENDER;
 		node = node->next;
 	}
-	if (y > 0)
-		mrt->to_img = TO_RENDER;
 }

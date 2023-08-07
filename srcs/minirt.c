@@ -183,7 +183,15 @@ int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 
 void load_hooks_fnc(t_mrt *mrt)
 {
-	mrt->hooks[31] = &sphere_diam;
+	mrt->hooks[31] = &cylinder_y_translation;
+	mrt->hooks[32] = &cylinder_x_translation;
+	mrt->hooks[41] = &cylinder_z_translation;
+	mrt->hooks[46] = &cylinder_diam;
+	mrt->hooks[48] = &cylinder_height;
+	mrt->hooks[138] = &sphere_y_translation;
+	mrt->hooks[139] = &sphere_x_translation;
+	mrt->hooks[148] = &sphere_z_translation;
+	mrt->hooks[153] = &sphere_diam;
 }
 
 int main(int argc, char const *argv[])

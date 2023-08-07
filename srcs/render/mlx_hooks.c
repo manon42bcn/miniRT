@@ -28,7 +28,6 @@ void	mlx_starter(t_mrt *mrt)
 
 int	to_win(t_mrt *mrt)
 {
-//	mlx_png_file_to_image(mrt->mlx, "icon.png", &mrt->scn.w_x, &mrt->scn.w_y);
 	if (mrt->to_img == TO_RENDER)
 	{
 		if (mrt->window == TRUE)
@@ -58,95 +57,6 @@ static inline int	change_camera(t_mrt *mrt)
 	return (TRUE);
 }
 
-
-
-void	cylinder_radius(t_mrt *mrt, int key)
-{
-	t_obj	*node;
-
-	node = mrt->obj;
-	while (key == K_F && node)
-	{
-		if (node->type == CYLINDER)
-			node->elm.cyl.radius *= 1.1f;
-		node = node->next;
-	}
-	while (key == K_R && node)
-	{
-		if (node->type == CYLINDER && (node->elm.cyl.radius / 1.1f > 0))
-			node->elm.cyl.radius /= 1.1f;
-		node = node->next;
-	}
-}
-
-void	cylinder_height(t_mrt *mrt, int key)
-{
-	t_obj	*node;
-
-	node = mrt->obj;
-	while (key == K_G && node)
-	{
-		if (node->type == CYLINDER)
-			node->elm.cyl.height *= 1.1f;
-		node = node->next;
-	}
-	while (key == K_T && node)
-	{
-		if (node->type == CYLINDER && (node->elm.cyl.height / 1.1f > 0))
-			node->elm.cyl.height /= 1.1f;
-		node = node->next;
-	}
-}
-
-void	sphere_plus_translate(t_mrt *mrt, int key)
-{
-	t_obj	*node;
-
-	node = mrt->obj;
-	while (key == K_Y && node)
-	{
-		if (node->type == SPHERE)
-			node->elm.sph.centre.x += 0.1f;
-		node = node->next;
-	}
-	while (key == K_H && node)
-	{
-		if (node->type == SPHERE)
-			node->elm.sph.centre.y += 0.1f;
-		node = node->next;
-	}
-	while (key == K_N && node)
-	{
-		if (node->type == SPHERE)
-			node->elm.sph.centre.z += 0.1f;
-		node = node->next;
-	}
-}
-
-void	sphere_minus_translate(t_mrt *mrt, int key)
-{
-	t_obj	*node;
-
-	node = mrt->obj;
-	while (key == K_U && node)
-	{
-		if (node->type == SPHERE)
-			node->elm.sph.centre.x -= 0.1f;
-		node = node->next;
-	}
-	while (key == K_J && node)
-	{
-		if (node->type == SPHERE)
-			node->elm.sph.centre.y -= 0.1f;
-		node = node->next;
-	}
-	while (key == K_M && node)
-	{
-		if (node->type == SPHERE)
-			node->elm.sph.centre.z -= 0.1f;
-		node = node->next;
-	}
-}
 
 void handler_informator(int key)
 {

@@ -51,7 +51,15 @@ typedef struct		s_inter
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 //hooks
 int				mouse_handler(int mouse_code, int x, int y, t_mrt *mrt);
-void	sphere_diam(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_y_translation(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_z_translation(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_diam(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_height(t_mrt *mrt, int x, int y, int mouse_code);
+void			sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
+void			sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code);
+void			sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code);
+void			sphere_diam(t_mrt *mrt, int x, int y, int mouse_code);
 //intersections
 t_solver		get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
