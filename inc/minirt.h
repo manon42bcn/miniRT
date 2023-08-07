@@ -60,6 +60,9 @@ void			sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
 void			sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code);
 void			sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code);
 void			sphere_diam(t_mrt *mrt, int x, int y, int mouse_code);
+void			camera_closest_x(t_mrt *mrt, int x, int y, int mouse_code);
+void			camera_closest_y(t_mrt *mrt, int x, int y, int mouse_code);
+void			camera_closest_z(t_mrt *mrt, int x, int y, int mouse_code);
 //intersections
 t_solver		get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);

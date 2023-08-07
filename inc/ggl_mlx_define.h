@@ -34,7 +34,7 @@
 # define K_S			115
 # define K_X			7
 # define K_Z			16
-# define K_A			97
+# define K_A			0
 # define K_L			37
 
 # define K_B			11

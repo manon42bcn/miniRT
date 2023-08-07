@@ -125,59 +125,20 @@ t_v3d rotateY(t_v3d v, double theta) {
 	};
 }
 
-void moveCamera(t_cmr *camera, double radianAngle, t_v3d center, double radius)
-{
-//	double radianAngle = angle * (M_PI / 180.0);  // convierte grados a radianes
 
-	// calcular la nueva posición de la cámara
-//	camera->position.x = center.x + radius * cos(radianAngle);
-//	camera->position.y = center.y + radius * sin(radianAngle);
-//	camera->position.z = center.z;
-
-//	camera->position.x = center.x;
-//	camera->position.y = center.y + radius * cos(radianAngle);
-//	camera->position.z = center.z + radius * sin(radianAngle);
-
-//	camera->position.x = center.x + radius * cos(radianAngle);
-//	camera->position.y = center.y;
-//	camera->position.z = center.z + radius * sin(radianAngle);
-
-	camera->position.x = center.x + radius * cos(radianAngle);
-	camera->position.y = center.y;
-	camera->position.z = center.z + radius * sin(radianAngle);
-
-	// actualizar la dirección de la cámara para que mire hacia el centro
-	printingv3d(&camera->position, "New position");
-	camera->dir = ft_normal_v3d(ft_minus_v3d(center, camera->position));
-	printingv3d(&camera->dir, "New direction");
-}
 // Implementar:
 // primero key y luego mouse, para rotar camara...
 // rotar sobre objeto o sobre el centro del los ejes cartesianos...
 
 int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 {
-//	printf("%d %d %d\n", mouse_code, mouseX, mouseY);
-//	static double angle = 0;
-//
-//	t_v3d camaraPosition = mrt->cmr->position; // la posición de la cámara
-//	t_v3d cameraDirection = mrt->cmr->dir; // el vector de dirección de la cámara (normalizado)
-//
-//	t_v3d lookAtPoint = ft_plus_v3d(camaraPosition, cameraDirection);
-//	printingv3d(&lookAtPoint, " Looking at ");
-//	if (mouse_code == RIGHT_CLICK)
-//		angle += RAD_ANGLE;
-//	else
-//		angle -= RAD_ANGLE;
-//	double rad = sqrt(mrt->cmr->position.x * mrt->cmr->position.x + mrt->cmr->position.y * mrt->cmr->position.y + mrt->cmr->position.z * mrt->cmr->position.z);
-//	printf("%f distance? %f orbit?\n", rad, mrt->cmr->orbit);
-//	moveCamera(mrt->cmr, angle, mrt->cmr->close_obj->position, 25);
 	t_hook	changes;
 
+	if (mrt->behaviour == 0 || mrt->key_press < 2 || mrt->behaviour > 256)
+		return (FALSE);
 	changes = mrt->hooks[mrt->behaviour];
 	if (changes)
 		changes(mrt, mouseX, mouseY, mouse_code);
-	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }
 
@@ -192,6 +153,9 @@ void load_hooks_fnc(t_mrt *mrt)
 	mrt->hooks[139] = &sphere_x_translation;
 	mrt->hooks[148] = &sphere_z_translation;
 	mrt->hooks[153] = &sphere_diam;
+	mrt->hooks[117] = &camera_closest_y;
+	mrt->hooks[118] = &camera_closest_x;
+	mrt->hooks[148] = &camera_closest_z;
 }
 
 int main(int argc, char const *argv[])
