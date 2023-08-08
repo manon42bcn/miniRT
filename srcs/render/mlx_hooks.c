@@ -89,6 +89,10 @@ void handler_informator(int key)
 		ft_putstr_fd(" LIGHTS ", STDOUT_FILENO);
 	if (key == K_R)
 		ft_putstr_fd(" ROTATION ", STDOUT_FILENO);
+	if (key == K_N)
+		ft_putstr_fd(" NEAREST OBJECT ", STDOUT_FILENO);
+	if (key == K_O)
+		ft_putstr_fd(" ORBIT ", STDOUT_FILENO);
 }
 
 //TODO: camera and objects rotation
@@ -101,7 +105,7 @@ int	keys_handler(int key, t_mrt *mrt)
 		return (change_camera(mrt));
 	if (mrt->key_press == 0)
 		mrt->behaviour = 0;
-	if (mrt->key_press == 2 || key == K_Q)
+	if (mrt->key_press == 3 || key == K_Q)
 	{
 		ft_putstr_fd(" BEHAVIOUR RESET TO 0\n", STDOUT_FILENO);
 		mrt->key_press = 0;
@@ -109,8 +113,9 @@ int	keys_handler(int key, t_mrt *mrt)
 	}
 	mrt->behaviour += key;
 	mrt->key_press++;
+	printf("%d beha %d press %d key\n", mrt->behaviour, mrt->key_press, key);
 	handler_informator(key);
-	if (mrt->key_press == 2)
+	if (mrt->key_press == 3)
 	{
 		ft_putstr_fd("\n", STDOUT_FILENO);
 		mrt->key_press = 0;

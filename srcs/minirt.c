@@ -111,7 +111,7 @@ int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 {
 	t_hook	changes;
 
-	if (mrt->behaviour == 0 || mrt->key_press < 2 || mrt->behaviour > 256)
+	if (mrt->behaviour == 0 || mrt->behaviour > 256)
 		return (FALSE);
 	changes = mrt->hooks[mrt->behaviour];
 	if (changes)
@@ -121,18 +121,21 @@ int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 
 void load_hooks_fnc(t_mrt *mrt)
 {
-	mrt->hooks[44] = &cylinder_y_translation;
+	mrt->hooks[41] = &cylinder_y_translation;
 	mrt->hooks[32] = &cylinder_x_translation;
 	mrt->hooks[31] = &cylinder_z_translation;
 	mrt->hooks[46] = &cylinder_diam;
 	mrt->hooks[48] = &cylinder_height;
-	mrt->hooks[151] = &sphere_y_translation;
+	mrt->hooks[148] = &sphere_y_translation;
 	mrt->hooks[139] = &sphere_x_translation;
-	mrt->hooks[148] = &sphere_z_translation;
+	mrt->hooks[138] = &sphere_z_translation;
 	mrt->hooks[153] = &sphere_diam;
-	mrt->hooks[78] = &camera_closest_y;
+	mrt->hooks[75] = &camera_closest_y;
 	mrt->hooks[66] = &camera_closest_x;
 	mrt->hooks[65] = &camera_closest_z;
+	mrt->hooks[58] = &camera_orbit_y;
+	mrt->hooks[61] = &camera_orbit_x;
+	mrt->hooks[51] = &camera_orbit_z;
 }
 
 int main(int argc, char const *argv[])

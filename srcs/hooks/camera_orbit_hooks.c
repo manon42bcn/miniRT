@@ -24,11 +24,10 @@ void	camera_orbit_y(t_mrt *mrt, int x, int y, int mouse_code)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
-	mrt->cmr->position.x = mrt->cmr->close_obj->position.x + rad * cos(angle);
-	mrt->cmr->position.y = mrt->cmr->close_obj->position.y;
-	mrt->cmr->position.z = mrt->cmr->close_obj->position.z + rad * sin(angle);
+	mrt->cmr->position.x = rad * cos(angle);
+	mrt->cmr->position.z = rad * sin(angle);
 	mrt->cmr->dir = ft_normal_v3d(
-			ft_minus_v3d(mrt->cmr->close_obj->position, mrt->cmr->position));
+			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;
 }
 
@@ -44,11 +43,10 @@ void	camera_orbit_x(t_mrt *mrt, int x, int y, int mouse_code)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
-	mrt->cmr->position.x = mrt->cmr->close_obj->position.x;
-	mrt->cmr->position.y = mrt->cmr->close_obj->position.y + rad * cos(angle);
-	mrt->cmr->position.z = mrt->cmr->close_obj->position.z + rad * sin(angle);
+	mrt->cmr->position.y = rad * cos(angle);
+	mrt->cmr->position.z = rad * sin(angle);
 	mrt->cmr->dir = ft_normal_v3d(
-			ft_minus_v3d(mrt->cmr->close_obj->position, mrt->cmr->position));
+			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;
 }
 
@@ -64,10 +62,9 @@ void	camera_orbit_z(t_mrt *mrt, int x, int y, int mouse_code)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
-	mrt->cmr->position.x = mrt->cmr->close_obj->position.x + rad * cos(angle);
-	mrt->cmr->position.y = mrt->cmr->close_obj->position.y + rad * sin(angle);
-	mrt->cmr->position.z = mrt->cmr->close_obj->position.z;
+	mrt->cmr->position.x = rad * cos(angle);
+	mrt->cmr->position.y = rad * sin(angle);
 	mrt->cmr->dir = ft_normal_v3d(
-			ft_minus_v3d(mrt->cmr->close_obj->position, mrt->cmr->position));
+			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;
 }
