@@ -41,6 +41,7 @@ SRCS_FILES		= 	intersections/intersections.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \
 					hooks/camera_hooks.c \
+					hooks/camera_orbit_hooks.c \
 					hooks/cylinder_hooks.c \
 					hooks/main_hooks.c \
 					hooks/mouse_handler.c \

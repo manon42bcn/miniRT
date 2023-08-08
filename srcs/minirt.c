@@ -51,15 +51,7 @@ void	close_to_cam(t_mrt *mrt)
 	node = mrt->cmr;
 	while (node)
 	{
-		printf("%p previous pointer\n", node->close_obj);
 		node->close_obj = closer_object(node, mrt->obj);
-		printf("%p post check pointer\n", node->close_obj);
-		node->orbit = sqrt(node->position.x * node->position.x
-						   + node->position.y * node->position.y
-						   + node->position.z * node->position.z);
-		printf("%f why??\n", node->position.x * node->position.x
-							 + node->position.y * node->position.y
-							 + node->position.z * node->position.z);
 		node = node->next;
 	}
 }
@@ -115,21 +107,6 @@ void print_all_mrt(const t_mrt *mrt)
 //	return (p);
 //}
 
-t_v3d rotateY(t_v3d v, double theta) {
-	double cosTheta = cos(theta);
-	double sinTheta = sin(theta);
-	return (t_v3d){
-			cosTheta * v.x + sinTheta * v.z,
-			v.y,
-			-sinTheta * v.x + cosTheta * v.z
-	};
-}
-
-
-// Implementar:
-// primero key y luego mouse, para rotar camara...
-// rotar sobre objeto o sobre el centro del los ejes cartesianos...
-
 int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 {
 	t_hook	changes;
@@ -144,18 +121,18 @@ int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 
 void load_hooks_fnc(t_mrt *mrt)
 {
-	mrt->hooks[31] = &cylinder_y_translation;
+	mrt->hooks[44] = &cylinder_y_translation;
 	mrt->hooks[32] = &cylinder_x_translation;
-	mrt->hooks[41] = &cylinder_z_translation;
+	mrt->hooks[31] = &cylinder_z_translation;
 	mrt->hooks[46] = &cylinder_diam;
 	mrt->hooks[48] = &cylinder_height;
-	mrt->hooks[138] = &sphere_y_translation;
+	mrt->hooks[151] = &sphere_y_translation;
 	mrt->hooks[139] = &sphere_x_translation;
 	mrt->hooks[148] = &sphere_z_translation;
 	mrt->hooks[153] = &sphere_diam;
-	mrt->hooks[117] = &camera_closest_y;
-	mrt->hooks[118] = &camera_closest_x;
-	mrt->hooks[148] = &camera_closest_z;
+	mrt->hooks[78] = &camera_closest_y;
+	mrt->hooks[66] = &camera_closest_x;
+	mrt->hooks[65] = &camera_closest_z;
 }
 
 int main(int argc, char const *argv[])

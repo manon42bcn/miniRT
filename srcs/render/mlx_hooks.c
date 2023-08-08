@@ -60,6 +60,7 @@ static inline int	change_camera(t_mrt *mrt)
 
 void handler_informator(int key)
 {
+	(void)key;
 	if (key == K_S)
 		ft_putstr_fd(" Sphere ", STDOUT_FILENO);
 	if (key == K_C)
@@ -93,7 +94,7 @@ void handler_informator(int key)
 //TODO: camera and objects rotation
 int	keys_handler(int key, t_mrt *mrt)
 {
-	printf("%d key\n", key);
+//	printf("%d key\n", key);
 	if (key == K_ESC)
 		exit(clear_all(mrt, 0, &mlx_clear_window, &mlx_destroy_image));
 	if (key == K_SPACE)
