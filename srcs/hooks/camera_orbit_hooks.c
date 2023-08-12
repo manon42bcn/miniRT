@@ -15,17 +15,15 @@
 void	camera_orbit_y(t_mrt *mrt, int x, int y, int mouse_code)
 {
 	static double	angle = 0;
-	double			rad;
 
 	(void)x;
 	(void)y;
-	rad = 25;
 	if (mouse_code == RIGHT_CLICK)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
-	mrt->cmr->position.x = rad * cos(angle);
-	mrt->cmr->position.z = rad * sin(angle);
+	mrt->cmr->position.x = mrt->cmr->orbit * cos(angle);
+	mrt->cmr->position.z = mrt->cmr->orbit * sin(angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;
@@ -34,17 +32,15 @@ void	camera_orbit_y(t_mrt *mrt, int x, int y, int mouse_code)
 void	camera_orbit_x(t_mrt *mrt, int x, int y, int mouse_code)
 {
 	static double	angle = 0;
-	double			rad;
 
 	(void)x;
 	(void)y;
-	rad = 25;
 	if (mouse_code == RIGHT_CLICK)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
-	mrt->cmr->position.y = rad * cos(angle);
-	mrt->cmr->position.z = rad * sin(angle);
+	mrt->cmr->position.y = mrt->cmr->orbit * cos(angle);
+	mrt->cmr->position.z = mrt->cmr->orbit * sin(angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;
@@ -53,17 +49,15 @@ void	camera_orbit_x(t_mrt *mrt, int x, int y, int mouse_code)
 void	camera_orbit_z(t_mrt *mrt, int x, int y, int mouse_code)
 {
 	static double	angle = 0;
-	double			rad;
 
 	(void)x;
 	(void)y;
-	rad = 25;
 	if (mouse_code == RIGHT_CLICK)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
-	mrt->cmr->position.x = rad * cos(angle);
-	mrt->cmr->position.y = rad * sin(angle);
+	mrt->cmr->position.x = mrt->cmr->orbit * cos(angle);
+	mrt->cmr->position.y = mrt->cmr->orbit * sin(angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;

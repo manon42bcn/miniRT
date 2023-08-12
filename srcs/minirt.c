@@ -52,6 +52,7 @@ void	close_to_cam(t_mrt *mrt)
 	while (node)
 	{
 		node->close_obj = closer_object(node, mrt->obj);
+		node->orbit = ft_distance_v3d(node->position, node->close_obj->position);
 		node = node->next;
 	}
 }
@@ -111,6 +112,7 @@ int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 {
 	t_hook	changes;
 
+	printf("%d behave mouse\n", mrt->behaviour);
 	if (mrt->behaviour == 0 || mrt->behaviour > 256)
 		return (FALSE);
 	changes = mrt->hooks[mrt->behaviour];
@@ -136,6 +138,9 @@ void load_hooks_fnc(t_mrt *mrt)
 	mrt->hooks[58] = &camera_orbit_y;
 	mrt->hooks[61] = &camera_orbit_x;
 	mrt->hooks[51] = &camera_orbit_z;
+	mrt->hooks[39] = &cylinder_rotation_y;
+	mrt->hooks[30] = &cylinder_rotation_x;
+	mrt->hooks[29] = &cylinder_rotation_z;
 }
 
 int main(int argc, char const *argv[])

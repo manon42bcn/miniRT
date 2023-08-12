@@ -49,6 +49,7 @@ typedef struct		s_inter
 }					t_inter;
 
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
+void	printingv3d(t_v3d *vector, char *msg);
 //hooks
 int				mouse_handler(int mouse_code, int x, int y, t_mrt *mrt);
 void			cylinder_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
@@ -66,6 +67,9 @@ void			camera_closest_z(t_mrt *mrt, int x, int y, int mouse_code);
 void			camera_orbit_x(t_mrt *mrt, int x, int y, int mouse_code);
 void			camera_orbit_y(t_mrt *mrt, int x, int y, int mouse_code);
 void			camera_orbit_z(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_rotation_x(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_rotation_y(t_mrt *mrt, int x, int y, int mouse_code);
+void			cylinder_rotation_z(t_mrt *mrt, int x, int y, int mouse_code);
 //intersections
 t_solver		get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);

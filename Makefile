@@ -43,6 +43,7 @@ SRCS_FILES		= 	intersections/intersections.c \
 					hooks/camera_hooks.c \
 					hooks/camera_orbit_hooks.c \
 					hooks/cylinder_hooks.c \
+					hooks/cylinder_rotation_hooks.c \
 					hooks/main_hooks.c \
 					hooks/mouse_handler.c \
 					hooks/sphere_hooks.c \
