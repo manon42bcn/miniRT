@@ -1,9 +1,10 @@
 * [x] Terminar de separar la funcionalidad mandatory y bonus.
   * funcionalidad controlada desde el parseo. Las funciones necesarias para lidiar con bonus, también están conidiconadas en el código.
-* [ ] Terminar de implementar traslaciones y rotaciones.
+* [x] Terminar de implementar traslaciones y rotaciones.
 * [ ] Refactor hooks.
+  * Pensar en pasar el mouse handler a la tecla space - intro (evitar el click doble y poder hacer transformaciones libres)
 * [ ] Instrucciones para opción --help
-* [ ] Revisar el chequeo de datos antes de hacer el parseo
+* [x] Revisar el chequeo de datos antes de hacer el parseo
 * [ ] Decidir que hacer con los malos datos llegados a atoi o atof
 * [x] Decidir que hacer en caso de errores, exit directamente o limpiar en casos de error
 * [ ] Igual que antes, pero en los errores de ejecución
