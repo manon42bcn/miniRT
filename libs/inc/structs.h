@@ -52,6 +52,7 @@ typedef struct s_light
 	t_v3d			origin;
 	double			bright;
 	t_rgb			color;
+	double			angle;
 	struct s_light	*next;
 }					t_light;
 

@@ -141,6 +141,9 @@ void load_hooks_fnc(t_mrt *mrt)
 	mrt->hooks[39] = &cylinder_rotation_y;
 	mrt->hooks[30] = &cylinder_rotation_x;
 	mrt->hooks[29] = &cylinder_rotation_z;
+	mrt->hooks[68] = &light_rotation_x;
+	mrt->hooks[59] = &light_rotation_x;
+	mrt->hooks[58] = &light_rotation_x;
 }
 
 int main(int argc, char const *argv[])

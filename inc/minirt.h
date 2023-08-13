@@ -70,6 +70,9 @@ void			camera_orbit_z(t_mrt *mrt, int x, int y, int mouse_code);
 void			cylinder_rotation_x(t_mrt *mrt, int x, int y, int mouse_code);
 void			cylinder_rotation_y(t_mrt *mrt, int x, int y, int mouse_code);
 void			cylinder_rotation_z(t_mrt *mrt, int x, int y, int mouse_code);
+void			light_rotation_x(t_mrt *mrt, int x, int y, int mouse_code);
+void			light_rotation_y(t_mrt *mrt, int x, int y, int mouse_code);
+void			light_rotation_z(t_mrt *mrt, int x, int y, int mouse_code);
 //intersections
 t_solver		get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
