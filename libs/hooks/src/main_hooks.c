@@ -12,7 +12,7 @@
 
 #include "hooks.h"
 
-void load_hooks(t_mrt *mrt)
+void	load_hooks(t_mrt *mrt)
 {
 	mrt->hooks[41] = &cylinder_y_translation;
 	mrt->hooks[32] = &cylinder_x_translation;
@@ -35,4 +35,9 @@ void load_hooks(t_mrt *mrt)
 	mrt->hooks[68] = &light_rotation_y;
 	mrt->hooks[59] = &light_rotation_x;
 	mrt->hooks[58] = &light_rotation_z;
+}
+
+int	window_handler(t_mrt *mrt)
+{
+	exit(clear_all(mrt, 0, mrt->clean_window, mrt->clean_image));
 }

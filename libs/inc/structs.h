@@ -22,6 +22,7 @@ typedef void			(*t_hook)(t_mrt *, int, int, int);
 # define RIGHT_CLICK 1
 # define LEFT_CLICK 2
 # define RAD_ANGLE 0.17453
+
 enum e_fig
 {
 	CLOSE_OBJ=-1,
@@ -116,6 +117,8 @@ typedef struct s_mrt
 	char		**tab;
 	int			fd;
 	t_bool		bonus;
+	int			(*clean_window)(void *, void *);
+	int			(*clean_image)(void *, void *);
 }					t_mrt;
 
 typedef struct		s_sq

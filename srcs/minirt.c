@@ -77,6 +77,8 @@ static inline void	parse_fix(t_mrt *mrt)
 	}
 	close_to_cam(mrt);
 	mrt->main_cam = mrt->cmr;
+	mrt->clean_window = &mlx_clear_window;
+	mrt->clean_image = &mlx_destroy_image;
 	mrt->window = FALSE;
 }
 
@@ -107,21 +109,6 @@ void print_all_mrt(const t_mrt *mrt)
 //	p.z = mrt->cmr->position.z;
 //	return (p);
 //}
-
-int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
-{
-	t_hook	changes;
-
-	printf("%d behave mouse\n", mrt->behaviour);
-	if (mrt->behaviour == 0 || mrt->behaviour > 256)
-		return (FALSE);
-	changes = mrt->hooks[mrt->behaviour];
-	if (changes)
-		changes(mrt, mouseX, mouseY, mouse_code);
-	return (TRUE);
-}
-
-
 
 int main(int argc, char const *argv[])
 {

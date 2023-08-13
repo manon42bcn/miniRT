@@ -12,7 +12,6 @@
 
 #include "hooks.h"
 
-
 void	sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
 {
 	t_obj	*node;
@@ -78,7 +77,6 @@ void	sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
 		node = node->next;
 	}
 }
-
 
 void	sphere_diam(t_mrt *mrt, int x, int y, int mouse_code)
 {

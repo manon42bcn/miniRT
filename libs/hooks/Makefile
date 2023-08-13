@@ -15,8 +15,10 @@ SRCS		=	camera_hooks.c \
 				camera_orbit_hooks.c \
 				cylinder_hooks.c \
 				cylinder_rotation_hooks.c \
+				keys_handler.c \
 				light_rotation_hooks.c \
 				main_hooks.c \
+				mouse_handler.c \
 				sphere_hooks.c
 SRCS_DIR	=	src
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
@@ -26,6 +28,7 @@ RM			=	@rm -rf
 CFLAGS 		=	-Wall -Wextra -Werror -Iinc
 NAME		=	libhooks.a
 HEADER		=	inc/hooks.h \
+				../parser/inc/parse.h \
 				../inc/objects.h \
                 ../inc/structs.h
 OBJS_DIR	=	obj
