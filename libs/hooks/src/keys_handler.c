@@ -12,38 +12,40 @@
 
 #include "hooks.h"
 
+static inline void	axis_informator(int key)
+{
+	if (key == K_X)
+		ft_putstr_fd("[X axis]", STDOUT_FILENO);
+	if (key == K_Y)
+		ft_putstr_fd("[Y axis]", STDOUT_FILENO);
+	if (key == K_Z)
+		ft_putstr_fd("[Z axis]", STDOUT_FILENO);
+}
+
 static inline void	handler_informator(int key)
 {
 	if (key == K_S)
-		ft_putstr_fd(" Sphere ", STDOUT_FILENO);
-	if (key == K_C)
-		ft_putstr_fd(" Cylinder ", STDOUT_FILENO);
-	if (key == K_E)
-		ft_putstr_fd(" Camera ", STDOUT_FILENO);
-	if (key == K_D)
-		ft_putstr_fd(" Radius ", STDOUT_FILENO);
-	if (key == K_H)
-		ft_putstr_fd(" Height", STDOUT_FILENO);
-	if (key == K_T)
-		ft_putstr_fd(" Translate ", STDOUT_FILENO);
-	if (key == K_X)
-		ft_putstr_fd(" X axis ", STDOUT_FILENO);
-	if (key == K_Y)
-		ft_putstr_fd(" Y axis ", STDOUT_FILENO);
-	if (key == K_Z)
-		ft_putstr_fd(" Z axis ", STDOUT_FILENO);
-	if (key == K_O)
-		ft_putstr_fd(" Orbit ", STDOUT_FILENO);
-	if (key == K_A)
-		ft_putstr_fd(" AROUND CLOSED ", STDOUT_FILENO);
-	if (key == K_ENTER)
-		ft_putstr_fd(" INTRO ", STDOUT_FILENO);
-	if (key == K_L)
-		ft_putstr_fd(" LIGHTS ", STDOUT_FILENO);
-	if (key == K_R)
-		ft_putstr_fd(" ROTATION ", STDOUT_FILENO);
-	if (key == K_N)
-		ft_putstr_fd(" NEAREST OBJECT ", STDOUT_FILENO);
+		ft_putstr_fd("[Sphere]", STDOUT_FILENO);
+	else if (key == K_C)
+		ft_putstr_fd("[Cylinder]", STDOUT_FILENO);
+	else if (key == K_E)
+		ft_putstr_fd("[Camera]", STDOUT_FILENO);
+	else if (key == K_D)
+		ft_putstr_fd("[Radius]", STDOUT_FILENO);
+	else if (key == K_H)
+		ft_putstr_fd("[Height", STDOUT_FILENO);
+	else if (key == K_T)
+		ft_putstr_fd("[Translate]", STDOUT_FILENO);
+	else if (key == K_X || key == K_Y || key == K_Z)
+		axis_informator(key);
+	else if (key == K_O)
+		ft_putstr_fd("[Orbit]", STDOUT_FILENO);
+	else if (key == K_L)
+		ft_putstr_fd("[Lights]", STDOUT_FILENO);
+	else if (key == K_R)
+		ft_putstr_fd("[Rotation]", STDOUT_FILENO);
+	else if (key == K_N)
+		ft_putstr_fd("[Nearest Object]", STDOUT_FILENO);
 }
 
 static inline int	change_camera(t_mrt *mrt)
@@ -66,7 +68,7 @@ int	keys_handler(int key, t_mrt *mrt)
 		return (change_camera(mrt));
 	if (key == K_Q)
 	{
-		ft_putstr_fd(" BEHAVIOUR RESET TO 0\n", STDOUT_FILENO);
+		ft_putstr_fd("[-BEHAVIOUR RESET-]\n", STDOUT_FILENO);
 		mrt->key_press = 0;
 		mrt->behaviour = 0;
 		return (FALSE);
