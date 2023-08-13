@@ -21,8 +21,8 @@ SRCS		=	camera_hooks.c \
 				mouse_handler.c \
 				sphere_hooks.c
 SRCS_DIR	=	src
+OBJS_DIR	=	obj
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
-OBJS_SUBS	= 	obj
 CC			=	gcc
 RM			=	@rm -rf
 CFLAGS 		=	-Wall -Wextra -Werror -Iinc
@@ -31,18 +31,17 @@ HEADER		=	inc/hooks.h \
 				../parser/inc/parse.h \
 				../inc/objects.h \
                 ../inc/structs.h
-OBJS_DIR	=	obj
 
 all: $(NAME) $(HEADER)
 
-$(NAME): $(OBJS_SUBS) $(OBJS)
+$(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJS_SUBS):
-	-@mkdir $(OBJS_SUBS)
+$(OBJS_DIR):
+	-@mkdir $(OBJS_DIR)
 
 bonus: CFLAGS += -DBONUS
 bonus: fclean all
@@ -52,7 +51,7 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) $(OBJS_SUBS)
+	$(RM) $(OBJS_DIR)
 
 re:	fclean $(NAME)
 

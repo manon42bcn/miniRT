@@ -51,7 +51,6 @@ CFLAGS			=	-Wall -Wextra -Werror
 INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(LIB_PARSER)/$(HEAD_DIR) -I$(LIB_SOLVER)/$(HEAD_DIR) -I$(LIB_HOOKS)/$(HEAD_DIR) -I$(HEAD_DIR)
 LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -L./libs/solvers -lsolvers -L./libs/hooks -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
-#CFLAGS += -fsanitize=address
 
 all: $(OBJ_SUBS) library $(NAME)
 
@@ -101,8 +100,6 @@ memory: $(OBJ_SUBS) $(OBJS) $(HEAD_FILES)
 bonus: fclean
 	$(MAKE) LIB_DET=bonus library
 	$(MAKE) CFLAGS+=-DBONUS
-
-
 
 re:	fclean all
 
