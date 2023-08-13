@@ -20,6 +20,7 @@
 # include "rgb.h"
 # include "v3d.h"
 # include "parse.h"
+# include "hooks.h"
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
@@ -51,28 +52,28 @@ typedef struct		s_inter
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 void	printingv3d(t_v3d *vector, char *msg);
 //hooks
-int				mouse_handler(int mouse_code, int x, int y, t_mrt *mrt);
-void			cylinder_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
-void			cylinder_y_translation(t_mrt *mrt, int x, int y, int mouse_code);
-void			cylinder_z_translation(t_mrt *mrt, int x, int y, int mouse_code);
-void			cylinder_diam(t_mrt *mrt, int x, int y, int mouse_code);
-void			cylinder_height(t_mrt *mrt, int x, int y, int mouse_code);
-void			sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
-void			sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code);
-void			sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code);
-void			sphere_diam(t_mrt *mrt, int x, int y, int mouse_code);
-void			camera_closest_x(t_mrt *mrt, int x, int y, int mouse_code);
-void			camera_closest_y(t_mrt *mrt, int x, int y, int mouse_code);
-void			camera_closest_z(t_mrt *mrt, int x, int y, int mouse_code);
-void			camera_orbit_x(t_mrt *mrt, int x, int y, int mouse_code);
-void			camera_orbit_y(t_mrt *mrt, int x, int y, int mouse_code);
-void			camera_orbit_z(t_mrt *mrt, int x, int y, int mouse_code);
-void			cylinder_rotation_x(t_mrt *mrt, int x, int y, int mouse_code);
-void			cylinder_rotation_y(t_mrt *mrt, int x, int y, int mouse_code);
-void			cylinder_rotation_z(t_mrt *mrt, int x, int y, int mouse_code);
-void			light_rotation_x(t_mrt *mrt, int x, int y, int mouse_code);
-void			light_rotation_y(t_mrt *mrt, int x, int y, int mouse_code);
-void			light_rotation_z(t_mrt *mrt, int x, int y, int mouse_code);
+//int				mouse_handler(int mouse_code, int x, int y, t_mrt *mrt);
+//void			cylinder_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
+//void			cylinder_y_translation(t_mrt *mrt, int x, int y, int mouse_code);
+//void			cylinder_z_translation(t_mrt *mrt, int x, int y, int mouse_code);
+//void			cylinder_diam(t_mrt *mrt, int x, int y, int mouse_code);
+//void			cylinder_height(t_mrt *mrt, int x, int y, int mouse_code);
+//void			sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code);
+//void			sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code);
+//void			sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code);
+//void			sphere_diam(t_mrt *mrt, int x, int y, int mouse_code);
+//void			camera_closest_x(t_mrt *mrt, int x, int y, int mouse_code);
+//void			camera_closest_y(t_mrt *mrt, int x, int y, int mouse_code);
+//void			camera_closest_z(t_mrt *mrt, int x, int y, int mouse_code);
+//void			camera_orbit_x(t_mrt *mrt, int x, int y, int mouse_code);
+//void			camera_orbit_y(t_mrt *mrt, int x, int y, int mouse_code);
+//void			camera_orbit_z(t_mrt *mrt, int x, int y, int mouse_code);
+//void			cylinder_rotation_x(t_mrt *mrt, int x, int y, int mouse_code);
+//void			cylinder_rotation_y(t_mrt *mrt, int x, int y, int mouse_code);
+//void			cylinder_rotation_z(t_mrt *mrt, int x, int y, int mouse_code);
+//void			light_rotation_x(t_mrt *mrt, int x, int y, int mouse_code);
+//void			light_rotation_y(t_mrt *mrt, int x, int y, int mouse_code);
+//void			light_rotation_z(t_mrt *mrt, int x, int y, int mouse_code);
 //intersections
 t_solver		get_solver(int index);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);

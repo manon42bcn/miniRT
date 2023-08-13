@@ -29,6 +29,7 @@ LIB_V3D			= 	$(LIBS_DIR)/v3d
 LIB_RGB			=	$(LIBS_DIR)/rgb
 LIB_PARSER		=	$(LIBS_DIR)/parser
 LIB_SOLVER		=	$(LIBS_DIR)/solvers
+LIB_HOOKS		=	$(LIBS_DIR)/hooks
 LIB_MLX			= 	mlx
 SRCS_FILES		= 	intersections/intersections.c \
 					light/light.c \
@@ -40,14 +41,6 @@ SRCS_FILES		= 	intersections/intersections.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \
-					hooks/camera_hooks.c \
-					hooks/camera_orbit_hooks.c \
-					hooks/cylinder_hooks.c \
-					hooks/cylinder_rotation_hooks.c \
-					hooks/light_rotation_hooks.c \
-					hooks/main_hooks.c \
-					hooks/mouse_handler.c \
-					hooks/sphere_hooks.c \
 					minirt.c
 HEAD_FILES		=	inc/minirt.h \
 					inc/ggl_mlx_define.h \
@@ -55,8 +48,8 @@ HEAD_FILES		=	inc/minirt.h \
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
 CFLAGS			=	-Wall -Wextra -Werror
-INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(LIB_PARSER)/$(HEAD_DIR) -I$(LIB_SOLVER)/$(HEAD_DIR) -I$(HEAD_DIR)
-LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -L./libs/solvers -lsolvers -Lmlx -lmlx -framework OpenGL -framework AppKit
+INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(LIB_PARSER)/$(HEAD_DIR) -I$(LIB_SOLVER)/$(HEAD_DIR) -I$(LIB_HOOKS)/$(HEAD_DIR) -I$(HEAD_DIR)
+LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -L./libs/solvers -lsolvers -L./libs/hooks -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 #CFLAGS += -fsanitize=address
 
@@ -71,6 +64,7 @@ library:
 	$(MAKE) -C $(LIB_RGB) $(LIB_DET)
 	$(MAKE) -C $(LIB_PARSER) $(LIB_DET)
 	$(MAKE) -C $(LIB_SOLVER) $(LIB_DET)
+	$(MAKE) -C $(LIB_HOOKS) $(LIB_DET)
 	# $(MAKE) -C $(LIB_MLX)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -85,6 +79,7 @@ clean:
 	$(MAKE) -C $(LIB_RGB) clean
 	$(MAKE) -C $(LIB_PARSER) clean
 	$(MAKE) -C $(LIB_SOLVER) clean
+	$(MAKE) -C $(LIB_HOOKS) clean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(MLX)
 	$(RM) $(OBJS)
@@ -95,6 +90,7 @@ fclean: clean
 	$(MAKE) -C $(LIB_RGB) fclean
 	$(MAKE) -C $(LIB_PARSER) fclean
 	$(MAKE) -C $(LIB_SOLVER) fclean
+	$(MAKE) -C $(LIB_HOOKS) fclean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(NAME)
 	$(RM) $(OBJ_SUBS)

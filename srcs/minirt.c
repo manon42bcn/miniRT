@@ -121,30 +121,7 @@ int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
 	return (TRUE);
 }
 
-void load_hooks_fnc(t_mrt *mrt)
-{
-	mrt->hooks[41] = &cylinder_y_translation;
-	mrt->hooks[32] = &cylinder_x_translation;
-	mrt->hooks[31] = &cylinder_z_translation;
-	mrt->hooks[46] = &cylinder_diam;
-	mrt->hooks[48] = &cylinder_height;
-	mrt->hooks[148] = &sphere_y_translation;
-	mrt->hooks[139] = &sphere_x_translation;
-	mrt->hooks[138] = &sphere_z_translation;
-	mrt->hooks[153] = &sphere_diam;
-	mrt->hooks[75] = &camera_closest_y;
-	mrt->hooks[66] = &camera_closest_x;
-	mrt->hooks[65] = &camera_closest_z;
-	mrt->hooks[58] = &camera_orbit_y;
-	mrt->hooks[61] = &camera_orbit_x;
-	mrt->hooks[51] = &camera_orbit_z;
-	mrt->hooks[39] = &cylinder_rotation_y;
-	mrt->hooks[30] = &cylinder_rotation_x;
-	mrt->hooks[29] = &cylinder_rotation_z;
-	mrt->hooks[68] = &light_rotation_x;
-	mrt->hooks[59] = &light_rotation_x;
-	mrt->hooks[58] = &light_rotation_x;
-}
+
 
 int main(int argc, char const *argv[])
 {
@@ -156,7 +133,7 @@ int main(int argc, char const *argv[])
 		msg_error_exit("invalid argument\n");
 	mrt = readfile_parser(argv[1]);
 	parse_fix(mrt);
-	load_hooks_fnc(mrt);
+	load_hooks(mrt);
 	mrt->mlx = mlx_init();
 	mlx_starter(mrt);
 	print_all_mrt(mrt);

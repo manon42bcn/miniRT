@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "hooks.h"
 
 
 void	light_rotation_x(t_mrt *mrt, int x, int y, int mouse_code)

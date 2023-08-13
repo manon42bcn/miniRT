@@ -103,22 +103,19 @@ int	keys_handler(int key, t_mrt *mrt)
 		exit(clear_all(mrt, 0, &mlx_clear_window, &mlx_destroy_image));
 	if (key == K_SPACE)
 		return (change_camera(mrt));
-	if (mrt->key_press == 0)
-		mrt->behaviour = 0;
-	if (mrt->key_press == 3 || key == K_Q)
+	if (key == K_Q)
 	{
 		ft_putstr_fd(" BEHAVIOUR RESET TO 0\n", STDOUT_FILENO);
 		mrt->key_press = 0;
+		mrt->behaviour = 0;
 		return (FALSE);
 	}
+	if (mrt->key_press == 3)
+		return (FALSE);
 	mrt->behaviour += key;
 	mrt->key_press++;
-	printf("%d beha %d press %d key\n", mrt->behaviour, mrt->key_press, key);
 	handler_informator(key);
 	if (mrt->key_press == 3)
-	{
 		ft_putstr_fd("\n", STDOUT_FILENO);
-		mrt->key_press = 0;
-	}
 	return (TRUE);
 }
