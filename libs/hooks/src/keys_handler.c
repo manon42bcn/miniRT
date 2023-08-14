@@ -57,6 +57,9 @@ static inline int	action_handler(t_mrt *mrt, int key)
 	changes = mrt->hooks[mrt->behaviour];
 	if (changes)
 		changes(mrt, key);
+	else
+		ft_putstr_fd("[Wrong Key combination - press Q to reset]\n",
+			STDOUT_FILENO);
 	return (TRUE);
 }
 
