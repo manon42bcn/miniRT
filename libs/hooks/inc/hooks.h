@@ -13,6 +13,7 @@
 #ifndef HOOKS_H
 # define HOOKS_H
 
+# include <math.h>
 # include "../../v3d/inc/v3d.h"
 # include "../../rgb/inc/rgb.h"
 # include "../../lib/inc/libft.h"
@@ -42,7 +43,12 @@
 # define K_ENTER		36
 # define K_ESC			53
 # define K_S			115
+# define K_UP			126
+# define K_DOWN			125
 
+t_v3d	rotate_x(t_v3d old, double angle);
+t_v3d	rotate_y(t_v3d old, double angle);
+t_v3d	rotate_z(t_v3d old, double angle);
 void	load_hooks(t_mrt *mrt);
 int		window_handler(t_mrt *mrt);
 int		mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt);

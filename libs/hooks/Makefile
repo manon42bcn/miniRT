@@ -13,6 +13,7 @@
 
 SRCS		=	camera_hooks.c \
 				camera_orbit_hooks.c \
+				common.c \
 				cylinder_hooks.c \
 				cylinder_rotation_hooks.c \
 				keys_handler.c \

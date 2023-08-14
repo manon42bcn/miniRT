@@ -12,7 +12,7 @@
 
 #include "hooks.h"
 
-void	sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
+void	sphere_y_translation(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -21,9 +21,9 @@ void	sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	(void)y;
 	while (node)
 	{
-		if (node->type == SPHERE && mouse_code == LEFT_CLICK)
+		if (node->type == SPHERE && key_dir == K_DOWN)
 			node->elm.sph.centre.y += 0.1f;
-		if (node->type == SPHERE && mouse_code == RIGHT_CLICK)
+		if (node->type == SPHERE && key_dir == K_UP)
 			node->elm.sph.centre.y -= 0.1f;
 		if (node->type == SPHERE)
 		{
@@ -34,7 +34,7 @@ void	sphere_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	}
 }
 
-void	sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code)
+void	sphere_x_translation(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -43,9 +43,9 @@ void	sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	(void)y;
 	while (node)
 	{
-		if (node->type == SPHERE && mouse_code == LEFT_CLICK)
+		if (node->type == SPHERE && key_dir == K_DOWN)
 			node->elm.sph.centre.x += 0.1f;
-		if (node->type == SPHERE && mouse_code == RIGHT_CLICK)
+		if (node->type == SPHERE && key_dir == K_UP)
 			node->elm.sph.centre.x -= 0.1f;
 		if (node->type == SPHERE)
 		{
@@ -56,7 +56,7 @@ void	sphere_x_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	}
 }
 
-void	sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
+void	sphere_z_translation(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -65,9 +65,9 @@ void	sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	(void)y;
 	while (node)
 	{
-		if (node->type == SPHERE && mouse_code == LEFT_CLICK)
+		if (node->type == SPHERE && key_dir == K_DOWN)
 			node->elm.sph.centre.z += 0.1f;
-		if (node->type == SPHERE && mouse_code == RIGHT_CLICK)
+		if (node->type == SPHERE && key_dir == K_UP)
 			node->elm.sph.centre.z -= 0.1f;
 		if (node->type == SPHERE)
 		{
@@ -78,7 +78,7 @@ void	sphere_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	}
 }
 
-void	sphere_diam(t_mrt *mrt, int x, int y, int mouse_code)
+void	sphere_diam(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -87,9 +87,9 @@ void	sphere_diam(t_mrt *mrt, int x, int y, int mouse_code)
 	node = mrt->obj;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK && node->type == SPHERE)
+		if (key_dir == K_UP && node->type == SPHERE)
 			node->elm.sph.radius *= 1.1f;
-		else if (mouse_code == LEFT_CLICK && node->type == SPHERE
+		else if (key_dir == K_DOWN && node->type == SPHERE
 			&& (node->elm.sph.radius / 1.1f > 0))
 			node->elm.sph.radius /= 1.1f;
 		if (node->type == SPHERE)

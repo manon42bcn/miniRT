@@ -12,13 +12,13 @@
 
 #include "hooks.h"
 
-void	camera_closest_y(t_mrt *mrt, int x, int y, int mouse_code)
+void	camera_closest_y(t_mrt *mrt, int x, int y, int key_dir)
 {
 	static double	angle = 0;
 
 	(void)x;
 	(void)y;
-	if (mouse_code == RIGHT_CLICK)
+	if (key_dir == K_UP)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
@@ -32,13 +32,13 @@ void	camera_closest_y(t_mrt *mrt, int x, int y, int mouse_code)
 	mrt->to_img = TO_RENDER;
 }
 
-void	camera_closest_x(t_mrt *mrt, int x, int y, int mouse_code)
+void	camera_closest_x(t_mrt *mrt, int x, int y, int key_dir)
 {
 	static double	angle = 0;
 
 	(void)x;
 	(void)y;
-	if (mouse_code == RIGHT_CLICK)
+	if (key_dir == K_UP)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;
@@ -52,13 +52,13 @@ void	camera_closest_x(t_mrt *mrt, int x, int y, int mouse_code)
 	mrt->to_img = TO_RENDER;
 }
 
-void	camera_closest_z(t_mrt *mrt, int x, int y, int mouse_code)
+void	camera_closest_z(t_mrt *mrt, int x, int y, int key_dir)
 {
 	static double	angle = 0;
 
 	(void)x;
 	(void)y;
-	if (mouse_code == RIGHT_CLICK)
+	if (key_dir == K_UP)
 		angle += RAD_ANGLE;
 	else
 		angle -= RAD_ANGLE;

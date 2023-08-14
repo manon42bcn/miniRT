@@ -48,6 +48,18 @@ static inline void	handler_informator(int key)
 		ft_putstr_fd("[Nearest Object]", STDOUT_FILENO);
 }
 
+static inline int	action_handler(t_mrt *mrt, int key)
+{
+	t_hook	changes;
+
+	if (mrt->behaviour == 0 || mrt->behaviour > 256)
+		return (FALSE);
+	changes = mrt->hooks[mrt->behaviour];
+	if (changes)
+		changes(mrt, 0, 0, key);
+	return (TRUE);
+}
+
 static inline int	change_camera(t_mrt *mrt)
 {
 	if (mrt->cmr->next == NULL && mrt->cmr == mrt->main_cam)
@@ -66,6 +78,8 @@ int	keys_handler(int key, t_mrt *mrt)
 		exit(clear_all(mrt, 0, mrt->clean_window, mrt->clean_image));
 	if (key == K_SPACE)
 		return (change_camera(mrt));
+	if (key == K_UP || key == K_DOWN)
+		return (action_handler(mrt, key));
 	if (key == K_Q)
 	{
 		ft_putstr_fd("[-BEHAVIOUR RESET-]\n", STDOUT_FILENO);

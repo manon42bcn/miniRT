@@ -12,84 +12,69 @@
 
 #include "hooks.h"
 
-void	cylinder_rotation_x(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_rotation_x(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
-	double	old;
 
 	(void)x;
 	(void)y;
 	node = mrt->obj;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK && node->type == CYLINDER)
+		if (key_dir == K_UP && node->type == CYLINDER)
 			node->angle += RAD_ANGLE;
-		else if (mouse_code == LEFT_CLICK && node->type == CYLINDER)
+		else if (key_dir == K_DOWN && node->type == CYLINDER)
 			node->angle -= RAD_ANGLE;
 		if (node->type == CYLINDER)
 		{
-			old = node->elm.cyl.dir.y;
-			node->elm.cyl.dir.y = old * cos(node->angle)
-				- node->elm.cyl.dir.z * sin(node->angle);
-			node->elm.cyl.dir.z = old * sin(node->angle)
-				+ node->elm.cyl.dir.z * cos(node->angle);
-			node->elm.cyl.dir = ft_normal_v3d(node->elm.cyl.dir);
+			node->elm.cyl.dir = ft_normal_v3d(
+					rotate_x(node->elm.cyl.dir, node->angle));
 			mrt->to_img = TO_RENDER;
 		}
 		node = node->next;
 	}
 }
 
-void	cylinder_rotation_y(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_rotation_y(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
-	double	old;
 
 	(void)x;
 	(void)y;
 	node = mrt->obj;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK && node->type == CYLINDER)
+		if (key_dir == K_UP && node->type == CYLINDER)
 			node->angle += RAD_ANGLE;
-		else if (mouse_code == LEFT_CLICK && node->type == CYLINDER)
+		else if (key_dir == K_DOWN && node->type == CYLINDER)
 			node->angle -= RAD_ANGLE;
 		if (node->type == CYLINDER)
 		{
-			old = node->elm.cyl.dir.x;
-			node->elm.cyl.dir.x = old * cos(node->angle)
-				+ node->elm.cyl.dir.z * sin(node->angle);
-			node->elm.cyl.dir.z = -old * sin(node->angle)
-				+ node->elm.cyl.dir.z * cos(node->angle);
-			node->elm.cyl.dir = ft_normal_v3d(node->elm.cyl.dir);
+			node->elm.cyl.dir = ft_normal_v3d(
+					rotate_y(node->elm.cyl.dir, node->angle));
 			mrt->to_img = TO_RENDER;
 		}
 		node = node->next;
 	}
 }
 
-void	cylinder_rotation_z(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_rotation_z(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
-	double	old;
 
 	(void)x;
 	(void)y;
 	node = mrt->obj;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK && node->type == CYLINDER)
+		if (key_dir == K_UP && node->type == CYLINDER)
 			node->angle += RAD_ANGLE;
-		else if (mouse_code == LEFT_CLICK && node->type == CYLINDER)
+		else if (key_dir == K_DOWN && node->type == CYLINDER)
 			node->angle -= RAD_ANGLE;
 		if (node->type == CYLINDER)
 		{
-			old = node->elm.cyl.dir.x;
-			node->elm.cyl.dir.x = old * cos(node->angle)
-				- node->elm.cyl.dir.y * sin(node->angle);
-			node->elm.cyl.dir.y = old * sin(node->angle)
-				+ node->elm.cyl.dir.y * cos(node->angle);
-			node->elm.cyl.dir = ft_normal_v3d(node->elm.cyl.dir);
+			node->elm.cyl.dir = ft_normal_v3d(
+					rotate_z(node->elm.cyl.dir, node->angle));
 			mrt->to_img = TO_RENDER;
 		}
 		node = node->next;

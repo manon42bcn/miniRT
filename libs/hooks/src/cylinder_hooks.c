@@ -12,7 +12,7 @@
 
 #include "hooks.h"
 
-void	cylinder_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_y_translation(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -21,9 +21,9 @@ void	cylinder_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	(void)y;
 	while (node)
 	{
-		if (node->type == CYLINDER && mouse_code == LEFT_CLICK)
+		if (node->type == CYLINDER && key_dir == K_DOWN)
 			node->elm.cyl.centre.y += 0.1f;
-		if (node->type == CYLINDER && mouse_code == RIGHT_CLICK)
+		if (node->type == CYLINDER && key_dir == K_UP)
 			node->elm.cyl.centre.y -= 0.1f;
 		if (node->type == CYLINDER)
 		{
@@ -34,7 +34,7 @@ void	cylinder_y_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	}
 }
 
-void	cylinder_x_translation(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_x_translation(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -43,9 +43,9 @@ void	cylinder_x_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	(void)y;
 	while (node)
 	{
-		if (node->type == CYLINDER && mouse_code == LEFT_CLICK)
+		if (node->type == CYLINDER && key_dir == K_DOWN)
 			node->elm.cyl.centre.x += 0.1f;
-		if (node->type == CYLINDER && mouse_code == RIGHT_CLICK)
+		if (node->type == CYLINDER && key_dir == K_UP)
 			node->elm.cyl.centre.x -= 0.1f;
 		if (node->type == CYLINDER)
 		{
@@ -56,7 +56,7 @@ void	cylinder_x_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	}
 }
 
-void	cylinder_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_z_translation(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -65,9 +65,9 @@ void	cylinder_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	(void)y;
 	while (node)
 	{
-		if (node->type == CYLINDER && mouse_code == LEFT_CLICK)
+		if (node->type == CYLINDER && key_dir == K_DOWN)
 			node->elm.cyl.centre.z += 0.1f;
-		if (node->type == CYLINDER && mouse_code == RIGHT_CLICK)
+		if (node->type == CYLINDER && key_dir == K_UP)
 			node->elm.cyl.centre.z -= 0.1f;
 		if (node->type == CYLINDER)
 		{
@@ -78,7 +78,7 @@ void	cylinder_z_translation(t_mrt *mrt, int x, int y, int mouse_code)
 	}
 }
 
-void	cylinder_diam(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_diam(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -87,9 +87,9 @@ void	cylinder_diam(t_mrt *mrt, int x, int y, int mouse_code)
 	node = mrt->obj;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK && node->type == CYLINDER)
+		if (key_dir == K_UP && node->type == CYLINDER)
 			node->elm.cyl.radius *= 1.1f;
-		else if (mouse_code == LEFT_CLICK && node->type == CYLINDER
+		else if (key_dir == K_DOWN && node->type == CYLINDER
 			&& (node->elm.cyl.radius / 1.1f > 0))
 			node->elm.cyl.radius /= 1.1f;
 		if (node->type == CYLINDER)
@@ -98,7 +98,7 @@ void	cylinder_diam(t_mrt *mrt, int x, int y, int mouse_code)
 	}
 }
 
-void	cylinder_height(t_mrt *mrt, int x, int y, int mouse_code)
+void	cylinder_height(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_obj	*node;
 
@@ -107,9 +107,9 @@ void	cylinder_height(t_mrt *mrt, int x, int y, int mouse_code)
 	node = mrt->obj;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK && node->type == CYLINDER)
+		if (key_dir == K_UP && node->type == CYLINDER)
 			node->elm.cyl.height *= 1.1f;
-		else if (mouse_code == LEFT_CLICK && node->type == CYLINDER
+		else if (key_dir == K_DOWN && node->type == CYLINDER
 			&& (node->elm.cyl.height / 1.1f > 0))
 			node->elm.cyl.height /= 1.1f;
 		if (node->type == CYLINDER)

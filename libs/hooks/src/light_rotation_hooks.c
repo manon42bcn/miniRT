@@ -12,68 +12,58 @@
 
 #include "hooks.h"
 
-void	light_rotation_x(t_mrt *mrt, int x, int y, int mouse_code)
+void	light_rotation_x(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_light	*node;
-	t_v3d	old;
 
 	(void)x;
 	(void)y;
 	node = mrt->scn.light;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK)
+		if (key_dir == K_UP)
 			node->angle += RAD_ANGLE;
-		else if (mouse_code == LEFT_CLICK)
+		else if (key_dir == K_DOWN)
 			node->angle -= RAD_ANGLE;
-		old = ft_copy_v3d(&node->origin);
-		node->origin.x = old.x;
-		node->origin.y = old.y * cos(node->angle) - old.z * sin(node->angle);
-		node->origin.z = old.y * sin(node->angle) + old.z * cos(node->angle);
+		node->origin = rotate_x(node->origin, node->angle);
 		mrt->to_img = TO_RENDER;
 		node = node->next;
 	}
 }
 
-void	light_rotation_y(t_mrt *mrt, int x, int y, int mouse_code)
+void	light_rotation_y(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_light	*node;
-	t_v3d	old;
 
 	(void)x;
 	(void)y;
 	node = mrt->scn.light;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK)
+		if (key_dir == K_UP)
 			node->angle += RAD_ANGLE;
-		else if (mouse_code == LEFT_CLICK)
+		else if (key_dir == K_DOWN)
 			node->angle -= RAD_ANGLE;
-		old = ft_copy_v3d(&node->origin);
-		node->origin.x = old.x * cos(node->angle) + old.z * sin(node->angle);
-		node->origin.z = -old.x * sin(node->angle) + old.z * cos(node->angle);
+		node->origin = rotate_y(node->origin, node->angle);
 		mrt->to_img = TO_RENDER;
 		node = node->next;
 	}
 }
 
-void	light_rotation_z(t_mrt *mrt, int x, int y, int mouse_code)
+void	light_rotation_z(t_mrt *mrt, int x, int y, int key_dir)
 {
 	t_light	*node;
-	t_v3d	old;
 
 	(void)x;
 	(void)y;
 	node = mrt->scn.light;
 	while (node)
 	{
-		if (mouse_code == RIGHT_CLICK)
+		if (key_dir == K_UP)
 			node->angle += RAD_ANGLE;
-		else if (mouse_code == LEFT_CLICK)
+		else if (key_dir == K_DOWN)
 			node->angle -= RAD_ANGLE;
-		old = ft_copy_v3d(&node->origin);
-		node->origin.x = old.x * cos(node->angle) - old.y * sin(node->angle);
-		node->origin.y = old.x * sin(node->angle) + old.y * cos(node->angle);
+		node->origin = rotate_z(node->origin, node->angle);
 		mrt->to_img = TO_RENDER;
 		node = node->next;
 	}
