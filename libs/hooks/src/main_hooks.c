@@ -26,7 +26,7 @@ void	load_hooks(t_mrt *mrt)
 	mrt->hooks[75] = &camera_closest_y;
 	mrt->hooks[66] = &camera_closest_x;
 	mrt->hooks[65] = &camera_closest_z;
-	mrt->hooks[58] = &camera_orbit_y;
+	mrt->hooks[52] = &camera_orbit_y;
 	mrt->hooks[61] = &camera_orbit_x;
 	mrt->hooks[51] = &camera_orbit_z;
 	mrt->hooks[39] = &cylinder_rotation_y;

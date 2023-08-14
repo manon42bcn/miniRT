@@ -14,14 +14,12 @@
 
 void	camera_orbit_y(t_mrt *mrt, int key_dir)
 {
-	static double	angle = 0;
-
 	if (key_dir == K_UP)
-		angle += RAD_ANGLE;
+		mrt->cmr->angle += RAD_ANGLE;
 	else
-		angle -= RAD_ANGLE;
-	mrt->cmr->position.x = mrt->cmr->orbit * cos(angle);
-	mrt->cmr->position.z = mrt->cmr->orbit * sin(angle);
+		mrt->cmr->angle -= RAD_ANGLE;
+	mrt->cmr->position.x = mrt->cmr->orbit * cos(mrt->cmr->angle);
+	mrt->cmr->position.z = mrt->cmr->orbit * sin(mrt->cmr->angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;
@@ -29,14 +27,12 @@ void	camera_orbit_y(t_mrt *mrt, int key_dir)
 
 void	camera_orbit_x(t_mrt *mrt, int key_dir)
 {
-	static double	angle = 0;
-
 	if (key_dir == K_UP)
-		angle += RAD_ANGLE;
+		mrt->cmr->angle += RAD_ANGLE;
 	else
-		angle -= RAD_ANGLE;
-	mrt->cmr->position.y = mrt->cmr->orbit * cos(angle);
-	mrt->cmr->position.z = mrt->cmr->orbit * sin(angle);
+		mrt->cmr->angle -= RAD_ANGLE;
+	mrt->cmr->position.y = mrt->cmr->orbit * cos(mrt->cmr->angle);
+	mrt->cmr->position.z = mrt->cmr->orbit * sin(mrt->cmr->angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;
@@ -44,14 +40,12 @@ void	camera_orbit_x(t_mrt *mrt, int key_dir)
 
 void	camera_orbit_z(t_mrt *mrt, int key_dir)
 {
-	static double	angle = 0;
-
 	if (key_dir == K_UP)
-		angle += RAD_ANGLE;
+		mrt->cmr->angle += RAD_ANGLE;
 	else
-		angle -= RAD_ANGLE;
-	mrt->cmr->position.x = mrt->cmr->orbit * cos(angle);
-	mrt->cmr->position.y = mrt->cmr->orbit * sin(angle);
+		mrt->cmr->angle -= RAD_ANGLE;
+	mrt->cmr->position.x = mrt->cmr->orbit * cos(mrt->cmr->angle);
+	mrt->cmr->position.y = mrt->cmr->orbit * sin(mrt->cmr->angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d((t_v3d){0, 0, 0}, mrt->cmr->position));
 	mrt->to_img = TO_RENDER;

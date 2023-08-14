@@ -14,16 +14,14 @@
 
 void	camera_closest_y(t_mrt *mrt, int key_dir)
 {
-	static double	angle = 0;
-
 	if (key_dir == K_UP)
-		angle += RAD_ANGLE;
+		mrt->cmr->angle += RAD_ANGLE;
 	else
-		angle -= RAD_ANGLE;
+		mrt->cmr->angle -= RAD_ANGLE;
 	mrt->cmr->position.x = mrt->cmr->close_obj->position.x
-		+ mrt->cmr->orbit * cos(angle);
+		+ mrt->cmr->orbit * cos(mrt->cmr->angle);
 	mrt->cmr->position.z = mrt->cmr->close_obj->position.z
-		+ mrt->cmr->orbit * sin(angle);
+		+ mrt->cmr->orbit * sin(mrt->cmr->angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d(mrt->cmr->close_obj->position,
 				mrt->cmr->position));
@@ -32,16 +30,14 @@ void	camera_closest_y(t_mrt *mrt, int key_dir)
 
 void	camera_closest_x(t_mrt *mrt, int key_dir)
 {
-	static double	angle = 0;
-
 	if (key_dir == K_UP)
-		angle += RAD_ANGLE;
+		mrt->cmr->angle += RAD_ANGLE;
 	else
-		angle -= RAD_ANGLE;
+		mrt->cmr->angle -= RAD_ANGLE;
 	mrt->cmr->position.y = mrt->cmr->close_obj->position.y
-		+ mrt->cmr->orbit * cos(angle);
+		+ mrt->cmr->orbit * cos(mrt->cmr->angle);
 	mrt->cmr->position.z = mrt->cmr->close_obj->position.z
-		+ mrt->cmr->orbit * sin(angle);
+		+ mrt->cmr->orbit * sin(mrt->cmr->angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d(mrt->cmr->close_obj->position,
 				mrt->cmr->position));
@@ -50,16 +46,14 @@ void	camera_closest_x(t_mrt *mrt, int key_dir)
 
 void	camera_closest_z(t_mrt *mrt, int key_dir)
 {
-	static double	angle = 0;
-
 	if (key_dir == K_UP)
-		angle += RAD_ANGLE;
+		mrt->cmr->angle += RAD_ANGLE;
 	else
-		angle -= RAD_ANGLE;
+		mrt->cmr->angle -= RAD_ANGLE;
 	mrt->cmr->position.x = mrt->cmr->close_obj->position.x
-		+ mrt->cmr->orbit * cos(angle);
+		+ mrt->cmr->orbit * cos(mrt->cmr->angle);
 	mrt->cmr->position.y = mrt->cmr->close_obj->position.y
-		+ mrt->cmr->orbit * sin(angle);
+		+ mrt->cmr->orbit * sin(mrt->cmr->angle);
 	mrt->cmr->dir = ft_normal_v3d(
 			ft_minus_v3d(mrt->cmr->close_obj->position,
 				mrt->cmr->position));
