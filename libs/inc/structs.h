@@ -16,7 +16,7 @@
 typedef struct s_obj	t_obj;
 typedef int				t_pixel;
 typedef struct s_mrt	t_mrt;
-typedef void			(*t_hook)(t_mrt *, int, int, int);
+typedef void			(*t_hook)(t_mrt *, int);
 # define TO_RENDER 0
 # define RENDERED 1
 # define RIGHT_CLICK 1

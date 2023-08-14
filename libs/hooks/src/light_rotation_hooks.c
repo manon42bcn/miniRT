@@ -12,12 +12,10 @@
 
 #include "hooks.h"
 
-void	light_rotation_x(t_mrt *mrt, int x, int y, int key_dir)
+void	light_rotation_x(t_mrt *mrt, int key_dir)
 {
 	t_light	*node;
 
-	(void)x;
-	(void)y;
 	node = mrt->scn.light;
 	while (node)
 	{
@@ -31,12 +29,10 @@ void	light_rotation_x(t_mrt *mrt, int x, int y, int key_dir)
 	}
 }
 
-void	light_rotation_y(t_mrt *mrt, int x, int y, int key_dir)
+void	light_rotation_y(t_mrt *mrt, int key_dir)
 {
 	t_light	*node;
 
-	(void)x;
-	(void)y;
 	node = mrt->scn.light;
 	while (node)
 	{
@@ -50,12 +46,10 @@ void	light_rotation_y(t_mrt *mrt, int x, int y, int key_dir)
 	}
 }
 
-void	light_rotation_z(t_mrt *mrt, int x, int y, int key_dir)
+void	light_rotation_z(t_mrt *mrt, int key_dir)
 {
 	t_light	*node;
 
-	(void)x;
-	(void)y;
 	node = mrt->scn.light;
 	while (node)
 	{

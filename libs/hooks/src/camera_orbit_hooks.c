@@ -12,12 +12,10 @@
 
 #include "hooks.h"
 
-void	camera_orbit_y(t_mrt *mrt, int x, int y, int key_dir)
+void	camera_orbit_y(t_mrt *mrt, int key_dir)
 {
 	static double	angle = 0;
 
-	(void)x;
-	(void)y;
 	if (key_dir == K_UP)
 		angle += RAD_ANGLE;
 	else
@@ -29,12 +27,10 @@ void	camera_orbit_y(t_mrt *mrt, int x, int y, int key_dir)
 	mrt->to_img = TO_RENDER;
 }
 
-void	camera_orbit_x(t_mrt *mrt, int x, int y, int key_dir)
+void	camera_orbit_x(t_mrt *mrt, int key_dir)
 {
 	static double	angle = 0;
 
-	(void)x;
-	(void)y;
 	if (key_dir == K_UP)
 		angle += RAD_ANGLE;
 	else
@@ -46,12 +42,10 @@ void	camera_orbit_x(t_mrt *mrt, int x, int y, int key_dir)
 	mrt->to_img = TO_RENDER;
 }
 
-void	camera_orbit_z(t_mrt *mrt, int x, int y, int key_dir)
+void	camera_orbit_z(t_mrt *mrt, int key_dir)
 {
 	static double	angle = 0;
 
-	(void)x;
-	(void)y;
 	if (key_dir == K_UP)
 		angle += RAD_ANGLE;
 	else

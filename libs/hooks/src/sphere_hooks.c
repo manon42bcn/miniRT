@@ -12,13 +12,11 @@
 
 #include "hooks.h"
 
-void	sphere_y_translation(t_mrt *mrt, int x, int y, int key_dir)
+void	sphere_y_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
 
 	node = mrt->obj;
-	(void)x;
-	(void)y;
 	while (node)
 	{
 		if (node->type == SPHERE && key_dir == K_DOWN)
@@ -34,13 +32,11 @@ void	sphere_y_translation(t_mrt *mrt, int x, int y, int key_dir)
 	}
 }
 
-void	sphere_x_translation(t_mrt *mrt, int x, int y, int key_dir)
+void	sphere_x_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
 
 	node = mrt->obj;
-	(void)x;
-	(void)y;
 	while (node)
 	{
 		if (node->type == SPHERE && key_dir == K_DOWN)
@@ -56,13 +52,11 @@ void	sphere_x_translation(t_mrt *mrt, int x, int y, int key_dir)
 	}
 }
 
-void	sphere_z_translation(t_mrt *mrt, int x, int y, int key_dir)
+void	sphere_z_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
 
 	node = mrt->obj;
-	(void)x;
-	(void)y;
 	while (node)
 	{
 		if (node->type == SPHERE && key_dir == K_DOWN)
@@ -78,12 +72,10 @@ void	sphere_z_translation(t_mrt *mrt, int x, int y, int key_dir)
 	}
 }
 
-void	sphere_diam(t_mrt *mrt, int x, int y, int key_dir)
+void	sphere_diam(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
 
-	(void)x;
-	(void)y;
 	node = mrt->obj;
 	while (node)
 	{

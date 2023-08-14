@@ -56,7 +56,7 @@ static inline int	action_handler(t_mrt *mrt, int key)
 		return (FALSE);
 	changes = mrt->hooks[mrt->behaviour];
 	if (changes)
-		changes(mrt, 0, 0, key);
+		changes(mrt, key);
 	return (TRUE);
 }
 

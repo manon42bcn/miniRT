@@ -12,12 +12,10 @@
 
 #include "hooks.h"
 
-void	cylinder_rotation_x(t_mrt *mrt, int x, int y, int key_dir)
+void	cylinder_rotation_x(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
 
-	(void)x;
-	(void)y;
 	node = mrt->obj;
 	while (node)
 	{
@@ -35,12 +33,10 @@ void	cylinder_rotation_x(t_mrt *mrt, int x, int y, int key_dir)
 	}
 }
 
-void	cylinder_rotation_y(t_mrt *mrt, int x, int y, int key_dir)
+void	cylinder_rotation_y(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
 
-	(void)x;
-	(void)y;
 	node = mrt->obj;
 	while (node)
 	{
@@ -58,12 +54,10 @@ void	cylinder_rotation_y(t_mrt *mrt, int x, int y, int key_dir)
 	}
 }
 
-void	cylinder_rotation_z(t_mrt *mrt, int x, int y, int key_dir)
+void	cylinder_rotation_z(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
 
-	(void)x;
-	(void)y;
 	node = mrt->obj;
 	while (node)
 	{
