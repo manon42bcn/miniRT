@@ -12,18 +12,33 @@
 
 #include "hooks.h"
 
-int	mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt)
+static inline t_v3d	pix_to_win(int x, int y, t_mrt *mrt)
 {
-	t_hook	changes;
+	t_v3d	p;
 
-	(void)mouse_code;
-	(void)mouseX;
-	(void)mouseY;
-	(void)mrt;
-	if (mrt->behaviour == 0 || mrt->behaviour > 256)
+	p.x = ((2 * ((float)x / mrt->scn.w_x)) - 1)
+		  * mrt->scn.ratio * mrt->cmr->fov;
+	p.y = (1 - (2 * ((float )y / mrt->scn.w_y))) * mrt->cmr->fov;
+	p.x = -p.x;
+	p.z = mrt->cmr->position.z;
+	return (p);
+}
+
+int	mouse_handler(int mouse_code, int x, int y, t_mrt *mrt)
+{
+	(void )mouse_code;
+	mlx_mouse_get_pos(mrt->mlx_win, &x, &y);
+	if (x < 0 || y < 0)
 		return (FALSE);
-	changes = mrt->hooks[mrt->behaviour];
-	if (changes)
+	if (mrt->behaviour != 33 && mrt->behaviour != 53)
 		return (FALSE);
+	printf("HERE WE ARE\n");
+	if (mrt->behaviour == 53)
+		mrt->cmr->position = pix_to_win(x, y, mrt);
+	if (mrt->behaviour == 33)
+		mrt->cmr->position.z = y;
+	mrt->cmr->dir = ft_normal_v3d(
+			ft_minus_v3d(mrt->cmr->close_obj->position, mrt->cmr->position));
+	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }

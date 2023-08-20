@@ -36,7 +36,7 @@ static inline void	handler_informator(int key)
 		ft_putstr_fd("[Height", STDOUT_FILENO);
 	else if (key == K_T)
 		ft_putstr_fd("[Translate]", STDOUT_FILENO);
-	else if (key == K_X || key == K_Y || key == K_Z)
+	else if (key == K_X || key == K_Y || key == K_Z )
 		axis_informator(key);
 	else if (key == K_O)
 		ft_putstr_fd("[Orbit]", STDOUT_FILENO);
@@ -46,6 +46,8 @@ static inline void	handler_informator(int key)
 		ft_putstr_fd("[Rotation]", STDOUT_FILENO);
 	else if (key == K_N)
 		ft_putstr_fd("[Nearest Object]", STDOUT_FILENO);
+	else if (key == K_F)
+		ft_putstr_fd("[Free move]", STDOUT_FILENO);
 }
 
 static inline int	action_handler(t_mrt *mrt, int key)
@@ -59,7 +61,7 @@ static inline int	action_handler(t_mrt *mrt, int key)
 		changes(mrt, key);
 	else
 	{
-		ft_putstr_fd("[Wrong Key combination (\n",
+		ft_putstr_fd("[Wrong Key combination (",
 			STDOUT_FILENO);
 		ft_putnbr_fd(key, STDOUT_FILENO);
 		ft_putstr_fd(") press Q to reset]\n",

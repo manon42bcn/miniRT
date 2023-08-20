@@ -21,7 +21,7 @@ typedef void			(*t_hook)(t_mrt *, int);
 # define RENDERED 1
 # define RIGHT_CLICK 1
 # define LEFT_CLICK 2
-# define RAD_ANGLE 0.17453
+# define RAD_ANGLE 0.0174533
 
 enum e_fig
 {

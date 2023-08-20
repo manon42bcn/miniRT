@@ -20,9 +20,11 @@
 # include "../../inc/objects.h"
 # include "../../inc/structs.h"
 # include "../../parser/inc/parse.h"
+# include "../../../mlx/mlx.h"
 
 # define NO_HOOK		0
 # define K_D			2
+# define K_F			3
 # define K_H			4
 # define K_G			5
 # define K_Z			6
