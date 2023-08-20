@@ -58,8 +58,13 @@ static inline int	action_handler(t_mrt *mrt, int key)
 	if (changes)
 		changes(mrt, key);
 	else
-		ft_putstr_fd("[Wrong Key combination - press Q to reset]\n",
+	{
+		ft_putstr_fd("[Wrong Key combination (\n",
 			STDOUT_FILENO);
+		ft_putnbr_fd(key, STDOUT_FILENO);
+		ft_putstr_fd(") press Q to reset]\n",
+			STDOUT_FILENO);
+	}
 	return (TRUE);
 }
 

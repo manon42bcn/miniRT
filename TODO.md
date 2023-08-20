@@ -2,7 +2,7 @@
   * funcionalidad controlada desde el parseo. Las funciones necesarias para lidiar con bonus, también están conidiconadas en el código.
 * [x] Terminar de implementar traslaciones y rotaciones.
   * [x] Refactor hooks.
-  * [ ] Revisar hook rotation cylinder z
+  * [x] Revisar hook rotation cylinder z
   * Pensar en pasar el mouse handler a la tecla space - intro (evitar el click doble y poder hacer transformaciones libres)
   * [x] traslaciones y rotaciones con up an down
   * [ ] Aún sin hook definido para el ratón (no tiene porque haber)
