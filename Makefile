@@ -48,13 +48,35 @@ HEAD_FILES		=	inc/minirt.h \
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
 CFLAGS			=	-Wall -Wextra -Werror
+LIBRARIES		=	$(LIB_FT)/libft.a $(LIB_V3D)/libv3d.a $(LIB_RGB)/librgb.a $(LIB_PARSER)/libparser.a $(LIB_SOLVER)/libsolvers.a $(LIB_HOOKS)/libhooks.a
 INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(LIB_PARSER)/$(HEAD_DIR) -I$(LIB_SOLVER)/$(HEAD_DIR) -I$(LIB_HOOKS)/$(HEAD_DIR) -I$(HEAD_DIR)
 LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -L./libs/solvers -lsolvers -L./libs/hooks -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 
-all: $(OBJ_SUBS) library $(NAME)
+#all: $(OBJ_SUBS) library $(NAME)
+#
+#$(NAME): $(OBJS) $(LIBRARIES)
+#	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
-$(NAME): $(OBJS)
+all: $(OBJ_SUBS) library $(NAME)
+	$(MAKE) CFLAGS="$(CFLAGS)" $(NAME)
+	-rm -f .bonus
+
+bonus: .bonus
+
+.bonus: $(OBJ_SUBS)
+	$(MAKE) LIB_DET=bonus library
+	$(MAKE) CFLAGS="$(CFLAGS) -DBONUS" $(NAME)
+	touch .bonus
+
+# ... (Resto de tus reglas de construcción)
+
+$(NAME): $(OBJS) $(LIBRARIES)
+	@if [ -f .bonus ]; then \
+		echo "Compiling bonus version"; \
+	else \
+		echo "Compiling normal version"; \
+	fi
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
 library:
@@ -97,9 +119,9 @@ fclean: clean
 memory: $(OBJ_SUBS) $(OBJS) $(HEAD_FILES)
 	$(MAKE) CFLAGS+=-fsanitize=address re
 
-bonus: fclean
-	$(MAKE) LIB_DET=bonus library
-	$(MAKE) CFLAGS+=-DBONUS
+#bonus: .bonus
+#	$(MAKE) LIB_DET=bonus library
+#	$(MAKE) CFLAGS+=-DBONUS
 
 re:	fclean all
 

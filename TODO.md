@@ -14,6 +14,7 @@
 * [ ] Revisar los mensajes de error para homologar los textos (unificar criterios).
 * [x] Revisar Makefile, versiones bonus y mandatory (make bonus -> make... estupidez pero bueno...)
   * [x] Make genera mandatory y bonus por separado.
+  * [x] Make después de touch a algún archivo fuente de alguna librería o módulo
   * [ ] Bonus siempre recompila... revisar
 * [x] Chequear que hay suficientes elementos para iniciar render.
 * [ ] Norminette general
