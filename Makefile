@@ -15,7 +15,6 @@ HEAD_DIR		= 	inc
 SRC_DIR			= 	srcs
 OBJ_DIR			= 	objs
 OBJ_SUBS		= 	objs \
-					objs/hooks \
 					objs/utl \
 					objs/sampler \
 					objs/texture \
@@ -53,11 +52,6 @@ INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(L
 LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -L./libs/solvers -lsolvers -L./libs/hooks -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 BONUS_FILE		=	.bonus
-
-#all: $(OBJ_SUBS) library $(NAME)
-#
-#$(NAME): $(OBJS) $(LIBRARIES)
-#	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
 all: version library $(OBJ_SUBS) $(NAME)
 

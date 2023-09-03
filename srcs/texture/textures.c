@@ -6,13 +6,13 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:24:09 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/22 00:43:22 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/09/03 18:41:51 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static inline t_rgb texture_checkboard(t_inter *inter)
+static inline t_rgb	texture_checkboard(t_inter *inter)
 {
 	t_rgb	black;
 	t_rgb	white;
@@ -44,14 +44,14 @@ static inline t_v3d	texture_waves(t_inter *inter, t_obj *lst)
 	return (ft_rotate_v3d(inter->normal, wl_value));
 }
 
-static inline void  fill_rgb(double r, double g, double b, double color[3])
+static inline void	fill_rgb(double r, double g, double b, double color[3])
 {
 	color[0] = r;
 	color[1] = g;
 	color[2] = b;
 }
 
-static inline t_rgb   texture_rainbow(t_inter *inter)
+static inline t_rgb	texture_rainbow(t_inter *inter)
 {
 	double	color[3];
 	double	wave_lenght;

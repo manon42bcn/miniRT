@@ -15,7 +15,6 @@
 
 # include "../mlx/mlx.h"
 # include "definitions.h"
-# include "ggl_mlx_define.h"
 # include "libft.h"
 # include "rgb.h"
 # include "v3d.h"

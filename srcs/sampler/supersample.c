@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static inline t_rgb			first_corner(t_rgb *color, int centre,
+static inline t_rgb	first_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
@@ -33,7 +33,7 @@ static inline t_rgb			first_corner(t_rgb *color, int centre,
 	return (col);
 }
 
-static inline t_rgb			second_corner(t_rgb *color, int centre,
+static inline t_rgb	second_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
@@ -54,7 +54,7 @@ static inline t_rgb			second_corner(t_rgb *color, int centre,
 	return (col);
 }
 
-static inline t_rgb			third_corner(t_rgb *color, int centre,
+static inline t_rgb	third_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
@@ -75,7 +75,7 @@ static inline t_rgb			third_corner(t_rgb *color, int centre,
 	return (col);
 }
 
-static inline t_rgb			fourth_corner(t_rgb *color, int centre,
+static inline t_rgb	fourth_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
@@ -98,10 +98,10 @@ static inline t_rgb			fourth_corner(t_rgb *color, int centre,
 
 t_rgb	supersample(int *color, t_pix pix, t_mrt *mrt)
 {
-	int		centre;
-	int		corner;
-	static t_rgb (*sampling[])(t_rgb *, int, t_pix, t_mrt *) =
-			{first_corner, second_corner, third_corner, fourth_corner};
+	int				centre;
+	int				corner;
+	static t_rgb	(*sampling[])(t_rgb *, int, t_pix, t_mrt *)
+		= {first_corner, second_corner, third_corner, fourth_corner};
 
 	centre = calc_ray(4, pix, mrt);
 	corner = 0;
