@@ -36,8 +36,7 @@ $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
 $(OBJS_SUBS):
 	-@mkdir $(OBJS_SUBS)
 
-bonus: CFLAGS += -DBONUS
-bonus: fclean all
+bonus: all
 
 clean:
 	$(RM) $(OBJS)

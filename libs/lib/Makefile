@@ -105,7 +105,7 @@ fclean: clean
 	$(RM) $(OBJS_SUBS)
 
 bonus: CFLAGS += -DBONUS
-bonus: fclean all
+bonus: all
 
 re:	fclean $(NAME)
 

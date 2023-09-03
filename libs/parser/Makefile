@@ -44,8 +44,16 @@ HEADER		=	inc/parse.h \
 				inc/parse_enum.h \
 				../inc/objects.h \
 				../inc/structs.h
+BONUS_FILE	= .bonus
 
-all: $(NAME) $(HEADER)
+all: version $(NAME) $(HEADER)
+
+version:
+	@if [ -f .bonus ]; then \
+  		rm $(BONUS_FILE); \
+		$(MAKE) fclean; \
+		$(MAKE); \
+	fi
 
 $(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
@@ -57,8 +65,16 @@ $(OBJS_DIR):
 	-@mkdir $(OBJS_DIR)
 
 bonus: CFLAGS += -DBONUS
-bonus: fclean $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
+bonus: version_bonus $(BONUS_FILE)
+
+version_bonus:
+	@if [ ! -f $(BONUS_FILE) ] && [ -f $(NAME) ]; then \
+		$(MAKE) fclean; \
+    fi
+
+$(BONUS_FILE): $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
 	ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
+	touch $(BONUS_FILE)
 
 $(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
 	$(CC) $(CFLAGS) -g -c $< -o $@

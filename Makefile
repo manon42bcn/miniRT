@@ -52,31 +52,36 @@ LIBRARIES		=	$(LIB_FT)/libft.a $(LIB_V3D)/libv3d.a $(LIB_RGB)/librgb.a $(LIB_PAR
 INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(LIB_PARSER)/$(HEAD_DIR) -I$(LIB_SOLVER)/$(HEAD_DIR) -I$(LIB_HOOKS)/$(HEAD_DIR) -I$(HEAD_DIR)
 LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -L./libs/solvers -lsolvers -L./libs/hooks -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
+BONUS_FILE		=	.bonus
 
 #all: $(OBJ_SUBS) library $(NAME)
 #
 #$(NAME): $(OBJS) $(LIBRARIES)
 #	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
-all: $(OBJ_SUBS) library $(NAME)
-	$(MAKE) CFLAGS="$(CFLAGS)" $(NAME)
-	-rm -f .bonus
+all: version library $(OBJ_SUBS) $(NAME)
 
-bonus: .bonus
+version:
+	@if [ -f .bonus ]; then \
+  		rm $(BONUS_FILE); \
+		$(MAKE) fclean; \
+		$(MAKE); \
+	fi
 
-.bonus: $(OBJ_SUBS)
+bonus: CFLAGS += -DBONUS
+bonus: $(BONUS_FILE)
+
+version_bonus:
+	@if [ ! -f $(BONUS_FILE) ] && [ -f $(NAME) ]; then \
+		$(MAKE) fclean; \
+    fi
+
+$(BONUS_FILE): $(OBJ_SUBS)
 	$(MAKE) LIB_DET=bonus library
-	$(MAKE) CFLAGS="$(CFLAGS) -DBONUS" $(NAME)
+	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 	touch .bonus
 
-# ... (Resto de tus reglas de construcción)
-
 $(NAME): $(OBJS) $(LIBRARIES)
-	@if [ -f .bonus ]; then \
-		echo "Compiling bonus version"; \
-	else \
-		echo "Compiling normal version"; \
-	fi
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
 library:

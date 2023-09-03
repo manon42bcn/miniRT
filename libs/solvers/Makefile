@@ -30,8 +30,16 @@ RM			=	@rm -rf
 CFLAGS 		=	-Wall -Wextra -Werror -Iinc -I../inc
 NAME		=	libsolvers.a
 HEADER		=	inc/solvers.h
+BONUS_FILE	= 	.bonus
 
-all: $(NAME) $(HEADER)
+all: version $(NAME) $(HEADER)
+
+version:
+	@if [ -f .bonus ]; then \
+  		rm $(BONUS_FILE); \
+		$(MAKE) fclean; \
+		$(MAKE); \
+	fi
 
 $(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
@@ -50,8 +58,16 @@ fclean: clean
 	$(RM) $(OBJS_SUBS)
 
 bonus: CFLAGS += -DBONUS
-bonus: fclean $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
+bonus: version_bonus $(BONUS_FILE)
+
+version_bonus:
+	@if [ ! -f $(BONUS_FILE) ] && [ -f $(NAME) ]; then \
+		$(MAKE) fclean; \
+    fi
+
+$(BONUS_FILE): $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
 	ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
+	touch $(BONUS_FILE)
 
 $(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
 	$(CC) $(CFLAGS) -g -c $< -o $@
