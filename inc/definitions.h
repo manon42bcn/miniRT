@@ -38,8 +38,8 @@
 #  define BONUS 0
 # endif
 
-typedef int t_bool;
-typedef struct s_mrt    t_mrt;
-typedef int t_pixel;
+typedef int				t_bool;
+typedef struct s_mrt	t_mrt;
+typedef int				t_pixel;
 
 #endif

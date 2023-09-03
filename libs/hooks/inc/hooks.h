@@ -51,6 +51,7 @@
 t_v3d	rotate_x(t_v3d old, double angle);
 t_v3d	rotate_y(t_v3d old, double angle);
 t_v3d	rotate_z(t_v3d old, double angle);
+int		keys_handler(int key, t_mrt *mrt);
 void	load_hooks(t_mrt *mrt);
 int		window_handler(t_mrt *mrt);
 int		mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt);
