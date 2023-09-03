@@ -12,21 +12,47 @@
 
 #include <v3d.h>
 
+/**
+ * @brief Computes the squared magnitude of a vector.
+ *
+ * @param vec The input vector.
+ * @return The squared magnitude (length) of the vector.
+ */
 double	ft_length_v3d(t_v3d vec)
 {
 	return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
 }
 
+/**
+ * @brief Computes the magnitude (length) of a vector.
+ *
+ * @param vector The input vector.
+ * @return The magnitude of the vector.
+ */
 double	ft_mag_v3d(t_v3d vector)
 {
 	return (sqrt(ft_length_v3d(vector)));
 }
 
+/**
+ * @brief Computes the cosine of the angle between two vectors.
+ *
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return The cosine of the angle between the vectors.
+ */
 double	ft_cos_v3d(t_v3d a, t_v3d b)
 {
 	return (ft_dot_v3d(a, b) / (ft_mag_v3d(a) * ft_mag_v3d(b)));
 }
 
+/**
+ * @brief Computes the sine of the angle between two vectors.
+ *
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return The sine of the angle between the vectors.
+ */
 double	ft_sin_v3d(t_v3d a, t_v3d b)
 {
 	double	cos;
@@ -35,6 +61,13 @@ double	ft_sin_v3d(t_v3d a, t_v3d b)
 	return (sqrt(1 - (cos * cos)));
 }
 
+/**
+ * @brief Computes the cross product of two vectors.
+ *
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return The cross product of the vectors as a new vector.
+ */
 t_v3d	ft_cross_v3d(t_v3d a, t_v3d b)
 {
 	return ((t_v3d){(a.y * b.z) - (a.z * b.y),

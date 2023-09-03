@@ -32,21 +32,21 @@ typedef enum e_coor
 # endif
 
 # ifndef TRUE
-#	define TRUE 1
+#  define TRUE 1
 # endif
 
 # ifndef FALSE
-#	define FALSE 0
+#  define FALSE 0
 # endif
 
-typedef int	t_bool;
+typedef int		t_bool;
 
 typedef struct s_v3d
 {
 	double	x;
 	double	y;
 	double	z;
-}	t_v3d;
+}				t_v3d;
 
 typedef t_v3d	t_point;
 

@@ -17,7 +17,6 @@
  * to all cameras, and get pointers to mlx destroyer functions.
  * @param mrt mrt struct to save info
  */
-
 static inline void	complete_parse_info(t_mrt *mrt)
 {
 	t_cmr	*node;

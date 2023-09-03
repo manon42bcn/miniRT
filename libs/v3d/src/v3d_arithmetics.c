@@ -12,26 +12,62 @@
 
 #include <v3d.h>
 
+/**
+ * @brief Adds two 3D vectors component-wise.
+ *
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return The result of the addition as a new vector.
+ */
 t_v3d	ft_plus_v3d(t_v3d a, t_v3d b)
 {
 	return ((t_v3d){a.x + b.x, a.y + b.y, a.z + b.z});
 }
 
+/**
+ * @brief Subtracts two 3D vectors component-wise.
+ *
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return The result of the subtraction as a new vector.
+ */
 t_v3d	ft_minus_v3d(t_v3d a, t_v3d b)
 {
 	return ((t_v3d){a.x - b.x, a.y - b.y, a.z - b.z});
 }
 
+/**
+ * @brief Computes the dot product of two 3D vectors.
+ *
+ * @param a The first vector.
+ * @param b The second vector.
+ * @return The dot product of the two vectors.
+ */
 double	ft_dot_v3d(t_v3d a, t_v3d b)
 {
 	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z));
 }
 
+/**
+ * @brief Multiplies a 3D vector by a scalar value.
+ *
+ * @param scalar The scalar value to multiply with.
+ * @param vec The vector to be multiplied.
+ * @return The result of the scalar multiplication as a new vector.
+ */
 t_v3d	ft_scalar_v3d(double scalar, t_v3d vec)
 {
 	return ((t_v3d){vec.x * scalar, vec.y * scalar, vec.z * scalar});
 }
 
+/**
+ * @brief Divides each component of a 3D vector by a real number.
+ *
+ * @param vec The vector whose components are to be divided.
+ * @param real The real number by which each component of the vector
+ * is to be divided.
+ * @return The result of the division as a new vector.
+ */
 t_v3d	ft_div_v3d(t_v3d vec, double real)
 {
 	return ((t_v3d){vec.x / real, vec.y / real, vec.z / real});
