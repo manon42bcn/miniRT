@@ -12,6 +12,16 @@
 
 #include "rgb.h"
 
+/**
+ * @brief Multiply the components of an RGB color by a scalar.
+ *
+ * This function multiplies each component (R, G, B) of the given RGB color
+ * by a scalar value, alpha.
+ *
+ * @param color RGB color to be multiplied.
+ * @param alpha Scalar value.
+ * @return t_rgb The resulting scaled RGB color.
+ */
 t_rgb	ft_rgb_dot(t_rgb color, double alpha)
 {
 	t_rgb	r;
@@ -30,6 +40,15 @@ t_rgb	ft_rgb_dot(t_rgb color, double alpha)
 	return ((r << 16) | (g << 8) | b);
 }
 
+/**
+ * @brief Add two RGB colors.
+ *
+ * This function adds the RGB components of two colors together.
+ *
+ * @param ca First RGB color.
+ * @param cb Second RGB color.
+ * @return t_rgb The resulting RGB color after addition.
+ */
 t_rgb	ft_rgb_add(t_rgb ca, t_rgb cb)
 {
 	t_rgb	r;
@@ -42,6 +61,16 @@ t_rgb	ft_rgb_add(t_rgb ca, t_rgb cb)
 	return (r | g | b);
 }
 
+/**
+ * @brief Adjust an RGB color based on a lighting array.
+ *
+ * This function multiplies the components of an RGB color by the values in
+ * a lighting array.
+ *
+ * @param color RGB color to be adjusted.
+ * @param rgb Lighting array with adjustments for each RGB component.
+ * @return t_rgb The resulting adjusted RGB color.
+ */
 t_rgb	ft_rgb_light(t_rgb color, double rgb[3])
 {	
 	int				mask;
@@ -64,6 +93,17 @@ t_rgb	ft_rgb_light(t_rgb color, double rgb[3])
 	return ((r << 16) | (g << 8) | b);
 }
 
+/**
+ * @brief Calculate the difference between two RGB colors.
+ *
+ * This function calculates the difference between the components of two
+ * RGB colors. If the sum of squared differences exceeds a threshold,
+ * the function returns true.
+ *
+ * @param ca First RGB color.
+ * @param cb Second RGB color.
+ * @return t_rgb TRUE if difference exceeds threshold, otherwise FALSE.
+ */
 t_rgb	ft_rgb_diff(t_rgb ca, t_rgb cb)
 {
 	t_rgb	r[2];

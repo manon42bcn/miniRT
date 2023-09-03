@@ -12,6 +12,16 @@
 
 #include "rgb.h"
 
+/**
+ * @brief Compute the average of two RGB colors.
+ *
+ * This function calculates the average of two given RGB colors by summing
+ * each of their RGB components individually and then dividing by 2.
+ *
+ * @param ca First RGB color.
+ * @param cb Second RGB color.
+ * @return t_rgb The resulting averaged RGB color.
+ */
 t_rgb	ft_rgb_avg(t_rgb ca, t_rgb cb)
 {
 	t_rgb	rst[3];
@@ -37,6 +47,16 @@ t_rgb	ft_rgb_avg(t_rgb ca, t_rgb cb)
 	return ((rst[0] << 16) | (rst[1] << 8) | rst[2]);
 }
 
+/**
+ * @brief Balance the RGB color from an array of RGB colors.
+ *
+ * This function computes a balanced RGB color from an array of four RGB colors.
+ * It does this by summing each individual RGB component of the colors in the
+ * array and then dividing by 4.
+ *
+ * @param rgb Pointer to an array of four RGB colors.
+ * @return t_rgb The resulting balanced RGB color.
+ */
 t_rgb	ft_rgb_balance(t_rgb *rgb)
 {
 	t_rgb	rst[3];
