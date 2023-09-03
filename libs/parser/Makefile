@@ -88,6 +88,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(OBJS_DIR) $(OBJS_B_DIR)
+	$(RM) $(BONUS_FILE)
 
 re:	fclean $(NAME)
 

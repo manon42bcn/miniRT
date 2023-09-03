@@ -45,7 +45,7 @@ $(OBJS_DIR):
 	-@mkdir $(OBJS_DIR)
 
 bonus: CFLAGS += -DBONUS
-bonus: fclean all
+bonus: all
 
 clean:
 	$(RM) $(OBJS)
