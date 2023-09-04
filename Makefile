@@ -118,10 +118,6 @@ fclean: clean
 memory: $(OBJ_SUBS) $(OBJS) $(HEAD_FILES)
 	$(MAKE) CFLAGS+=-fsanitize=address re
 
-#bonus: .bonus
-#	$(MAKE) LIB_DET=bonus library
-#	$(MAKE) CFLAGS+=-DBONUS
-
 re:	fclean all
 
 .PHONY: all clean fclean re
