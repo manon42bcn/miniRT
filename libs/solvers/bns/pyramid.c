@@ -13,7 +13,6 @@
 #include "solvers.h"
 
 /**
- * @fn static void pyramid_base_values(t_pyr *pyr, t_obj *obj)
  * @brief Initializes the pyramid's base normals and related values.
  *
  * This function sets up the fundamental directions for a pyramid's faces
@@ -51,7 +50,6 @@ static void	pyramid_base_values(t_pyr *pyr, t_obj *obj)
 }
 
 /**
- * @fn static inline t_v3d second_vertex(int i, t_v3d corner, t_v3d first)
  * @brief Determines the second vertex of a pyramid's face triangle.
  *
  * Based on the index, this function returns either the provided corner
@@ -70,7 +68,6 @@ static inline t_v3d	second_vertex(int i, t_v3d corner, t_v3d first)
 }
 
 /**
- * @fn double pyramid_solver(t_v3d origin, t_v3d dir, t_obj *obj)
  * @brief Determines the intersection between a ray and a pyramid.
  *
  * This function checks the intersection between a ray and each face

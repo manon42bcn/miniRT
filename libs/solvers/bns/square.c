@@ -13,7 +13,6 @@
 #include "solvers.h"
 
 /**
- * @fn double square_solver(t_v3d origin, t_v3d dir, t_obj *sqr)
  * @brief Determines the intersection between a ray and a square.
  *
  * This function first checks if the ray intersects the plane on
