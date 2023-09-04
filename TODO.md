@@ -20,7 +20,7 @@
 * [ ] Norminette general
   * [x] v3d
   * [x] rgb
-  * [ ] parser
+  * [x] parser
   * [ ] solvers
   * [ ] hooks
   * [ ] miniRT
@@ -29,7 +29,7 @@
 * [ ] Documentación general - looking pro! - 
   * [x] v3d
   * [x] rgb
-  * [ ] parser
+  * [x] parser
   * [ ] solvers
   * [ ] hooks
   * [ ] miniRT

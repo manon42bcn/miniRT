@@ -1,6 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   square.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/04 21:56:04 by mporras-          #+#    #+#             */
+/*   Updated: 2023/09/04 21:56:07 by mporras-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "solvers.h"
 
-double			square_solver(t_v3d origin, t_v3d dir, t_obj *sqr)
+/**
+ * @fn double square_solver(t_v3d origin, t_v3d dir, t_obj *sqr)
+ * @brief Determines the intersection between a ray and a square.
+ *
+ * This function first checks if the ray intersects the plane on
+ * which the square lies. Then, it verifies whether the intersection
+ * point is inside the boundaries of the square. The geometry and
+ * orientation of the square, along with the ray's direction, are used to
+ * compute the intersection.
+ *
+ * @param origin Origin of the ray.
+ * @param dir Direction of the ray.
+ * @param sqr The square object.
+ * @return Distance from the ray's origin to the intersection point.
+ *         Returns INFINITY if the ray doesn't intersect with the square.
+ */
+double	square_solver(t_v3d origin, t_v3d dir, t_obj *sqr)
 {
 	t_v3d	inter_point;
 	t_sq	square;

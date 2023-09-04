@@ -1,6 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/04 13:10:04 by mporras-          #+#    #+#             */
+/*   Updated: 2023/09/04 13:10:06 by mporras-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "solvers.h"
 
-static t_bool	cyl_is_hit(double x[2], t_v3d origin, t_v3d dir, t_obj *cyl)
+/**
+ * @brief Checks if a ray intersects with the cylinder.
+ *
+ * @param x[2] Array storing intersection points.
+ * @param origin Starting point of the ray.
+ * @param dir Direction of the ray.
+ * @param cyl The cylinder object.
+ * @return TRUE if there's an intersection, FALSE otherwise.
+ */
+static inline t_bool	cyl_is_hit(double x[2], t_v3d origin,
+	t_v3d dir, t_obj *cyl)
 {
 	t_v3d	v;
 	t_v3d	u;
@@ -9,7 +31,7 @@ static t_bool	cyl_is_hit(double x[2], t_v3d origin, t_v3d dir, t_obj *cyl)
 	v = ft_scalar_v3d(ft_dot_v3d(dir, cyl->elm.cyl.dir), cyl->elm.cyl.dir);
 	v = ft_minus_v3d(dir, v);
 	u = ft_scalar_v3d(ft_dot_v3d(ft_minus_v3d(origin, cyl->elm.cyl.centre),
-				cyl->elm.cyl.dir),cyl->elm.cyl.dir);
+				cyl->elm.cyl.dir), cyl->elm.cyl.dir);
 	u = ft_minus_v3d(ft_minus_v3d(origin, cyl->elm.cyl.centre), u);
 	qr[0] = ft_dot_v3d(v, v);
 	qr[1] = 2 * ft_dot_v3d(v, u);
@@ -25,81 +47,111 @@ static t_bool	cyl_is_hit(double x[2], t_v3d origin, t_v3d dir, t_obj *cyl)
 	return (TRUE);
 }
 
-static t_v3d	cyl_orientation(double x2[2], t_v3d from, t_v3d to, t_obj *cyl)
+/**
+ * @brief Computes the correct distance and intersection point from
+ * the two potential intersections.
+ *
+ * @param cyl The cylinder object.
+ * @param x2[2] Intersection points.
+ * @param dist Pointer to store the chosen distance.
+ * @param x Pointer to store the chosen intersection point.
+ */
+static inline void	compute_dist_x(t_obj *cyl, double x2[2],
+	double *dist, double *x)
+{
+	*x = x2[1];
+	if ((cyl->elm.cyl.d1 >= 0 && cyl->elm.cyl.d1
+			<= cyl->elm.cyl.height && x2[0] > EPSILON)
+		&& (cyl->elm.cyl.d2 >= 0 && cyl->elm.cyl.d2
+			<= cyl->elm.cyl.height && x2[1] > EPSILON))
+	{
+		if (x2[0] < x2[1])
+		{
+			*dist = cyl->elm.cyl.d1;
+			*x = x2[0];
+		}
+		else
+			*dist = cyl->elm.cyl.d2;
+	}
+	else if (cyl->elm.cyl.d1 >= 0 && cyl->elm.cyl.d1
+		<= cyl->elm.cyl.height && x2[0] > EPSILON)
+	{
+		*dist = cyl->elm.cyl.d1;
+		*x = x2[0];
+	}
+	else
+		*dist = cyl->elm.cyl.d2;
+}
+
+/**
+ * @brief Determines the orientation of the cylinder at the
+ * point of intersection.
+ *
+ * @param x2[2] Intersection points.
+ * @param from Starting point of the ray.
+ * @param to Direction of the ray.
+ * @param cyl The cylinder object.
+ * @return A normalized vector representing the orientation.
+ */
+static inline t_v3d	cyl_orientation(double x2[2], t_v3d from,
+	t_v3d to, t_obj *cyl)
 {
 	double	dist;
 	double	x;
 
-	if ((cyl->elm.cyl.d1 >= 0 && cyl->elm.cyl.d1 <= cyl->elm.cyl.height
-			&& x2[0] > EPSILON) && (cyl->elm.cyl.d2 >= 0
-			&& cyl->elm.cyl.d2 <= cyl->elm.cyl.height && x2[1] > EPSILON))
-	{
-		dist = x2[0] < x2[1] ? cyl->elm.cyl.d1 : cyl->elm.cyl.d2;
-		x = x2[0] < x2[1] ? x2[0] : x2[1];
-	}
-	else if (cyl->elm.cyl.d1 >= 0 && cyl->elm.cyl.d1 <= cyl->elm.cyl.height
-			&& x2[0] > EPSILON)
-	{
-		dist = cyl->elm.cyl.d1;
-		x = x2[0];
-	}
-	else
-	{
-		dist = cyl->elm.cyl.d2;
-		x = x2[1];
-	}
+	compute_dist_x(cyl, x2, &dist, &x);
 	x2[0] = x;
-	return (ft_normal_v3d(ft_minus_v3d(ft_minus_v3d(ft_scalar_v3d(x, to),
-					ft_scalar_v3d(dist, cyl->elm.cyl.dir)), ft_minus_v3d(cyl->elm.cyl.centre, from))));
+	return (ft_normal_v3d(ft_minus_v3d(ft_minus_v3d
+				(ft_scalar_v3d(x, to),
+					ft_scalar_v3d(dist, cyl->elm.cyl.dir)),
+				ft_minus_v3d(cyl->elm.cyl.centre, from))));
 }
 
-static double	body_intersect(t_v3d o, t_v3d d, t_v3d *normal, t_obj *lst)
+/**
+ * @brief Computes the intersection of the ray with the body of the cylinder.
+ *
+ * @param o Starting point of the ray.
+ * @param d Direction of the ray.
+ * @param normal Vector to store the normal at the intersection point.
+ * @param lst The list of objects in the scene.
+ * @return The distance from the ray's origin to the intersection point,
+ * or INFINITY if no intersection.
+ */
+static inline double	body_intersect(t_v3d o, t_v3d d,
+		t_v3d *normal, t_obj *lst)
 {
 	double	x2[2];
 
 	if (cyl_is_hit(x2, o, d, lst) == FALSE)
 		return (INFINITY);
-	lst->elm.cyl.d1 = ft_dot_v3d(lst->elm.cyl.dir, ft_minus_v3d(ft_scalar_v3d(x2[0], d),
+	lst->elm.cyl.d1 = ft_dot_v3d(lst->elm.cyl.dir,
+			ft_minus_v3d(ft_scalar_v3d(x2[0], d),
 				ft_minus_v3d(lst->elm.cyl.centre, o)));
-	lst->elm.cyl.d2 = ft_dot_v3d(lst->elm.cyl.dir, ft_minus_v3d(ft_scalar_v3d(x2[1], d),
+	lst->elm.cyl.d2 = ft_dot_v3d(lst->elm.cyl.dir,
+			ft_minus_v3d(ft_scalar_v3d(x2[1], d),
 				ft_minus_v3d(lst->elm.cyl.centre, o)));
 	if (!((lst->elm.cyl.d1 >= 0 && lst->elm.cyl.d1 <= lst->elm.cyl.height
-		&& x2[0] > EPSILON) || (lst->elm.cyl.d2 >= 0
-		&& lst->elm.cyl.d2 <= lst->elm.cyl.height && x2[0] > EPSILON)))
+				&& x2[0] > EPSILON) || (lst->elm.cyl.d2 >= 0
+				&& lst->elm.cyl.d2 <= lst->elm.cyl.height && x2[0] > EPSILON)))
 		return (INFINITY);
 	*normal = cyl_orientation(x2, o, d, lst);
 	return (x2[0]);
 }
 
-static double	top_intersect(t_v3d o, t_v3d d, t_obj *lst)
-{
-	double	id1;
-	double	id2;
-	t_v3d	p[3];
-
-	p[C_DIST] = ft_plus_v3d(lst->elm.cyl.centre, ft_scalar_v3d(lst->elm.cyl.height, lst->elm.cyl.dir));
-	id1 = plane_hit(o, d, lst->elm.cyl.centre, lst->elm.cyl.dir);
-	id2 = plane_hit(o, d, p[C_DIST], lst->elm.cyl.dir);
-	if (id1 < INFINITY || id2 < INFINITY)
-	{
-		p[IP1] = ft_plus_v3d(o, ft_scalar_v3d(id1, d));
-		p[IP2] = ft_plus_v3d(o, ft_scalar_v3d(id2, d));
-		if ((id1 < INFINITY && ft_distance_v3d(p[IP1], lst->elm.cyl.centre) <= lst->elm.cyl.radius)
-			&& (id2 < INFINITY && ft_distance_v3d(p[IP2], p[C_DIST]) <= lst->elm.cyl.radius))
-			if (id1 < id2)
-				return (id1);
-			else
-				return (id2);
-		else if (id1 < INFINITY
-			&& ft_distance_v3d(p[IP1], lst->elm.cyl.centre) <= lst->elm.cyl.radius)
-			return (id1);
-		else if (id2 < INFINITY && ft_distance_v3d(p[IP2], p[C_DIST]) <= lst->elm.cyl.radius)
-			return (id2);
-		return (INFINITY);
-	}
-	return (INFINITY);
-}
-
+/**
+ * @brief Main solver function for the cylinder object.
+ *
+ * Computes intersections against the body of the cylinder.
+ * If the texture is not equal to 4, it also checks intersections with the
+ * top of the cylinder.
+ * It will return the closest intersection point.
+ *
+ * @param from Starting point of the ray.
+ * @param dir Direction of the ray.
+ * @param cyl The cylinder object.
+ * @return The distance from the ray's origin to the closest intersection point,
+ * or INFINITY if no intersection.
+ */
 double	cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl)
 {
 	double	cylinder_inter;

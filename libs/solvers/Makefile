@@ -16,6 +16,7 @@ SRCS_B		=	cube.c \
 				square.c \
 				triangle.c
 SRCS		=	cylinder.c \
+				cylinder_tops.c \
 				plane.c \
 				solvers.c \
 				sphere.c

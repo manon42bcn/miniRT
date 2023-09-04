@@ -12,6 +12,14 @@
 
 #include "solvers.h"
 
+/**
+ * @brief Calculates the intersection points between a ray and a sphere.
+ *
+ * @param points Array of 2 doubles to hold the intersection distances.
+ * @param origin Origin of the ray.
+ * @param dir Direction of the ray.
+ * @param sph The sphere object.
+ */
 static inline void	sphere_hit_area(double points[2], t_v3d origin,
 		t_v3d dir, t_obj *sph)
 {
@@ -35,6 +43,12 @@ static inline void	sphere_hit_area(double points[2], t_v3d origin,
 	points[1] = (-p[1] - sqrt(disc)) / (2 * p[0]);
 }
 
+/**
+ * @brief Returns the smaller of the two intersection points.
+ *
+ * @param points Array of 2 intersection points.
+ * @return The smaller intersection point.
+ */
 static inline double	hit_between_points(double points[2])
 {
 	if (points[0] < points[1])
@@ -43,6 +57,15 @@ static inline double	hit_between_points(double points[2])
 		return (points[1]);
 }
 
+/**
+ * @brief Solver function for the intersection between a ray and a sphere.
+ *
+ * @param origin Origin of the ray.
+ * @param dir Direction of the ray.
+ * @param sph The sphere object.
+ * @return The distance from the ray's origin to the closest intersection
+ * point, or INFINITY if no intersection.
+ */
 double	sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph)
 {
 	double	distance;

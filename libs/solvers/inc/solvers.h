@@ -37,8 +37,10 @@ enum e_array_intersections
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 t_solver		get_solver(int index);
 double			plane_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir);
+double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
+					t_v3d plane_dir);
 double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
+double			top_intersect(t_v3d o, t_v3d d, t_obj *lst);
 double			sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph);
 
 # ifdef BONUS

@@ -12,7 +12,17 @@
 
 #include "solvers.h"
 
-static void		cube_base_values(t_cube *cube, t_obj *obj)
+/**
+ * @brief Initializes the cube's base normals and related values.
+ *
+ * This function sets up the fundamental directions for a cube's faces,
+ * and also sets the cube's center and side based on the provided object's
+ * attributes.
+ *
+ * @param cube Pointer to a cube structure which will be filled with base values.
+ * @param obj The cube object which provides basic attributes for setup.
+ */
+static void	cube_base_values(t_cube *cube, t_obj *obj)
 {
 	cube->normal[0] = (t_v3d){1, 0, 0};
 	cube->normal[1] = (t_v3d){-1, 0, 0};
@@ -24,7 +34,20 @@ static void		cube_base_values(t_cube *cube, t_obj *obj)
 	cube->sq.elm.sq.side = obj->elm.sq.side;
 }
 
-double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+/**
+ * @brief Determines the intersection between a ray and a cube.
+ *
+ * This function checks the intersection between a ray and each face of
+ * the cube. The closest intersection point (if any) is returned.
+ * The normal at the intersection point is also updated for the object.
+ *
+ * @param origin Origin of the ray.
+ * @param dir Direction of the ray.
+ * @param obj The cube object.
+ * @return Distance from the ray's origin to the closest intersection point.
+ *         Returns INFINITY if there's no intersection.
+ */
+double	cube_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 {
 	t_cube		cube;
 	t_v3d		cl_normal;
