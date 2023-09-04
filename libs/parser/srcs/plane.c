@@ -12,6 +12,16 @@
 
 #include "parse.h"
 
+/**
+ * @brief Parses input to populate a plane object's attributes.
+ *
+ * This function is responsible for reading the input related to a plane
+ * and populating the corresponding attributes in the `obj` structure.
+ * It ensures the plane's center and orientation are correctly extracted
+ * and also retrieves common attributes using the `get_common` function.
+ *
+ * @param mrt  Main structure containing all parsed data.
+ */
 void	inp_plane(t_mrt *mrt)
 {
 	mrt->obj = object_builder(PLANE, mrt->obj);

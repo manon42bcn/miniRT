@@ -12,6 +12,19 @@
 
 #include "parse.h"
 
+/**
+ * @brief Parses a line to retrieve a 3D vector.
+ *
+ * This function attempts to split a given line by comma and parses the
+ * individual components to retrieve a 3D vector. Depending on the mode,
+ * the function can also validate if the parsed vector is normalized.
+ *
+ * @param mrt  Main structure containing all parsed data.
+ * @param line The input line containing comma-separated values.
+ * @param mode Specifies the mode for vector validation. Possible values:
+ *             - V3D_NORM: Validates if the parsed vector is normalized.
+ * @return     A 3D vector parsed from the input line.
+ */
 t_v3d	get_v3d(t_mrt *mrt, char *line, int mode)
 {
 	char	**tmp;

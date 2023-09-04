@@ -12,14 +12,11 @@
 
 #include "parse.h"
 
-void	ft_safe_free(void *ptr)
-{
-	if (!ptr)
-		return ;
-	free(ptr);
-	ptr = NULL;
-}
-
+/**
+ * @brief   Cleans up and frees the memory of objects stored in the Ray Tracer.
+ *
+ * @param   mrt  Pointer to the main Ray Tracer structure.
+ */
 static inline void	clean_objects(t_mrt *mrt)
 {
 	t_obj	*node;
@@ -33,6 +30,11 @@ static inline void	clean_objects(t_mrt *mrt)
 	}
 }
 
+/**
+ * @brief   Cleans up and frees the memory of lights stored in the Ray Tracer.
+ *
+ * @param   mrt  Pointer to the main Ray Tracer structure.
+ */
 static inline void	clean_lights(t_mrt *mrt)
 {
 	t_light	*node;
@@ -46,6 +48,16 @@ static inline void	clean_lights(t_mrt *mrt)
 	}
 }
 
+/**
+ * @brief   Cleans up and frees the memory of cameras stored in the Ray Tracer.
+ * Additionally, it releases the image pointers if provided with
+ * an image function.
+ *
+ * @param   mrt  Pointer to the main Ray Tracer structure.
+ * @param   img  Function pointer to the image releasing function
+ * from mlx library.
+ * If NULL, image releasing is skipped.
+ */
 static inline void	clean_cameras(t_mrt *mrt, int (*img)(void *, void *))
 {
 	t_cmr	*node;
@@ -63,6 +75,18 @@ static inline void	clean_cameras(t_mrt *mrt, int (*img)(void *, void *))
 	mrt->main_cam = NULL;
 }
 
+/**
+ * @brief   Comprehensive cleanup function that releases memory and resources
+ * associated with objects, lights, cameras, and other Ray Tracer components.
+ *
+ * @param   mrt     Pointer to the main Ray Tracer structure.
+ * @param   status  Exit status.
+ * @param   win     Function pointer to the window releasing function.
+ * from mlx library. If NULL, window releasing is skipped.
+ * @param   img     Function pointer to the image releasing function
+ * from mlx library. If NULL, image releasing is skipped.
+ * @return  Exits the program with the provided status.
+ */
 int	clear_all(t_mrt *mrt, int status, int (*win)(void *, void *),
 			int (*img)(void *, void *))
 {

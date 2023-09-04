@@ -12,6 +12,16 @@
 
 #include "parse.h"
 
+/**
+ * @brief Parses input to populate a sphere object's attributes.
+ *
+ * This function is responsible for reading the input related to a sphere
+ * and populating the corresponding attributes in the `obj` structure.
+ * It ensures the sphere's center and radius are correctly extracted
+ * and also retrieves common attributes using the `get_common` function.
+ *
+ * @param mrt  Main structure containing all parsed data.
+ */
 void	inp_sphere(t_mrt *mrt)
 {
 	t_obj	*current;

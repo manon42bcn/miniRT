@@ -12,6 +12,14 @@
 
 #include "parse.h"
 
+/**
+ * @brief   Determines the closest object to the camera from a given
+ * list of objects.
+ *
+ * @param   camera  Pointer to the camera structure.
+ * @param   obj     Pointer to the linked list of objects.
+ * @return  Pointer to the closest object.
+ */
 static inline t_obj	*closer_object(t_cmr *camera, t_obj *obj)
 {
 	double	dist;
@@ -38,6 +46,12 @@ static inline t_obj	*closer_object(t_cmr *camera, t_obj *obj)
 	return (rst);
 }
 
+/**
+ * @brief   Iterate over each cam to find the object closest to
+ * each camera in the list.
+ *
+ * @param   mrt     Pointer to the main Ray Tracer structure.
+ */
 static inline void	close_to_cam(t_mrt *mrt)
 {
 	t_cmr	*node;
@@ -53,6 +67,13 @@ static inline void	close_to_cam(t_mrt *mrt)
 	}
 }
 
+/**
+ * @brief   Validates the parsed data from the scene to check if
+ * the mandatory elements are present and call to close_to_cam function
+ *
+ * @param   mrt     Pointer to the main Ray Tracer structure.
+ * @return  TRUE if all checks pass, FALSE otherwise.
+ */
 static inline t_bool	checking_parse(t_mrt *mrt)
 {
 	if (!mrt->cmr)
@@ -65,6 +86,13 @@ static inline t_bool	checking_parse(t_mrt *mrt)
 	return (TRUE);
 }
 
+/**
+ * @brief   Processes a single line from the input to load the appropriate
+ * object based on its type.
+ *
+ * @param   mrt     Pointer to the main Ray Tracer structure.
+ * @return  TRUE if the object was loaded successfully, FALSE otherwise.
+ */
 static inline t_bool	load_object(t_mrt *mrt)
 {
 	int			type;
@@ -84,6 +112,12 @@ static inline t_bool	load_object(t_mrt *mrt)
 	return (TRUE);
 }
 
+/**
+ * @brief   Reads and parses the input file to create a scene.
+ *
+ * @param   filename  Name of the input file.
+ * @return  Pointer to the populated Ray Tracer structure.
+ */
 t_mrt	*readfile_parser(char const *filename)
 {
 	int		fd;

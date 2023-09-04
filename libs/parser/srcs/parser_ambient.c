@@ -12,6 +12,20 @@
 
 #include "parse.h"
 
+/**
+ * @brief   Parses and sets the ambient light properties in the scene.
+ * This function expects the `mrt` structure to contain valid parsing data,
+ * and it initializes the scene's ambient light properties based
+ * on the provided data.
+ *
+ * @param   mrt  Pointer to the main Ray Tracer structure containing
+ * the parsing data.
+ *
+ * @note    Ambient light should only be declared once in the scene.
+ * If it's declared more than once, a parsing error will be raised.
+ * The function will also raise parsing errors and terminate if invalid
+ * data is detected.
+ */
 void	inp_ambient(t_mrt *mrt)
 {
 	if (mrt->scn.parsed == TRUE)

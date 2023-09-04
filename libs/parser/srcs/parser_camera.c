@@ -14,6 +14,19 @@
 
 #ifdef BONUS
 
+/**
+ * @brief Parses camera data under bonus conditions.
+ *
+ * Creates a camera object and appends it to the linked list of cameras.
+ * Sets the field of view (fov) by converting it to radians and then
+ * taking the tangent.
+ * If the camera fov is not in the valid range [0, 180], an error is raised.
+ * -BONUS VERSION-
+ *
+ * @param mrt The main structure containing all parsed data.
+ * @note The function will also raise parsing errors and terminate if invalid
+ * data is detected.
+ */
 void	inp_camera(t_mrt *mrt)
 {
 	static t_cmr	*last = NULL;
@@ -35,6 +48,18 @@ void	inp_camera(t_mrt *mrt)
 
 #else
 
+/**
+ * @brief Parses camera data under non-bonus conditions.
+ *
+ * Creates a single camera object and sets it to the mrt->cmr.
+ * If a camera already exists, an error is raised.
+ * Sets the field of view (fov) by converting it to radians and
+ * then taking the tangent.
+ * If the camera fov is not in the valid range [0, 180], an error is raised.
+ * -MANDATORY VERSION-
+ *
+ * @param mrt The main structure containing all parsed data.
+ */
 void	inp_camera(t_mrt *mrt)
 {
 	if (mrt->cmr != NULL)

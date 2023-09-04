@@ -14,6 +14,14 @@
 
 #ifdef BONUS
 
+/**
+ * @brief   Maps an identifier string to its corresponding index based on
+ * the dictionary of elements -BONUS VERSION-.
+ *
+ * @param   id  The identifier string.
+ * @return  Index of the element if found; IDX_COMMENT for comments;
+ * IDX_ERR for unknown elements.
+ */
 int	parser_dict(char *id)
 {
 	int			i;
@@ -33,6 +41,14 @@ int	parser_dict(char *id)
 	return (IDX_ERR);
 }
 
+/**
+ * @brief   Retrieves the appropriate builder function based on the given index.
+ * -BONUS VERSION-
+ *
+ * @param   index  Index of the builder function.
+ * @param   mrt    Pointer to the main Ray Tracer structure.
+ * @return  Function pointer to the builder function.
+ */
 t_build	get_builder(int index, t_mrt *mrt)
 {
 	static t_build	builder[] = {&inp_sphere, &inp_plane,
@@ -49,6 +65,14 @@ t_build	get_builder(int index, t_mrt *mrt)
 
 #else
 
+/**
+ * @brief   Maps an identifier string to its corresponding index based on
+ * the dictionary of elements -MANDATORY VERSION-.
+ *
+ * @param   id  The identifier string.
+ * @return  Index of the element if found; IDX_COMMENT for comments;
+ * IDX_ERR for unknown elements.
+ */
 int	parser_dict(char *id)
 {
 	int			i;
@@ -68,6 +92,14 @@ int	parser_dict(char *id)
 	return (IDX_ERR);
 }
 
+/**
+ * @brief   Retrieves the appropriate builder function based on the given index.
+ * -MANDATORY VERSION-
+ *
+ * @param   index  Index of the builder function.
+ * @param   mrt    Pointer to the main Ray Tracer structure.
+ * @return  Function pointer to the builder function.
+ */
 t_build	get_builder(int index, t_mrt *mrt)
 {
 	static t_build	builder[] = {&inp_sphere, &inp_plane,

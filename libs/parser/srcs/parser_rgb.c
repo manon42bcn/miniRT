@@ -12,6 +12,17 @@
 
 #include "parse.h"
 
+/**
+ * @brief Validates the RGB values to ensure they fall within the
+ * acceptable range.
+ *
+ * The function checks each component (Red, Green, and Blue) to verify
+ * they are between 0 and 255. If any component is out of range,
+ * it raises a parsing error.
+ *
+ * @param color Array containing the R, G, and B values.
+ * @param mrt   The main structure containing all parsed data.
+ */
 static inline void	check_color_range(t_rgb color[3], t_mrt *mrt)
 {
 	if (color[R_I] < 0 || color[R_I] > 255)
@@ -22,6 +33,18 @@ static inline void	check_color_range(t_rgb color[3], t_mrt *mrt)
 		msg_error_parsing("Color B range should be 0-255", mrt);
 }
 
+/**
+ * @brief Parses a string to extract RGB values and returns the combined color.
+ *
+ * The function splits the string based on commas and expects three values
+ * corresponding to the Red, Green, and Blue components. After extraction,
+ * the function validates each RGB value's range and then combines them
+ * into a single RGB value for return.
+ *
+ * @param line The string containing the RGB values in "R,G,B" format.
+ * @param mrt  The main structure containing all parsed data.
+ * @return     The combined RGB color value.
+ */
 t_rgb	get_color(char *line, t_mrt *mrt)
 {
 	char	**tmp;

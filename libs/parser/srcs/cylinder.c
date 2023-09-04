@@ -12,6 +12,18 @@
 
 #include "parse.h"
 
+/**
+ * @brief   Parses and initializes a cylinder object from the given input.
+ * This function expects the `mrt` structure to contain valid
+ * parsing data, and it initializes the cylinder's properties
+ * based on the provided data.
+ *
+ * @param   mrt  Pointer to the main Ray Tracer structure containing
+ * the parsing data.
+ *
+ * @note    The function will raise parsing errors and terminate
+ *  if invalid data is detected.
+ */
 void	inp_cylinder(t_mrt *mrt)
 {
 	mrt->obj = object_builder(CYLINDER, mrt->obj);

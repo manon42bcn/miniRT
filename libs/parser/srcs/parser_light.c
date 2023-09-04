@@ -12,6 +12,17 @@
 
 #include "parse.h"
 
+/**
+ * @brief Check if there's a specified color for the light.
+ *
+ * Determine if there are any additional parameters after the light's
+ * brightness ratio.
+ * If there are, then it's expected to be the light's color.
+ *
+ * @param mrt The main structure containing all parsed data.
+ * @param last Index of the last parsed parameter.
+ * @return TRUE if a color is specified, otherwise FALSE.
+ */
 static inline t_bool	check_light_color(t_mrt *mrt, int last)
 {
 	int	len;
@@ -24,6 +35,16 @@ static inline t_bool	check_light_color(t_mrt *mrt, int last)
 	return (TRUE);
 }
 
+/**
+ * @brief Parses light source data.
+ *
+ * Creates a light source object and sets its properties including origin,
+ * brightness ratio, and optionally color.
+ * If the brightness ratio isn't in the valid range [0, 1], an error is raised.
+ * If a color is specified after the brightness ratio, it's parsed and set.
+ *
+ * @param mrt The main structure containing all parsed data.
+ */
 void	inp_light(t_mrt *mrt)
 {
 	mrt->scn.light = light_builder(mrt->scn.light);

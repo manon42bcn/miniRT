@@ -12,6 +12,14 @@
 
 #include "parse.h"
 
+/**
+ * @brief   Creates and initializes a new object with the given type identifier.
+ *
+ * @param   id    The type identifier of the object to be created.
+ * @param   next  Pointer to the next object in the linked list.
+ *
+ * @return  Pointer to the newly created object.
+ */
 t_obj	*object_builder(int id, t_obj *next)
 {
 	t_obj	*rst;
@@ -22,6 +30,13 @@ t_obj	*object_builder(int id, t_obj *next)
 	return (rst);
 }
 
+/**
+ * @brief   Creates and initializes a new light structure.
+ *
+ * @param   next  Pointer to the next light in the linked list.
+ *
+ * @return  Pointer to the newly created light structure.
+ */
 t_light	*light_builder(t_light *next)
 {
 	t_light	*rst;
@@ -31,6 +46,11 @@ t_light	*light_builder(t_light *next)
 	return (rst);
 }
 
+/**
+ * @brief   Creates and initializes a new camera structure.
+ *
+ * @return  Pointer to the newly created camera structure.
+ */
 t_cmr	*camera_builder(void)
 {
 	t_cmr	*rst;

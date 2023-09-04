@@ -14,6 +14,15 @@
 
 #ifdef BONUS
 
+/**
+ * @brief Parse the resolution data in bonus mode.
+ *
+ * Parse the screen resolution values from the input data.
+ * This function ensures that the resolution is declared only once.
+ * After parsing, it calculates the aspect ratio of the scene.
+ *
+ * @param mrt The main structure containing all parsed data.
+ */
 void	inp_resolution(t_mrt *mrt)
 {
 	if (mrt->scn.res_init == TRUE)
@@ -26,6 +35,15 @@ void	inp_resolution(t_mrt *mrt)
 
 #else
 
+/**
+ * @brief Displays an error when trying to parse resolution in
+ * the mandatory version.
+ *
+ * In the mandatory version, the resolution parsing is not supported.
+ * Hence, it raises an error if a user tries to define a resolution.
+ *
+ * @param mrt The main structure containing all parsed data.
+ */
 void	inp_resolution(t_mrt *mrt)
 {
 	msg_error_parsing("Resolution is not supported at mandatory version", mrt);
