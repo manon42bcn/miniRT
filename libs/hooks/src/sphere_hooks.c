@@ -12,6 +12,15 @@
 
 #include "hooks.h"
 
+/**
+ * @brief Translates the sphere in the y-axis based on key direction.
+ *
+ * This function updates the y-coordinate of the center of every sphere in
+ * the scene depending on the provided key direction (either K_UP or K_DOWN).
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction to determine the translation direction.
+ */
 void	sphere_y_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -32,6 +41,15 @@ void	sphere_y_translation(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Translates the sphere in the x-axis based on key direction.
+ *
+ * This function updates the x-coordinate of the center of every sphere in
+ * the scene depending on the provided key direction (either K_UP or K_DOWN).
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction to determine the translation direction.
+ */
 void	sphere_x_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -52,6 +70,15 @@ void	sphere_x_translation(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Translates the sphere in the z-axis based on key direction.
+ *
+ * This function updates the z-coordinate of the center of every sphere in
+ * the scene depending on the provided key direction (either K_UP or K_DOWN).
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction to determine the translation direction.
+ */
 void	sphere_z_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -72,6 +99,16 @@ void	sphere_z_translation(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Modifies the diameter (radius) of the sphere based on key direction.
+ *
+ * This function increases or decreases the radius of every sphere in the
+ * scene based on the provided key direction (either K_UP or K_DOWN).
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction to determine whether to increase
+ * or decrease the radius.
+ */
 void	sphere_diam(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;

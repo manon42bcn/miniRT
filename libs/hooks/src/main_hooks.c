@@ -12,6 +12,15 @@
 
 #include "hooks.h"
 
+/**
+ * @brief Initialize hooks for various input commands.
+ *
+ * This function maps a set of keys to their corresponding transformations.
+ * Each transformation affects an attribute of a shape or camera.
+ *
+ * @param mrt The main struct containing hooks.
+ * @return void
+ */
 void	load_hooks(t_mrt *mrt)
 {
 	mrt->hooks[41] = &cylinder_y_translation;
@@ -37,6 +46,15 @@ void	load_hooks(t_mrt *mrt)
 	mrt->hooks[58] = &light_rotation_z;
 }
 
+/**
+ * @brief Handle the window exit operations.
+ *
+ * This function is called to safely close the window, ensuring
+ * that all resources are appropriately freed.
+ *
+ * @param mrt The main struct with cleanup routines.
+ * @return int Always returns 0.
+ */
 int	window_handler(t_mrt *mrt)
 {
 	exit(clear_all(mrt, 0, mrt->clean_window, mrt->clean_image));

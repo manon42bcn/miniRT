@@ -21,7 +21,7 @@
   * [x] v3d
   * [x] rgb
   * [x] parser
-  * [ ] solvers
+  * [x] solvers
   * [ ] hooks
   * [ ] miniRT
 * [ ] Leaks (sigo sin encontrar, pero hay que revisar)
@@ -30,7 +30,7 @@
   * [x] v3d
   * [x] rgb
   * [x] parser
-  * [ ] solvers
+  * [x] solvers
   * [ ] hooks
   * [ ] miniRT
 * [ ] CAMBIAR CRITERIOS DE PARSEO Y MODIFICAR LOS ARCHIVOS QUE HEMOS ENCONTRADO PARA QUE FUNCIONEN CON EL SUBJECT

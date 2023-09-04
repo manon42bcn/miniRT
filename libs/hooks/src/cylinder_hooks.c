@@ -12,6 +12,15 @@
 
 #include "hooks.h"
 
+/**
+ * @brief Translates the cylinder(s) along the Y-axis.
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's Y-coordinate is adjusted.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_y_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -32,6 +41,15 @@ void	cylinder_y_translation(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Translates the cylinder(s) along the X-axis.
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's X-coordinate is adjusted.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_x_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -52,6 +70,15 @@ void	cylinder_x_translation(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Translates the cylinder(s) along the Z-axis.
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's Z-coordinate is adjusted.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_z_translation(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -72,6 +99,16 @@ void	cylinder_z_translation(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Adjusts the diameter (radius) of the cylinder(s).
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's radius is increased
+ * or decreased.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_diam(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -90,6 +127,16 @@ void	cylinder_diam(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Adjusts the height of the cylinder(s).
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's height is increased
+ * or decreased.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_height(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;

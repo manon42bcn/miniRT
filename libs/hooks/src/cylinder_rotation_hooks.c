@@ -12,6 +12,17 @@
 
 #include "hooks.h"
 
+/**
+ * @brief Rotates the cylinder(s) around the X-axis.
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's angle is adjusted around
+ * the X-axis. The adjusted angle is then used to update the direction of
+ * the cylinder.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_rotation_x(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -33,6 +44,17 @@ void	cylinder_rotation_x(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Rotates the cylinder(s) around the Y-axis.
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's angle is adjusted
+ * around the Y-axis. The adjusted angle is then used to update the
+ * direction of the cylinder.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_rotation_y(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
@@ -54,6 +76,17 @@ void	cylinder_rotation_y(t_mrt *mrt, int key_dir)
 	}
 }
 
+/**
+ * @brief Rotates the cylinder(s) around the Z-axis.
+ *
+ * Iterates over all objects, checking if the object is a cylinder.
+ * Depending on the key direction, the cylinder's angle is adjusted
+ * around the Z-axis. The adjusted angle is then used to update the
+ * direction of the cylinder.
+ *
+ * @param mrt Pointer to the main runtime structure.
+ * @param key_dir Key direction, either K_UP or K_DOWN.
+ */
 void	cylinder_rotation_z(t_mrt *mrt, int key_dir)
 {
 	t_obj	*node;
