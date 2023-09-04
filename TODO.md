@@ -18,5 +18,19 @@
   * [x] Bonus siempre recompila... revisar
 * [x] Chequear que hay suficientes elementos para iniciar render.
 * [ ] Norminette general
+  * [x] v3d
+  * [x] rgb
+  * [ ] parser
+  * [ ] solvers
+  * [ ] hooks
+  * [ ] miniRT
 * [ ] Leaks (sigo sin encontrar, pero hay que revisar)
 * [ ] Make it pretty... 
+* [ ] Documentación general - looking pro! - 
+  * [x] v3d
+  * [x] rgb
+  * [ ] parser
+  * [ ] solvers
+  * [ ] hooks
+  * [ ] miniRT
+* [ ] CAMBIAR CRITERIOS DE PARSEO Y MODIFICAR LOS ARCHIVOS QUE HEMOS ENCONTRADO PARA QUE FUNCIONEN CON EL SUBJECT
