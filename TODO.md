@@ -22,7 +22,7 @@
   * [x] rgb
   * [x] parser
   * [x] solvers
-  * [ ] hooks
+  * [x] hooks
   * [ ] miniRT
 * [ ] Leaks (sigo sin encontrar, pero hay que revisar)
 * [ ] Make it pretty... 
@@ -31,6 +31,6 @@
   * [x] rgb
   * [x] parser
   * [x] solvers
-  * [ ] hooks
+  * [x] hooks
   * [ ] miniRT
 * [ ] CAMBIAR CRITERIOS DE PARSEO Y MODIFICAR LOS ARCHIVOS QUE HEMOS ENCONTRADO PARA QUE FUNCIONEN CON EL SUBJECT
