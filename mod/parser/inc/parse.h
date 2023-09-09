@@ -13,9 +13,9 @@
 #ifndef PARSE_H
 # define PARSE_H
 
-# include "../../v3d/inc/v3d.h"
-# include "../../rgb/inc/rgb.h"
-# include "../../lib/inc/libft.h"
+# include "../../../libs/v3d/inc/v3d.h"
+# include "../../../libs/rgb/inc/rgb.h"
+# include "../../../libs/lib/inc/libft.h"
 # include <fcntl.h>
 # include <math.h>
 # include "parse_enum.h"

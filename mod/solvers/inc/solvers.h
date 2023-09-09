@@ -13,9 +13,9 @@
 #ifndef SOLVERS_H
 # define SOLVERS_H
 
-# include "../../lib/inc/libft.h"
-# include "../../v3d/inc/v3d.h"
-# include "../../rgb/inc/rgb.h"
+# include "../../../libs/lib/inc/libft.h"
+# include "../../../libs/v3d/inc/v3d.h"
+# include "../../../libs/rgb/inc/rgb.h"
 # include "../../../inc/objects.h"
 # include "../../../inc/structs.h"
 

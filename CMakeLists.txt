@@ -6,8 +6,8 @@ add_subdirectory(libs/lib)
 add_subdirectory(libs/parser)
 add_subdirectory(libs/rgb)
 add_subdirectory(libs/v3d)
-add_subdirectory(libs/hooks)
-add_subdirectory(libs/solvers)
+add_subdirectory(mod/hooks)
+add_subdirectory(mod/solvers)
 
 # ...
 

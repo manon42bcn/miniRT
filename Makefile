@@ -26,10 +26,16 @@ LIBS_DIR		=	libs
 LIB_FT			= 	$(LIBS_DIR)/lib
 LIB_V3D			= 	$(LIBS_DIR)/v3d
 LIB_RGB			=	$(LIBS_DIR)/rgb
-LIB_PARSER		=	$(LIBS_DIR)/parser
 LIB_SOLVER		=	$(LIBS_DIR)/solvers
 LIB_HOOKS		=	$(LIBS_DIR)/hooks
 LIB_MLX			= 	mlx
+MODS_LIB		=	mod
+MODS_PARSER		=	$(MODS_LIB)/parser
+MODS_HOOKS		=	$(MODS_LIB)/hooks
+MODS_SOLVERS	=	$(MODS_LIB)/solvers
+MODS_MODULES	=	$(MODS_PARSER)/libparser.a \
+					$(MODS_HOOKS)/libhooks.a \
+					$(MODS_SOLVERS)/libsolvers.a
 SRCS_FILES		= 	intersections/intersections.c \
 					light/light.c \
 					rays/tracer.c \
@@ -47,13 +53,14 @@ HEAD_FILES		=	inc/minirt.h \
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
 CFLAGS			=	-Wall -Wextra -Werror
-LIBRARIES		=	$(LIB_FT)/libft.a $(LIB_V3D)/libv3d.a $(LIB_RGB)/librgb.a $(LIB_PARSER)/libparser.a $(LIB_SOLVER)/libsolvers.a $(LIB_HOOKS)/libhooks.a
-INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(LIB_PARSER)/$(HEAD_DIR) -I$(LIB_SOLVER)/$(HEAD_DIR) -I$(LIB_HOOKS)/$(HEAD_DIR) -I$(HEAD_DIR)
-LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./libs/parser -lparser -L./libs/solvers -lsolvers -L./libs/hooks -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
+LIBRARIES		=	$(LIB_FT)/libft.a $(LIB_V3D)/libv3d.a $(LIB_RGB)/librgb.a $(MODS_MODULES)
+INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(MODS_PARSER)/$(HEAD_DIR) -I$(MODS_SOLVERS)/$(HEAD_DIR) -I$(MODS_HOOKS)/$(HEAD_DIR) -I$(HEAD_DIR)
+LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./$(MODS_PARSER) -lparser -L./$(MODS_SOLVERS) -lsolvers -L./$(MODS_HOOKS) -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 BONUS_FILE		=	.bonus
+CC				=	gcc
 
-all: version library $(OBJ_SUBS) $(NAME)
+all: version library modules $(OBJ_SUBS) $(NAME)
 
 version:
 	@if [ -f .bonus ]; then \
@@ -72,6 +79,7 @@ version_bonus:
 
 $(BONUS_FILE): $(OBJ_SUBS)
 	$(MAKE) LIB_DET=bonus library
+	$(MAKE) LIB_DET=bonus modules
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 	touch .bonus
 
@@ -82,10 +90,12 @@ library:
 	$(MAKE) -C $(LIB_FT) $(LIB_DET)
 	$(MAKE) -C $(LIB_V3D) $(LIB_DET)
 	$(MAKE) -C $(LIB_RGB) $(LIB_DET)
-	$(MAKE) -C $(LIB_PARSER) $(LIB_DET)
-	$(MAKE) -C $(LIB_SOLVER) $(LIB_DET)
-	$(MAKE) -C $(LIB_HOOKS) $(LIB_DET)
 	# $(MAKE) -C $(LIB_MLX)
+
+modules:
+	$(MAKE) -C $(MODS_PARSER) $(LIB_DET)
+	$(MAKE) -C $(MODS_HOOKS) $(LIB_DET)
+	$(MAKE) -C $(MODS_SOLVERS) $(LIB_DET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
@@ -97,10 +107,10 @@ clean:
 	$(MAKE) -C $(LIB_FT) clean
 	$(MAKE) -C $(LIB_V3D) clean
 	$(MAKE) -C $(LIB_RGB) clean
-	$(MAKE) -C $(LIB_PARSER) clean
-	$(MAKE) -C $(LIB_SOLVER) clean
-	$(MAKE) -C $(LIB_HOOKS) clean
+	$(MAKE) -C $(MODS_SOLVERS) clean
 	# $(MAKE) -C $(LIB_MLX) clean
+	$(MAKE) -C $(MODS_PARSER) clean
+	$(MAKE) -C $(MODS_HOOKS) clean
 	$(RM) $(MLX)
 	$(RM) $(OBJS)
 
@@ -108,9 +118,9 @@ fclean: clean
 	$(MAKE) -C $(LIB_FT) fclean
 	$(MAKE) -C $(LIB_V3D) fclean
 	$(MAKE) -C $(LIB_RGB) fclean
-	$(MAKE) -C $(LIB_PARSER) fclean
-	$(MAKE) -C $(LIB_SOLVER) fclean
-	$(MAKE) -C $(LIB_HOOKS) fclean
+	$(MAKE) -C $(MODS_SOLVERS) fclean
+	$(MAKE) -C $(MODS_PARSER) fclean
+	$(MAKE) -C $(MODS_HOOKS) fclean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(NAME)
 	$(RM) $(OBJ_SUBS)

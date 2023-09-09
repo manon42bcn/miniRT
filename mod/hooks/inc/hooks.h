@@ -14,9 +14,9 @@
 # define HOOKS_H
 
 # include <math.h>
-# include "../../v3d/inc/v3d.h"
-# include "../../rgb/inc/rgb.h"
-# include "../../lib/inc/libft.h"
+# include "../../../libs/v3d/inc/v3d.h"
+# include "../../../libs/rgb/inc/rgb.h"
+# include "../../../libs/lib/inc/libft.h"
 # include "../../../inc/objects.h"
 # include "../../../inc/structs.h"
 # include "../../parser/inc/parse.h"
