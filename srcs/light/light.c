@@ -12,6 +12,18 @@
 
 #include "minirt.h"
 
+/**
+ * @brief Determines if the path between an origin and direction is
+ * not get shadowed by objects.
+ *
+ * Checks whether there's any object blocking the path between the origin
+ * and direction by evaluating intersections with objects.
+ *
+ * @param origin Origin of the ray.
+ * @param dir Direction of the ray.
+ * @param obj Pointer to the list of objects in the scene.
+ * @return TRUE if path is clear, FALSE if shadowed.
+ */
 static inline t_bool	lighted(t_v3d origin, t_v3d dir, t_obj *obj)
 {
 	double		evl;
@@ -28,6 +40,13 @@ static inline t_bool	lighted(t_v3d origin, t_v3d dir, t_obj *obj)
 	return (TRUE);
 }
 
+/**
+ * @brief Adjusts the RGB components based on brightness coefficient.
+ *
+ * @param rgb Triple of RGB components to be adjusted.
+ * @param coef Brightness coefficient.
+ * @param color Color value to be added to rgb.
+ */
 static inline void	brightness(double (*rgb)[3], double coef, int color)
 {
 	unsigned int	mask;
@@ -40,6 +59,16 @@ static inline void	brightness(double (*rgb)[3], double coef, int color)
 	(*rgb)[2] += coef * (color & mask) / RGB_MASK;
 }
 
+/**
+ * @brief Computes the specular reflection brightness for a given ray
+ * and intersection point.
+ *
+ * @param ray Ray of interest.
+ * @param inter Intersection information.
+ * @param scn Scene settings and information.
+ * @param obj The object that the ray has hit.
+ * @return Specular reflection brightness value.
+ */
 double	specular_transform(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
 {
 	double	light;
@@ -58,7 +87,18 @@ double	specular_transform(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
 	return (light);
 }
 
-void	ligth_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
+/**
+ * @brief Computes the lighting at a given intersection point.
+ *
+ * Considers both diffuse and specular components of lighting. Adjusts
+ * the intersection color based on the computed lighting.
+ *
+ * @param ray The ray of interest.
+ * @param inter Intersection information, containing details like hit point.
+ * @param scn Scene settings and information.
+ * @param obj The object that the ray has hit.
+ */
+void	light_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
 {
 	double			light;
 	double			rgb[3];
@@ -86,6 +126,18 @@ void	ligth_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
 	inter->color = ft_rgb_light(inter->color, rgb);
 }
 
+/**
+ * @brief Computes the direction of the normal at a hit point.
+ *
+ * Determines the direction of the surface normal at the hit point,
+ * considering the object type. For spheres, it also sets if the hit
+ * is inside or outside.
+ *
+ * @param hitted The hit point in world coordinates.
+ * @param dir Direction of the incoming ray.
+ * @param normal Output parameter, direction of the normal at the hit point.
+ * @param obj The object that has been hit.
+ */
 void	hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj)
 {
 	if (obj->type == SPHERE)

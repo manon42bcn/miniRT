@@ -17,6 +17,7 @@
   * [x] Make después de touch a algún archivo fuente de alguna librería o módulo
   * [x] Bonus siempre recompila... revisar
 * [x] Chequear que hay suficientes elementos para iniciar render.
+* [x] Separar librerías y módulos
 * [ ] Norminette general
   * [x] v3d
   * [x] rgb

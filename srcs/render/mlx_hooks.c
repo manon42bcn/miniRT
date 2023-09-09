@@ -12,11 +12,24 @@
 
 #include "minirt.h"
 
+/**
+ * @brief Initializes the MiniLibX library and prepares the images for each
+ * camera.
+ *
+ * Initializes the MiniLibX library and creates an image for each camera in
+ * the scene. Each camera's image pointer, address, bytes per pixel, size,
+ * and endianness are stored within the camera's structure.
+ *
+ * @param mrt A pointer to the general properties of the scene.
+ */
 void	mlx_starter(t_mrt *mrt)
 {
 	t_cmr	*node;
 
 	node = mrt->cmr;
+	mrt->mlx = mlx_init();
+	if (mrt->mlx == NULL)
+		msg_error_exit("mlx init error");
 	while (node)
 	{
 		node->img_ptr = mlx_new_image(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y);
@@ -26,6 +39,16 @@ void	mlx_starter(t_mrt *mrt)
 	}
 }
 
+/**
+ * @brief Renders and displays the scene to the window.
+ *
+ * If the scene is set to be rendered, it will call the rendering function.
+ * After rendering or if already rendered, it will then display the image
+ * corresponding to the current camera to the window.
+ *
+ * @param mrt A pointer to the general properties of the scene.
+ * @return Always returns TRUE. Used for hook functions in MiniLibX.
+ */
 int	to_win(t_mrt *mrt)
 {
 	if (mrt->to_img == TO_RENDER)

@@ -12,6 +12,12 @@
 
 #include "minirt.h"
 
+/**
+ * @brief Resets the reflection and refraction properties of the closest
+ * object if not a CLOSE_OBJ.
+ *
+ * @param closest Pointer to the closest object to the ray.
+ */
 static inline void	clean_rgb_interactions(t_obj *closest)
 {
 	if (closest->type != CLOSE_OBJ)
@@ -20,6 +26,17 @@ static inline void	clean_rgb_interactions(t_obj *closest)
 	closest->refract = 0;
 }
 
+/**
+ * @brief Computes the intersection point of a ray with all objects in the scene.
+ *
+ * Identifies the closest intersection point of a given ray with objects in the
+ * scene.
+ *
+ * @param inter Struct containing information about the ray being cast.
+ * @param obj Pointer to the list of objects in the scene.
+ * @param closest Pointer to the closest intersected object.
+ * @return A 3D vector representing the intersection point in world coordinates.
+ */
 static inline t_v3d	get_hits(t_inter inter, t_obj *obj, t_obj *closest)
 {
 	double	close_dist;
@@ -36,6 +53,15 @@ static inline t_v3d	get_hits(t_inter inter, t_obj *obj, t_obj *closest)
 
 #ifdef BONUS
 
+/**
+ * @brief Computes the refracted direction given an incident direction and
+ * the object's properties.
+ *
+ * @param from Incident direction.
+ * @param dir Direction of the ray.
+ * @param obj Object through which refraction occurs.
+ * @return A 3D vector representing the refracted direction.
+ */
 static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 {
 	double	cos_theta;
@@ -61,6 +87,21 @@ static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc), dir)));
 }
 
+/**
+ * @brief Computes the color of a pixel by casting rays into the scene
+ * and handling interactions.
+ *
+ * This is the main ray tracing function at bonus version.
+ * It handles object intersections, shading, reflection, and refraction.
+ * The function is recursive, with the depth indicating the number of
+ * recursive steps for reflection and refraction.
+ *
+ * @param origin Origin of the ray.
+ * @param dir Direction of the ray.
+ * @param mrt Main structure containing scene and rendering information.
+ * @param depth Current recursion depth.
+ * @return RGB color value for the given ray.
+ */
 t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_obj		close_obj;
@@ -76,7 +117,7 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	else
 		inter.color = mrt->scn.bgr;
 	texturize(close_obj.texture, &inter, mrt->obj);
-	ligth_hit(inter.ray, &inter, mrt->scn, mrt->obj);
+	light_hit(inter.ray, &inter, mrt->scn, mrt->obj);
 	clean_rgb_interactions(&close_obj);
 	if (close_obj.refract > 0)
 		inter.color = tracer(inter.hit,
@@ -91,6 +132,19 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 
 #else
 
+/**
+ * @brief Computes the color of a pixel by casting rays into the scene and
+ * handling interactions.
+ *
+ * This version of the tracer function handles object intersections and shading
+ * but does not handle reflection or refraction. (Mandatory version)
+ *
+ * @param origin Origin of the ray.
+ * @param dir Direction of the ray.
+ * @param mrt Main structure containing scene and rendering information.
+ * @param depth Current recursion depth (unused in this version).
+ * @return RGB color value for the given ray.
+ */
 t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_obj		close_obj;

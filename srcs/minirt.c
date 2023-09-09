@@ -13,11 +13,16 @@
 #include "minirt.h"
 
 /**
- * @brief get screensize if not loaded from parse, calculate ratio
- * to all cameras, and get pointers to mlx destroyer functions.
- * @param mrt mrt struct to save info
+ * @brief Finalizes the parsing process and initializes specific rendering
+ * parameters.
+ * Once the scene is parsed, this function is used to set specific screen
+ * parameters and initialize the scene's camera. It also sets up the
+ * necessary hooks for interactivity.
+ *
+ * @param mrt Pointer to the main structure containing scene, camera,
+ * and other essential data.
  */
-static inline void	complete_parse_info(t_mrt *mrt)
+static inline void	after_parse_process(t_mrt *mrt)
 {
 	t_cmr	*node;
 
@@ -35,8 +40,22 @@ static inline void	complete_parse_info(t_mrt *mrt)
 	mrt->clean_window = &mlx_clear_window;
 	mrt->clean_image = &mlx_destroy_image;
 	mrt->window = FALSE;
+	load_hooks(mrt);
+	mlx_starter(mrt);
 }
 
+/**
+ * @brief The main entry point for the miniRT application.
+ *
+ * Validates the command-line arguments and initializes the program.
+ * Parses the scene from the input file, processes it, renders
+ * the scene, and opens a MiniLibX window to display the rendered
+ * image. It also sets up various event handlers for the window.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line arguments.
+ * @return Returns SUCCESS if the program executed without errors.
+ */
 int	main(int argc, char const *argv[])
 {
 	t_mrt	*mrt;
@@ -46,12 +65,10 @@ int	main(int argc, char const *argv[])
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
 	mrt = readfile_parser(argv[1]);
-	complete_parse_info(mrt);
-	load_hooks(mrt);
-	mrt->mlx = mlx_init();
-	mlx_starter(mrt);
+	after_parse_process(mrt);
 	render_main(mrt);
-	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x, mrt->scn.w_y,"miniRT");
+	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
+			mrt->scn.w_y, "miniRT");
 	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
 	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
 	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_handler, mrt);

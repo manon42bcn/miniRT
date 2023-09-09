@@ -12,6 +12,19 @@
 
 #include "minirt.h"
 
+/**
+ * @brief Calculate the color value for a given pixel.
+ *
+ * The function determines the color of a pixel based on the scene's
+ * information, edges, and sides. It uses supersampling if there's a
+ * difference in adjacent pixel colors to enhance image quality.
+ *
+ * @param edges Pointer to an array representing the edges' RGB values.
+ * @param sides Array of RGB values representing the sides.
+ * @param mrt Pointer to the main rendering structure containing scene
+ * and camera details.
+ * @return Calculated RGB color for the pixel.
+ */
 static inline t_rgb	calc_pixel_color(int *edges, t_rgb sides[2], t_mrt *mrt)
 {
 	t_pix	pix;
@@ -29,6 +42,17 @@ static inline t_rgb	calc_pixel_color(int *edges, t_rgb sides[2], t_mrt *mrt)
 	return (ft_rgb_balance(color));
 }
 
+/**
+ * @brief Allocates memory for an array of RGB values to represent edges.
+ *
+ * Uses secure memory allocation to prevent unexpected behaviors.
+ * This function serves as a utility for preparing edge data structures
+ * in the rendering process.
+ *
+ * @param size Number of RGB values required (often corresponds to
+ * screen width + 2).
+ * @return Pointer to the newly allocated array of RGB values.
+ */
 static inline t_rgb	*create_edges_new(int size)
 {
 	t_rgb	*rst;
@@ -37,7 +61,17 @@ static inline t_rgb	*create_edges_new(int size)
 	return (rst);
 }
 
-
+/**
+ * @brief Renders the scene for a given camera.
+ *
+ * Iteratively calculates the color for each pixel in the scene using
+ * the camera's perspective and fills the corresponding pixel in the
+ * camera's image buffer. Utilizes edge calculation for defining scene
+ * boundaries and then uses the calculated edges to derive pixel color.
+ *
+ * @param mrt Pointer to the main structure containing scene, camera,
+ * and other essential data.
+ */
 static inline void	render_scene(t_mrt *mrt)
 {
 	t_rgb	*edges;
@@ -60,6 +94,16 @@ static inline void	render_scene(t_mrt *mrt)
 	ft_sec_free(edges);
 }
 
+/**
+ * @brief Renders the entire scene for each camera in the scene.
+ *
+ * Iterates through all the cameras in the scene and calls the render
+ * function for each. After rendering, it resets the active camera to the
+ * main camera of the scene.
+ *
+ * @param mrt Pointer to the main structure containing scene, camera,
+ * and other essential data.
+ */
 void	render_main(t_mrt *mrt)
 {
 	while (mrt->cmr)

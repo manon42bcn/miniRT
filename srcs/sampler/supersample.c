@@ -12,6 +12,18 @@
 
 #include "minirt.h"
 
+/**
+ * @brief Super-samples the first corner of a pixel for anti-aliasing.
+ *
+ * Super-sampling is a technique used to reduce aliasing artifacts by taking
+ * multiple samples within each pixel and averaging the results.
+ *
+ * @param color Array of colors representing sampled points.
+ * @param centre The central color sample.
+ * @param pix The pixel's properties.
+ * @param mrt General scene's properties.
+ * @return A color resulting from super-sampling.
+ */
 static inline t_rgb	first_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
@@ -33,6 +45,15 @@ static inline t_rgb	first_corner(t_rgb *color, int centre,
 	return (col);
 }
 
+/**
+ * @brief Super-samples the second corner of a pixel for anti-aliasing.
+ *
+ * @param color Array of colors representing sampled points.
+ * @param centre The central color sample.
+ * @param pix The pixel's properties.
+ * @param mrt General scene's properties.
+ * @return A color resulting from super-sampling.
+ */
 static inline t_rgb	second_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
@@ -54,6 +75,15 @@ static inline t_rgb	second_corner(t_rgb *color, int centre,
 	return (col);
 }
 
+/**
+ * @brief Super-samples the third corner of a pixel for anti-aliasing.
+ *
+ * @param color Array of colors representing sampled points.
+ * @param centre The central color sample.
+ * @param pix The pixel's properties.
+ * @param mrt General scene's properties.
+ * @return A color resulting from super-sampling.
+ */
 static inline t_rgb	third_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
@@ -75,6 +105,15 @@ static inline t_rgb	third_corner(t_rgb *color, int centre,
 	return (col);
 }
 
+/**
+ * @brief Super-samples the fourth corner of a pixel for anti-aliasing.
+ *
+ * @param color Array of colors representing sampled points.
+ * @param centre The central color sample.
+ * @param pix The pixel's properties.
+ * @param mrt General scene's properties.
+ * @return A color resulting from super-sampling.
+ */
 static inline t_rgb	fourth_corner(t_rgb *color, int centre,
 												t_pix pix, t_mrt *mrt)
 {
@@ -96,6 +135,18 @@ static inline t_rgb	fourth_corner(t_rgb *color, int centre,
 	return (col);
 }
 
+/**
+ * @brief Performs super-sampling for a given pixel.
+ *
+ * Averages samples taken at different positions within a pixel to
+ * compute the final pixel color. This method helps to reduce
+ * aliasing by providing a more accurate color representation.
+ *
+ * @param color Array of colors representing sampled points.
+ * @param pix The pixel's properties.
+ * @param mrt General scene's properties.
+ * @return The final color of the pixel after super-sampling.
+ */
 t_rgb	supersample(int *color, t_pix pix, t_mrt *mrt)
 {
 	int				centre;

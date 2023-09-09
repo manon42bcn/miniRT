@@ -12,6 +12,15 @@
 
 #include "minirt.h"
 
+/**
+ * @brief Apply a checkboard texture to an intersection point.
+ *
+ * Uses the hit point's coordinates to determine whether it's on a black or
+ * white square in a checkerboard pattern.
+ *
+ * @param inter Intersection information, containing details like hit point.
+ * @return Color of the checkerboard at the intersection point.
+ */
 static inline t_rgb	texture_checkboard(t_inter *inter)
 {
 	t_rgb	black;
@@ -34,6 +43,14 @@ static inline t_rgb	texture_checkboard(t_inter *inter)
 	return (white);
 }
 
+/**
+ * @brief Generate a wave texture based on the intersection point
+ * and object's wavelength factor.
+ *
+ * @param inter Intersection information, containing details like hit point.
+ * @param lst The object to which the texture will be applied.
+ * @return A vector representing the normal perturbation due to the wave texture.
+ */
 static inline t_v3d	texture_waves(t_inter *inter, t_obj *lst)
 {
 	double	wl_value;
@@ -44,6 +61,16 @@ static inline t_v3d	texture_waves(t_inter *inter, t_obj *lst)
 	return (ft_rotate_v3d(inter->normal, wl_value));
 }
 
+/**
+ * @brief Fill a color array with specified RGB values.
+ *
+ * Utility function to fill a color array with RGB values.
+ *
+ * @param r Red component.
+ * @param g Green component.
+ * @param b Blue component.
+ * @param color The array to be filled with color values.
+ */
 static inline void	fill_rgb(double r, double g, double b, double color[3])
 {
 	color[0] = r;
@@ -51,6 +78,15 @@ static inline void	fill_rgb(double r, double g, double b, double color[3])
 	color[2] = b;
 }
 
+/**
+ * @brief Generate a rainbow texture based on the intersection point's normal.
+ *
+ * Uses the y-component of the normal to determine a wavelength, then converts
+ * that wavelength into an RGB color.
+ *
+ * @param inter Intersection information, containing details like normal.
+ * @return The color of the rainbow texture at the intersection point.
+ */
 static inline t_rgb	texture_rainbow(t_inter *inter)
 {
 	double	color[3];
@@ -77,6 +113,15 @@ static inline t_rgb	texture_rainbow(t_inter *inter)
 	return (((t_rgb)color[0] << 16) | ((t_rgb)color[1] << 8) | (t_rgb)color[2]);
 }
 
+/**
+ * @brief Apply a specific texture to an intersection point based
+ * on a texture ID.
+ *
+ * @param texture The ID of the texture to be applied.
+ * @param inter Intersection information, which will be modified based
+ * on the texture.
+ * @param obj The object to which the texture will be applied.
+ */
 void	texturize(int texture, t_inter *inter, t_obj *obj)
 {
 	if (texture == CHECKBOARD)
