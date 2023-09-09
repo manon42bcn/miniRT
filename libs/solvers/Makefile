@@ -30,7 +30,9 @@ CC			=	gcc
 RM			=	@rm -rf
 CFLAGS 		=	-Wall -Wextra -Werror -Iinc -I../inc
 NAME		=	libsolvers.a
-HEADER		=	inc/solvers.h
+HEADER		=	inc/solvers.h \
+				../../inc/objects.h \
+                ../../inc/structs.h
 BONUS_FILE	= 	.bonus
 
 all: version $(NAME) $(HEADER)

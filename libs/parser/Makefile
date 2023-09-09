@@ -42,8 +42,8 @@ CFLAGS 		=	-Wall -Wextra -Werror -Iinc -I../inc
 NAME		=	libparser.a
 HEADER		=	inc/parse.h \
 				inc/parse_enum.h \
-				../inc/objects.h \
-				../inc/structs.h
+				../../inc/objects.h \
+				../../inc/structs.h
 BONUS_FILE	= .bonus
 
 all: version $(NAME) $(HEADER)

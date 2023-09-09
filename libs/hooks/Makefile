@@ -30,8 +30,8 @@ CFLAGS 		=	-Wall -Wextra -Werror -Iinc
 NAME		=	libhooks.a
 HEADER		=	inc/hooks.h \
 				../parser/inc/parse.h \
-				../inc/objects.h \
-                ../inc/structs.h
+				../../inc/objects.h \
+                ../../inc/structs.h
 
 all: $(NAME) $(HEADER)
 

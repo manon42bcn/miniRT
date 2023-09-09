@@ -19,8 +19,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include "parse_enum.h"
-# include "../../inc/objects.h"
-# include "../../inc/structs.h"
+# include "../../../inc/objects.h"
+# include "../../../inc/structs.h"
 # define SEP " \t\n"
 # define IDX_ERR	-1
 # define IDX_COMMENT -2

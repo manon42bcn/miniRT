@@ -16,8 +16,8 @@
 # include "../../lib/inc/libft.h"
 # include "../../v3d/inc/v3d.h"
 # include "../../rgb/inc/rgb.h"
-# include "../../inc/objects.h"
-# include "../../inc/structs.h"
+# include "../../../inc/objects.h"
+# include "../../../inc/structs.h"
 
 # ifndef EPSILON
 #  define EPSILON 0.00001
