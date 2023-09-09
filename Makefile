@@ -77,7 +77,7 @@ version_bonus:
 		$(MAKE) fclean; \
     fi
 
-$(BONUS_FILE): $(OBJ_SUBS)
+$(BONUS_FILE): $(OBJ_SUBS) $(OBJS)
 	$(MAKE) LIB_DET=bonus library
 	$(MAKE) LIB_DET=bonus modules
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
