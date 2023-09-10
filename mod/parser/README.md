@@ -1,4 +1,4 @@
-# miniRT Parser Library #
+# miniRT Parser Module #
 The miniRT Parser Library is a dedicated module for extracting, interpreting, and validating data from scene description files in the miniRT project. The library ensures that every object, camera, light, and scene setting is correctly parsed, verified, and represented in memory.
 
 ## Features ##

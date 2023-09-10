@@ -86,6 +86,14 @@ After set a particular behaviour, you can apply them using key arrows (up-down-r
 - Solver: Contains solutions for different geometric equations used in ray-object interaction.
 - Libft-extended: 42 library with extra functions.
 
+### Why libraries and modules ###
+You may be asking yourself why the code is separated in libs and modules:
+- libraries can be used without problem in others projects, they provided (rgb, v3d) mainly maths formulas to solve some common operations with 3D vectors or RGB colors.
+- Modules are clustered functionalities of the project. E.g. Parser Module is used in some point of the workflow. This separation allow us to modify or work on that specific part of the workflow keeping the rest intact.
+But, why? Well this project was produced for academic purposes, and it was a great opportunity to work with this approach (and it's easier to work with teammates).
+This code doesn't pretend to be super compact or the most optimal approach, but understandable to us. Keep that in mind!
+
+
 ## miniRT Program Flow ##
 
 ### Start: ###

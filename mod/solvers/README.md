@@ -1,4 +1,4 @@
-# Ray Tracing Solver Library #
+# Ray Tracing Solver Module #
 
 Some resources to better understanding of the solvers library:
 - https://www.scratchapixel.com
@@ -30,6 +30,4 @@ Some basic shapes are beyond mandatory subject.
 
 ## Usage ##
 
-Just like any other C library, include the appropriate header file. 
-- \#include "ray_tracing_solver.h"
 Depending on the geometric object, call the corresponding solver.

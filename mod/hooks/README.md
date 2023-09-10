@@ -1,5 +1,5 @@
 
-# Hooks Library for mrt #
+# Hooks Module for mrt #
 
 This library provides functionality to handle user input, enabling dynamic transformations on 3D objects like spheres, cylinders, lights, and the camera in a scene. Each function responds to specific key presses, causing updates in the runtime structure and subsequently triggering a re-render of the scene.
 
@@ -71,7 +71,6 @@ To better understanding of hooks functionality:
 
 ## Usage ##
 
-Just like any other C library, include the appropriate header file.
 To use a hook you have to use a particular key combinatios, according this table:
 
 | Description               | Key1 | Key2 | Key3 |
