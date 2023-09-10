@@ -1,3 +1,7 @@
 *.dSYM/
 *.a
 *.libdyb
+miniRT.dSYM/
+.DS_Store
+.bonus
+*.o
