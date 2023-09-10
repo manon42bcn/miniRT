@@ -1,3 +1,24 @@
+```
+
+                                               @@@@@@@@@@  @@@@@@@@@@@@                 
+                                               @@@    @@@@.    %@@@                     
+                                               @@@     @@@@    %@@@                     
+                                               @@@     @@@@    %@@@                     
+                                               @@@@@@@@@@@     %@@@                     
+                                               @@@@@@@@@       %@@@                     
+                                               @@@   @@@@      %@@@                     
+                                                      @@@&     %@@@                     
+                          %@@@                 @@@     @@@.    %@@@                     
+                          %@@@                 @@@     &@@@    %@@@                     
+     ,@@@@@@@@@@@@@@@@@          @@@@@@@@@@                        
+     ,@@@.  *@@@%   @@@/  %@@@   @@@@   @@@@   @@@                    
+     ,@@@    @@@    @@@/  %@@@   @@@@   @@@@   @@@                     
+     ,@@@    @@@    @@@/  %@@@   @@@@   @@@@   @@@                     
+     ,@@@    @@@    @@@/  %@@@   @@@@   @@@@   @@@                       
+     ,@@@    @@@    @@@/  %@@@   @@@@   @@@@   @@@                        
+     ,@@@    @@@    @@@/  %@@@   @@@@   @@@@   @@@                     
+```
+
 # miniRT #
 A simple Ray Tracing engine created in C. This project uses the MiniLibX, a simple graphics library, to showcase the fundamentals of ray tracing with some bonus features like textures and supersampling.
 
