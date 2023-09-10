@@ -13,6 +13,33 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
+// KEY DEFINITIONS
+# define NO_HOOK		0
+# define K_D			2
+# define K_F			3
+# define K_H			4
+# define K_G			5
+# define K_Z			6
+# define K_X			7
+# define K_C			8
+# define K_E			14
+# define K_R			15
+# define K_Y			16
+# define K_T			17
+# define K_Q			12
+# define K_L			37
+# define K_J			38
+# define K_U			32
+# define K_O			31
+# define K_N			45
+# define K_M			46
+# define K_SPACE		49
+# define K_ENTER		36
+# define K_ESC			53
+# define K_S			115
+# define K_UP			126
+# define K_DOWN			125
+
 # define EPSILON 0.00001
 # define SQRT2_2 0.7071067811865476
 # define RAD_ANGLE 0.0174533

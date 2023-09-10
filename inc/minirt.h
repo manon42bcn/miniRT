@@ -14,10 +14,10 @@
 # define MINIRT_H
 
 # include "../mlx/mlx.h"
-# include "definitions.h"
-# include "libft.h"
-# include "rgb.h"
-# include "v3d.h"
+# include "defines.h"
+# include "../libs/lib/inc/libft.h"
+# include "../libs/rgb/inc/rgb.h"
+# include "../libs/v3d/inc/v3d.h"
 # include "parse.h"
 # include "solvers.h"
 # include "hooks.h"

@@ -17,36 +17,11 @@
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
 # include "../../../libs/lib/inc/libft.h"
+# include "../../../inc/defines.h"
 # include "../../../inc/objects.h"
 # include "../../../inc/structs.h"
 # include "../../parser/inc/parse.h"
 # include "../../../mlx/mlx.h"
-
-# define NO_HOOK		0
-# define K_D			2
-# define K_F			3
-# define K_H			4
-# define K_G			5
-# define K_Z			6
-# define K_X			7
-# define K_C			8
-# define K_E			14
-# define K_R			15
-# define K_Y			16
-# define K_T			17
-# define K_Q			12
-# define K_L			37
-# define K_J			38
-# define K_U			32
-# define K_O			31
-# define K_N			45
-# define K_M			46
-# define K_SPACE		49
-# define K_ENTER		36
-# define K_ESC			53
-# define K_S			115
-# define K_UP			126
-# define K_DOWN			125
 
 t_v3d	rotate_x(t_v3d old, double angle);
 t_v3d	rotate_y(t_v3d old, double angle);

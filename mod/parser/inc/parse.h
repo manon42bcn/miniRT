@@ -13,6 +13,7 @@
 #ifndef PARSE_H
 # define PARSE_H
 
+# include "../../../inc/defines.h"
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
 # include "../../../libs/lib/inc/libft.h"
@@ -21,11 +22,6 @@
 # include "parse_enum.h"
 # include "../../../inc/objects.h"
 # include "../../../inc/structs.h"
-# define SEP " \t\n"
-# define IDX_ERR	-1
-# define IDX_COMMENT -2
-# define ERROR 1
-# define SUCCESS 0
 
 typedef void	(*t_build)(t_mrt *);
 

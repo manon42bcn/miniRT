@@ -16,16 +16,9 @@
 # include "../../../libs/lib/inc/libft.h"
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
+# include "../../../inc/defines.h"
 # include "../../../inc/objects.h"
 # include "../../../inc/structs.h"
-
-# ifndef EPSILON
-#  define EPSILON 0.00001
-# endif
-
-# ifndef SQRT2_2
-#  define SQRT2_2 0.7071067811865476
-# endif
 
 enum e_array_intersections
 {

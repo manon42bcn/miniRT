@@ -159,7 +159,7 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 		inter.color = close_obj.color;
 	else
 		inter.color = mrt->scn.bgr;
-	ligth_hit(inter.ray, &inter, mrt->scn, mrt->obj);
+	light_hit(inter.ray, &inter, mrt->scn, mrt->obj);
 	clean_rgb_interactions(&close_obj);
 	return (ft_rgb_add(ft_rgb_dot(inter.color, 1 - close_obj.reflex),
 			ft_rgb_dot(inter.ref_color, close_obj.reflex)));

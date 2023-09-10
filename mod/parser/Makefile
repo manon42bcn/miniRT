@@ -38,13 +38,18 @@ OBJS_BNS 	=	$(addprefix $(OBJS_B_DIR)/,$(SRCS_B:.c=.o))
 OBJS_SUBS	= 	obj
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -Iinc -I../inc
 NAME		=	libparser.a
 HEADER		=	inc/parse.h \
 				inc/parse_enum.h \
+				../../libs/v3d/inc/v3d.h \
+				../../libs/rgb/inc/rgb.h \
+				../../libs/lib/inc/libft.h \
 				../../inc/objects.h \
-				../../inc/structs.h
+				../../inc/structs.h \
+				../../inc/defines.h
 BONUS_FILE	= .bonus
+CFLAGS 		=	-Wall -Wextra -Werror
+INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
 
 all: version $(NAME) $(HEADER)
 
@@ -59,7 +64,7 @@ $(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) -g -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
 
 $(OBJS_DIR):
 	-@mkdir $(OBJS_DIR)
@@ -77,7 +82,7 @@ $(BONUS_FILE): $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
 	touch $(BONUS_FILE)
 
 $(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) -g -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
 
 $(OBJS_B_DIR):
 	-@mkdir $(OBJS_B_DIR)

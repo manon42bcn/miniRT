@@ -28,11 +28,16 @@ OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 OBJS_BNS 	=	$(addprefix $(OBJS_B_DIR)/,$(SRCS_B:.c=.o))
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -Iinc -I../inc
 NAME		=	libsolvers.a
 HEADER		=	inc/solvers.h \
+				../../libs/v3d/inc/v3d.h \
+                ../../libs/rgb/inc/rgb.h \
+                ../../libs/lib/inc/libft.h \
+				../../inc/defines.h \
 				../../inc/objects.h \
                 ../../inc/structs.h
+CFLAGS 		=	-Wall -Wextra -Werror
+INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
 BONUS_FILE	= 	.bonus
 
 all: version $(NAME) $(HEADER)
@@ -48,7 +53,7 @@ $(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) -g -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
 
 $(OBJS_DIR):
 	-@mkdir $(OBJS_DIR)
@@ -74,7 +79,7 @@ $(BONUS_FILE): $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
 	touch $(BONUS_FILE)
 
 $(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) -g -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
 
 $(OBJS_B_DIR):
 	-@mkdir $(OBJS_B_DIR)

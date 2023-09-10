@@ -1,41 +1,121 @@
-Flujo del Programa miniRT
-Inicio:
+# miniRT #
+A simple Ray Tracing engine created in C. This project uses the MiniLibX, a simple graphics library, to showcase the fundamentals of ray tracing with some bonus features like textures and supersampling.
 
-El programa comienza en la función main, donde se verifica la cantidad de argumentos proporcionados por el usuario.
-Se parsea el archivo de la escena con readfile_parser(argv[1]).
-Preprocesamiento:
+[Important]
+This project was made as part of 42 Barcelona Cursus. You are welcome to clone it and use it as reference, but copy it without understand it is cheat yourself. All project is documented and commented to make it easy to understand.
 
-Una vez parseado el archivo, se realiza un proceso posterior al análisis con after_parse_process(mrt).
-Se establecen valores iniciales para la resolución y la proporción de la escena.
-Se inicializan las funciones de limpieza para la ventana y la imagen.
-Se cargan los controladores (hooks) con load_hooks(mrt) y se inicia MLX con mlx_starter(mrt).
-Renderizado Principal:
+## Features: ##
 
-La función render_main(t_mrt *mrt) recorre todas las cámaras y, para cada una, realiza el renderizado de la escena con render_scene(mrt).
-La función render_scene es responsable de calcular el color de cada píxel de la escena.
-Cálculos de Pixel:
+- Basic Shapes: The program supports rendering of basic geometric shapes like spheres and cylinders.
+- Complex Shapes: supported with bonus version.
+- Ray Tracing: Calculates the path taken by rays of light as they travel through the scene.
+- Camera Eye Calculations: Adjusts the camera's perspective based on scene parameters.
+- MLX Start: Uses the MiniLibX library to initialize the graphical representation of the scene.
+- Key Hooks: Interactivity is provided with various key hooks to manipulate the scene in real-time.
+- Supersampling: Implements anti-aliasing using supersampling for a better visual output.
+- Textures: Supports textures like checkerboards, waves, and rainbows. (Bonus version)
+- Refraction & Reflection: Simulates light refraction and reflection based on scene objects. (Bonus version)
+- Scene Parsing: Parses a custom scene file format to generate the scene.
+- Vector Operations: Provides operations for 3D vectors, supporting calculations required for ray tracing.
+- Color Management: Handles RGB color operations and conversions.
+- Equation Solvers: Contains solvers for geometric equations, ensuring correct light-object interactions.
 
-Para cada píxel, se determina si es un píxel en los bordes o en el centro usando sample_pixel.
-Se calcula el color de cada píxel según su posición: first_pixel, sides_pixel y centre_pixel.
-Estos cálculos dependen de la función calc_ray, que calcula el color basándose en la dirección y la interacción con los objetos.
-Interacciones de Rayos:
+## How to Run: ##
+- Compile the program using the provided Makefile.
+- Run the program with ./miniRT <scene_file.rt>
+- To get details about the format of a .rt file, please check en.subject.md file.
+- Use the interactive keys to adjust the view or manipulate the scene objects.
+Keys:
+- To use a hook you have to use a particular key combination:
 
-tracer se encarga de trazar los rayos desde el origen hacia una dirección, evaluando las interacciones con los objetos y determinando el color final.
-Las funciones lighted, brightness, specular_transform, y ligth_hit tratan las interacciones de luz y cómo afectan al color final de un píxel.
-hit_direction determina la dirección de un rayo al golpear un objeto.
-Texturizado:
+| Description            | Key1 | Key2 | Key3 |
+|------------------------|------|------|------|
+| Cylinder Y translation | C    | T    | Y    |
+| Cylinder X translation | C    | T    | X    |
+| Cylinder Z translation | C    | T    | Z    |
+| Cylinder Diameter      | C    | D    | Enter|
+| Cylinder Height        | C    | H    | Enter|
+| Sphere Y translation   | S    | T    | Y    |
+| Sphere X translation   | S    | T    | X    |
+| Sphere Z translation   | S    | T    | Z    |
+| Sphere Diameter        | S    | D    | Enter|
+| Camera X closest obj   | E    | N    | Y    |
+| Camera Y closest obj   | E    | N    | X    |
+| Camera Z closest obj   | E    | N    | Z    |
+| Camera Y orbit         | E    | O    | Y    |
+| Camera X orbit         | E    | O    | X    |
+| Camera Z orbit         | E    | O    | Z    |
+| Cylinder Y Rotation    | C    | R    | Y    |
+| Cylinder X Rotation    | C    | R    | X    |
+| Cylinder Z Rotation    | C    | R    | Z    |
+| Light Y Rotation       | L    | R    | Y    |
+| Light X Rotation       | L    | R    | X    |
+| Light Z Rotation       | L    | R    | Z    |
+| Camera Free (Y)        | E    | F    | Y    |
+| Camera Free            | E    | F    | Enter|
 
-Si un objeto tiene una textura aplicada, texturize determina el color de la textura a aplicar en el píxel.
-Las funciones como texture_checkboard, texture_waves, y texture_rainbow proveen diferentes texturas.
-Antialiasing con Supersampling:
+the order is not important. If you make a mistake or want to chance the behaviour of the hook, press esc.
+After set a particular behaviour, you can apply them using key arrows (up-down-right-left).
 
-La función supersample se encarga del antialiasing, usando sub-muestreo para obtener un mejor resultado visual.
-Interactividad y Visualización:
+## Dependencies: ##
+- MiniLibX: This project uses the MiniLibX library for graphical representations. Ensure it's properly installed before compiling.
+- V3D: A custom 3D vector library used for calculations involving vectors in three-dimensional space.
+- RGB: A library for handling RGB color operations and conversions, providing color-related utilities for the engine.
+- Parser: Custom parser for reading the scene file format and initializing scene objects.
+- Solver: Contains solutions for different geometric equations used in ray-object interaction.
+- Libft-extended: 42 library with extra functions.
 
-Una vez renderizada la escena, se crea una ventana MLX con mlx_new_window.
-Se asignan controladores de teclado y ratón para interactividad: mlx_key_hook, mlx_hook.
-La función to_win se encarga de colocar la imagen renderizada en la ventana.
-Finalmente, se inicia el bucle MLX con mlx_loop.
-Finalización:
+## miniRT Program Flow ##
 
-Al cerrar la ventana o al terminar el programa, se limpian todos los recursos con clear_all.
+### Start: ###
+
+- The program kicks off in the main function where the number of user-provided arguments is checked.
+- The scene file is parsed with readfile_parser(argv[1]). 
+
+### Preprocessing: ###
+
+- After the file is parsed, a post-parsing process is done with after_parse_process(mrt).
+- Initial values for scene resolution and ratio are set.
+- Cleanup functions for window and image are initialized.
+- Handlers (hooks) are loaded with load_hooks(mrt) and MLX is started with mlx_starter(mrt).
+
+### Main Rendering: ###
+
+- The function render_main(t_mrt *mrt) goes through each camera and for each one, renders the scene with render_scene(mrt).
+- The render_scene function is responsible for calculating the color for each pixel in the scene.
+
+### Pixel Calculations: ###
+
+- For each pixel, it is determined if it's an edge pixel or a center one using sample_pixel.
+- Pixel color is calculated based on its position: first_pixel, sides_pixel, and centre_pixel.
+- These calculations lean on the calc_ray function which computes the color based on direction and object interactions.
+
+### Ray Interactions: ###
+
+- tracer is responsible for tracing rays from an origin towards a direction, assessing interactions with objects, and determining the final color.
+- The functions lighted, brightness, specular_transform, and ligth_hit handle light interactions and how they affect the final color of a pixel.
+- hit_direction determines the direction of a ray upon hitting an object.
+
+### Texturing: ###
+
+- If an object has a texture applied, texturize determines the texture color to apply to the pixel.
+- Functions like texture_checkboard, texture_waves, and texture_rainbow provide different textures.
+
+### Antialiasing via Supersampling: ###
+
+- The supersample function handles antialiasing, using sub-sampling to get a better visual result.
+
+### Interactivity & Display: ###
+
+- Once the scene is rendered, an MLX window is created with mlx_new_window.
+- Keyboard and mouse handlers are assigned for interactivity: mlx_key_hook, mlx_hook.
+- The to_win function is responsible for placing the rendered image in the window.
+- Finally, the MLX loop is started with mlx_loop.
+
+### Termination: ###
+
+- On window close (click on x, or use esc key) program end, all resources are cleaned up with clear_all.
+
+### NOTES ###
+
+DOCUMENTATION: Have been created with Doxygen tool. CmakeLists.txt are include to work with CLion

@@ -33,5 +33,6 @@
   * [x] parser
   * [x] solvers
   * [x] hooks
-  * [ ] miniRT
+  * [x] miniRT
+* [ ] Crear Doxygen documentation
 * [ ] CAMBIAR CRITERIOS DE PARSEO Y MODIFICAR LOS ARCHIVOS QUE HEMOS ENCONTRADO PARA QUE FUNCIONEN CON EL SUBJECT

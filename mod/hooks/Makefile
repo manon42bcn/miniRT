@@ -26,12 +26,18 @@ OBJS_DIR	=	obj
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 CC			=	gcc
 RM			=	@rm -rf
-CFLAGS 		=	-Wall -Wextra -Werror -Iinc
 NAME		=	libhooks.a
 HEADER		=	inc/hooks.h \
-				../parser/inc/parse.h \
+				../../libs/v3d/inc/v3d.h \
+				../../libs/rgb/inc/rgb.h \
+				../../libs/lib/inc/libft.h \
+				../../inc/defines.h \
 				../../inc/objects.h \
-                ../../inc/structs.h
+                ../../inc/structs.h \
+				../parser/inc/parse.h
+
+CFLAGS 		=	-Wall -Wextra -Werror
+INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
 
 all: $(NAME) $(HEADER)
 
@@ -39,7 +45,7 @@ $(NAME): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 $(OBJS_DIR):
 	-@mkdir $(OBJS_DIR)

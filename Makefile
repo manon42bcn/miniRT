@@ -22,17 +22,25 @@ OBJ_SUBS		= 	objs \
 					objs/rays \
 					objs/light \
 					objs/render
+LIB_MLX			= 	mlx
 LIBS_DIR		=	libs
 LIB_FT			= 	$(LIBS_DIR)/lib
 LIB_V3D			= 	$(LIBS_DIR)/v3d
 LIB_RGB			=	$(LIBS_DIR)/rgb
-LIB_SOLVER		=	$(LIBS_DIR)/solvers
-LIB_HOOKS		=	$(LIBS_DIR)/hooks
-LIB_MLX			= 	mlx
+LIBS_HEADERS	=	$(LIB_V3D)/inc/libft.h \
+					$(LIB_V3D)/inc/v3d.h \
+					$(LIB_RGB)/inc/rgb.h \
+					$(LIB_MLX)/mlx.h
+LIBS_LIBS		=	$(LIB_FT)/libft.a \
+					$(LIB_V3D)/libv3d.a \
+					$(LIB_RGB)/librgb.a
 MODS_LIB		=	mod
 MODS_PARSER		=	$(MODS_LIB)/parser
 MODS_HOOKS		=	$(MODS_LIB)/hooks
 MODS_SOLVERS	=	$(MODS_LIB)/solvers
+MODS_HEADERS	=	$(MODS_PARSER)/inc/parse.h \
+					$(MODS_HOOKS)/inc/hooks.h \
+					$(MODS_SOLVERS)/inc/solvers.h
 MODS_MODULES	=	$(MODS_PARSER)/libparser.a \
 					$(MODS_HOOKS)/libhooks.a \
 					$(MODS_SOLVERS)/libsolvers.a
@@ -48,14 +56,18 @@ SRCS_FILES		= 	intersections/intersections.c \
 					texture/textures.c \
 					minirt.c
 HEAD_FILES		=	inc/minirt.h \
-					inc/ggl_mlx_define.h \
-					mlx/mlx.h
+					inc/defines.h \
+					inc/objects.h \
+					inc/structs.h
+INCLUDES_LIBS	:=	$(patsubst %,-I%,$(dir $(LIBS_HEADERS)))
+INCLUDES_MODS	:=	$(patsubst %,-I%,$(dir $(MODS_HEADERS)))
+INCLUDES_HEAD	:=	$(patsubst %,-I%,$(dir $(HEAD_FILES)))
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
 CFLAGS			=	-Wall -Wextra -Werror
-LIBRARIES		=	$(LIB_FT)/libft.a $(LIB_V3D)/libv3d.a $(LIB_RGB)/librgb.a $(MODS_MODULES)
-INCLUDES		=	-I./mlx/mlx.h -I$(LIB_FT)/$(HEAD_DIR) -I$(LIB_V3D)/$(HEAD_DIR) -I$(LIB_RGB)/$(HEAD_DIR) -I$(MODS_PARSER)/$(HEAD_DIR) -I$(MODS_SOLVERS)/$(HEAD_DIR) -I$(MODS_HOOKS)/$(HEAD_DIR) -I$(HEAD_DIR)
-LIB_LINKS		=	-L./libs/lib -lft -L./libs/v3d -lv3d -L./libs/rgb -lrgb -L./$(MODS_PARSER) -lparser -L./$(MODS_SOLVERS) -lsolvers -L./$(MODS_HOOKS) -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
+LIBRARIES		=	$(LIBS_LIBS) $(MODS_MODULES)
+INCLUDES		=	$(INCLUDES_LIBS) $(INCLUDES_MODS) $(INCLUDES_HEAD)
+LIB_LINKS		=	-L./$(LIB_FT) -lft -L./$(LIB_V3D) -lv3d -L./$(LIB_RGB) -lrgb -L./$(MODS_PARSER) -lparser -L./$(MODS_SOLVERS) -lsolvers -L./$(MODS_HOOKS) -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 BONUS_FILE		=	.bonus
 CC				=	gcc
@@ -124,6 +136,7 @@ fclean: clean
 	# $(MAKE) -C $(LIB_MLX) clean
 	$(RM) $(NAME)
 	$(RM) $(OBJ_SUBS)
+	$(RM) $(BONUS_FILE)
 
 memory: $(OBJ_SUBS) $(OBJS) $(HEAD_FILES)
 	$(MAKE) CFLAGS+=-fsanitize=address re
