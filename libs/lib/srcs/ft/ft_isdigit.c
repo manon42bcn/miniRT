@@ -10,6 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @brief Checks if the given character is a decimal digit.
+ *
+ * This function determines whether the provided character is a number
+ * between '0' and '9' inclusive.
+ *
+ * @param c The character to check.
+ * @return 1 if the character is a decimal digit, 0 otherwise.
+ */
 int	ft_isdigit(int c)
 {
 	return (c >= '0' && c <= '9');

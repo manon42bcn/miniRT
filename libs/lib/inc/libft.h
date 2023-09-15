@@ -76,11 +76,8 @@ void		ft_my_perror(char *exc, char *msg);
 void		ft_sec_free(void *ptr);
 //gnl
 char		*get_next_line(int fd);
-int			ft_strlen_gnl(char *s);
 char		*ft_substr_gnl(char *s, int start, int len, int *nl_len);
-char		*ft_strdup_gnl(char *src, int len);
 char		*ft_strjoin_gnl(char *s1, char *s2, int bytes, int *nl_len);
-void		*ft_memcpy_gnl(char *dest, char *src, int n);
 char		*ft_line_proccess(char **buffer, int bytes, int *nl_len);
 char		*ft_buffer_reader(int fd, char **buffer, char *reader, int *nl_len);
 char		*ft_delete_line_from_buffer(char **buffer, int *nl_len);

@@ -12,7 +12,16 @@
 
 #include "libft.h"
 
-static int	ft_magnitude(int n)
+/**
+ * @brief Calculates the magnitude (number of digits) of an integer.
+ *
+ * Computes the length required to represent an integer as a string.
+ * Handles both positive and negative numbers.
+ *
+ * @param n The integer whose magnitude is to be calculated.
+ * @return The magnitude of the integer.
+ */
+static inline int	ft_magnitude(int n)
 {
 	int				len;
 	unsigned int	nbr;
@@ -35,6 +44,16 @@ static int	ft_magnitude(int n)
 	return (len);
 }
 
+/**
+ * @brief Converts an integer to its ASCII string representation.
+ *
+ * This function will allocate (with malloc()) and return a new string ending
+ * with '\0' representing the integer n given as argument. Negative numbers
+ * are handled.
+ *
+ * @param n The integer to convert.
+ * @return A string representing the integer, or NULL if memory allocation fails.
+ */
 char	*ft_itoa(int n)
 {
 	int				mag;

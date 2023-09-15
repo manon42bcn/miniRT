@@ -12,6 +12,14 @@
 
 #include "libft.h"
 
+/**
+ * @brief Frees a 2D string array.
+ *
+ * Iterates through each string in 'tab' and frees them. Finally,
+ * it frees the 'tab' pointer and sets it to NULL.
+ *
+ * @param tab A 2D string array to be cleared.
+ */
 void	ft_clear_tabs(char **tab)
 {
 	size_t	i;
@@ -29,6 +37,14 @@ void	ft_clear_tabs(char **tab)
 	tab = NULL;
 }
 
+/**
+ * @brief Counts the number of strings in a 2D string array.
+ *
+ * Iterates through each string in 's' and counts them.
+ *
+ * @param s A 2D string array.
+ * @return The number of strings in the array.
+ */
 size_t	ft_count_tab(char **s)
 {
 	size_t	i;
@@ -39,6 +55,14 @@ size_t	ft_count_tab(char **s)
 	return (i);
 }
 
+/**
+ * @brief Sorts a 2D string array in ascending order.
+ *
+ * Iterates through each string in 'tab' and sorts them using the
+ * `ft_strcmp` function.
+ *
+ * @param tab A 2D string array to be sorted.
+ */
 void	ft_sort_str_tab(char **tab)
 {
 	int		i;

@@ -12,6 +12,20 @@
 
 #include "libft.h"
 
+/**
+ * @brief Locates a substring in a string, considering a maximum length.
+ *
+ * This function searches for the substring 'needle' in the string 'haystack'
+ * up to 'loc' characters. The function returns a pointer to the first character
+ * of the first occurrence of 'needle' in 'haystack' or NULL if the substring
+ * is not found. If 'needle' is an empty string, the function returns 'haystack'.
+ *
+ * @param haystack The string in which to search for the substring.
+ * @param needle The substring to search for.
+ * @param loc The maximum number of characters to compare in 'haystack'.
+ * @return A pointer to the first character of the first occurrence of 'needle'
+ *         in 'haystack', or NULL if 'needle' is not found.
+ */
 char	*ft_strnstr(const char *haystack, const char *needle, size_t loc)
 {
 	size_t	i;

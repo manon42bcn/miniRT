@@ -12,6 +12,16 @@
 
 #include "libft.h"
 
+/**
+ * @brief Appends the element 'new' at the end of the linked list.
+ *
+ * If the pointer to the list is NULL, it sets 'new' as the start of the list.
+ * Otherwise, it traverses the list to its last element and appends
+ * 'new' at the end.
+ *
+ * @param lst A pointer to the pointer of the first link of a list.
+ * @param new The address of the link to append to the list.
+ */
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*node;

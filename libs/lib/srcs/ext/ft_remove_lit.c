@@ -12,6 +12,16 @@
 
 #include "libft.h"
 
+/**
+ * @brief Counts the number of delimited sections in a string using a character.
+ *
+ * This function counts the number of sections in the string 's' that are
+ * delimited by the character 'c'. It considers only non-overlapping sections.
+ *
+ * @param s Pointer to the input string.
+ * @param c Character used as delimiter.
+ * @return Count of the delimited sections in the string.
+ */
 static inline size_t	ft_lit_count(char *s, char c)
 {
 	size_t			i;
@@ -39,6 +49,17 @@ static inline size_t	ft_lit_count(char *s, char c)
 	return (count);
 }
 
+/**
+ * @brief Iteratively removes delimited sections from a source string.
+ *
+ * This function goes through a source string 'src' and removes sections
+ * delimited by the character 'c'. The resultant string is stored in 'rst'.
+ *
+ * @param src Double pointer to the source string.
+ * @param rst Double pointer to the resultant string.
+ * @param o_c Array containing positions in source and resultant strings.
+ * @param c Character used as delimiter.
+ */
 static inline void	ft_iterate_remove(char **src, char **rst, int *o_c, char c)
 {
 	unsigned char	sem;
@@ -67,6 +88,18 @@ static inline void	ft_iterate_remove(char **src, char **rst, int *o_c, char c)
 	}
 }
 
+/**
+ * @brief Removes delimited sections from a string.
+ *
+ * This function creates a new string without the sections of the original
+ * string 's' that are delimited by the character 'c'. The original string
+ * remains unchanged.
+ *
+ * @param s Pointer to the original string.
+ * @param c Character used as delimiter.
+ * @return Pointer to the new string without delimited sections or NULL if
+ *         unsuccessful.
+ */
 char	*ft_remove_lit(char *s, char c)
 {
 	size_t	newlen;

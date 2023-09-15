@@ -10,6 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @brief Converts a lowercase character to its uppercase equivalent.
+ *
+ * If the character passed to the function is a lowercase letter,
+ * it returns its uppercase equivalent. If it's not a lowercase letter,
+ * the function returns the character unchanged.
+ *
+ * @param c The character to convert.
+ * @return The uppercase equivalent of the character if it's lowercase,
+ *         otherwise the original character.
+ */
 int	ft_toupper(int c)
 {
 	if (c >= 97 && c <= 122)

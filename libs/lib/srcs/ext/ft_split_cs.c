@@ -12,7 +12,19 @@
 
 #include "libft.h"
 
-int	ft_str_to_lst(t_list **head, char const *s, char *charset)
+/**
+ * @brief Converts a part of a string to a list node using a charset delimiter.
+ *
+ * This function extracts the content up to the next occurrence of a character
+ * in the charset from the string 's'. It then adds this content to the beginning
+ * of the list pointed to by 'head'.
+ *
+ * @param head Pointer to the head of the list.
+ * @param s The source string.
+ * @param charset String containing delimiter characters.
+ * @return The length of the extracted content or -1 on failure.
+ */
+static inline int	ft_str_to_lst(t_list **head, char const *s, char *charset)
 {
 	char	*content;
 	size_t	size;
@@ -25,13 +37,29 @@ int	ft_str_to_lst(t_list **head, char const *s, char *charset)
 	return (size);
 }
 
-char	**ft_safe_end(t_list **head)
+/**
+ * @brief Safely ends a function by clearing the list and returning NULL.
+ *
+ * @param head Pointer to the head of the list.
+ * @return NULL.
+ */
+static inline char	**ft_safe_end(t_list **head)
 {
 	ft_lstclear(head, free);
 	return (NULL);
 }
 
-char	**ft_build_tab(t_list **head)
+/**
+ * @brief Builds a string array from a list of strings.
+ *
+ * This function converts a linked list of strings into a dynamic array
+ * of strings. The list is then cleared, freeing the nodes but
+ * retaining the string content within the newly built array.
+ *
+ * @param head Pointer to the head of the list.
+ * @return Pointer to the string array or NULL on failure.
+ */
+static inline char	**ft_build_tab(t_list **head)
 {
 	char	**rst;
 	t_list	*node;
@@ -53,6 +81,16 @@ char	**ft_build_tab(t_list **head)
 	return (rst);
 }
 
+/**
+ * @brief Splits a string by a set of delimiter characters.
+ *
+ * This function splits the string 's' wherever a character from 'charset'
+ * appears, and stores each part in a dynamic string array.
+ *
+ * @param s The source string to split.
+ * @param charset String containing delimiter characters.
+ * @return Pointer to the resulting string array or NULL on failure.
+ */
 char	**ft_split_cs(char const *s, char *charset)
 {
 	t_list	*head;

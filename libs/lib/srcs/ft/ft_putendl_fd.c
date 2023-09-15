@@ -12,6 +12,16 @@
 
 #include "libft.h"
 
+/**
+ * @brief Writes a string to the specified file descriptor, followed by a
+ * newline.
+ *
+ * Outputs the string 's' to the given file descriptor 'fd' and then appends
+ * a newline. If 's' is NULL or 'fd' is zero, no action is taken.
+ *
+ * @param s The string to output.
+ * @param fd The file descriptor on which to write.
+ */
 void	ft_putendl_fd(char *s, int fd)
 {
 	if (s && fd)

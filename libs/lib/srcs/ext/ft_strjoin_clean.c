@@ -12,6 +12,19 @@
 
 #include "libft.h"
 
+/**
+ * @brief Joins two strings and optionally frees them.
+ *
+ * Creates a new string by joining the strings pointed by 's1' and 's2'.
+ * Depending on the value of 'clean', it may free either or both of the input
+ * strings.
+ *
+ * @param s1 Pointer to the first string.
+ * @param s2 Pointer to the second string.
+ * @param clean An integer indicating which strings to free:
+ *              0 = free both, 1 = free s1, 2 = free s2.
+ * @return A newly allocated string containing the concatenation.
+ */
 char	*ft_strjoin_clean(char **s1, char **s2, int clean)
 {
 	char	*rst;
@@ -37,6 +50,16 @@ char	*ft_strjoin_clean(char **s1, char **s2, int clean)
 	return (rst);
 }
 
+/**
+ * @brief Joins a string and a string pointer, then frees the string pointer.
+ *
+ * Creates a new string by joining the string '*s1' and the string 's2'.
+ * After joining, it frees the memory of string pointer 's1'.
+ *
+ * @param s1 Pointer to the first string.
+ * @param s2 The second string.
+ * @return A newly allocated string containing the concatenation.
+ */
 char	*ft_strjoin_clean_one(char **s1, char *s2)
 {
 	char	*rst;
@@ -59,6 +82,16 @@ char	*ft_strjoin_clean_one(char **s1, char *s2)
 	return (rst);
 }
 
+/**
+ * @brief Joins a string and a string pointer, then frees the string pointer.
+ *
+ * Creates a new string by joining the string 's1' and the string '*s2'.
+ * After joining, it frees the memory of string pointer 's2'.
+ *
+ * @param s1 The first string.
+ * @param s2 Pointer to the second string.
+ * @return A newly allocated string containing the concatenation.
+ */
 char	*ft_strjoin_clean_two(char *s1, char **s2)
 {
 	char	*rst;
@@ -81,6 +114,19 @@ char	*ft_strjoin_clean_two(char *s1, char **s2)
 	return (rst);
 }
 
+/**
+ * @brief Joins two strings and optionally frees them.
+ *
+ * Creates a new string by joining the strings 's1' and 's2'.
+ * Depending on the value of 'clean', it may free either or both of the
+ * input strings.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string.
+ * @param clean An integer indicating which strings to free:
+ *              0 = free both, 1 = free s1, 2 = free s2.
+ * @return A newly allocated string containing the concatenation.
+ */
 char	*ft_strjoin_clear_ptn(char *s1, char *s2, int clean)
 {
 	char	*rst;

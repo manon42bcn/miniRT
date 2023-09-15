@@ -44,6 +44,33 @@ This project was made as part of 42 Barcelona Cursus. You are welcome to clone i
 ## How to Run: ##
 - Compile the program using the provided Makefile.
 - Run the program with ./miniRT <scene_file.rt>
+
+
+### RT File: Mandatory Version ###
+
+| COMPONENT      | ID | Values                |
+|----------------|----|-----------------------|
+| Ambient Light  | A  | (R) (RGB)             |
+| Camera         | C  | (C) (N) (FOV)         |
+| Light          | L  | (C) (R) (RGB-BNS)     |
+| Plane          | pl | (C) (N) (RGB)         |
+| Sphere         | sp | (C) (D) (RGB)         |
+| Cylinder       | cy | (C) (N) (D) (H) (RGB) |
+
+    - [R] -> Ratio: 0.1 - 1.0.
+    - [RGB] -> RGB color: (0-255) R,G,B.
+    - [C] -> Coordinates X,Y,Z.
+    - [N] -> Normalized 3D-Vector (-1, 1).
+    - [FOV] -> Field Of View (0, 180).
+    - [D] -> Diameter.
+    - [H] -> Height.
+
+To create a scene properly it should have: Ambient Light, Camera, Light and at least one object. All Values are compulsory.
+At mandatory veresion, those components described with uppercase ids (A,C,L) can be declared just one.
+
+
+
+
 - To get details about the format of a .rt file, please check en.subject.md file.
 - Use the interactive keys to adjust the view or manipulate the scene objects.
 Keys:

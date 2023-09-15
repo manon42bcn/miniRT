@@ -12,6 +12,16 @@
 
 #include "libft.h"
 
+/**
+ * @brief Determines if a given character exists within a charset.
+ *
+ * This function checks whether the character 'c' exists within the
+ * string 'charset'.
+ *
+ * @param c The character to check for.
+ * @param charset The set of characters to compare against.
+ * @return 1 if 'c' is found in 'charset', and 0 otherwise.
+ */
 static int	ft_trim_charset(char c, char const *charset)
 {
 	int	i;
@@ -26,6 +36,20 @@ static int	ft_trim_charset(char c, char const *charset)
 	return (0);
 }
 
+/**
+ * @brief Calculates the start and end positions for trimming.
+ *
+ * This function determines the starting and ending indices within
+ * the string 's1' that are surrounded by the characters in the 'set'.
+ * The function calculates the indices and stores them in the 'fromto' array.
+ *
+ * @param s1 The string to analyze.
+ * @param set The set of characters to trim.
+ * @param fromto A pointer to an array of size 3.
+ *        fromto[0]: Start index.
+ *        fromto[1]: End index.
+ *        fromto[2]: Length of the substring between the start and end index.
+ */
 static void	ft_trim_fromto(char const *s1, char const *set, size_t *fromto)
 {
 	size_t	i;
@@ -51,6 +75,19 @@ static void	ft_trim_fromto(char const *s1, char const *set, size_t *fromto)
 		fromto[2] = 0;
 }
 
+/**
+ * @brief Creates a new string by trimming characters from the beginning and
+ * end of the original string.
+ *
+ * This function returns a new string that omits characters from the beginning
+ * and end of 's1' that match any character in 'set'. If 'set' is NULL,
+ * the original string 's1' is returned.
+ *
+ * @param s1 The string to trim.
+ * @param set The set of characters to trim.
+ * @return A new, allocated string without the trim characters.
+ *         Returns NULL if memory allocation fails.
+ */
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	i;

@@ -12,6 +12,16 @@
 
 #include "libft.h"
 
+/**
+ * @brief Computes the length of the string 's'.
+ *
+ * This function returns the number of characters that precede the
+ * terminating NUL character. It does not include the NUL character itself.
+ * If 's' is NULL, it will return 0.
+ *
+ * @param s Input string.
+ * @return The number of characters in the string pointed to by 's'.
+ */
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;

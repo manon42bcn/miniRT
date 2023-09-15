@@ -12,6 +12,19 @@
 
 #include "libft.h"
 
+/**
+ * @brief Joins two strings together.
+ *
+ * Allocates a new string, which is the concatenation of 's1' and 's2'.
+ * The resulting string is NULL-terminated. The function returns NULL if
+ * either of the input strings is NULL or if memory allocation fails.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string to append to the first.
+ * @return A newly allocated string containing the concatenation of 's1'
+ * and 's2',
+ *         or NULL if an error occurred.
+ */
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*rst;

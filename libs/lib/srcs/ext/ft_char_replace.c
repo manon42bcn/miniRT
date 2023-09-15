@@ -12,6 +12,20 @@
 
 #include "libft.h"
 
+/**
+ * @brief Replaces all occurrences of a character 'org' in the string '*s'
+ *        with the character 'new'.
+ *
+ * This function iterates through the string and replaces every instance
+ * of the character 'org' with the character 'new'. If the string pointer
+ * is NULL, or 'org' or 'new' are NULL characters, the function returns without
+ * making any modifications.
+ *
+ * @param s Pointer to the string where replacements are to be made.
+ * @param org The original character that needs to be replaced.
+ * @param new The new character that will replace the 'org' character.
+ */
+
 void	ft_char_replace(char **s, char org, char new)
 {
 	int	i;

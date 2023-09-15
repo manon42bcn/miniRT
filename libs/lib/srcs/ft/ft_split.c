@@ -12,7 +12,17 @@
 
 #include "libft.h"
 
-static size_t	ft_split_size(char const *str, char c)
+/**
+ * @brief Calculates the number of substrings after splitting.
+ *
+ * This function determines how many substrings will be created
+ * when the input string 'str' is split using the delimiter 'c'.
+ *
+ * @param str The string to be split.
+ * @param c The delimiter.
+ * @return The number of substrings that will be created.
+ */
+static inline size_t	ft_split_size(char const *str, char c)
 {
 	size_t	i;
 	size_t	words;
@@ -37,7 +47,19 @@ static size_t	ft_split_size(char const *str, char c)
 	return (words);
 }
 
-static char	*ft_strdup_split(char const *src, char c, size_t *i)
+/**
+ * @brief Duplicates a substring from a given string.
+ *
+ * This function extracts and duplicates a substring from the main
+ * string 'src' starting at position '*i' and ending when it encounters
+ * the delimiter 'c' or the end of the string.
+ *
+ * @param src The source string.
+ * @param c The delimiter.
+ * @param i The starting position in the source string.
+ * @return A pointer to the duplicated substring or NULL if allocation fails.
+ */
+static inline char	*ft_strdup_split(char const *src, char c, size_t *i)
 {
 	char	*dst;
 	size_t	len;
@@ -60,6 +82,17 @@ static char	*ft_strdup_split(char const *src, char c, size_t *i)
 	return (dst);
 }
 
+/**
+ * @brief Splits a string using a specified delimiter.
+ *
+ * Outputs an array of strings obtained by splitting the string 's'
+ * using the delimiter 'c'. The array ends with a NULL pointer.
+ *
+ * @param s The string to split.
+ * @param c The delimiter.
+ * @return A pointer to the array of strings or NULL if s is NULL or
+ * allocation fails.
+ */
 char	**ft_split(char const *s, char c)
 {
 	char	**rst;

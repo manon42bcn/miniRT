@@ -12,6 +12,18 @@
 
 #include "libft.h"
 
+/**
+ * @brief Searches for the first occurrence of a character in a memory block.
+ *
+ * Scans the initial 'n' bytes of the memory area pointed to by 's'
+ * for the first occurrence of 'c' (converted to an unsigned char).
+ *
+ * @param s The memory area to be scanned.
+ * @param c The character to search for.
+ * @param n The number of bytes to scan.
+ * @return A pointer to the first occurrence of the character in the
+ * memory block, or NULL if the character does not occur.
+ */
 void	*ft_memchr(const void *s, int c, size_t n)
 {
 	size_t	i;

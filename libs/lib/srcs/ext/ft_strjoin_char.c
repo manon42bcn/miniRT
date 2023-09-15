@@ -12,6 +12,18 @@
 
 #include "libft.h"
 
+/**
+ * @brief Joins two strings with a specified character separator.
+ *
+ * This function creates a new string by joining the strings 's1' and 's2'
+ * and placing the character 'sep' between them.
+ *
+ * @param s1 The first string.
+ * @param s2 The second string.
+ * @param sep The separator character.
+ * @return A newly allocated string containing the concatenation of s1, sep,
+ * and s2.
+ */
 char	*ft_strjoin_char(char const *s1, char const *s2, char sep)
 {
 	char	*rst;
@@ -32,6 +44,20 @@ char	*ft_strjoin_char(char const *s1, char const *s2, char sep)
 	return (rst);
 }
 
+/**
+ * @brief Joins two strings with a separator and optionally frees them.
+ *
+ * Creates a new string by joining the strings pointed by 's1' and 's2',
+ * inserting the character 'sep' between them. Depending on the value of 'clean',
+ * it may free either or both of the input strings.
+ *
+ * @param s1 Pointer to the first string.
+ * @param s2 Pointer to the second string.
+ * @param sep The separator character.
+ * @param clean An integer indicating which strings to free:
+ *              0 = free both, 1 = free s1, 2 = free s2.
+ * @return A newly allocated string containing the concatenation.
+ */
 char	*ft_strjoin_clean_char(char **s1, char **s2, char sep, int clean)
 {
 	char	*rst;

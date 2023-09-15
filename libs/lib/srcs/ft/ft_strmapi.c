@@ -12,6 +12,21 @@
 
 #include "libft.h"
 
+/**
+ * @brief Applies the function 'f' to each character of the string 's' to
+ * create a new string (with malloc()) resulting from successive applications
+ * of 'f'.
+ *
+ * This function iterates over the string 's' and for each character,
+ * it applies the function 'f' with its index and the character as arguments.
+ * The result of this application replaces the character in the new string.
+ * If memory allocation fails or 's' is NULL, the function returns NULL.
+ *
+ * @param s The string on which to iterate.
+ * @param f The function to apply to each character of 's'.
+ * @return The string created from the successive applications of 'f'.
+ *         Returns NULL if the allocation fails or if 's' is NULL.
+ */
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
 	char	*rst;

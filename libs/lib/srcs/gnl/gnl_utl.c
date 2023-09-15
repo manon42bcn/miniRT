@@ -12,18 +12,16 @@
 
 #include "libft.h"
 
-int	ft_strlen_gnl(char *s)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
-
+/**
+ * @brief Create a substring from a string.
+ *
+ * @param s Source string.
+ * @param start Start index of the substring.
+ * @param len Length of the substring.
+ * @param nl_len Pointer to an array containing the new line length and
+ * total length.
+ * @return A new substring.
+ */
 char	*ft_substr_gnl(char *s, int start, int len, int *nl_len)
 {
 	char	*rst;
@@ -38,23 +36,20 @@ char	*ft_substr_gnl(char *s, int start, int len, int *nl_len)
 	if (rst == NULL)
 		return (NULL);
 	rst[len] = '\0';
-	ft_memcpy_gnl(rst, &s[start], len);
+	ft_memcpy(rst, &s[start], (size_t)len);
 	return (rst);
 }
 
-char	*ft_strdup_gnl(char *src, int len)
-{
-	char	*dst;
-
-	dst = (char *)malloc(sizeof(char) * (len + 1));
-	if (dst == NULL)
-		return (NULL);
-	dst[len] = '\0';
-	while (len-- > 0)
-		dst[len] = src[len];
-	return (dst);
-}
-
+/**
+ * @brief Concatenate two strings.
+ *
+ * @param s1 First string.
+ * @param s2 Second string.
+ * @param bytes Number of bytes to concatenate from the second string.
+ * @param nl_len Pointer to an array containing the new line length and
+ * total length.
+ * @return A new string which is the concatenation of the two strings.
+ */
 char	*ft_strjoin_gnl(char *s1, char *s2, int bytes, int *nl_len)
 {
 	char	*rst;
@@ -65,23 +60,8 @@ char	*ft_strjoin_gnl(char *s1, char *s2, int bytes, int *nl_len)
 	if (rst == NULL)
 		return (NULL);
 	rst[nl_len[1]] = '\0';
-	ft_memcpy_gnl(rst, s1, nl_len[1] - bytes);
-	ft_memcpy_gnl(&rst[nl_len[1] - bytes], s2, bytes);
+	ft_memcpy(rst, s1, (size_t)nl_len[1] - (size_t)bytes);
+	ft_memcpy(&rst[nl_len[1] - bytes], s2, (size_t)bytes);
 	ft_safe_free_char(&s1);
 	return (rst);
-}
-
-void	*ft_memcpy_gnl(char *dest, char *src, int n)
-{
-	int	i;
-
-	if (!dest && !src)
-		return (NULL);
-	i = 0;
-	while (i < n)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	return (dest);
 }

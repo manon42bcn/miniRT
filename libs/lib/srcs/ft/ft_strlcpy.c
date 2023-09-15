@@ -12,6 +12,19 @@
 
 #include "libft.h"
 
+/**
+ * @brief Copies up to 'destsize' characters from the NUL-terminated string 'src'
+ * to 'dest', NUL-terminating the result.
+ *
+ * It is designed to be safer, more consistent, and less error-prone
+ * replacement for strncpy. Function size includes the NUL. Thus, if the return
+ * value is >= 'destsize', the output string has been truncated.
+ *
+ * @param dest Destination buffer.
+ * @param src Source string.
+ * @param destsize Size of the destination buffer.
+ * @return The length of the source string 'src'.
+ */
 size_t	ft_strlcpy(char *dest, char *src, size_t destsize)
 {
 	size_t	i;

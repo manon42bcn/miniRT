@@ -12,6 +12,14 @@
 
 #include "libft.h"
 
+/**
+ * @brief Writes a string to the specified file descriptor.
+ *
+ * Outputs the string 's' to the given file descriptor 'fd'.
+ *
+ * @param s The string to output.
+ * @param fd The file descriptor on which to write.
+ */
 void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	len;

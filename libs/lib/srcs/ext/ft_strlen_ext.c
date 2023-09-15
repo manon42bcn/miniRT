@@ -12,6 +12,16 @@
 
 #include "libft.h"
 
+/**
+ * @brief Checks if a character belongs to a given charset.
+ *
+ * This function iterates through the given charset and determines
+ * if the character 'c' is a part of it.
+ *
+ * @param c The character to check.
+ * @param charset The set of characters to check against.
+ * @return TRUE if 'c' is in 'charset', otherwise FALSE.
+ */
 t_bool	ft_is_charset(char c, char *charset)
 {
 	int	i;
@@ -26,6 +36,18 @@ t_bool	ft_is_charset(char c, char *charset)
 	return (FALSE);
 }
 
+/**
+ * @brief Computes the length of a string until a character from a
+ * given charset is found.
+ *
+ * Iterates through the string 's' and returns its length up to the
+ * first occurrence of any character from 'charset'.
+ *
+ * @param s The string to be analyzed.
+ * @param charset The set of characters to check against.
+ * @return The length of 's' up to the first character from 'charset'.
+ *         Returns the full length if no such character is found.
+ */
 size_t	ft_len_charset(char const *s, char *charset)
 {
 	size_t	rst;

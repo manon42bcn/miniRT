@@ -12,6 +12,17 @@
 
 #include "libft.h"
 
+/**
+ * @brief Duplicates a string up to a given length.
+ *
+ * Allocates memory for and duplicates the first 'len' characters of the
+ * string 'src'. The duplicated string is null-terminated.
+ *
+ * @param src The source string to be duplicated.
+ * @param len The number of characters to copy from 'src'.
+ * @return A pointer to the newly-allocated string, or NULL if memory
+ * allocation fails.
+ */
 char	*ft_strndup(const char *src, size_t len)
 {
 	char	*dst;

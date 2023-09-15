@@ -12,6 +12,15 @@
 
 #include "libft.h"
 
+/**
+ * @brief Writes an integer to the specified file descriptor.
+ *
+ * Outputs recursively the integer 'n' to the given file
+ * descriptor 'fd'. If the number is negative, a '-' sign is prepended.
+ *
+ * @param n The integer to output.
+ * @param fd The file descriptor on which to write.
+ */
 void	ft_putnbr_fd(int n, int fd)
 {
 	long	nbr;
