@@ -104,7 +104,7 @@ static inline t_bool	load_object(t_mrt *mrt)
 		ft_perror("Split Line error");
 	type = parser_dict(mrt->tab[0]);
 	if (type == IDX_ERR) {
-		printf("%s here?\n", mrt->tab[0]);
+		printf("%s %s here?\n", mrt->tab[0], mrt->aux);
 		ft_perror("element not founded");
 	}
 	if (type == IDX_COMMENT)
@@ -135,6 +135,7 @@ t_mrt	*readfile_parser(char const *filename)
 	{
 		ft_safe_free_char(&rt->aux);
 		rt->aux = get_next_line(fd);
+		printf("%s read?\n", rt->aux);
 		if (!rt->aux)
 			break ;
 		if (rt->aux[0] != '#' && rt->aux[0] != '\n')
