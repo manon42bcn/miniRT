@@ -29,8 +29,8 @@ static inline void	after_parse_process(t_mrt *mrt)
 	node = mrt->cmr;
 	if (mrt->scn.res_init == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
-	mrt->scn.w_x /= 3;
-	mrt->scn.w_y /= 3;
+//	mrt->scn.w_x /= 3;
+//	mrt->scn.w_y /= 3;
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 	while (node)
 	{

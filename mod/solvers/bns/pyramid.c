@@ -105,5 +105,5 @@ double	pyramid_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 		i++;
 	}
 	obj->normal = cl_normal;
-	return (pyr.intersection);
+	return (pyr.closest);
 }

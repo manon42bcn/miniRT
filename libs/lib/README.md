@@ -31,6 +31,8 @@ Kind of disclaimer:
 
 ## **1. Libft Functions** ##
 
+Basic `libft` with bonus. Scored 125%.
+
 ### Character Checks and Manipulation: ###
 
 - **`int	ft_isalnum(int c);`** : Checks if the character is alphanumeric.
