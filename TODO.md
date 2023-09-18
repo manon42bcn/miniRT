@@ -16,8 +16,14 @@
   * [x] Make genera mandatory y bonus por separado.
   * [x] Make después de touch a algún archivo fuente de alguna librería o módulo
   * [x] Bonus siempre recompila... revisar
+  * [ ] Anque funciona, afinar el make para el bonus y el mandatory (revisar el tema de las dependencias a los .a)
 * [x] Chequear que hay suficientes elementos para iniciar render.
 * [x] Separar librerías y módulos
+* [ ] Bunus, la pirámide es demasiado lenta y problemática según que formas... so
+  * [ ] Implementar cono
+  * [ ] Hacer un intento con la pirámide como figura compuesta (control desde parseo a triangulos...)
+  * [ ] Explorar el usar hilos, para hacer más rápido el bonus
+  * [ ] Revisar fuentes de bonus en solvers, o condicionar todo a preproceso (vida más fácil).
 * [ ] Norminette general
   * [x] v3d
   * [x] rgb

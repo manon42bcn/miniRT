@@ -30,16 +30,19 @@ static inline t_obj	*closer_object(t_cmr *camera, t_obj *obj)
 	rst = NULL;
 	while (obj)
 	{
-		dist = fabs(ft_distance_v3d(camera->position, obj->position));
-		if (rst == NULL)
+		if (obj->type != PLANE)
 		{
-			rst = obj;
-			target = dist;
-		}
-		if (dist < target)
-		{
-			rst = obj;
-			target = dist;
+			dist = fabs(ft_distance_v3d(camera->position, obj->position));
+			if (rst == NULL)
+			{
+				rst = obj;
+				target = dist;
+			}
+			if (dist < target)
+			{
+				rst = obj;
+				target = dist;
+			}
 		}
 		obj = obj->next;
 	}
@@ -82,6 +85,8 @@ static inline t_bool	checking_parse(t_mrt *mrt)
 		return (FALSE);
 	if (!mrt->scn.parsed)
 		return (FALSE);
+	if (!mrt->scn.light)
+		return (FALSE);
 	close_to_cam(mrt);
 	return (TRUE);
 }
@@ -103,10 +108,8 @@ static inline t_bool	load_object(t_mrt *mrt)
 	if (mrt->tab == NULL)
 		ft_perror("Split Line error");
 	type = parser_dict(mrt->tab[0]);
-	if (type == IDX_ERR) {
-		printf("%s %s here?\n", mrt->tab[0], mrt->aux);
+	if (type == IDX_ERR)
 		ft_perror("element not founded");
-	}
 	if (type == IDX_COMMENT)
 		return (FALSE);
 	build = get_builder(type, mrt);
@@ -135,7 +138,6 @@ t_mrt	*readfile_parser(char const *filename)
 	{
 		ft_safe_free_char(&rt->aux);
 		rt->aux = get_next_line(fd);
-		printf("%s read?\n", rt->aux);
 		if (!rt->aux)
 			break ;
 		if (rt->aux[0] != '#' && rt->aux[0] != '\n')

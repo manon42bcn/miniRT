@@ -49,7 +49,6 @@ typedef struct s_triangle
 	t_v3d	v1;
 	t_v3d	v2;
 	t_v3d	v3;
-	t_v3d	orient;
 }				t_triangle;
 
 typedef union u_figures

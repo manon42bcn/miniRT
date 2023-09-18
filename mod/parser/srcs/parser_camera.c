@@ -71,7 +71,6 @@ void	inp_camera(t_mrt *mrt)
 	if (!check_range(mrt->cmr->inp_fov, 0, 180))
 		msg_error_parsing("Camera fov out of range", mrt);
 	mrt->cmr->fov = tan((mrt->cmr->inp_fov * M_PI / 180) / 2);
-	printf("%f parse Orbit\n", mrt->cmr->orbit);
 }
 
 #endif
