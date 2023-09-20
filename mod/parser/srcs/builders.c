@@ -43,6 +43,7 @@ int	parser_dict(char *id)
 
 /**
  * @brief   Retrieves the appropriate builder function based on the given index.
+ * This function also check the number of data expected for each element.
  * -BONUS VERSION-
  *
  * @param   index  Index of the builder function.
@@ -57,9 +58,13 @@ t_build	get_builder(int index, t_mrt *mrt)
 		&inp_pyramid, &inp_resolution,
 		&inp_ambient, &inp_camera,
 		&inp_light};
+	static int		limits[] = {8, 8, 10, 9, 9,
+		8, 8, 3, 3, 4, 4};
 
 	if (index > (int)(sizeof(builder) / sizeof(t_build)) || index < 0)
 		msg_error_parsing("builder out of index", mrt);
+	if (ft_count_tab(mrt->tab) != limits[index])
+		msg_error_parsing("Not enough data in element", mrt);
 	return (builder[index]);
 }
 
@@ -94,6 +99,7 @@ int	parser_dict(char *id)
 
 /**
  * @brief   Retrieves the appropriate builder function based on the given index.
+ * This function also check the number of data expected for each element.
  * -MANDATORY VERSION-
  *
  * @param   index  Index of the builder function.
@@ -106,9 +112,13 @@ t_build	get_builder(int index, t_mrt *mrt)
 		&inp_cylinder, &inp_resolution,
 		&inp_ambient, &inp_camera,
 		&inp_light};
+	static size_t	limits[8] = {4, 4, 6, 3,
+		3, 4, 4};
 
 	if (index > (int)(sizeof(builder) / sizeof(t_build)) || index < 0)
 		msg_error_parsing("builder out of index", mrt);
+	if (ft_count_tab(mrt->tab) != limits[index])
+		msg_error_parsing("Not enough data in element", mrt);
 	return (builder[index]);
 }
 
