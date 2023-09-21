@@ -11,10 +11,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_B		=	cube.c \
-				pyramid.c \
-				square.c \
-				triangle.c
 SRCS		=	builders.c \
 				cleaners.c \
 				cylinder.c \
@@ -28,13 +24,14 @@ SRCS		=	builders.c \
 				parser_v3d.c \
 				plane.c \
 				readfile.c \
-				sphere.c
+				sphere.c \
+				square.c \
+				triangle.c \
+				cube.c \
+				pyramid.c
 SRCS_DIR	=	srcs
 OBJS_DIR	=	obj
-BNS_DIR		=	bns
-OBJS_B_DIR	=	obj_bns
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
-OBJS_BNS 	=	$(addprefix $(OBJS_B_DIR)/,$(SRCS_B:.c=.o))
 OBJS_SUBS	= 	obj
 CC			=	gcc
 RM			=	@rm -rf
@@ -77,15 +74,9 @@ version_bonus:
 		$(MAKE) fclean; \
     fi
 
-$(BONUS_FILE): $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
-	ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
+$(BONUS_FILE): $(OBJS_DIR) $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 	touch $(BONUS_FILE)
-
-$(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
-
-$(OBJS_B_DIR):
-	-@mkdir $(OBJS_B_DIR)
 
 clean:
 	$(RM) $(OBJS)

@@ -22,10 +22,10 @@ set(SOURCES
         srcs/plane.c
         srcs/readfile.c
         srcs/sphere.c
-        bns/cube.c
-        bns/pyramid.c
-        bns/square.c
-        bns/triangle.c
+        srcs/cube.c
+        srcs/pyramid.c
+        srcs/square.c
+        srcs/triangle.c
         )
 
 # Crear una biblioteca estática con los archivos fuente

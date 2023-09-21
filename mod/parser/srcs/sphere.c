@@ -20,12 +20,16 @@
  * It ensures the sphere's center and radius are correctly extracted
  * and also retrieves common attributes using the `get_common` function.
  *
+ * Like all builders, first check if the data founded at file has the
+ * necessary element to build it.
  * @param mrt  Main structure containing all parsed data.
  */
 void	inp_sphere(t_mrt *mrt)
 {
 	t_obj	*current;
 
+	if (ft_count_tab(mrt->tab) != ELM_SPH)
+		msg_error_parsing("Wrong data elements to build sphere", mrt);
 	current = mrt->obj;
 	mrt->obj = object_builder(SPHERE, mrt->obj);
 	mrt->obj->elm.sph.centre = get_v3d(mrt, mrt->tab[SPH_CENTRE],

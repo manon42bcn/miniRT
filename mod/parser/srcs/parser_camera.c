@@ -64,6 +64,8 @@ void	inp_camera(t_mrt *mrt)
 {
 	if (mrt->cmr != NULL)
 		msg_error_parsing("Only one camera can be declared", mrt);
+	if (ft_count_tab(mrt->tab) != ELM_CAM)
+		msg_error_parsing("Wrong data elements to build camera", mrt);
 	mrt->cmr = camera_builder();
 	mrt->cmr->position = get_v3d(mrt, mrt->tab[CAM_CENTRE], V3D_COOR);
 	mrt->cmr->dir = get_v3d(mrt, mrt->tab[CAM_ORIENT], V3D_NORM);

@@ -20,10 +20,14 @@
  * It ensures the plane's center and orientation are correctly extracted
  * and also retrieves common attributes using the `get_common` function.
  *
+ * Like all builders, first check if the data founded at file has the
+ * necessary element to build it.
  * @param mrt  Main structure containing all parsed data.
  */
 void	inp_plane(t_mrt *mrt)
 {
+	if (ft_count_tab(mrt->tab) != ELM_PL)
+		msg_error_parsing("Wrong data elements to build plane", mrt);
 	mrt->obj = object_builder(PLANE, mrt->obj);
 	mrt->obj->elm.pl.centre = get_v3d(mrt, mrt->tab[PLN_CENTRE],
 			V3D_COOR);

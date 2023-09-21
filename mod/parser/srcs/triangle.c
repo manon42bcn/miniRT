@@ -12,8 +12,22 @@
 
 #include "parse.h"
 
+#ifdef BONUS
+
+/**
+ * @brief Parses input to populate a cube triangle's attributes.
+ * -BONUS VERSION-
+ * This function is responsible for reading the input related to a triangle
+ * and populating the corresponding attributes in the `obj` structure.
+ * It ensures the triangle's side and are correctly extracted
+ * and retrieves common attributes using the `get_common` function.
+ *
+ * @param mrt  Main structure containing all parsed data.
+ */
 void	inp_triangle(t_mrt *mrt)
 {
+	if (ft_count_tab(mrt->tab) != ELM_TR)
+		msg_error_parsing("Wrong data elements to build triangle", mrt);
 	mrt->obj = object_builder(TRIANGLE, mrt->obj);
 	mrt->obj->elm.trg.v1 = get_v3d(mrt, mrt->tab[TRG_VERTEX_1],
 			V3D_COOR);
@@ -26,3 +40,18 @@ void	inp_triangle(t_mrt *mrt)
 			ft_minus_v3d(mrt->obj->elm.trg.v3, mrt->obj->elm.trg.v1),
 			ft_minus_v3d(mrt->obj->elm.trg.v2, mrt->obj->elm.trg.v1));
 }
+
+#else
+
+/**
+ * @brief Displays an error when trying to parse a triangle in
+ * the mandatory version.
+ *
+ * @param mrt The main structure containing all parsed data.
+ */
+void	inp_triangle(t_mrt *mrt)
+{
+	msg_error_parsing("Triangle is not supported at mandatory version", mrt);
+}
+
+#endif

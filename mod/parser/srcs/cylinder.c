@@ -18,6 +18,8 @@
  * parsing data, and it initializes the cylinder's properties
  * based on the provided data.
  *
+ * Like all builders, first check if the data founded at file has the
+ * necessary element to build it.
  * @param   mrt  Pointer to the main Ray Tracer structure containing
  * the parsing data.
  *
@@ -26,6 +28,8 @@
  */
 void	inp_cylinder(t_mrt *mrt)
 {
+	if (ft_count_tab(mrt->tab) != ELM_CYL)
+		msg_error_parsing("Wrong data elements to build Cylinder", mrt);
 	mrt->obj = object_builder(CYLINDER, mrt->obj);
 	mrt->obj->elm.cyl.centre = get_v3d(mrt, mrt->tab[CYL_CENTRE],
 			V3D_COOR);

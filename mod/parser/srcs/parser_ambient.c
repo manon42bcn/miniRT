@@ -18,6 +18,8 @@
  * and it initializes the scene's ambient light properties based
  * on the provided data.
  *
+ * Like all builders, first check if the data founded at file has the
+ * necessary element to build it.
  * @param   mrt  Pointer to the main Ray Tracer structure containing
  * the parsing data.
  *
@@ -30,6 +32,8 @@ void	inp_ambient(t_mrt *mrt)
 {
 	if (mrt->scn.parsed == TRUE)
 		msg_error_parsing("Ambient light should be declared just once", mrt);
+	if (ft_count_tab(mrt->tab) != ELM_AMB)
+		msg_error_parsing("Wrong data elements to build ambient", mrt);
 	mrt->scn.bright = ft_atolf(mrt->tab[AMB_LIGHT]);
 	if (!check_range(mrt->scn.bright, 0, 1))
 		msg_error_parsing("Ambient light ratio out of range", mrt);

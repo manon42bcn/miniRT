@@ -7,6 +7,7 @@ The miniRT Parser Library is a dedicated module for extracting, interpreting, an
 - Camera and Light Parsing: Specialized functions for cameras and lights, handling both their positional and characteristic data.
 - Color Parsing: Extracts RGB color data in a consistent format for rendering.
 - BONUS Features: Includes additional functionalities when compiled with the BONUS directive. BONUS behaviour is mainly controlled by parse library.
+- BONUS Elements: For those elements than can be handled in bonus version, mandatory version shows a message to let the user know that is not supported in current version.
 To get all the details, please read docs/en.subject.md.
 
 ## Key Functions ##
