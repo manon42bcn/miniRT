@@ -51,6 +51,15 @@ typedef struct s_triangle
 	t_v3d	v3;
 }				t_triangle;
 
+typedef struct s_cone
+{
+	t_v3d	centre;
+	t_v3d	dir;
+	double	radius;
+	double	height;
+	double	alpha;
+}				t_cone;
+
 typedef union u_figures
 {
 	t_sphere	sph;
@@ -58,6 +67,7 @@ typedef union u_figures
 	t_square	sq;
 	t_cylinder	cyl;
 	t_triangle	trg;
+	t_cone		con;
 }				t_figures;
 
 #endif

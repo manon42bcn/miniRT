@@ -27,6 +27,13 @@ enum e_array_intersections
 	C_DIST
 };
 
+enum e_coef
+{
+	E_A = 0,
+	E_B = 1,
+	E_C = 2
+};
+
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 t_solver		get_solver(int index);
 double			plane_solver(t_v3d origin, t_v3d dir, t_obj *obj);
@@ -42,6 +49,7 @@ double			square_solver(t_v3d origin, t_v3d dir, t_obj *sqr);
 double			triangle_solver(t_v3d origin, t_v3d dir, t_obj *trg);
 double			pyramid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
+double			cone_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
 # endif
 

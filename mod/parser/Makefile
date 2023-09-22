@@ -28,7 +28,8 @@ SRCS		=	builders.c \
 				square.c \
 				triangle.c \
 				cube.c \
-				pyramid.c
+				pyramid.c \
+				cone.c
 SRCS_DIR	=	srcs
 OBJS_DIR	=	obj
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))

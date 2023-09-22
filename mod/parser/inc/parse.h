@@ -23,15 +23,6 @@
 # include "../../../inc/objects.h"
 # include "../../../inc/structs.h"
 
-# define ELM_SPH 4
-# define ELM_PL	4
-# define ELM_CYL 6
-# define ELM_RES 3
-# define ELM_AMB 3
-# define ELM_CAM 4
-# define ELM_LGH 4
-
-
 typedef void	(*t_build)(t_mrt *);
 
 // Cleaners
@@ -47,6 +38,9 @@ void		inp_camera(t_mrt *mrt);
 void		inp_light(t_mrt *mrt);
 void		inp_square(t_mrt *mrt);
 void		inp_triangle(t_mrt *mrt);
+void		inp_pyramid(t_mrt *mrt);
+void		inp_cube(t_mrt *mrt);
+void		inp_cone(t_mrt *mrt);
 // Parser readfile
 t_mrt		*readfile_parser(char const *filename);
 // Parser common
@@ -67,16 +61,30 @@ void		parse_error(char *message);
 # ifdef BONUS
 
 #  define LAST_COMMON 5
+#  define ELM_SPH 8
+#  define ELM_PL 8
+#  define ELM_CYL 10
+#  define ELM_RES 3
+#  define ELM_AMB 3
+#  define ELM_CAM 4
+#  define ELM_LGH 4
 #  define ELM_SQ 9
 #  define ELM_TR 9
 #  define ELM_CU 8
 #  define ELM_PY 8
-
-void		inp_cube(t_mrt *mrt);
-void		inp_pyramid(t_mrt *mrt);
+#  define ELM_CO 10
 
 # else
 #  define LAST_COMMON 1
+
+#  define ELM_SPH 4
+#  define ELM_PL	4
+#  define ELM_CYL 6
+#  define ELM_RES 3
+#  define ELM_AMB 3
+#  define ELM_CAM 4
+#  define ELM_LGH 4
+
 # endif
 
 #endif

@@ -28,12 +28,14 @@ static inline t_bool	lighted(t_v3d origin, t_v3d dir, t_obj *obj)
 {
 	double		evl;
 	t_solver	solve;
+	double		to_light;
 
+	to_light = ft_length_v3d(dir);
 	while (obj)
 	{
 		solve = get_solver(obj->type);
 		evl = solve(origin, dir, obj);
-		if (evl > EPSILON && evl < 1)
+		if (evl > EPSILON && evl < to_light)
 			return (FALSE);
 		obj = obj->next;
 	}
@@ -150,6 +152,10 @@ void	hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj)
 		}
 		else
 			obj->elm.sph.inside = FALSE;
+	}
+	else if (obj->type == CONE)
+	{
+		*normal = cone_normal(hitted, obj);
 	}
 	else
 	{

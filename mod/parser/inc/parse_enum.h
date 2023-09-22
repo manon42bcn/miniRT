@@ -66,6 +66,15 @@ enum e_pyr_parse
 	PYR_SIDE = 2
 };
 
+enum e_cone_parse
+{
+	CON_ID = 0,
+	CON_CENTRE = 1,
+	CON_ORIENTATION = 2,
+	CON_DIAM = 3,
+	CON_HEIGHT = 4
+};
+
 enum e_res_parse
 {
 	RES_PARSE_ID = 0,
