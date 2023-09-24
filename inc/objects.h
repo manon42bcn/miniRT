@@ -60,6 +60,47 @@ typedef struct s_cone
 	double	alpha;
 }				t_cone;
 
+typedef struct s_box
+{
+	t_v3d	centre;
+	t_v3d	dir;
+	double	width;
+	double	height;
+	double	depth;
+	t_v3d	min;
+	t_v3d	max;
+}				t_box;
+
+typedef struct s_hyper
+{
+	t_v3d	centre;
+	t_v3d	dir;
+	double	a;
+	double	b;
+	double	c;
+	double	height;
+}				t_hyper;
+
+
+typedef struct s_parab
+{
+	t_v3d	centre;
+	t_v3d	dir;
+	double	focal_dist;
+	double	height;
+	double	min_height;
+}				t_parab;
+
+typedef struct	s_ellip
+{
+	t_v3d	centre;
+	double	rx;
+	double	ry;
+	double	rz;
+}				t_ellip;
+
+
+
 typedef union u_figures
 {
 	t_sphere	sph;
@@ -68,6 +109,10 @@ typedef union u_figures
 	t_cylinder	cyl;
 	t_triangle	trg;
 	t_cone		con;
+	t_box		box;
+	t_hyper		hy;
+	t_parab		prb;
+	t_ellip		elp;
 }				t_figures;
 
 #endif

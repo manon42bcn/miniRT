@@ -26,6 +26,9 @@ set(SOURCES
         srcs/pyramid.c
         srcs/square.c
         srcs/triangle.c
+        srcs/hyperboloid.c
+        srcs/paraboloid.c
+        srcs/ellipsoid.c
         )
 
 # Crear una biblioteca estática con los archivos fuente

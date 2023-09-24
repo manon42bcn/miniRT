@@ -46,8 +46,8 @@ t_solver	get_solver(int index)
 {
 	static t_solver	solve[] = {&sphere_solver, &plane_solver,
 		&cylinder_solver, &square_solver,
-		&triangle_solver, &cube_solver,
-		&pyramid_solver, &cone_solver};
+		&triangle_solver, &box_solver,
+		&pyramid_solver, &cone_solver, &hyper_solver};
 
 	if (index > (int)(sizeof(solve) / sizeof (t_solver)))
 		solver_error("object id out of range to get solver");

@@ -20,7 +20,7 @@
 * [x] Chequear que hay suficientes elementos para iniciar render.
 * [x] Separar librerías y módulos
 * [ ] Bunus, la pirámide es demasiado lenta y problemática según que formas... so
-  * [ ] Implementar cono
+  * [x] Implementar cono
   * [ ] Hacer un intento con la pirámide como figura compuesta (control desde parseo a triangulos...)
   * [ ] Explorar el usar hilos, para hacer más rápido el bonus
   * [ ] Revisar fuentes de bonus en solvers, o condicionar todo a preproceso (vida más fácil).

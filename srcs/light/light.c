@@ -128,6 +128,15 @@ void	light_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
 	inter->color = ft_rgb_light(inter->color, rgb);
 }
 
+t_v3d hyper_normal(t_v3d point, t_obj *hyper) {
+	t_v3d normal;
+	normal.x = 2 * point.x / (hyper->elm.hy.a * hyper->elm.hy.a);
+	normal.y = 2 * point.y / (hyper->elm.hy.b * hyper->elm.hy.b);
+	normal.z = -2 * point.z / (hyper->elm.hy.c * hyper->elm.hy.c);
+	return ft_normal_v3d(normal);
+}
+
+
 /**
  * @brief Computes the direction of the normal at a hit point.
  *
@@ -156,6 +165,10 @@ void	hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj)
 	else if (obj->type == CONE)
 	{
 		*normal = cone_normal(hitted, obj);
+	}
+	else if (obj->type == HYPER)
+	{
+		*normal = hyper_normal(hitted, obj);
 	}
 	else
 	{

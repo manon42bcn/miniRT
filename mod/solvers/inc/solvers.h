@@ -48,8 +48,10 @@ double			sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph);
 double			square_solver(t_v3d origin, t_v3d dir, t_obj *sqr);
 double			triangle_solver(t_v3d origin, t_v3d dir, t_obj *trg);
 double			pyramid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-double			cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
+double			box_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			cone_solver(t_v3d origin, t_v3d dir, t_obj *obj);
+t_v3d			cone_normal(t_v3d inter_point, t_obj *obj);
+double			hyper_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
 # endif
 

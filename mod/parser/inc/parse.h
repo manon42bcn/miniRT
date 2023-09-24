@@ -39,8 +39,11 @@ void		inp_light(t_mrt *mrt);
 void		inp_square(t_mrt *mrt);
 void		inp_triangle(t_mrt *mrt);
 void		inp_pyramid(t_mrt *mrt);
-void		inp_cube(t_mrt *mrt);
+void		inp_box(t_mrt *mrt);
 void		inp_cone(t_mrt *mrt);
+void		inp_hyper(t_mrt *mrt);
+void		inp_paraboloid(t_mrt *mrt);
+void		inp_ellipsoid(t_mrt *mrt);
 // Parser readfile
 t_mrt		*readfile_parser(char const *filename);
 // Parser common
@@ -73,6 +76,10 @@ void		parse_error(char *message);
 #  define ELM_CU 8
 #  define ELM_PY 8
 #  define ELM_CO 10
+#  define ELM_BOX 11
+#  define ELM_HYP 12
+#  define ELM_PARAB 11
+#  define ELM_ELLIP 10
 
 # else
 #  define LAST_COMMON 1

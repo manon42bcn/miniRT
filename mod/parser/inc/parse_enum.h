@@ -52,11 +52,44 @@ enum e_trg_parse
 	TRG_VERTEX_3 = 3
 };
 
-enum e_cube_parse
+enum e_box_parse
 {
-	CUBE_ID = 0,
-	CUBE_CENTRE = 1,
-	CUBE_SIDE = 2
+	BOX_ID = 0,
+	BOX_CENTRE = 1,
+	BOX_ORIENTATION = 2,
+	BOX_WIDTH = 3,
+	BOX_HEIGHT = 4,
+	BOX_DEPTH = 5
+};
+
+enum e_hyp_parse
+{
+	HYP_ID = 0,
+	HYP_CENTRE = 1,
+	HYP_ORIENTATION = 2,
+	HYP_RAD_X = 3,
+	HYP_RAD_Y = 4,
+	HYP_RAD_Z = 5,
+	HYP_HEIGHT = 6
+};
+
+enum e_ellip_parse
+{
+	ELP_ID = 0,
+	ELP_CENTRE = 1,
+	ELP_RAD_X = 2,
+	ELP_RAD_Y = 3,
+	ELP_RAD_Z = 4
+};
+
+enum e_parab_parse
+{
+	PRB_ID = 0,
+	PRB_CENTRE = 1,
+	PRB_ORIENTATION = 2,
+	PRB_FOCAL = 3,
+	PRB_HEIGHT = 4,
+	PRB_M_HEIGHT = 5
 };
 
 enum e_pyr_parse

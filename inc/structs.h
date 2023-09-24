@@ -31,9 +31,12 @@ enum e_fig
 	CYLINDER=2,
 	SQUARE=3,
 	TRIANGLE=4,
-	CUBE=5,
+	BOX=5,
 	PYRAMID=6,
-	CONE=7
+	CONE=7,
+	HYPER=8,
+	PARAB=9,
+	ELLIPS=10
 };
 
 typedef struct s_cmr
