@@ -34,7 +34,7 @@ void	inp_paraboloid(t_mrt *mrt)
 
 	if (ft_count_tab(mrt->tab) != ELM_PARAB)
 		msg_error_parsing("Wrong data elements to build paraboloid", mrt);
-	mrt->obj = object_builder(BOX, mrt->obj);
+	mrt->obj = object_builder(PARAB, mrt->obj);
 	prb = mrt->obj;
 	prb->elm.prb.centre = get_v3d(mrt, mrt->tab[PRB_CENTRE], V3D_COOR);
 	prb->elm.prb.dir = get_v3d(mrt, mrt->tab[PRB_ORIENTATION], V3D_NORM);

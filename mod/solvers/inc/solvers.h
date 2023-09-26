@@ -34,6 +34,13 @@ enum e_coef
 	E_C = 2
 };
 
+enum e_dist
+{
+	T_0=0,
+	T_1=1
+};
+
+t_bool			quadratic(double *vars, double *dist);
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 t_solver		get_solver(int index);
 double			plane_solver(t_v3d origin, t_v3d dir, t_obj *obj);
@@ -52,6 +59,8 @@ double			box_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			cone_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 t_v3d			cone_normal(t_v3d inter_point, t_obj *obj);
 double			hyper_solver(t_v3d origin, t_v3d dir, t_obj *obj);
+double			parab_solver(t_v3d origin, t_v3d dir, t_obj *obj);
+double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
 # endif
 

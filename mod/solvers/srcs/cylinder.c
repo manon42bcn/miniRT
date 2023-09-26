@@ -33,12 +33,12 @@ static inline t_bool	cyl_is_hit(double x[2], t_v3d origin,
 	u = ft_scalar_v3d(ft_dot_v3d(ft_minus_v3d(origin, cyl->elm.cyl.centre),
 				cyl->elm.cyl.dir), cyl->elm.cyl.dir);
 	u = ft_minus_v3d(ft_minus_v3d(origin, cyl->elm.cyl.centre), u);
-	qr[0] = ft_dot_v3d(v, v);
+	qr[0] = ft_length_v3d(v);
 	qr[1] = 2 * ft_dot_v3d(v, u);
 	qr[2] = ft_dot_v3d(u, u) - (cyl->elm.cyl.radius * cyl->elm.cyl.radius);
-	x[0] = (-qr[1] + sqrt((qr[1] * qr[1]) - 4 * qr[0] * qr[2])) / (2 * qr[0]);
-	x[1] = (-qr[1] - sqrt((qr[1] * qr[1]) - 4 * qr[0] * qr[2])) / (2 * qr[0]);
-	if ((x[0] != x[0] && x[1] != x[1]) || (x[0] < EPSILON && x[1] < EPSILON))
+	if (!quadratic(&qr[0], &x[0]))
+		return (FALSE);
+	if (x[0] < EPSILON && x[1] < EPSILON)
 	{
 		x[0] = INFINITY;
 		x[1] = INFINITY;

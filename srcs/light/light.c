@@ -136,6 +136,30 @@ t_v3d hyper_normal(t_v3d point, t_obj *hyper) {
 	return ft_normal_v3d(normal);
 }
 
+t_v3d parab_normal(t_v3d h, t_parab parab)
+{
+	t_v3d normal;
+	normal.x = 2 * h.x;
+	normal.y = -4 * parab.focal_dist;
+	normal.z = 2 * h.z;
+	return ft_normal_v3d(normal); // Suponiendo que ft_normalize_v3d es tu función para normalizar un vector.
+}
+
+t_v3d ellipsoid_normal(t_v3d point, t_ellip ellip)
+{
+	// Transformar el punto al espacio local del elipsoide
+	t_v3d local_point = ft_minus_v3d(point, ellip.centre);
+
+	// Calcular la normal usando las derivadas parciales
+	t_v3d normal;
+	normal.x = 2.0 * local_point.x / (ellip.rx * ellip.rx);
+	normal.y = 2.0 * local_point.y / (ellip.ry * ellip.ry);
+	normal.z = 2.0 * local_point.z / (ellip.rz * ellip.rz);
+
+	// Normalizar el vector normal antes de devolverlo
+	return ft_normal_v3d(normal);
+}
+
 
 /**
  * @brief Computes the direction of the normal at a hit point.
@@ -162,19 +186,27 @@ void	hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj)
 		else
 			obj->elm.sph.inside = FALSE;
 	}
-	else if (obj->type == CONE)
-	{
-		*normal = cone_normal(hitted, obj);
-	}
-	else if (obj->type == HYPER)
-	{
-		*normal = hyper_normal(hitted, obj);
-	}
-	else
-	{
-		if (ft_cos_v3d(dir, obj->normal) > 0)
-			*normal = ft_scalar_v3d(-1, obj->normal);
-		else
-			*normal = obj->normal;
-	}
+//	else if (obj->type == CONE)
+//	{
+//		*normal = cone_normal(hitted, obj);
+//	}
+////	else if (obj->type == HYPER)
+////	{
+////		*normal = hyper_normal(hitted, obj);
+////	}
+//	else if (obj->type == PARAB)
+//	{
+//		*normal = parab_normal(hitted, obj->elm.prb);
+//	}
+//	else if (obj->type == ELLIPS)
+//	{
+//		*normal = ellipsoid_normal(hitted, obj->elm.elp);
+//	}
+//	else
+//	{
+//		if (ft_cos_v3d(dir, obj->normal) > 0)
+//			*normal = ft_scalar_v3d(-1, obj->normal);
+//		else
+//			*normal = obj->normal;
+//	}
 }

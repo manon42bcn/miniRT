@@ -12,6 +12,11 @@
 
 #include "minirt.h"
 
+void		printVector(t_v3d *vector)
+{
+	printf("[%f x %f y %f z]", vector->x, vector->y, vector->z);
+}
+
 /**
  * @brief Finalizes the parsing process and initializes specific rendering
  * parameters.

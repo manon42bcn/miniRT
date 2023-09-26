@@ -5,3 +5,4 @@ miniRT.dSYM/
 .DS_Store
 .bonus
 *.o
+*.log

@@ -16,7 +16,9 @@ SRCS_B		=	cube.c \
 				square.c \
 				triangle.c \
 				cone.c \
-				hyperboloid.c
+				hyperboloid.c \
+				paraboloid.c \
+				ellipsoid.c
 SRCS		=	cylinder.c \
 				cylinder_tops.c \
 				plane.c \

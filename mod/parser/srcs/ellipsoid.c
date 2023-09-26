@@ -34,7 +34,7 @@ void	inp_ellipsoid(t_mrt *mrt)
 
 	if (ft_count_tab(mrt->tab) != ELM_ELLIP)
 		msg_error_parsing("Wrong data elements to build ellipsoid", mrt);
-	mrt->obj = object_builder(BOX, mrt->obj);
+	mrt->obj = object_builder(ELLIPS, mrt->obj);
 	elp = mrt->obj;
 	elp->elm.elp.centre = get_v3d(mrt, mrt->tab[ELP_CENTRE], V3D_COOR);
 	elp->elm.elp.rx = ft_atolf(mrt->tab[ELP_RAD_X]);

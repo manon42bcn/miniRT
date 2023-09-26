@@ -19,6 +19,8 @@ set(SOURCES
         bns/triangle.c
         bns/cone.c
         bns/hyperboloid.c
+        bns/paraboloid.c
+        bns/ellipsoid.c
         )
 
 # Crear una biblioteca estática con los archivos fuente

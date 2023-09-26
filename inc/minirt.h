@@ -50,18 +50,13 @@ typedef struct		s_inter
 }					t_inter;
 
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
+void		printVector(t_v3d *vector);
 
 //double		cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 //double		cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
 void		try_all_intersections(t_ray ray, t_obj *obj,
 				t_obj *closest_figure, double *closest_intersection);
 t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
-//double		plane_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-//double		plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir);
-//double		pyramid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-//double		sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph);
-//double		square_solver(t_v3d origin, t_v3d dir, t_obj *sqr);
-//double		triangle_solver(t_v3d origin, t_v3d dir, t_obj *trg);
 //light
 void		hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj);
 void		light_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj);

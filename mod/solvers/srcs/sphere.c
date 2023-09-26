@@ -23,7 +23,6 @@
 static inline void	sphere_hit_area(double points[2], t_v3d origin,
 		t_v3d dir, t_obj *sph)
 {
-	double	disc;
 	t_v3d	dist_from_centre;
 	double	p[3];
 
@@ -32,15 +31,7 @@ static inline void	sphere_hit_area(double points[2], t_v3d origin,
 	p[1] = 2 * ft_dot_v3d(dir, dist_from_centre);
 	p[2] = ft_length_v3d(dist_from_centre) - sph->elm.sph.radius
 		* sph->elm.sph.radius;
-	disc = p[1] * p[1] - (4 * p[0] * p[2]);
-	if (disc < 0)
-	{
-		points[0] = INFINITY;
-		points[1] = INFINITY;
-		return ;
-	}
-	points[0] = (-p[1] + sqrt(disc)) / (2 * p[0]);
-	points[1] = (-p[1] - sqrt(disc)) / (2 * p[0]);
+	quadratic(&p[0], &points[0]);
 }
 
 /**
