@@ -44,6 +44,15 @@ enum e_sqr_parse
 	SQR_SIDE = 3
 };
 
+enum e_sqr_rectangle
+{
+	RCT_ID = 0,
+	RCT_CENTRE = 1,
+	RCT_ORIENT = 2,
+	RCT_WIDTH = 3,
+	RCT_HEIGHT = 4
+};
+
 enum e_trg_parse
 {
 	TRG_ID = 0,

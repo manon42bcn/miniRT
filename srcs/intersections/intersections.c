@@ -53,14 +53,6 @@ void	try_all_intersections(t_ray ray, t_obj *obj,
 	{
 		solve = get_solver(obj->type);
 		dist = solve(ray.from, ray.to, obj);
-		if (obj->type == CONE)
-		{
-			printf("CENTRO ");
-			printVector(&obj->elm.con.centre);
-			printf(" NORMAL ");
-			printVector(&obj->elm.con.dir);
-			printf(" RAD %f HEIGHT %f ALPHA %f \n", obj->elm.con.radius, obj->elm.con.height, obj->elm.con.alpha);
-		}
 		if (dist > EPSILON && dist < *closest_intersection)
 		{
 			*closest_figure = *obj;
@@ -68,4 +60,5 @@ void	try_all_intersections(t_ray ray, t_obj *obj,
 		}
 		obj = obj->next;
 	}
+	rayer++;
 }

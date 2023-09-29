@@ -12,58 +12,62 @@
 
 #include "solvers.h"
 
-static int solve_quadratic(double a, double b, double c, double *t0, double *t1)
+/**
+ * @brief Calculate the coefficients for a quadratic equation representing an
+ *        ellipsoid intersection.
+ *
+ * Given an ellipsoid object and a ray defined by its origin and direction, this
+ * function computes the coefficients for the quadratic equation that
+ * represents the intersection of the ray with the ellipsoid, and store them
+ * at coef array.
+ *
+ * @param coef   An array to store the coefficients [A, B, C] of the
+ *               quadratic equation.
+ * @param obj    A pointer to the ellipsoid object.
+ * @param origin The origin point of the ray.
+ * @param dir    The direction vector of the ray.
+ */
+static void	ellipsoid_quad(double *coef, t_obj *obj, t_v3d origin, t_v3d dir)
 {
-	double discriminant = b * b - 4 * a * c;
-	if (discriminant < 0)
-		return 0; // no real roots
+	t_v3d	oc;
 
-	double q = (b > 0) ?
-			   -0.5 * (b + sqrt(discriminant)) :
-			   -0.5 * (b - sqrt(discriminant));
-
-	*t0 = q / a;
-	*t1 = c / q;
-
-	if (*t0 > *t1)
-	{
-		double temp = *t0;
-		*t0 = *t1;
-		*t1 = temp;
-	}
-	return 1;
+	oc = ft_minus_v3d(origin, obj->elm.elp.centre);
+	coef[E_A] = (dir.x * dir.x / (obj->elm.elp.rx * obj->elm.elp.rx))
+		+ (dir.y * dir.y / (obj->elm.elp.ry * obj->elm.elp.ry))
+		+ (dir.z * dir.z / (obj->elm.elp.rz * obj->elm.elp.rz));
+	coef[E_B] = 2 * (oc.x * dir.x / (obj->elm.elp.rx * obj->elm.elp.rx))
+		+ 2 * (oc.y * dir.y / (obj->elm.elp.ry * obj->elm.elp.ry))
+		+ 2 * (oc.z * dir.z / (obj->elm.elp.rz * obj->elm.elp.rz));
+	coef[E_C] = (oc.x * oc.x / (obj->elm.elp.rx * obj->elm.elp.rx))
+		+ (oc.y * oc.y / (obj->elm.elp.ry * obj->elm.elp.ry))
+		+ (oc.z * oc.z / (obj->elm.elp.rz * obj->elm.elp.rz)) - 1;
 }
 
-double ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+/**
+ * @brief Solve for the intersection between a ray and an ellipsoid.
+ *
+ * Given a ray defined by its origin and direction, this function calculates the
+ * intersection points between the ray and an ellipsoid object. It returns the
+ * minimum non-negative solution or INFINITY if no intersection occurs.
+ *
+ * @param origin A point representing the origin of the ray.
+ * @param dir    The direction vector of the ray.
+ * @param obj    A pointer to the ellipsoid object.
+ *
+ * @return The minimum non-negative intersection distance or INFINITY if there
+ *         is no intersection.
+ */
+double	ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 {
-	// Extracción de información específica del ellipsoide desde el objeto.
-	t_ellip ellip = obj->elm.elp;
+	double	coef[3];
+	double	t[2];
 
-	t_v3d O = ft_minus_v3d(origin, ellip.centre); // Offset del origen del rayo.
-
-	double A = (dir.x * dir.x / (ellip.rx * ellip.rx)) +
-			   (dir.y * dir.y / (ellip.ry * ellip.ry)) +
-			   (dir.z * dir.z / (ellip.rz * ellip.rz));
-
-	double B = 2 * (O.x * dir.x / (ellip.rx * ellip.rx)) +
-			   2 * (O.y * dir.y / (ellip.ry * ellip.ry)) +
-			   2 * (O.z * dir.z / (ellip.rz * ellip.rz));
-
-	double C = (O.x * O.x / (ellip.rx * ellip.rx)) +
-			   (O.y * O.y / (ellip.ry * ellip.ry)) +
-			   (O.z * O.z / (ellip.rz * ellip.rz)) - 1;
-
-	double t0, t1;
-	if (!solve_quadratic(A, B, C, &t0, &t1))
-		return INFINITY;
-
-	// Retorna la intersección más cercana que esté en frente de la cámara.
-	if (t0 > 0)
-		return t0;
-	if (t1 > 0)
-		return t1;
-	return INFINITY;
+	ellipsoid_quad(&coef[0], obj, origin, dir);
+	if (!quadratic(&coef[0], &t[0]))
+		return (INFINITY);
+	if (t[0] > 0)
+		return (t[0]);
+	if (t[1] > 0)
+		return (t[1]);
+	return (INFINITY);
 }
-
-
-

@@ -18,12 +18,14 @@ SRCS_B		=	cube.c \
 				cone.c \
 				hyperboloid.c \
 				paraboloid.c \
-				ellipsoid.c
+				ellipsoid.c \
+				rectangle.c
 SRCS		=	cylinder.c \
 				cylinder_tops.c \
 				plane.c \
 				solvers.c \
-				sphere.c
+				sphere.c \
+				quadratic.c
 SRCS_DIR	=	srcs
 OBJS_DIR	=	obj
 BNS_DIR		=	bns
@@ -40,7 +42,7 @@ HEADER		=	inc/solvers.h \
 				../../inc/defines.h \
 				../../inc/objects.h \
                 ../../inc/structs.h
-CFLAGS 		=	-Wall -Wextra -Werror
+CFLAGS 		=	-Wall -Wextra -Werror -DBONUS=1
 INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
 BONUS_FILE	= 	.bonus
 

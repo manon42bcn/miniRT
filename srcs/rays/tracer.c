@@ -149,12 +149,12 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_obj		close_obj;
 	t_inter		inter;
-
+// TODO: Check if memset is neccesary.
+	ft_memset(&close_obj, 1, sizeof(t_obj));
 	depth = depth * 2;
 	inter.ray.from = origin;
 	inter.ray.to = dir;
 	inter.hit = get_hits(inter, mrt->obj, &close_obj);
-	hit_direction(inter.hit, dir, &(inter.normal), &close_obj);
 	if (close_obj.type != CLOSE_OBJ)
 		inter.color = close_obj.color;
 	else

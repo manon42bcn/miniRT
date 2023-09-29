@@ -12,7 +12,6 @@
 
 #ifndef PARSE_H
 # define PARSE_H
-
 # include "../../../inc/defines.h"
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
@@ -44,6 +43,7 @@ void		inp_cone(t_mrt *mrt);
 void		inp_hyper(t_mrt *mrt);
 void		inp_paraboloid(t_mrt *mrt);
 void		inp_ellipsoid(t_mrt *mrt);
+void		inp_rectangle(t_mrt *mrt);
 // Parser readfile
 t_mrt		*readfile_parser(char const *filename);
 // Parser common
@@ -80,6 +80,7 @@ void		parse_error(char *message);
 #  define ELM_HYP 12
 #  define ELM_PARAB 11
 #  define ELM_ELLIP 10
+#  define ELM_RECT 10
 
 # else
 #  define LAST_COMMON 1

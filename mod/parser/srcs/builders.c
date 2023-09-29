@@ -25,7 +25,7 @@ int	parser_dict(char *id)
 	int			i;
 	static char	*dictionary[] = {
 		"sp", "pl", "cy", "sq", "tr", "bx",
-		"py", "co", "hy", "pb", "el", "R", "A", "c", "l", NULL};
+		"py", "co", "hy", "pb", "el", "rc", "R", "A", "c", "l", NULL};
 
 	i = 0;
 	if (ft_match_cmp(id, "#"))
@@ -54,7 +54,7 @@ t_build	get_builder(int index, t_mrt *mrt)
 		&inp_triangle, &inp_box,
 		&inp_pyramid, &inp_cone,
 		&inp_hyper, &inp_paraboloid,
-		&inp_ellipsoid, &inp_resolution,
+		&inp_ellipsoid, &inp_rectangle, &inp_resolution,
 		&inp_ambient, &inp_camera,
 		&inp_light};
 

@@ -42,6 +42,13 @@ static inline void	after_parse_process(t_mrt *mrt)
 		node->ratio = mrt->scn.ratio;
 		node = node->next;
 	}
+	t_obj *obj;
+	obj = mrt->obj;
+	while (obj)
+	{
+		printf("TYPE = %d\n", obj->type);
+		obj = obj->next;
+	}
 	mrt->clean_window = &mlx_clear_window;
 	mrt->clean_image = &mlx_destroy_image;
 	mrt->window = FALSE;

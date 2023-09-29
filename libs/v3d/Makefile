@@ -14,7 +14,8 @@
 SRCS		=	v3d_algebra.c \
 				v3d_arithmetics.c \
 				v3d_extra.c \
-				v3d_utils.c
+				v3d_utils.c \
+				v3d_tools.c
 SRCS_DIR	=	src
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
 OBJS_SUBS	= 	obj

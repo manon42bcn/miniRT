@@ -5,7 +5,9 @@ project(solvers)
 
 # Especificar la ubicación de los archivos de cabecera
 include_directories(inc)
-
+if(DEFINED BONUS)
+    set(BONUS 1)
+endif()
 # Especificar los archivos fuente que serán utilizados
 set(SOURCES
         srcs/cylinder.c
@@ -13,6 +15,7 @@ set(SOURCES
         srcs/plane.c
         srcs/solvers.c
         srcs/sphere.c
+        srcs/quadratic.c
         bns/cube.c
         bns/pyramid.c
         bns/square.c
@@ -21,6 +24,7 @@ set(SOURCES
         bns/hyperboloid.c
         bns/paraboloid.c
         bns/ellipsoid.c
+        bns/rectangle.c
         )
 
 # Crear una biblioteca estática con los archivos fuente

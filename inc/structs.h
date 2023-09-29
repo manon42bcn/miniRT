@@ -36,7 +36,8 @@ enum e_fig
 	CONE=7,
 	HYPER=8,
 	PARAB=9,
-	ELLIPS=10
+	ELLIPS=10,
+	RECTANGLE=11
 };
 
 typedef struct s_cmr
@@ -151,4 +152,9 @@ typedef struct		s_pyramid
 	double		intersection;
 }					t_pyr;
 
+#endif
+
+#ifndef RAYER
+# define RAYER
+static int rayer=0;
 #endif

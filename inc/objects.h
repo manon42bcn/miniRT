@@ -34,6 +34,14 @@ typedef struct s_square
 
 }				t_square;
 
+typedef struct	s_rectangle
+{
+	t_v3d	centre;
+	t_v3d	orient;
+	double	width;
+	double	height;
+}				t_rectangle;
+
 typedef struct s_cylinder
 {
 	t_v3d	centre;
@@ -62,13 +70,14 @@ typedef struct s_cone
 
 typedef struct s_box
 {
-	t_v3d	centre;
-	t_v3d	dir;
-	double	width;
-	double	height;
-	double	depth;
-	t_v3d	min;
-	t_v3d	max;
+	t_v3d		centre;
+	t_v3d		dir;
+	double		width;
+	double		height;
+	double		depth;
+	t_rectangle	faces[6];
+	t_v3d		min;
+	t_v3d		max;
 }				t_box;
 
 typedef struct s_hyper
@@ -99,8 +108,6 @@ typedef struct	s_ellip
 	double	rz;
 }				t_ellip;
 
-
-
 typedef union u_figures
 {
 	t_sphere	sph;
@@ -113,6 +120,7 @@ typedef union u_figures
 	t_hyper		hy;
 	t_parab		prb;
 	t_ellip		elp;
+	t_rectangle	rc;
 }				t_figures;
 
 #endif

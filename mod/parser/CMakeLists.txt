@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 # Definir el proyecto
 project(parser)
-
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D BONUS=1")
 # Especificar la ubicación de los archivos de cabecera
 include_directories(inc)
 
@@ -29,6 +29,7 @@ set(SOURCES
         srcs/hyperboloid.c
         srcs/paraboloid.c
         srcs/ellipsoid.c
+        srcs/rectangle.c
         )
 
 # Crear una biblioteca estática con los archivos fuente

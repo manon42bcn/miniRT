@@ -74,5 +74,7 @@ t_v3d	ft_normal_v3d(t_v3d vec);
 t_v3d	ft_copy_v3d(t_v3d *vec);
 t_v3d	ft_new_v3d(double x, double y, double z);
 t_v3d	ft_v3d_identity(int axis);
+//v3d_tools.c
+t_v3d	ft_perp_v3d(t_v3d vec);
 
 #endif

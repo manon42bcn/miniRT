@@ -190,23 +190,23 @@ void	hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj)
 //	{
 //		*normal = cone_normal(hitted, obj);
 //	}
-////	else if (obj->type == HYPER)
-////	{
-////		*normal = hyper_normal(hitted, obj);
-////	}
-//	else if (obj->type == PARAB)
-//	{
-//		*normal = parab_normal(hitted, obj->elm.prb);
-//	}
-//	else if (obj->type == ELLIPS)
-//	{
-//		*normal = ellipsoid_normal(hitted, obj->elm.elp);
-//	}
-//	else
-//	{
-//		if (ft_cos_v3d(dir, obj->normal) > 0)
-//			*normal = ft_scalar_v3d(-1, obj->normal);
-//		else
-//			*normal = obj->normal;
-//	}
+	else if (obj->type == HYPER)
+	{
+		*normal = hyper_normal(hitted, obj);
+	}
+	else if (obj->type == PARAB)
+	{
+		*normal = parab_normal(hitted, obj->elm.prb);
+	}
+	else if (obj->type == ELLIPS)
+	{
+		*normal = ellipsoid_normal(hitted, obj->elm.elp);
+	}
+	else
+	{
+		if (ft_cos_v3d(dir, obj->normal) > 0)
+			*normal = ft_scalar_v3d(-1, obj->normal);
+		else
+			*normal = obj->normal;
+	}
 }

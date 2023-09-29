@@ -12,6 +12,7 @@ set(SOURCES
         src/v3d_arithmetics.c
         src/v3d_extra.c
         src/v3d_utils.c
+        src/v3d_tools.c
         )
 
 # Crear una biblioteca estática con los archivos fuente
