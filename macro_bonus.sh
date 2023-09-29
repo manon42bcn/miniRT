@@ -23,12 +23,12 @@ delete_macro() {
 
 case "$1" in
     bonus)
-        find . -type f -name "*.h" | while read -r file; do
+        find . -type d -name "mlx" -prune -o -type f -name "*.h" -print | while read -r file; do
             insert_macro "$file"
         done
         ;;
     mandatory)
-        find . -type f -name "*.h" | while read -r file; do
+        find . -type d -name "mlx" -prune -o -type f -name "*.h" -print | while read -r file; do
             delete_macro "$file"
         done
         ;;
