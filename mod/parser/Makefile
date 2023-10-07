@@ -33,7 +33,8 @@ SRCS		=	builders.c \
 				hyperboloid.c \
 				paraboloid.c \
 				ellipsoid.c \
-				rectangle.c
+				rectangle.c \
+				parser_bump.c
 SRCS_DIR	=	srcs
 OBJS_DIR	=	obj
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))

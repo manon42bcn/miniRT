@@ -10,4 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "solvers.h"
 
+//t_v3d	get_normal(int type, t_v3d point, t_figures fig)
+//{
+//	static t_normal	normal[] = {NULL, NULL, NULL, NULL,
+//		NULL, NULL, NULL, &cone_normal};
+//
+//}

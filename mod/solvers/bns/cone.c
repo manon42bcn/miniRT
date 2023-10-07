@@ -21,19 +21,19 @@
  * is essential for shading and reflection calculations in a ray tracing
  * context.
  *
- * @param inter_point Point on the cone where the normal vector is to be
+ * @param hit Point on the cone where the normal vector is to be
  * calculated.
  * @param obj Pointer to the cone object containing its geometric and
  * material properties.
  * @return t_v3d The computed normal vector at the intersection point.
  */
-t_v3d	cone_normal(t_v3d inter_point, t_obj *obj)
+t_v3d	cone_normal(t_v3d hit, t_obj *obj)
 {
 	t_v3d	v_apex;
 	t_v3d	parallel;
 	t_v3d	normal;
 
-	v_apex = ft_minus_v3d(inter_point, obj->elm.con.centre);
+	v_apex = ft_minus_v3d(hit, obj->elm.con.centre);
 	parallel = ft_scalar_v3d(ft_dot_v3d(v_apex, obj->normal), obj->normal);
 	normal = ft_minus_v3d(v_apex, ft_scalar_v3d(1 + obj->elm.con.alpha
 				* obj->elm.con.alpha, parallel));

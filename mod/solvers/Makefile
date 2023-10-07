@@ -25,7 +25,8 @@ SRCS		=	cylinder.c \
 				plane.c \
 				solvers.c \
 				sphere.c \
-				quadratic.c
+				quadratic.c \
+				normals.c
 SRCS_DIR	=	srcs
 OBJS_DIR	=	obj
 BNS_DIR		=	bns
