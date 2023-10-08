@@ -34,11 +34,11 @@ void	get_bump(t_mrt *mrt, int index)
 		ft_perror("Split texture info error");
 	if (!ft_match_cmp(tmp[0], "xpm"))
 		msg_error_parsing("Bump texture wrong format", mrt);
-	printf("%s en parse %d...\n", tmp[1], ft_myregex(tmp[1], "*.xpm"));
 	if (!ft_myregex(tmp[1], "*.xpm"))
 		msg_error_parsing("Texture file wrong format", mrt);
 	valid_file(tmp[1]);
-	printf("%s en parse...\n", tmp[1]);
-	mrt->obj->xpm = ft_strdup(tmp[1]);
+	ft_memset(&mrt->obj->xpm, 0, sizeof(t_img));
+	mrt->obj->xpm.path = ft_strdup(tmp[1]);
+	mrt->obj->bump = TRUE;
 	ft_clear_tabs(tmp);
 }

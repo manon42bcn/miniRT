@@ -40,6 +40,20 @@ enum e_fig
 	RECTANGLE=11
 };
 
+typedef	struct s_img
+{
+	void	*img;
+	char	*addr;
+	char	*path;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		addr_incr;
+	int		antialiasing_on;
+}				t_img;
+
 typedef struct s_cmr
 {
 	t_v3d			position;
@@ -83,6 +97,7 @@ typedef struct s_scene
 typedef struct s_obj
 {
 	int				type;
+	struct s_obj	*next;
 	int				id;
 	union u_figures	elm;
 	t_rgb			color;
@@ -94,8 +109,8 @@ typedef struct s_obj
 	t_v3d			position;
 	t_v3d			normal;
 	double			wavelength;
-	char			*xpm;
-	struct s_obj	*next;
+	t_bool			bump;
+	t_img			xpm;
 }					t_obj;
 
 typedef struct s_hooks

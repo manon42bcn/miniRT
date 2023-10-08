@@ -16,8 +16,9 @@
  * @brief   Cleans up and frees the memory of objects stored in the Ray Tracer.
  *
  * @param   mrt  Pointer to the main Ray Tracer structure.
+ * @param	img  Pointer to the free image function to avoid leaks
  */
-static inline void	clean_objects(t_mrt *mrt)
+static inline void	clean_objects(t_mrt *mrt, int (*img)(void *, void *))
 {
 	t_obj	*node;
 
@@ -25,7 +26,9 @@ static inline void	clean_objects(t_mrt *mrt)
 	{
 		node = mrt->obj->next;
 		mrt->obj->next = NULL;
-		ft_sec_free(mrt->obj->xpm);
+		ft_sec_free(mrt->obj->xpm.path);
+		if (mrt->obj->bump == TRUE && mrt->obj->xpm.img)
+			img(mrt->mlx, mrt->obj->xpm.img);
 		ft_sec_free(mrt->obj);
 		mrt->obj = node;
 	}
@@ -91,7 +94,7 @@ static inline void	clean_cameras(t_mrt *mrt, int (*img)(void *, void *))
 int	clear_all(t_mrt *mrt, int status, int (*win)(void *, void *),
 			int (*img)(void *, void *))
 {
-	clean_objects(mrt);
+	clean_objects(mrt, img);
 	clean_lights(mrt);
 	clean_cameras(mrt, img);
 	ft_clear_tabs(mrt->tab);
