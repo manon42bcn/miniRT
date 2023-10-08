@@ -46,7 +46,7 @@ static inline void	after_parse_process(t_mrt *mrt)
 	obj = mrt->obj;
 	while (obj)
 	{
-		printf("TYPE = %d\n", obj->type);
+		printf("XMP = %s\n", obj->xpm);
 		obj = obj->next;
 	}
 	mrt->clean_window = &mlx_clear_window;

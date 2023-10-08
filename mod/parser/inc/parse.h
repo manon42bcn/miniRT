@@ -64,23 +64,25 @@ void		parse_error(char *message);
 # ifdef BONUS
 
 #  define LAST_COMMON 5
-#  define ELM_SPH 8
-#  define ELM_PL 8
-#  define ELM_CYL 10
+#  define ELM_SPH 9
+#  define ELM_PL 9
+#  define ELM_CYL 11
 #  define ELM_RES 3
 #  define ELM_AMB 3
 #  define ELM_CAM 4
 #  define ELM_LGH 4
-#  define ELM_SQ 9
-#  define ELM_TR 9
-#  define ELM_CU 8
-#  define ELM_PY 8
-#  define ELM_CO 10
-#  define ELM_BOX 11
-#  define ELM_HYP 12
-#  define ELM_PARAB 11
-#  define ELM_ELLIP 10
-#  define ELM_RECT 10
+#  define ELM_SQ 10
+#  define ELM_TR 10
+#  define ELM_CU 9
+#  define ELM_PY 9
+#  define ELM_CO 11
+#  define ELM_BOX 12
+#  define ELM_HYP 13
+#  define ELM_PARAB 12
+#  define ELM_ELLIP 11
+#  define ELM_RECT 11
+
+void		get_bump(t_mrt *mrt, int index);
 
 # else
 #  define LAST_COMMON 1

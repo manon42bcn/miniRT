@@ -94,6 +94,7 @@ typedef struct s_obj
 	t_v3d			position;
 	t_v3d			normal;
 	double			wavelength;
+	char			*xpm;
 	struct s_obj	*next;
 }					t_obj;
 

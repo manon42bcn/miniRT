@@ -25,6 +25,7 @@ static inline void	clean_objects(t_mrt *mrt)
 	{
 		node = mrt->obj->next;
 		mrt->obj->next = NULL;
+		ft_sec_free(mrt->obj->xpm);
 		ft_sec_free(mrt->obj);
 		mrt->obj = node;
 	}

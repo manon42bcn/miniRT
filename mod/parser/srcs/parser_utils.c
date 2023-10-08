@@ -28,9 +28,9 @@ static inline t_bool	check_common(t_mrt *mrt, int last)
 	len = 0;
 	while (mrt->tab[++last])
 		len++;
-	if (len != LAST_COMMON)
-		return (FALSE);
-	return (TRUE);
+	if (len == LAST_COMMON || len == LAST_COMMON + 1)
+		return (TRUE);
+	return (FALSE);
 }
 
 #ifdef BONUS
@@ -65,6 +65,7 @@ void	get_common(t_mrt *mrt, int last, char *elem)
 	if (mrt->obj->texture == 2)
 		mrt->obj->wavelength = ft_atolf(mrt->tab[++last]);
 	mrt->obj->color = get_color(mrt->tab[++last], mrt);
+	get_bump(mrt, ++last);
 }
 
 #else
