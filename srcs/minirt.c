@@ -17,6 +17,48 @@ void		printVector(t_v3d *vector)
 	printf("[%f x %f y %f z]", vector->x, vector->y, vector->z);
 }
 
+//void	handle_img(t_rt *rt, t_obj *obj)
+//{
+//	if (obj->has_texture && !obj->texture.img)
+//	{
+//		obj->texture.img = mlx_xpm_file_to_image(rt->mlx, obj->texture.path,
+//												 &obj->texture.width, &obj->texture.height);
+//		if (!obj->texture.img)
+//			obj->has_texture = FALSE;
+//		else
+//			obj->texture.addr = mlx_get_data_addr(obj->texture.img,
+//												  &obj->texture.bits_per_pixel, &obj->texture.line_length,
+//												  &obj->texture.endian);
+//	}
+//	if (obj->has_bump && !obj->bump.img)
+//	{
+//		obj->bump.img = mlx_xpm_file_to_image(rt->mlx,
+//											  obj->bump.path, &obj->bump.width, &obj->bump.height);
+//		if (!obj->bump.img)
+//			obj->has_bump = FALSE;
+//		else
+//			obj->bump.addr = mlx_get_data_addr(obj->bump.img,
+//											   &obj->bump.bits_per_pixel, &obj->bump.line_length,
+//											   &obj->bump.endian);
+//	}
+//}
+
+void	get_bumps_textures(t_mrt *mrt)
+{
+	t_obj	*node;
+
+	node = mrt->obj;
+	while (node)
+	{
+		if (node->bump)
+		{
+			node->xpm.img = mlx_xpm_file_to_image(mrt->mlx, node->xpm.path, &node->xpm.width, &node->xpm.height);
+			node->xpm.addr = mlx_get_data_addr(node->xpm.img, &node->xpm.bbp, &node->xpm.ll, &node->xpm.endian);
+		}
+		node = node->next;
+	}
+}
+
 /**
  * @brief Finalizes the parsing process and initializes specific rendering
  * parameters.
@@ -54,6 +96,7 @@ static inline void	after_parse_process(t_mrt *mrt)
 	mrt->window = FALSE;
 	load_hooks(mrt);
 	mlx_starter(mrt);
+	get_bumps_textures(mrt);
 }
 
 /**

@@ -47,8 +47,8 @@ typedef	struct s_img
 	char	*path;
 	int		width;
 	int		height;
-	int		bits_per_pixel;
-	int		line_length;
+	int		bbp;
+	int		ll;
 	int		endian;
 	int		addr_incr;
 	int		antialiasing_on;
