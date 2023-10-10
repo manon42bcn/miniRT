@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/25 23:21:16 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef PARSE_ENUM_H
 # define PARSE_ENUM_H
 

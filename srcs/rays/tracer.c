@@ -112,10 +112,11 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	inter.ray.to = dir;
 	inter.hit = get_hits(inter, mrt->obj, &close_obj);
 	hit_direction(inter.hit, dir, &(inter.normal), &close_obj);
+	inter.color = mrt->scn.bgr;
 	if (close_obj.type != CLOSE_OBJ)
 		inter.color = close_obj.color;
-	else
-		inter.color = mrt->scn.bgr;
+	if (close_obj.type == SPHERE)
+		inter.color = bump_texture(inter.hit, &close_obj);
 	texturize(close_obj.texture, &inter, mrt->obj);
 	light_hit(inter.ray, &inter, mrt->scn, mrt->obj);
 	clean_rgb_interactions(&close_obj);
@@ -149,8 +150,7 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_obj		close_obj;
 	t_inter		inter;
-// TODO: Check if memset is neccesary.
-	ft_memset(&close_obj, 1, sizeof(t_obj));
+
 	depth = depth * 2;
 	inter.ray.from = origin;
 	inter.ray.to = dir;
