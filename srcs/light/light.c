@@ -186,10 +186,6 @@ void	hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj)
 		else
 			obj->elm.sph.inside = FALSE;
 	}
-//	else if (obj->type == CONE)
-//	{
-//		*normal = cone_normal(hitted, obj);
-//	}
 	else if (obj->type == HYPER)
 	{
 		*normal = hyper_normal(hitted, obj);

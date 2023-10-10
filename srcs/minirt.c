@@ -54,6 +54,7 @@ void	get_bumps_textures(t_mrt *mrt)
 		{
 			node->xpm.img = mlx_xpm_file_to_image(mrt->mlx, node->xpm.path, &node->xpm.width, &node->xpm.height);
 			node->xpm.addr = mlx_get_data_addr(node->xpm.img, &node->xpm.bbp, &node->xpm.ll, &node->xpm.endian);
+			printf("%d widt %d height\n", node->xpm.width, node->xpm.height);
 		}
 		node = node->next;
 	}

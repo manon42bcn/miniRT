@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/26 00:25:09 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -24,6 +24,12 @@
 # include <stdlib.h>
 # include <math.h>
 # include <stdio.h>
+
+typedef enum e_local_pix
+{
+	E_U=0,
+	E_V=1
+}			t_local_pix;
 
 typedef struct s_ray
 {
@@ -78,5 +84,6 @@ void		msg_error_exit(char *message);
 # ifdef BONUS
 //Texture
 void		texturize(int texture, t_inter *inter, t_obj *obj);
+t_rgb		bump_texture(t_v3d hit, t_obj *obj);
 # endif
 #endif
