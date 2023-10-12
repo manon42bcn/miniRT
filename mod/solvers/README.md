@@ -36,7 +36,8 @@ Normal calculation. To shape properly an object, the normal of the hitted point 
 To objects that have a flat surface, the normal is calculated with common function, but some needs a particular one.
 
 - Get normal: `t_v3d get_normal(t_obj *obj, t_v3d dir, t_v3d hit);`
-- Common: `t_v3d	common_normal(t_v3d dir, t_v3d hit, t_obj *obj);`
+- Sphere: `t_v3d sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj);`
+- Common: `t_v3d common_normal(t_v3d dir, t_v3d hit, t_obj *obj);`
 - Box: `t_v3d box_normal(t_v3d dir, t_v3d hit, t_obj *obj);`
 - Cone: `t_v3d cone_normal(t_v3d dir, t_v3d hit, t_obj *obj);`
 - Ellipsoid: `t_v3d ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj);`

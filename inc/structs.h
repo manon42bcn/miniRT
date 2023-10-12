@@ -139,6 +139,13 @@ typedef struct s_mrt
 	int			(*clean_image)(void *, void *);
 }					t_mrt;
 
+typedef	struct s_thr
+{
+	t_mrt	*mrt;
+	t_pixel	start_y;
+	t_pixel	end_y;
+}				t_thr;
+
 #endif
 
 #ifndef RAYER

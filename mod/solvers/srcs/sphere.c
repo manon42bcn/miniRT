@@ -12,6 +12,21 @@
 
 #include "solvers.h"
 
+t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+{
+	t_v3d	rst;
+
+	rst = ft_normal_v3d(ft_minus_v3d(hit, obj->elm.sph.centre));
+	if (ft_cos_v3d(dir, rst) > 0)
+	{
+		rst = ft_scalar_v3d(-1, rst);
+		obj->elm.sph.inside = TRUE;
+	}
+	else
+		obj->elm.sph.inside = FALSE;
+	return (rst);
+}
+
 /**
  * @brief Calculates the intersection points between a ray and a sphere.
  *
