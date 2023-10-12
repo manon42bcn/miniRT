@@ -36,15 +36,7 @@ enum e_cyl_parse
 	CYL_HEIGHT = 4
 };
 
-enum e_sqr_parse
-{
-	SQR_ID = 0,
-	SQR_CENTRE = 1,
-	SQR_ORIENT = 2,
-	SQR_SIDE = 3
-};
-
-enum e_sqr_rectangle
+enum e_rect_parse
 {
 	RCT_ID = 0,
 	RCT_CENTRE = 1,
@@ -71,17 +63,6 @@ enum e_box_parse
 	BOX_DEPTH = 5
 };
 
-enum e_hyp_parse
-{
-	HYP_ID = 0,
-	HYP_CENTRE = 1,
-	HYP_ORIENTATION = 2,
-	HYP_RAD_X = 3,
-	HYP_RAD_Y = 4,
-	HYP_RAD_Z = 5,
-	HYP_HEIGHT = 6
-};
-
 enum e_ellip_parse
 {
 	ELP_ID = 0,
@@ -89,23 +70,6 @@ enum e_ellip_parse
 	ELP_RAD_X = 2,
 	ELP_RAD_Y = 3,
 	ELP_RAD_Z = 4
-};
-
-enum e_parab_parse
-{
-	PRB_ID = 0,
-	PRB_CENTRE = 1,
-	PRB_ORIENTATION = 2,
-	PRB_FOCAL = 3,
-	PRB_HEIGHT = 4,
-	PRB_M_HEIGHT = 5
-};
-
-enum e_pyr_parse
-{
-	PYR_ID = 0,
-	PYR_CENTRE = 1,
-	PYR_SIDE = 2
 };
 
 enum e_cone_parse

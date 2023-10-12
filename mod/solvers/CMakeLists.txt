@@ -16,13 +16,9 @@ set(SOURCES
         srcs/solvers.c
         srcs/sphere.c
         srcs/quadratic.c
-        bns/cube.c
-        bns/pyramid.c
-        bns/square.c
+        bns/box.c
         bns/triangle.c
         bns/cone.c
-        bns/hyperboloid.c
-        bns/paraboloid.c
         bns/ellipsoid.c
         bns/rectangle.c
         )

@@ -22,12 +22,8 @@ set(SOURCES
         srcs/plane.c
         srcs/readfile.c
         srcs/sphere.c
-        srcs/cube.c
-        srcs/pyramid.c
-        srcs/square.c
+        srcs/box.c
         srcs/triangle.c
-        srcs/hyperboloid.c
-        srcs/paraboloid.c
         srcs/ellipsoid.c
         srcs/rectangle.c
         )

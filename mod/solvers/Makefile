@@ -11,13 +11,9 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_B		=	cube.c \
-				pyramid.c \
-				square.c \
+SRCS_B		=	box.c \
 				triangle.c \
 				cone.c \
-				hyperboloid.c \
-				paraboloid.c \
 				ellipsoid.c \
 				rectangle.c
 SRCS		=	cylinder.c \

@@ -45,10 +45,9 @@ static inline void	solver_error(char *message)
 t_solver	get_solver(int index)
 {
 	static t_solver	solve[] = {&sphere_solver, &plane_solver,
-		&cylinder_solver, &square_solver,
+		&cylinder_solver, &rectangle_solver,
 		&triangle_solver, &box_solver,
-		&pyramid_solver, &cone_solver, &hyper_solver, &parab_solver,
-		&ellipsoid_solver, &rectangle_solver};
+		&cone_solver, &ellipsoid_solver};
 
 	if (index > (int)(sizeof(solve) / sizeof (t_solver)))
 		solver_error("object id out of range to get solver");

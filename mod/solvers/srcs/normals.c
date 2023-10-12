@@ -26,8 +26,7 @@ t_v3d	get_normal(t_obj *obj, t_v3d dir, t_v3d hit)
 	static t_normal	normal[] = {&common_normal, &common_normal,
 		&common_normal, &common_normal, &common_normal,
 		&box_normal, &common_normal, &cone_normal,
-		&hyper_normal, &parab_normal, &common_normal,
-		&common_normal};
+		&common_normal, &common_normal};
 
 	return (normal[obj->type](dir, hit, obj));
 }

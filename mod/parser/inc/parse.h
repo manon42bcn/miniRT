@@ -35,13 +35,9 @@ void		inp_resolution(t_mrt *mrt);
 void		inp_ambient(t_mrt *mrt);
 void		inp_camera(t_mrt *mrt);
 void		inp_light(t_mrt *mrt);
-void		inp_square(t_mrt *mrt);
 void		inp_triangle(t_mrt *mrt);
-void		inp_pyramid(t_mrt *mrt);
 void		inp_box(t_mrt *mrt);
 void		inp_cone(t_mrt *mrt);
-void		inp_hyper(t_mrt *mrt);
-void		inp_paraboloid(t_mrt *mrt);
 void		inp_ellipsoid(t_mrt *mrt);
 void		inp_rectangle(t_mrt *mrt);
 // Parser readfile
@@ -71,14 +67,9 @@ void		parse_error(char *message);
 #  define ELM_AMB 3
 #  define ELM_CAM 4
 #  define ELM_LGH 4
-#  define ELM_SQ 9
 #  define ELM_TR 9
-#  define ELM_CU 8
-#  define ELM_PY 8
 #  define ELM_CO 10
 #  define ELM_BOX 11
-#  define ELM_HYP 12
-#  define ELM_PARAB 11
 #  define ELM_ELLIP 10
 #  define ELM_RECT 10
 

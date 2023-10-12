@@ -25,13 +25,9 @@ SRCS		=	builders.c \
 				plane.c \
 				readfile.c \
 				sphere.c \
-				square.c \
 				triangle.c \
-				cube.c \
-				pyramid.c \
+				box.c \
 				cone.c \
-				hyperboloid.c \
-				paraboloid.c \
 				ellipsoid.c \
 				rectangle.c \
 				parser_bump.c

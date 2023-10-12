@@ -29,15 +29,11 @@ enum e_fig
 	SPHERE=0,
 	PLANE=1,
 	CYLINDER=2,
-	SQUARE=3,
+	RECTANGLE=3,
 	TRIANGLE=4,
 	BOX=5,
-	PYRAMID=6,
-	CONE=7,
-	HYPER=8,
-	PARAB=9,
-	ELLIPS=10,
-	RECTANGLE=11
+	CONE=6,
+	ELLIPS=7
 };
 
 typedef	struct s_img
@@ -142,31 +138,6 @@ typedef struct s_mrt
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
 }					t_mrt;
-
-typedef struct		s_sq
-{
-	t_v3d			half_size;
-	t_v3d			floor;
-	t_v3d			center_to_ip;
-}					t_sq;
-
-typedef struct		s_cube
-{
-	t_obj			sq;
-	t_v3d			center;
-	t_v3d			normal[6];
-}					t_cube;
-
-typedef struct		s_pyramid
-{
-	t_obj		sq;
-	t_obj		trg;
-	t_v3d		tr_center;
-	t_v3d		normal[5];
-	t_v3d		corner[4];
-	double		closest;
-	double		intersection;
-}					t_pyr;
 
 #endif
 
