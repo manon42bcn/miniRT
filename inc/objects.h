@@ -13,6 +13,12 @@
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
+typedef struct s_fig
+{
+	t_v3d	centre;
+	t_v3d	orient;
+}				t_fig;
+
 typedef struct s_sphere
 {
 	t_v3d	centre;
@@ -76,6 +82,7 @@ typedef struct s_box
 	double		height;
 	double		depth;
 	t_rectangle	faces[6];
+	int			hit;
 	t_v3d		min;
 	t_v3d		max;
 }				t_box;
@@ -121,6 +128,7 @@ typedef union u_figures
 	t_parab		prb;
 	t_ellip		elp;
 	t_rectangle	rc;
+	t_fig		fig;
 }				t_figures;
 
 #endif

@@ -27,8 +27,10 @@
 void	inp_sphere(t_mrt *mrt)
 {
 	t_obj	*current;
+	size_t	elems;
 
-	if (ft_count_tab(mrt->tab) != ELM_SPH)
+	elems = ft_count_tab(mrt->tab);
+	if (elems < ELM_SPH && elems > ELM_SPH + 1)
 		msg_error_parsing("Wrong data elements to build sphere", mrt);
 	current = mrt->obj;
 	mrt->obj = object_builder(SPHERE, mrt->obj);

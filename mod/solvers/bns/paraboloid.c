@@ -12,6 +12,17 @@
 
 #include "solvers.h"
 
+t_v3d	parab_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+{
+	t_v3d normal;
+
+	(void)dir;
+	normal.x = 2 * hit.x;
+	normal.y = -4 * obj->elm.prb.focal_dist;
+	normal.z = 2 * hit.z;
+	return (ft_normal_v3d(normal));
+}
+
 static int solve_quadratic(double a, double b, double c, double *t0, double *t1) {
 	double discriminant = b * b - 4 * a * c;
 

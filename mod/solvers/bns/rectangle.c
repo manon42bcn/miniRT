@@ -12,41 +12,60 @@
 
 #include "solvers.h"
 
-t_bool is_point_inside_rect(t_v3d point, t_obj *obj)
+/**
+ * @brief Check if a given point is inside a rectangle.
+ *
+ * Determines whether the specified point lies inside the bounds of the given
+ * rectangle object.
+ *
+ * @param point 3D point to be checked.
+ * @param obj Pointer to the object structure, which contains details about
+ * the rectangle.
+ *
+ * @return TRUE if the point is inside the rectangle, FALSE otherwise.
+ */
+t_bool	is_point_inside_rect(t_v3d point, t_obj *obj)
 {
 	t_v3d	oc;
+	t_v3d	disc;
+	t_v3d	uv[2];
+	double	proy[2];
 
 	oc = ft_minus_v3d(point, obj->elm.rc.centre);
-
-	// Obtener el vector de referencia usando ft_perp_v3d
-	t_v3d reference = ft_perp_v3d(obj->elm.rc.orient);
-
-	t_v3d u = ft_cross_v3d(obj->elm.rc.orient, reference);
-	t_v3d v = ft_cross_v3d(obj->elm.rc.orient, u);
-
-	// Proyectar la diferencia en u y v
-	double proj_on_u = ft_dot_v3d(oc, u);
-	double proj_on_v = ft_dot_v3d(oc, v);
-
-	// Chequear si la proyección está dentro de los límites
-	if (fabs(proj_on_u) <= obj->elm.rc.width * 0.5 && fabs(proj_on_v) <= obj->elm.rc.height * 0.5)
-		return TRUE;
-
-	return FALSE;
+	disc = ft_perp_v3d(obj->elm.rc.orient);
+	uv[E_U] = ft_cross_v3d(obj->elm.rc.orient, disc);
+	uv[E_V] = ft_cross_v3d(obj->elm.rc.orient, uv[E_U]);
+	proy[E_U] = ft_dot_v3d(oc, uv[E_U]);
+	proy[E_V] = ft_dot_v3d(oc, uv[E_V]);
+	if (fabs(proy[E_U]) <= obj->elm.rc.width * 0.5
+		&& fabs(proy[E_V]) <= obj->elm.rc.height * 0.5)
+		return (TRUE);
+	return (FALSE);
 }
 
+/**
+ * @brief Calculate the hit distance for a ray with a rectangle.
+ *
+ * Computes the intersection distance of a ray with a given rectangle. If the ray
+ * doesn't hit the rectangle, INFINITY is returned.
+ *
+ * @param origin The starting point of the ray.
+ * @param dir The direction of the ray.
+ * @param obj Pointer to the object structure, which contains details about the
+ * rectangle.
+ *
+ * @return The intersection distance if the ray hits the rectangle,
+ * INFINITY otherwise.
+ */
+double	rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+{
+	double	dist;
+	t_v3d	hit;
 
-double rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj) {
-	double inter_distance;
-	t_v3d inter_point;
-
-	inter_distance = plane_hit(origin, dir, obj->elm.rc.centre, obj->normal);
-	inter_point = ft_plus_v3d(origin, ft_scalar_v3d(inter_distance, dir));
-
-	if (!is_point_inside_rect(inter_point, obj))
-		return INFINITY;
-
-	return inter_distance;
+	dist = plane_hit(origin, dir,
+			obj->elm.rc.centre, obj->elm.rc.orient);
+	hit = ft_plus_v3d(origin, ft_scalar_v3d(dist, dir));
+	if (!is_point_inside_rect(hit, obj))
+		return (INFINITY);
+	return (dist);
 }
-
-

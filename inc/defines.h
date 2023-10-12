@@ -13,6 +13,11 @@
 #ifndef DEFINES_H
 # define DEFINES_H
 
+typedef enum e_local_pix
+{
+	E_U=0,
+	E_V=1
+}			t_local_pix;
 // KEY DEFINITIONS
 # define NO_HOOK		0
 # define K_D			2

@@ -25,12 +25,6 @@
 # include <math.h>
 # include <stdio.h>
 
-typedef enum e_local_pix
-{
-	E_U=0,
-	E_V=1
-}			t_local_pix;
-
 typedef struct s_ray
 {
 	t_v3d	from;

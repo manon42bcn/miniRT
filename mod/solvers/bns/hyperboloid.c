@@ -12,6 +12,41 @@
 
 #include "solvers.h"
 
+/**
+ * @brief Compute the normal vector of a hyperboloid at a given hit point.
+ *
+ * @param dir Unused. To make normal functions standard
+ * @param hit The 3D point on the hyperboloid where the normal is to be
+ * computed.
+ * @param obj Pointer to the object structure containing details about the
+ * hyperboloid.
+ *
+ * @return The computed normal vector at the given hit point on the hyperboloid.
+ */
+t_v3d	hyper_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+{
+	t_v3d	normal;
+
+	(void)dir;
+	normal.x = 2 * hit.x / (obj->elm.hy.a * obj->elm.hy.a);
+	normal.y = 2 * hit.y / (obj->elm.hy.b * obj->elm.hy.b);
+	normal.z = -2 * hit.z / (obj->elm.hy.c * obj->elm.hy.c);
+	return (ft_normal_v3d(normal));
+}
+
+/**
+ * @brief Determine the quadratic coefficients for intersection with a
+ * hyperboloid.
+ *
+ * The function calculates the coefficients needed to determine ray
+ * hyperboloid intersections using the quadratic formula.
+ *
+ * @param coef Array to store the quadratic coefficients A, B, and C.
+ * @param obj Pointer to the object structure containing details about
+ * the hyperboloid.
+ * @param origin The ray's origin point.
+ * @param dir The ray's direction vector.
+ */
 void	hyper_quad(double *coef, t_obj *obj, t_v3d origin, t_v3d dir)
 {
 	t_hyper	hyper;
@@ -31,6 +66,21 @@ void	hyper_quad(double *coef, t_obj *obj, t_v3d origin, t_v3d dir)
 			/ (hyper.c * hyper.c)) - 1.0;
 }
 
+/**
+ * @brief Solve for the intersection point of a ray with a
+ * hyperboloid.
+ *
+ * Utilizes the quadratic coefficients to determine if and where a
+ * ray intersects the hyperboloid.
+ *
+ * @param origin The ray's origin point.
+ * @param dir The ray's direction vector.
+ * @param obj Pointer to the object structure containing details about the
+ * hyperboloid.
+ *
+ * @return The distance from the ray's origin to the intersection point,
+ * or INFINITY if no intersection.
+ */
 double	hyper_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 {
 	double	coef[3];

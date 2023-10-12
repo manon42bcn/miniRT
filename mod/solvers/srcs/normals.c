@@ -12,9 +12,22 @@
 
 #include "solvers.h"
 
-//t_v3d	get_normal(int type, t_v3d point, t_figures fig)
-//{
-//	static t_normal	normal[] = {NULL, NULL, NULL, NULL,
-//		NULL, NULL, NULL, &cone_normal};
-//
-//}
+t_v3d	common_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+{
+	(void)hit;
+	if (ft_cos_v3d(dir, obj->elm.fig.orient) > 0)
+		return (ft_scalar_v3d(-1, obj->elm.fig.orient));
+	else
+		return (obj->elm.fig.orient);
+}
+
+t_v3d	get_normal(t_obj *obj, t_v3d dir, t_v3d hit)
+{
+	static t_normal	normal[] = {&common_normal, &common_normal,
+		&common_normal, &common_normal, &common_normal,
+		&box_normal, &common_normal, &cone_normal,
+		&hyper_normal, &parab_normal, &common_normal,
+		&common_normal};
+
+	return (normal[obj->type](dir, hit, obj));
+}

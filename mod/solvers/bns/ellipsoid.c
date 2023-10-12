@@ -13,6 +13,33 @@
 #include "solvers.h"
 
 /**
+ * @brief Calculate the normal vector of an ellipsoid at a given point.
+ *
+ * Computes the surface normal of an ellipsoid at the specified point. The
+ * normal is essential for shading calculations in computer graphics.
+ *
+ * @param dir Unused. To make normal functions standard
+ * @param hit The 3D point on the ellipsoid's surface where the normal is to
+ * be computed.
+ * @param obj Pointer to the object structure, which contains details about the
+ * ellipsoid.
+ *
+ * @return The normal vector at the specified point on the ellipsoid.
+ */
+t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+{
+	t_v3d	normal;
+	t_v3d	local;
+
+	(void)dir;
+	local = ft_minus_v3d(hit, obj->elm.elp.centre);
+	normal.x = 2.0 * local.x / (obj->elm.elp.rx * obj->elm.elp.rx);
+	normal.y = 2.0 * local.y / (obj->elm.elp.ry * obj->elm.elp.ry);
+	normal.z = 2.0 * local.z / (obj->elm.elp.rz * obj->elm.elp.rz);
+	return (ft_normal_v3d(normal));
+}
+
+/**
  * @brief Calculate the coefficients for a quadratic equation representing an
  *        ellipsoid intersection.
  *

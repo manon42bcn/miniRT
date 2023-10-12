@@ -40,7 +40,7 @@ enum e_dist
 	T_1=1
 };
 
-typedef t_v3d	(*t_normal)(t_v3d, t_figures);
+typedef t_v3d	(*t_normal)(t_v3d, t_v3d, t_obj *);
 
 t_bool			quadratic(double *vars, double *dist);
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
@@ -65,7 +65,12 @@ double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
 //Normals
-t_v3d			cone_normal(t_v3d hit, t_obj *obj);
+t_v3d			get_normal(t_obj *obj, t_v3d dir, t_v3d hit);
+t_v3d			box_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			hyper_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			parab_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 
 # endif
 
