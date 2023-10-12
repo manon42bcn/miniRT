@@ -19,14 +19,15 @@
   * [ ] Anque funciona, afinar el make para el bonus y el mandatory (revisar el tema de las dependencias a los .a)
 * [x] Chequear que hay suficientes elementos para iniciar render.
 * [x] Separar librerías y módulos
-* [ ] Bunus, la pirámide es demasiado lenta y problemática según que formas... so
+* [ ] Bunus
   * [x] Implementar cono
   * [x] Implementar rectángulo (cajas)
   * [x] Implementar box
-  * [x] Implementar bump map... I'm not really sure...
+  * [x] Implementar elipsoide
+  * [x] Implementar bump map
   * [ ] Explorar el usar hilos, para hacer más rápido el bonus
   * [ ] Revisar fuentes de bonus en solvers, o condicionar todo a preproceso (vida más fácil).
-* [ ] Norminette general
+* [ ] Norminette general (toca revisar porque he tocado alguna cosa en el parser y el  solver)
   * [x] v3d
   * [x] rgb
   * [x] parser
@@ -44,3 +45,4 @@
   * [x] miniRT
 * [ ] Crear Doxygen documentation
 * [ ] CAMBIAR CRITERIOS DE PARSEO Y MODIFICAR LOS ARCHIVOS QUE HEMOS ENCONTRADO PARA QUE FUNCIONEN CON EL SUBJECT
+* [ ] Revisar normal del cilindro, en el caso de los caps. Al rotar hay problemas con el color...
