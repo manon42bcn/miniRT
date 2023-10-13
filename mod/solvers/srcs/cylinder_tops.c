@@ -13,6 +13,43 @@
 #include "solvers.h"
 
 /**
+ * @brief Compute the normal vector to a cylinder at a given hit point.
+ *
+ * Determines the normal vector on the surface of a cylinder at the point of
+ * intersection (`hit`). This function handles both the sides and the caps
+ * of the cylinder.
+ *
+ * @param dir The direction vector of the ray.
+ * @param hit The point of intersection on the cylinder.
+ * @param obj Pointer to the object data which contains cylinder information.
+ *
+ * @return t_v3d The normal vector at the point of intersection on the cylinder.
+ */
+t_v3d	cylinder_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+{
+	t_v3d	normal;
+	t_v3d	local_hit;
+	double	dot;
+
+	local_hit = ft_minus_v3d(hit, obj->elm.cyl.centre);
+	dot = ft_dot_v3d(local_hit, obj->elm.cyl.dir);
+	if (dot < EPSILON || fabs(dot - obj->elm.cyl.height) < EPSILON)
+	{
+		if (ft_cos_v3d(dir, obj->elm.cyl.dir) > 0)
+			return (ft_scalar_v3d(-1, obj->elm.cyl.dir));
+		else
+			return (obj->elm.cyl.dir);
+	}
+	else
+	{
+		normal = ft_minus_v3d(local_hit,
+				ft_scalar_v3d(dot, obj->elm.cyl.dir));
+		normal = ft_normal_v3d(normal);
+	}
+	return (normal);
+}
+
+/**
  * @brief Compute the intersection points given the intersection distances.
  *
  * @param p[] Array to store computed intersection points.

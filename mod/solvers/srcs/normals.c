@@ -12,31 +12,21 @@
 
 #include "solvers.h"
 
-t_v3d cylinder_normal(t_v3d dir, t_v3d hit, t_obj *obj)
-{
-	t_v3d normal;
-	t_v3d vector_to_hit;
-	double dot;
 
-	vector_to_hit = ft_minus_v3d(hit, obj->elm.cyl.centre);
-	dot = ft_dot_v3d(vector_to_hit, obj->elm.cyl.dir);
-	if (dot <= 0 || dot == obj->elm.cyl.height)
-	{
-		if (ft_cos_v3d(dir, obj->elm.cyl.dir) > 0)
-			return (ft_scalar_v3d(-1, obj->elm.cyl.dir));
-		else
-			return (obj->elm.cyl.dir);
-	}
-	else
-	{
-		normal = ft_minus_v3d(vector_to_hit, ft_scalar_v3d(dot, obj->elm.cyl.dir));
-		normal = ft_normal_v3d(normal);
-	}
-	return normal;
-}
-
-
-
+/**
+ * @brief Compute the normal vector for common figures.
+ *
+ * This function is a generic method to determine the normal vector on the
+ * surface of various geometric figures, especially for figures where the
+ * normal direction is directly based on the object's orientation.
+ *
+ * @param dir The direction vector of the ray.
+ * @param hit Unused. To make normal functions standard
+ * @param obj Pointer to the object data which contains figure's orientation
+ * information.
+ *
+ * @return t_v3d The normal vector at the figure, based on its orientation.
+ */
 t_v3d	common_normal(t_v3d dir, t_v3d hit, t_obj *obj)
 {
 	(void)hit;
@@ -46,6 +36,22 @@ t_v3d	common_normal(t_v3d dir, t_v3d hit, t_obj *obj)
 		return (obj->elm.fig.orient);
 }
 
+#ifdef BONUS
+
+/**
+ * @brief Retrieve the appropriate normal vector computation function
+ * based on the object type. -BONUS VERSION-
+ *
+ * This function maps an object type to its corresponding function to compute
+ * the normal vector at the point of intersection. It uses an array of function
+ * pointers to efficiently select the correct normal vector computation method.
+ *
+ * @param obj Pointer to the object data.
+ * @param dir The direction vector of the ray.
+ * @param hit The point of intersection on the object.
+ *
+ * @return t_v3d The normal vector at the point of intersection on the object.
+ */
 t_v3d	get_normal(t_obj *obj, t_v3d dir, t_v3d hit)
 {
 	static t_normal	normal[] = {&sphere_normal, &common_normal,
@@ -54,3 +60,29 @@ t_v3d	get_normal(t_obj *obj, t_v3d dir, t_v3d hit)
 
 	return (normal[obj->type](dir, hit, obj));
 }
+
+#else
+
+/**
+ * @brief Retrieve the appropriate normal vector computation function
+ * based on the object type. -MANDATORY VERSION-
+ *
+ * This function maps an object type to its corresponding function to compute
+ * the normal vector at the point of intersection. It uses an array of function
+ * pointers to efficiently select the correct normal vector computation method.
+ *
+ * @param obj Pointer to the object data.
+ * @param dir The direction vector of the ray.
+ * @param hit The point of intersection on the object.
+ *
+ * @return t_v3d The normal vector at the point of intersection on the object.
+ */
+t_v3d	get_normal(t_obj *obj, t_v3d dir, t_v3d hit)
+{
+	static t_normal	normal[] = {&sphere_normal, &common_normal,
+		&cylinder_normal};
+
+	return (normal[obj->type](dir, hit, obj));
+}
+
+#endif

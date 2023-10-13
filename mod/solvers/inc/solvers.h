@@ -62,10 +62,16 @@ double			rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
 //Normals
 t_v3d			get_normal(t_obj *obj, t_v3d dir, t_v3d hit);
+t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+
+#  ifdef BONUS
+
 t_v3d			box_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj);
-t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+
+#  endif
 
 # endif
 
