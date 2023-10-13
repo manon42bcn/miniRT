@@ -66,7 +66,6 @@ t_v3d	ft_div_v3d(t_v3d vec, double real);
 t_v3d	ft_subs_real(t_v3d vec, double real);
 t_v3d	ft_plus_real(t_v3d vec, double real);
 double	ft_distance_v3d(t_v3d a, t_v3d b);
-t_v3d	ft_rotate_v3d(t_v3d vec, double angle);
 t_bool	ft_is_normal_v3d(t_v3d *v);
 //v3d_utils.c
 void	ft_normalize_v3d(t_v3d *vec);
@@ -76,5 +75,8 @@ t_v3d	ft_new_v3d(double x, double y, double z);
 t_v3d	ft_v3d_identity(int axis);
 //v3d_tools.c
 t_v3d	ft_perp_v3d(t_v3d vec);
+t_v3d	ft_rot_v3d_x(t_v3d vec, double angle);
+t_v3d	ft_rot_v3d_y(t_v3d vec, double angle);
+t_v3d	ft_rot_v3d_z(t_v3d vec, double angle);
 
 #endif

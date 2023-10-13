@@ -58,7 +58,7 @@ static inline t_v3d	texture_waves(t_inter *inter, t_obj *lst)
 
 	wl_factor = lst->wavelength;
 	wl_value = sin(inter->hit.z * wl_factor) + sin(inter->hit.y * wl_factor);
-	return (ft_rotate_v3d(inter->normal, wl_value));
+	return (ft_rot_v3d_x(inter->normal, wl_value));
 }
 
 /**

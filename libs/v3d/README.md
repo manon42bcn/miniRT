@@ -56,10 +56,11 @@ Vector Creation and Identity
 
 ### Utility Functions ###
 
-- `ft_rotate_v3d(t_v3d vec, double angle)`: Rotate a vector by a given angle.
 - `ft_is_normal_v3d(t_v3d \*v)`: Check if a vector is normalized.
 - `ft_copy_v3d(t_v3d \*vec)`: Create a copy of a 3D vector.
 - `ft_perp_v3d(t_v3d vec`: Return the perpendicular vector of a given one.
-
+- `ft_rot_v3d_x(t_v3d vec, double angle)`: Rotate a vector over X-Axis.
+- `ft_rot_v3d_x(t_v3d vec, double angle)`: Rotate a vector over Y-Axis.
+- `ft_rot_v3d_x(t_v3d vec, double angle)`: Rotate a vector over Z-Axis.
 ### Usage ###
 Simply include the header file and link the library to your project to start leveraging the power of this 3D Vector utility.

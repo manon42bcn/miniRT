@@ -51,31 +51,6 @@ double	ft_distance_v3d(t_v3d a, t_v3d b)
 }
 
 /**
- * @brief Rotate a 3D vector by a given angle around the X-axis.
- *
- * @param vec The 3D vector to be rotated.
- * @param angle The angle (in degrees) by which the vector is to be rotated.
- * @return The rotated vector.
- */
-t_v3d	ft_rotate_v3d(t_v3d vec, double angle)
-{
-	t_v3d	row1;
-	t_v3d	row2;
-	t_v3d	row3;
-	t_v3d	rotated;
-	double	rad_angle;
-
-	rad_angle = angle * M_PI / 180;
-	row1 = (t_v3d){1, 0, 0};
-	row2 = (t_v3d){0, cos(rad_angle), -sin(rad_angle)};
-	row3 = (t_v3d){0, sin(rad_angle), cos(rad_angle)};
-	rotated.x = vec.x * row1.x + vec.y * row1.y + vec.z * row1.z;
-	rotated.y = vec.x * row2.x + vec.y * row2.y + vec.z * row2.z;
-	rotated.z = vec.x * row3.x + vec.y * row3.y + vec.z * row3.z;
-	return (rotated);
-}
-
-/**
  * @brief Check if a given 3D vector is normalized
  * (its components lie between -1 and 1).
  *
