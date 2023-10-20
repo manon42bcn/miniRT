@@ -95,8 +95,9 @@ typedef struct s_obj
 	int				type;
 	struct s_obj	*next;
 	int				id;
-	union u_figures	elm;
 	t_rgb			color;
+	t_rgb			orig_color;
+	t_rgb			sel_color;
 	double			angle;
 	int				specular;
 	double			reflex;
@@ -107,6 +108,8 @@ typedef struct s_obj
 	double			wavelength;
 	t_bool			bump;
 	t_img			xpm;
+	t_bool			selected;
+	union u_figures	elm;
 }					t_obj;
 
 typedef struct s_hooks
@@ -135,6 +138,7 @@ typedef struct s_mrt
 	char		**tab;
 	int			fd;
 	t_bool		bonus;
+	int			mode;
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
 }					t_mrt;

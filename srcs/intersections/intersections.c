@@ -60,5 +60,4 @@ void	try_all_intersections(t_ray ray, t_obj *obj,
 		}
 		obj = obj->next;
 	}
-	rayer++;
 }

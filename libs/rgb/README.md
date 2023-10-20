@@ -8,14 +8,15 @@ Some useful resources to understand this library:
 
 ## Functions ##
 ### Arithmetic Operations ###
-- ft_rgb_dot(t_rgb color, double alpha): Multiplies the components (R, G, B) of an RGB color by a scalar value, alpha.
-- ft_rgb_add(t_rgb ca, t_rgb cb): Adds the RGB components of two colors together.
-- ft_rgb_light(t_rgb color, double rgb[3]): Adjusts an RGB color based on a lighting array. This function multiplies the RGB components by the values in the lighting array.
-- ft_rgb_diff(t_rgb ca, t_rgb cb): Calculates the difference between two RGB colors. If the sum of squared differences exceeds a threshold, it returns true.
+- `ft_rgb_dot(t_rgb color, double alpha):` Multiplies the components (R, G, B) of an RGB color by a scalar value, alpha.
+- `ft_rgb_add(t_rgb ca, t_rgb cb):` Adds the RGB components of two colors together.
+- `ft_rgb_light(t_rgb color, double rgb[3]):` Adjusts an RGB color based on a lighting array. This function multiplies the RGB components by the values in the lighting array.
+- `ft_rgb_diff(t_rgb ca, t_rgb cb):` Calculates the difference between two RGB colors. If the sum of squared differences exceeds a threshold, it returns true.
 
 ### Utilities ###
-- ft_rgb_avg(t_rgb ca, t_rgb cb): Computes the average of two RGB colors.
-- ft_rgb_balance(t_rgb *rgb): Balances an array of four RGB colors, computing their average.
+- `ft_rgb_avg(t_rgb ca, t_rgb cb):` Computes the average of two RGB colors.
+- `ft_rgb_balance(t_rgb *rgb):` Balances an array of four RGB colors, computing their average.
+- `ft_invert_color(t_rgb original):` Invert a given color.
 
 ## Usage ##
 To use the library, include its header in your project and compile the source files with your project.

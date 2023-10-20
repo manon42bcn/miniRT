@@ -119,3 +119,14 @@ t_rgb	calc_ray(int n, t_pix pix, t_mrt *mrt)
 	color = tracer(mrt->cmr->position, dir, mrt, REFLECTION_LIMIT);
 	return (color);
 }
+
+t_v3d	ray_from_pixel(int x, int y, t_mrt *mrt)
+{
+	t_pix	pix;
+
+	pix.w_x = mrt->scn.w_x;
+	pix.w_y = mrt->scn.w_y;
+	pix.x = x;
+	pix.y = y;
+	return (set_view(camera_eye(4, pix, mrt), mrt->cmr->dir));
+}

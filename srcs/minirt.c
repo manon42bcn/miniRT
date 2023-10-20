@@ -77,6 +77,60 @@ static inline void	after_parse_process(t_mrt *mrt)
 	get_bumps_textures(mrt);
 }
 
+t_obj	*get_selected(t_ray ray, t_obj *obj, double *closest_intersection)
+{
+	double		dist;
+	t_solver	solve;
+	t_obj		*rst;
+
+	rst = NULL;
+	while (obj)
+	{
+		solve = get_solver(obj->type);
+		dist = solve(ray.from, ray.to, obj);
+		if (dist > EPSILON && dist < *closest_intersection)
+		{
+			rst = obj;
+			*closest_intersection = dist;
+		}
+		obj = obj->next;
+	}
+	return (rst);
+}
+
+int	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
+{
+	double	closest;
+	t_ray	rfp;
+	t_obj	*obj_hit;
+
+	if (mrt->mode != TO_SELECT)
+		return (FALSE);
+	(void)mouse_code;
+	mlx_mouse_get_pos(mrt->mlx_win, &x, &y);
+	if (x < 0 || y < 0)
+		return (FALSE);
+	closest = INFINITY;
+	rfp = (t_ray){mrt->cmr->position, ray_from_pixel(x, y, mrt)};
+	obj_hit = get_selected(rfp, mrt->obj, &closest);
+	if (obj_hit == NULL)
+		return (FALSE);
+	obj_hit->selected = TRUE;
+	obj_hit->color = obj_hit->sel_color;
+	mrt->mode = SELECTION;
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
+}
+
+void	map_obj(t_obj *obj)
+{
+	while (obj)
+	{
+		printf("%d type %p pointer\n", obj->type, obj);
+		obj = obj->next;
+	}
+}
+
 /**
  * @brief The main entry point for the miniRT application.
  *
@@ -100,12 +154,15 @@ int	main(int argc, char const *argv[])
 	mrt = readfile_parser(argv[1]);
 	after_parse_process(mrt);
 	render_main(mrt);
+	map_obj(mrt->obj);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
 			mrt->scn.w_y, "miniRT");
 	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
 	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
-	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_handler, mrt);
-	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_handler, mrt);
+	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_select, mrt);
+	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_select, mrt);
+//	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_handler, mrt);
+//	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_handler, mrt);
 	mlx_loop_hook(mrt->mlx, to_win, mrt);
 	mlx_loop(mrt->mlx);
 	clear_all(mrt, SUCCESS, NULL, NULL);

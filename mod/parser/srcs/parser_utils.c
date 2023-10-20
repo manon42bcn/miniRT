@@ -65,6 +65,8 @@ void	get_common(t_mrt *mrt, int last, char *elem)
 	if (mrt->obj->texture == 2)
 		mrt->obj->wavelength = ft_atolf(mrt->tab[++last]);
 	mrt->obj->color = get_color(mrt->tab[++last], mrt);
+	mrt->obj->orig_color = mrt->obj->color;
+	mrt->obj->sel_color = ft_invert_color(mrt->obj->orig_color);
 	get_bump(mrt, ++last);
 }
 
@@ -85,6 +87,8 @@ void	get_common(t_mrt *mrt, int last, char *elem)
 	if (check_common(mrt, last) == FALSE)
 		msg_error_parsing(elem, mrt);
 	mrt->obj->color = get_color(mrt->tab[++last], mrt);
+	mrt->obj->orig_color = mrt->obj->color;
+	mrt->obj->sel_color = ft_invert_color(mrt->obj->orig_color);
 }
 
 #endif

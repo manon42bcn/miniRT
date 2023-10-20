@@ -19,6 +19,10 @@ typedef enum e_local_pix
 	E_V=1
 }			t_local_pix;
 
+# define NORMAL			0
+# define TO_SELECT		1
+# define SELECTION		2
+
 // KEY DEFINITIONS
 # define NO_HOOK		0
 # define K_D			2

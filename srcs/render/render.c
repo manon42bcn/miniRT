@@ -104,6 +104,33 @@ static inline void	render_scene(t_mrt *mrt)
  * @param mrt Pointer to the main structure containing scene, camera,
  * and other essential data.
  */
+//void	render_main(t_mrt *mrt)
+//{
+//	pthread_t	thread[10];
+//	t_thr		data[10];
+//	t_pix		pix_i[2];
+//	int			thr;
+//	int band_height = mrt->scn.w_y / 10;
+//
+//	thr = -1;
+//	ft_init_vector(&pix_i, 0, 2);
+//	while (++thr < 10)
+//	{
+//		data[thr].mrt = mrt;
+//		data[thr].start_y = thr * band_height;
+//		if (thr == 10 - 1)
+//			data[thr].end_y = mrt->scn.w_y;
+//		else
+//			data[thr].end_y = data[thr].start_y + band_height;
+//	}
+//	while (mrt->cmr)
+//	{
+//		render_scene(mrt);
+//		mrt->cmr = mrt->cmr->next;
+//	}
+//	mrt->cmr = mrt->main_cam;
+//}
+
 void	render_main(t_mrt *mrt)
 {
 	while (mrt->cmr)

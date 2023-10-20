@@ -31,4 +31,5 @@ t_rgb	ft_rgb_light(t_rgb color, double rgb[3]);
 t_rgb	ft_rgb_diff(t_rgb ca, t_rgb cb);
 t_rgb	ft_rgb_avg(t_rgb ca, t_rgb cb);
 t_rgb	ft_rgb_balance(t_rgb *rgb);
+t_rgb	ft_invert_color(t_rgb original);
 #endif

@@ -13,6 +13,8 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include <pthread.h>
+
 # include "../mlx/mlx.h"
 # include "defines.h"
 # include "../libs/lib/inc/libft.h"
@@ -51,6 +53,7 @@ typedef struct		s_inter
 
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 void		printVector(t_v3d *vector);
+t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 
 //double		cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 //double		cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
