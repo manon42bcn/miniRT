@@ -440,10 +440,10 @@ int	main(int argc, char const *argv[])
 	t_mrt	*mrt;
 
 	if (argc < 2 || argc > 3)
-		msg_error_exit("Args error. Type --help for instructions.");
+		msg_error_exit("Args error. Type --help for instructions.\n"); // VICTOR: Agregar salto de linea
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
-	mrt = readfile_parser(argv[1]);
+	mrt = readfile_parser(argv[1]); // parseo de objetos
 	after_parse_process(mrt);
 	render_main(mrt);
 	map_obj(mrt->obj);

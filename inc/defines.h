@@ -67,7 +67,7 @@ typedef enum e_local_pix
 # define SEP " \t\n"
 # define IDX_ERR	-1
 # define IDX_COMMENT -2
-# define ERROR 1
+# define ERROR 1 // Dos define ERROR
 # define SUCCESS 0
 # define ROTATE_X 0
 # define ROTATE_Y 1
@@ -80,7 +80,7 @@ typedef enum e_local_pix
 # define WAVES 2
 # define RAINBOW 3
 # define REFLECTION_LIMIT 3
-# define ERROR 1
+# define ERROR 1 // Dos define ERROR
 # define SUCCESS 0
 
 #endif
