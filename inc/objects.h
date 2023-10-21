@@ -18,6 +18,7 @@ typedef struct s_fig
 	t_v3d	centre;
 	t_v3d	orient;
 	double	width;
+	double	height;
 }				t_fig;
 
 typedef struct s_sphere

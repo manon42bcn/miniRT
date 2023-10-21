@@ -396,6 +396,21 @@ int	height_mode(t_mrt *mrt)
 	return (TRUE);
 }
 
+int object_height(int key, t_mrt *mrt)
+{
+	t_obj	*obj;
+
+	obj = get_select_obj(mrt->obj);
+	if (obj == NULL || obj->type == PLANE || obj->type == SPHERE)
+		return (FALSE);
+	if (key == K_PLUS)
+		obj->elm.fig.width *= 1.1f;
+	else if (key == K_MINUS && obj->elm.fig.width / 1.1f > 0)
+		obj->elm.fig.width /= 1.1f;
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
+}
+
 int	key_behaviour(int key, t_mrt *mrt)
 {
 	if (key == K_Q)

@@ -112,7 +112,6 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	inter.ray.to = dir;
 	inter.hit = get_hits(inter, mrt->obj, &close_obj);
 	hit_direction(inter.hit, dir, &(inter.normal), &close_obj);
-	inter.color = mrt->scn.bgr;
 	if (close_obj.type != CLOSE_OBJ)
 		inter.color = close_obj.color;
 	if (close_obj.type == SPHERE && close_obj.bump == TRUE)
