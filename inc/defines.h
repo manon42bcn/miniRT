@@ -9,7 +9,7 @@
 /*   Updated: 2023/09/04 23:56:04 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef DEFINES_H
 # define DEFINES_H
 
@@ -22,6 +22,8 @@ typedef enum e_local_pix
 # define NORMAL			0
 # define TO_SELECT		1
 # define SELECTION		2
+# define TO_ROTATE		3
+# define TO_TRANSLATE	4
 
 // KEY DEFINITIONS
 # define NO_HOOK		0
@@ -46,9 +48,13 @@ typedef enum e_local_pix
 # define K_SPACE		49
 # define K_ENTER		36
 # define K_ESC			53
-# define K_S			115
+# define K_S			1
 # define K_UP			126
 # define K_DOWN			125
+# define K_LEFT			123
+# define K_RIGHT		124
+# define K_MINUS		78
+# define K_PLUS			69
 
 # define EPSILON 0.00001
 # define SQRT2_2 0.7071067811865476

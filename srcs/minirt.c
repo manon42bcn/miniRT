@@ -77,6 +77,21 @@ static inline void	after_parse_process(t_mrt *mrt)
 	get_bumps_textures(mrt);
 }
 
+/**
+ * @brief Finds the closest object intersected by a given ray.
+ *
+ * This function traverses the list of scene objects to determine which one
+ * is the closest object that the ray intersects. The distance to the closest
+ * intersection point is stored in the `closest_intersection` parameter.
+ *
+ * @param ray The ray for which intersections with scene objects are checked.
+ * @param obj Pointer to the head of the list of scene objects.
+ * @param closest_intersection Pointer to store the distance to the closest
+ * intersection point.
+ *
+ * @return t_obj* Returns a pointer to the closest intersected object,
+ * or NULL if no object is intersected.
+ */
 t_obj	*get_selected(t_ray ray, t_obj *obj, double *closest_intersection)
 {
 	double		dist;
@@ -98,6 +113,22 @@ t_obj	*get_selected(t_ray ray, t_obj *obj, double *closest_intersection)
 	return (rst);
 }
 
+/**
+ * @brief Processes the mouse selection for objects in a scene.
+ *
+ * This function detects if a mouse click was performed over an object
+ * on the scene. If so, the object is marked as selected and its color
+ * is updated to indicate the selection.
+ *
+ * @param mouse_code The code associated with the mouse event.
+ * @param x X-coordinate of the mouse click.
+ * @param y Y-coordinate of the mouse click.
+ * @param mrt Pointer to the main renderer structure, which contains
+ * scene details and settings.
+ *
+ * @return int Returns TRUE if an object was successfully selected,
+ * FALSE otherwise.
+ */
 int	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
 {
 	double	closest;
@@ -119,6 +150,7 @@ int	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
 	obj_hit->color = obj_hit->sel_color;
 	mrt->mode = SELECTION;
 	mrt->to_img = TO_RENDER;
+	ft_putstr_fd("[OBJECT SELECTED - TRANSLATION MODE]\n", STDOUT_FILENO);
 	return (TRUE);
 }
 
@@ -129,6 +161,180 @@ void	map_obj(t_obj *obj)
 		printf("%d type %p pointer\n", obj->type, obj);
 		obj = obj->next;
 	}
+}
+
+/**
+ * @brief Deselects any selected object in the scene and reverts the
+ * scene mode to NORMAL.
+ *
+ * If an object was previously selected in the scene, this function
+ * will deselect it, revert its color back to its original, and notify
+ * the user that the mode has changed back to NORMAL.
+ * If the current mode is already NORMAL or TO_SELECT, the function will
+ * exit early without making any changes.
+ *
+ * @param mrt Pointer to the scene's main struct which contains the list
+ * of objects and the current mode.
+ *
+ * @return int Returns TRUE if an object was successfully deselected and
+ * mode changed, FALSE otherwise.
+ */
+int	unselect_objet(t_mrt *mrt)
+{
+	t_obj	*obj;
+
+	if (mrt->mode < SELECTION)
+		return (FALSE);
+	obj = mrt->obj;
+	while (obj)
+	{
+		if (obj->selected == TRUE)
+		{
+			obj->selected = FALSE;
+			obj->color = obj->orig_color;
+		}
+		obj = obj->next;
+	}
+	mrt->to_img = TO_RENDER;
+	mrt->mode = NORMAL;
+	ft_putstr_fd("[BACK TO NORMAL MODE]\n", STDOUT_FILENO);
+	return (TRUE);
+}
+
+/**
+ * @brief Activates the SELECTION MODE for the scene.
+ *
+ * If NORMAL mode is set, this function sets the scene mode
+ * to TO_SELECT and provides a user notification that
+ * SELECTION MODE has been activated.
+ *
+ * @param mrt Pointer to the scene's main struct which contains the
+ * list of objects and the current mode.
+ *
+ * @return int Returns TRUE after setting the mode and printing the
+ * notification message if NORMAL mode is active. Otherwise
+ * return FALSE.
+ */
+int selection_mode(t_mrt *mrt)
+{
+	if (mrt->mode != NORMAL)
+		return (FALSE);
+	mrt->mode = TO_SELECT;
+	ft_putstr_fd("[SELECTION MODE ACTIVATE]\n", STDOUT_FILENO);
+	return (TRUE);
+}
+
+int	rotation_mode(t_mrt *mrt)
+{
+	if (mrt->mode != SELECTION)
+		return (FALSE);
+	mrt->mode = TO_ROTATE;
+	ft_putstr_fd("[ROTATION MODE ACTIVATE]\n", STDOUT_FILENO);
+	return (TRUE);
+}
+
+/**
+ * @brief Retrieves the currently selected object from the list.
+ *
+ * This function iterates through the provided object list and returns
+ * the first object that is marked as selected. If no object is selected,
+ * it returns NULL.
+ *
+ * @param obj Pointer to the head of the object linked list.
+ *
+ * @return t_obj* Returns a pointer to the selected object,
+ * or NULL if no object is selected.
+ */
+t_obj	*get_select_obj(t_obj *obj)
+{
+	while (obj && obj->selected == FALSE)
+		obj = obj->next;
+	return (obj);
+}
+
+/**
+ * @brief Translates the selected object based on key inputs.
+ *
+ * If in SELECTION mode, this function translates the currently selected
+ * object in the scene based on the arrow keys or plus/minus keys.
+ * Note: Objects of type ELM_BOX are exempted from translations.
+ *
+ * @param key_dir Integer representing the key direction or command.
+ * Values can be K_UP, K_DOWN, K_LEFT, K_RIGHT, K_PLUS, K_MINUS.
+ * @param mrt Pointer to the main scene's struct containing the list
+ * of objects and current mode.
+ *
+ * @return int Returns TRUE if the translation was successful,
+ * otherwise returns FALSE.
+ */
+int	object_traslation(int key_dir, t_mrt *mrt)
+{
+	t_obj	*node;
+
+	if (mrt->mode != SELECTION)
+		return (FALSE);
+	node = get_select_obj(mrt->obj);
+	if (!node || (node->type == BOX))
+		return (FALSE);
+	if (key_dir == K_UP)
+		node->elm.fig.centre.y += 0.1f;
+	if (key_dir == K_DOWN)
+		node->elm.fig.centre.y -= 0.1f;
+	if (key_dir == K_LEFT)
+		node->elm.fig.centre.x -= 0.1f;
+	if (key_dir == K_RIGHT)
+		node->elm.fig.centre.x += 0.1f;
+	if (key_dir == K_PLUS)
+		node->elm.fig.centre.z += 0.1f;
+	if (key_dir == K_MINUS)
+		node->elm.fig.centre.z -= 0.1f;
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
+}
+
+int object_rotation(int key, t_mrt *mrt)
+{
+	t_obj	*node;
+
+	if (mrt->mode != SELECTION)
+		return (FALSE);
+	node = get_select_obj(mrt->obj);
+	if (!node || node->type == SPHERE)
+		return (FALSE);
+	if (key == K_UP)
+		node->elm.fig.orient = rotate_y(node->elm.fig.orient, RAD_ANGLE);
+	if (key == K_DOWN)
+		node->elm.fig.orient = rotate_y(node->elm.fig.orient, -RAD_ANGLE);
+	if (key == K_LEFT)
+		node->elm.fig.orient = rotate_x(node->elm.fig.orient, RAD_ANGLE);
+	if (key == K_RIGHT)
+		node->elm.fig.orient = rotate_x(node->elm.fig.orient, -RAD_ANGLE);
+	if (key == K_PLUS)
+		node->elm.fig.orient = rotate_z(node->elm.fig.orient, RAD_ANGLE);
+	if (key == K_MINUS)
+		node->elm.fig.orient = rotate_z(node->elm.fig.orient, -RAD_ANGLE);
+	node->elm.fig.orient = ft_normal_v3d(node->elm.fig.orient);
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
+}
+
+
+
+int	key_behaviour(int key, t_mrt *mrt)
+{
+	if (key == K_Q)
+		return (unselect_objet(mrt));
+	if (key == K_S)
+		return (selection_mode(mrt));
+	if (key == K_R)
+		return (rotation_mode(mrt));
+	if (mrt->mode == SELECTION
+		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
+		return (object_traslation(key, mrt));
+	if (mrt->mode == TO_ROTATE
+		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
+		return (object_traslation(key, mrt));
+	return (FALSE);
 }
 
 /**
@@ -157,7 +363,7 @@ int	main(int argc, char const *argv[])
 	map_obj(mrt->obj);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
 			mrt->scn.w_y, "miniRT");
-	mlx_key_hook(mrt->mlx_win, keys_handler, mrt);
+	mlx_key_hook(mrt->mlx_win, key_behaviour, mrt);
 	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
 	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_select, mrt);
 	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_select, mrt);

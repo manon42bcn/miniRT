@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/25 23:26:32 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef PARSE_H
 # define PARSE_H
 # include "../../../inc/defines.h"

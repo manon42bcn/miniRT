@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/25 23:24:37 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef DEFINITIONS_H
 # define DEFINITIONS_H
 

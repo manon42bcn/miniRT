@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/30 17:04:11 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef SOLVERS_H
 # define SOLVERS_H
 
@@ -51,6 +51,9 @@ double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
 double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
 double			top_intersect(t_v3d o, t_v3d d, t_obj *lst);
 double			sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph);
+t_v3d			get_normal(t_obj *obj, t_v3d dir, t_v3d hit);
+t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 
 # ifdef BONUS
 
@@ -60,18 +63,10 @@ double			cone_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
-//Normals
-t_v3d			get_normal(t_obj *obj, t_v3d dir, t_v3d hit);
-t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj);
-t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_obj *obj);
-
-#  ifdef BONUS
 
 t_v3d			box_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj);
-
-#  endif
 
 # endif
 

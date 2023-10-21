@@ -32,7 +32,7 @@ static inline t_obj	*closer_object(t_cmr *camera, t_obj *obj)
 	{
 		if (obj->type != PLANE)
 		{
-			dist = fabs(ft_distance_v3d(camera->position, obj->position));
+			dist = fabs(ft_distance_v3d(camera->position, obj->elm.fig.centre));
 			if (rst == NULL)
 			{
 				rst = obj;
