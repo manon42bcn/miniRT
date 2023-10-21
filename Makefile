@@ -15,6 +15,7 @@ HEAD_DIR		= 	inc
 SRC_DIR			= 	srcs
 OBJ_DIR			= 	objs
 OBJ_SUBS		= 	objs \
+					objs/handlers \
 					objs/utl \
 					objs/sampler \
 					objs/texture \
@@ -44,7 +45,10 @@ MODS_HEADERS	=	$(MODS_PARSER)/inc/parse.h \
 MODS_MODULES	=	$(MODS_PARSER)/libparser.a \
 					$(MODS_HOOKS)/libhooks.a \
 					$(MODS_SOLVERS)/libsolvers.a
-SRCS_FILES		= 	intersections/intersections.c \
+SRCS_FILES		= 	handlers/modes_handlers.c \
+					handlers/mouse_handlers.c \
+					handlers/objects_handlers.c \
+					intersections/intersections.c \
 					light/light.c \
 					rays/tracer.c \
 					rays/rays.c \
