@@ -434,7 +434,7 @@ int	key_behaviour(int key, t_mrt *mrt)
 		return (object_width(key, mrt));
 	if (mrt->mode == TO_HEIGHT
 		&& (key == K_MINUS || key == K_PLUS))
-		return (object_width(key, mrt));
+		return (object_height(key, mrt));
 	return (FALSE);
 }
 
