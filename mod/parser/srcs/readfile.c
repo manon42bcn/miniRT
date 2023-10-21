@@ -140,7 +140,7 @@ t_mrt	*readfile_parser(char const *filename)
 		rt->aux = get_next_line(fd);
 		if (!rt->aux)
 			break ;
-		if (rt->aux[0] != '#' && rt->aux[0] != '\n')
+		if (rt->aux && rt->aux[0] != '\n')
 			load_object(rt);
 	}
 	ft_safe_free_char(&rt->aux);
