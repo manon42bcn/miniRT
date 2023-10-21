@@ -142,17 +142,6 @@ void	light_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj)
  */
 void	hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj)
 {
-	if (obj->type == SPHERE)
-	{
-		*normal = ft_normal_v3d(ft_minus_v3d(hitted, obj->elm.sph.centre));
-		if (ft_cos_v3d(dir, *normal) > 0)
-		{
-			*normal = ft_scalar_v3d(-1, *normal);
-			obj->elm.sph.inside = TRUE;
-		}
-		else
-			obj->elm.sph.inside = FALSE;
-	}
-	else
+	if (obj->type != CLOSE_OBJ)
 		*normal = get_normal(obj, dir, hitted);
 }

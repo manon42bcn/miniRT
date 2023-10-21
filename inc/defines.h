@@ -23,7 +23,8 @@ typedef enum e_local_pix
 # define TO_SELECT		1
 # define SELECTION		2
 # define TO_ROTATE		3
-# define TO_TRANSLATE	4
+# define TO_WIDTH		4
+# define TO_HEIGHT		5
 
 // KEY DEFINITIONS
 # define NO_HOOK		0

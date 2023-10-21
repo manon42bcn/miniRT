@@ -39,7 +39,7 @@ HEADER		=	inc/solvers.h \
 				../../inc/defines.h \
 				../../inc/objects.h \
                 ../../inc/structs.h
-CFLAGS 		=	-Wall -Wextra -Werror -DBONUS=1
+CFLAGS 		=	-Wall -Wextra -Werror
 INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
 BONUS_FILE	= 	.bonus
 

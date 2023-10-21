@@ -292,11 +292,25 @@ int	object_traslation(int key_dir, t_mrt *mrt)
 	return (TRUE);
 }
 
+/**
+ * @brief Rotates the selected object based on key input.
+ *
+ * This function allows for the rotation of a selected object along the
+ * x, y, and z-axes. The direction and axis of rotation depend on the key input.
+ * The function will not operate if the current mode is not set to TO_ROTATE or
+ * if the selected object is a SPHERE, which cannot be rotated.
+ *
+ * @param key The key code indicating the direction of rotation.
+ * @param mrt Pointer to the main ray-tracing structure which holds information
+ * about the scene and current mode.
+ *
+ * @return int Returns TRUE if the rotation was performed, and FALSE otherwise.
+ */
 int object_rotation(int key, t_mrt *mrt)
 {
 	t_obj	*node;
 
-	if (mrt->mode != SELECTION)
+	if (mrt->mode != TO_ROTATE)
 		return (FALSE);
 	node = get_select_obj(mrt->obj);
 	if (!node || node->type == SPHERE)
@@ -318,7 +332,69 @@ int object_rotation(int key, t_mrt *mrt)
 	return (TRUE);
 }
 
+/**
+ * @brief Activates the width-diameter adjustment mode for the selected object.
+ *
+ * This function switches the mode to TO_WIDTH for adjusting the width or
+ * diameter of the currently selected object. The function will only activate
+ * the mode if the current mode is SELECTION. Once activated, a corresponding
+ * message is displayed to the standard output.
+ *
+ * @param mrt Pointer to the main ray-tracing structure which holds information
+ * about the scene and current mode.
+ *
+ * @return int Returns TRUE if the mode was activated, and FALSE otherwise.
+ */
+int	width_mode(t_mrt *mrt)
+{
+	if (mrt->mode != SELECTION)
+		return (FALSE);
+	mrt->mode = TO_WIDTH;
+	ft_putstr_fd("[WIDTH-DIAM MODE ACTIVATE]\n", STDOUT_FILENO);
+	return (TRUE);
+}
 
+/**
+ * @brief Adjusts the width or diameter of the selected object based on key
+ * input.
+ *
+ * This function modifies the width/diameter of the currently selected object
+ * either by increasing (if the key is K_PLUS) or decreasing (if the key is
+ * K_MINUS) it. The modification is a 10% increment or decrement. Objects of
+ * type PLANE cannot have their width adjusted, and the function returns early
+ * in such cases. After adjusting the object's width, the scene needs to be
+ * re-rendered, which is signified by setting mrt->to_img to TO_RENDER.
+ *
+ * @param key Integer representing the key pressed by the user. This can be
+ * either K_PLUS or K_MINUS.
+ * @param mrt Pointer to the main ray-tracing structure which holds information
+ * about the scene and current mode.
+ *
+ * @return int Returns TRUE if the width was adjusted, and FALSE otherwise.
+ */
+int object_width(int key, t_mrt *mrt)
+{
+	t_obj	*obj;
+
+	obj = get_select_obj(mrt->obj);
+	if (obj == NULL || obj->type == PLANE)
+		return (FALSE);
+	if (key == K_PLUS)
+		obj->elm.fig.width *= 1.1f;
+	else if (key == K_MINUS && obj->elm.fig.width / 1.1f > 0)
+		obj->elm.fig.width /= 1.1f;
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
+}
+
+int	height_mode(t_mrt *mrt)
+{
+	if (mrt->mode != SELECTION)
+		return (FALSE);
+	mrt->mode = TO_HEIGHT;
+	ft_putstr_fd("[HEIGHT MODE ACTIVATE]\n", STDOUT_FILENO);
+	return (TRUE);
+}
 
 int	key_behaviour(int key, t_mrt *mrt)
 {
@@ -328,12 +404,22 @@ int	key_behaviour(int key, t_mrt *mrt)
 		return (selection_mode(mrt));
 	if (key == K_R)
 		return (rotation_mode(mrt));
+	if (key == K_D)
+		return (width_mode(mrt));
+	if (key == K_H)
+		return (height_mode(mrt));
 	if (mrt->mode == SELECTION
 		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
 		return (object_traslation(key, mrt));
 	if (mrt->mode == TO_ROTATE
 		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
-		return (object_traslation(key, mrt));
+		return (object_rotation(key, mrt));
+	if (mrt->mode == TO_WIDTH
+		&& (key == K_MINUS || key == K_PLUS))
+		return (object_width(key, mrt));
+	if (mrt->mode == TO_HEIGHT
+		&& (key == K_MINUS || key == K_PLUS))
+		return (object_width(key, mrt));
 	return (FALSE);
 }
 

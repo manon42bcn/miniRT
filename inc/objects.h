@@ -17,11 +17,13 @@ typedef struct s_fig
 {
 	t_v3d	centre;
 	t_v3d	orient;
+	double	width;
 }				t_fig;
 
 typedef struct s_sphere
 {
 	t_v3d	centre;
+	t_v3d	dir;
 	double	radius;
 	int		inside;
 }				t_sphere;

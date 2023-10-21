@@ -106,6 +106,7 @@ library:
 	# $(MAKE) -C $(LIB_MLX)
 
 modules:
+	echo $(LIB_DET) here
 	$(MAKE) -C $(MODS_PARSER) $(LIB_DET)
 	$(MAKE) -C $(MODS_HOOKS) $(LIB_DET)
 	$(MAKE) -C $(MODS_SOLVERS) $(LIB_DET)
