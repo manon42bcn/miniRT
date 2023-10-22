@@ -14,7 +14,7 @@
 
 void		printVector(t_v3d *vector)
 {
-	printf("[%f x %f y %f z]", vector->x, vector->y, vector->z);
+	printf("[%f x %f y %f z]\n", vector->x, vector->y, vector->z);
 }
 
 /**
@@ -86,6 +86,28 @@ void	map_obj(t_obj *obj)
 	}
 }
 
+int	cam_rotation(int key, t_mrt *mrt)
+{
+	t_cmr	*cmr;
+
+	cmr = mrt->cmr;
+	if (key == K_UP)
+		cmr->position.y += 0.1f;
+	if (key == K_DOWN)
+		cmr->position.y -= 0.1f;
+	if (key == K_LEFT)
+		cmr->position.x -= 0.1f;
+	if (key == K_RIGHT)
+		cmr->position.x += 0.1f;
+	if (key == K_PLUS)
+		cmr->position.z += 0.1f;
+	if (key == K_MINUS)
+		cmr->position.z -= 0.1f;
+	printVector(&cmr->dir);
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
+}
+
 int	key_modes(int key, t_mrt *mrt)
 {
 	if (mrt->mode == TO_TRANSLATE
@@ -100,6 +122,9 @@ int	key_modes(int key, t_mrt *mrt)
 	if (mrt->mode == TO_HEIGHT
 		&& (key == K_MINUS || key == K_PLUS))
 		return (object_height(key, mrt));
+	if (mrt->mode == TO_CAMERA
+		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
+		return (cam_rotation(key, mrt));
 	if (mrt->mode == TO_LIGHT
 		&& (key == K_B || key == K_V || key == K_MINUS || key == K_PLUS
 			|| (key >= K_LEFT && key <= K_UP)))
@@ -109,10 +134,12 @@ int	key_modes(int key, t_mrt *mrt)
 
 int	camera_mode(t_mrt *mrt)
 {
+	if (mrt->mode == TO_CAMERA)
+		return (normal_mode(mrt));
 	if (mrt->mode != NORMAL)
 		return (FALSE);
 	mrt->mode = TO_CAMERA;
-	ft_putstr_fd("[ROTATION MODE ACTIVATE]\n", STDOUT_FILENO);
+	ft_putstr_fd("[CAMERA ROTATION MODE ACTIVATE]\n", STDOUT_FILENO);
 	return (TRUE);
 }
 

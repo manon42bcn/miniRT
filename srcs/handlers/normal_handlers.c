@@ -81,5 +81,6 @@ int	normal_mode(t_mrt *mrt)
 		return (FALSE);
 	normal_light(mrt);
 	normal_object(mrt);
+	mrt->mode = NORMAL;
 	return (TRUE);
 }
