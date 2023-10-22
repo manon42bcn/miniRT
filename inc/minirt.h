@@ -79,11 +79,16 @@ void		msg_instructions(void);
 void		msg_error_exit(char *message);
 // hooks - handlers
 int			mouse_select(int mouse_code, int x, int y, t_mrt *mrt);
-int			unselect_objet(t_mrt *mrt);
+int			normal_light(t_mrt *mrt);
+int			normal_object(t_mrt *mrt);
+int			normal_mode(t_mrt *mrt);
 int			selection_mode(t_mrt *mrt);
+int			translate_mode(t_mrt *mrt);
 int			rotation_mode(t_mrt *mrt);
 int			width_mode(t_mrt *mrt);
 int			height_mode(t_mrt *mrt);
+int			light_mode(t_mrt *mrt);
+int			light_behaviour(int key, t_mrt *mrt);
 int			object_traslation(int key_dir, t_mrt *mrt);
 int			object_rotation(int key, t_mrt *mrt);
 int			object_width(int key, t_mrt *mrt);

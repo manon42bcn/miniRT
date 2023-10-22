@@ -21,10 +21,13 @@ typedef enum e_local_pix
 
 # define NORMAL			0
 # define TO_SELECT		1
-# define SELECTION		2
+# define TO_TRANSLATE	2
 # define TO_ROTATE		3
 # define TO_WIDTH		4
 # define TO_HEIGHT		5
+# define TO_CAMERA		6
+# define TO_LIGHT		7
+# define LIGHT_MOVE		8
 
 // KEY DEFINITIONS
 # define NO_HOOK		0
@@ -56,6 +59,17 @@ typedef enum e_local_pix
 # define K_RIGHT		124
 # define K_MINUS		78
 # define K_PLUS			69
+# define K_B			11
+# define K_V			9
+# define K_1			18
+# define K_2			19
+# define K_3			20
+# define K_4			21
+# define K_5			23
+# define K_6			22
+# define K_7			26
+# define K_8			28
+# define K_9			25
 
 # define EPSILON 0.00001
 # define SQRT2_2 0.7071067811865476

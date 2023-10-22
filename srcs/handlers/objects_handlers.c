@@ -13,32 +13,13 @@
 #include "minirt.h"
 
 /**
- * @brief Retrieves the currently selected object from the list.
- *
- * This function iterates through the provided object list and returns
- * the first object that is marked as selected. If no object is selected,
- * it returns NULL.
- *
- * @param obj Pointer to the head of the object linked list.
- *
- * @return t_obj* Returns a pointer to the selected object,
- * or NULL if no object is selected.
- */
-static inline t_obj	*get_select_obj(t_obj *obj)
-{
-	while (obj && obj->selected == FALSE)
-		obj = obj->next;
-	return (obj);
-}
-
-/**
  * @brief Translates the selected object based on key inputs.
  *
  * If in SELECTION mode, this function translates the currently selected
  * object in the scene based on the arrow keys or plus/minus keys.
  * Note: Objects of type ELM_BOX are exempted from translations.
  *
- * @param key_dir Integer representing the key direction or command.
+ * @param key Integer representing the key direction or command.
  * Values can be K_UP, K_DOWN, K_LEFT, K_RIGHT, K_PLUS, K_MINUS.
  * @param mrt Pointer to the main scene's struct containing the list
  * of objects and current mode.
@@ -46,26 +27,26 @@ static inline t_obj	*get_select_obj(t_obj *obj)
  * @return int Returns TRUE if the translation was successful,
  * otherwise returns FALSE.
  */
-int	object_traslation(int key_dir, t_mrt *mrt)
+int	object_traslation(int key, t_mrt *mrt)
 {
 	t_obj	*node;
 
-	if (mrt->mode != SELECTION)
+	if (mrt->mode != TO_TRANSLATE)
 		return (FALSE);
-	node = get_select_obj(mrt->obj);
+	node = mrt->sel_obj;
 	if (!node || (node->type == BOX))
 		return (FALSE);
-	if (key_dir == K_UP)
+	if (key == K_UP)
 		node->elm.fig.centre.y += 0.1f;
-	if (key_dir == K_DOWN)
+	if (key == K_DOWN)
 		node->elm.fig.centre.y -= 0.1f;
-	if (key_dir == K_LEFT)
+	if (key == K_LEFT)
 		node->elm.fig.centre.x -= 0.1f;
-	if (key_dir == K_RIGHT)
+	if (key == K_RIGHT)
 		node->elm.fig.centre.x += 0.1f;
-	if (key_dir == K_PLUS)
+	if (key == K_PLUS)
 		node->elm.fig.centre.z += 0.1f;
-	if (key_dir == K_MINUS)
+	if (key == K_MINUS)
 		node->elm.fig.centre.z -= 0.1f;
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
@@ -91,7 +72,7 @@ int	object_rotation(int key, t_mrt *mrt)
 
 	if (mrt->mode != TO_ROTATE)
 		return (FALSE);
-	node = get_select_obj(mrt->obj);
+	node = mrt->sel_obj;
 	if (!node || node->type == SPHERE)
 		return (FALSE);
 	if (key == K_UP)
@@ -133,7 +114,7 @@ int	object_width(int key, t_mrt *mrt)
 {
 	t_obj	*obj;
 
-	obj = get_select_obj(mrt->obj);
+	obj = mrt->sel_obj;
 	if (obj == NULL || obj->type == PLANE)
 		return (FALSE);
 	if (key == K_PLUS)
@@ -166,7 +147,7 @@ int	object_height(int key, t_mrt *mrt)
 {
 	t_obj	*obj;
 
-	obj = get_select_obj(mrt->obj);
+	obj = mrt->sel_obj;
 	if (obj == NULL || obj->type == PLANE || obj->type == SPHERE)
 		return (FALSE);
 	if (key == K_PLUS)

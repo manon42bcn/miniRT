@@ -86,19 +86,9 @@ void	map_obj(t_obj *obj)
 	}
 }
 
-int	key_behaviour(int key, t_mrt *mrt)
+int	key_modes(int key, t_mrt *mrt)
 {
-	if (key == K_Q)
-		return (unselect_objet(mrt));
-	if (key == K_S)
-		return (selection_mode(mrt));
-	if (key == K_R)
-		return (rotation_mode(mrt));
-	if (key == K_D)
-		return (width_mode(mrt));
-	if (key == K_H)
-		return (height_mode(mrt));
-	if (mrt->mode == SELECTION
+	if (mrt->mode == TO_TRANSLATE
 		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
 		return (object_traslation(key, mrt));
 	if (mrt->mode == TO_ROTATE
@@ -110,6 +100,44 @@ int	key_behaviour(int key, t_mrt *mrt)
 	if (mrt->mode == TO_HEIGHT
 		&& (key == K_MINUS || key == K_PLUS))
 		return (object_height(key, mrt));
+	if (mrt->mode == TO_LIGHT
+		&& (key == K_B || key == K_V || key == K_MINUS || key == K_PLUS
+			|| (key >= K_LEFT && key <= K_UP)))
+		return (light_behaviour(key, mrt));
+	return (FALSE);
+}
+
+int	camera_mode(t_mrt *mrt)
+{
+	if (mrt->mode != NORMAL)
+		return (FALSE);
+	mrt->mode = TO_CAMERA;
+	ft_putstr_fd("[ROTATION MODE ACTIVATE]\n", STDOUT_FILENO);
+	return (TRUE);
+}
+
+int	key_behaviour(int key, t_mrt *mrt)
+{
+	if (mrt->mode != NORMAL
+		&& ((key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP))
+			|| key == K_B || key == K_V))
+		return (key_modes(key, mrt));
+	if (key == K_Q)
+		return (normal_mode(mrt));
+	if (key == K_S)
+		return (selection_mode(mrt));
+	if (key == K_T)
+		return (translate_mode(mrt));
+	if (key == K_R)
+		return (rotation_mode(mrt));
+	if (key == K_D)
+		return (width_mode(mrt));
+	if (key == K_H)
+		return (height_mode(mrt));
+	if (key == K_C)
+		return (camera_mode(mrt));
+	if (key == K_L)
+		return (light_mode(mrt));
 	return (FALSE);
 }
 

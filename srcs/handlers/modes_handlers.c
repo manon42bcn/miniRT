@@ -16,10 +16,10 @@
  * @brief Activates the rotation modification mode for the currently selected
  * object.
  *
- * This function checks if the current mode is SELECTION. If so, the mode
- * is changed to TO_ROTATE, which indicates that the user is in rotation
- * modification mode. It also provides a console output to notify the user
- * of the mode change.
+ * If the program is currently in NORMAL mode or any mode beyond TO_HEIGHT,
+ * the function will not switch to rotation mode. If the switch is successful,
+ * it provides a console output to notify the user of the mode change.
+ * Once activated, a corresponding message is displayed to the standard output.
  *
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the scene and current mode.
@@ -29,7 +29,7 @@
  */
 int	rotation_mode(t_mrt *mrt)
 {
-	if (mrt->mode != SELECTION)
+	if (mrt->mode == NORMAL || mrt->mode > TO_HEIGHT)
 		return (FALSE);
 	mrt->mode = TO_ROTATE;
 	ft_putstr_fd("[ROTATION MODE ACTIVATE]\n", STDOUT_FILENO);
@@ -39,10 +39,11 @@ int	rotation_mode(t_mrt *mrt)
 /**
  * @brief Activates the width-diameter adjustment mode for the selected object.
  *
- * This function switches the mode to TO_WIDTH for adjusting the width or
- * diameter of the currently selected object. The function will only activate
- * the mode if the current mode is SELECTION. Once activated, a corresponding
- * message is displayed to the standard output.
+ * If the program is currently in NORMAL mode or any mode beyond TO_HEIGHT,
+ * the function will not switch to width-diameter mode. If the switch is
+ * successful, it provides a console output to notify the user of the mode
+ * change. Once activated, a corresponding message is displayed to the standard
+ * output.
  *
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the scene and current mode.
@@ -51,7 +52,7 @@ int	rotation_mode(t_mrt *mrt)
  */
 int	width_mode(t_mrt *mrt)
 {
-	if (mrt->mode != SELECTION)
+	if (mrt->mode == NORMAL || mrt->mode > TO_HEIGHT)
 		return (FALSE);
 	mrt->mode = TO_WIDTH;
 	ft_putstr_fd("[WIDTH-DIAM MODE ACTIVATE]\n", STDOUT_FILENO);
@@ -62,10 +63,10 @@ int	width_mode(t_mrt *mrt)
  * @brief Activates the height modification mode for the currently selected
  * object.
  *
- * This function checks if the current mode is SELECTION. If so, the mode
- * is changed to TO_HEIGHT, which indicates that the user is in height
- * modification mode. It also provides a console output to notify the user
- * of the mode change.
+ * If the program is currently in NORMAL mode or any mode beyond TO_HEIGHT,
+ * the function will not switch to height mode. If the switch is successful,
+ * it provides a console output to notify the user of the mode change.
+ * Once activated, a corresponding message is displayed to the standard output.
  *
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the scene and current mode.
@@ -75,9 +76,33 @@ int	width_mode(t_mrt *mrt)
  */
 int	height_mode(t_mrt *mrt)
 {
-	if (mrt->mode != SELECTION)
+	if (mrt->mode == NORMAL || mrt->mode > TO_HEIGHT)
 		return (FALSE);
 	mrt->mode = TO_HEIGHT;
 	ft_putstr_fd("[HEIGHT MODE ACTIVATE]\n", STDOUT_FILENO);
+	return (TRUE);
+}
+
+/**
+ * @brief Switches the current mode to translate mode for adjusting object
+ * positions.
+ *
+ * If the program is currently in NORMAL mode or any mode beyond TO_HEIGHT,
+ * the function will not switch to translate mode. If the switch is successful,
+ * it provides a console output to notify the user of the mode change.
+ * Once activated, a corresponding message is displayed to the standard output.
+ *
+ * @param mrt Pointer to the main ray-tracing structure which holds information
+ * about the scene and current mode.
+ *
+ * @return int Returns TRUE if the translate mode was activated,
+ * and FALSE otherwise.
+ */
+int	translate_mode(t_mrt *mrt)
+{
+	if (mrt->mode == NORMAL || mrt->mode > TO_HEIGHT)
+		return (FALSE);
+	mrt->mode = TO_TRANSLATE;
+	ft_putstr_fd("[TRANSLATE MODE ACTIVATE]\n", STDOUT_FILENO);
 	return (TRUE);
 }

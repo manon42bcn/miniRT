@@ -48,6 +48,8 @@ MODS_MODULES	=	$(MODS_PARSER)/libparser.a \
 SRCS_FILES		= 	handlers/modes_handlers.c \
 					handlers/mouse_handlers.c \
 					handlers/objects_handlers.c \
+					handlers/light_handlers.c \
+					handlers/normal_handlers.c \
 					intersections/intersections.c \
 					light/light.c \
 					rays/tracer.c \

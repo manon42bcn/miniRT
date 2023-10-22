@@ -74,6 +74,7 @@ typedef struct s_light
 	double			bright;
 	t_rgb			color;
 	double			angle;
+	t_bool			selected;
 	struct s_light	*next;
 }					t_light;
 
@@ -84,6 +85,7 @@ typedef struct s_scene
 	int				w_x;
 	int				w_y;
 	t_light			*light;
+	t_light			*sel_light;
 	double			bright;
 	int				amb_rgb;
 	double			ratio;
@@ -127,6 +129,7 @@ typedef struct s_mrt
 	void		*mlx_win;
 	t_scene		scn;
 	t_obj		*obj;
+	t_obj		*sel_obj;
 	t_cmr		*cmr;
 	t_cmr		*main_cam;
 	t_pixel		x;
