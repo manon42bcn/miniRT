@@ -7,6 +7,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,--stack,16777216")
 # Incluir directorios de encabezados
 include_directories(
         inc
+        common
         libs/lib/inc
         libs/rgb/inc
         libs/v3d/inc

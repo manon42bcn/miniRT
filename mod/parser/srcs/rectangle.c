@@ -55,5 +55,3 @@ void	inp_rectangle(t_mrt *mrt)
 }
 
 #endif
-
-

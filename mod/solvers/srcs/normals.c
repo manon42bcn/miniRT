@@ -12,7 +12,6 @@
 
 #include "solvers.h"
 
-
 /**
  * @brief Compute the normal vector for common figures.
  *

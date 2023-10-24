@@ -62,7 +62,6 @@ double			cone_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
-
 t_v3d			box_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_obj *obj);
 t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj);
