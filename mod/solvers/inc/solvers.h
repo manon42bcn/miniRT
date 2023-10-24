@@ -16,9 +16,9 @@
 # include "../../../libs/lib/inc/libft.h"
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
-# include "../../../inc/defines.h"
-# include "../../../inc/objects.h"
-# include "../../../inc/structs.h"
+# include "defines.h"
+# include "objects.h"
+# include "structs.h"
 
 enum e_array_intersections
 {

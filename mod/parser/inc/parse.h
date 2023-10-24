@@ -12,15 +12,15 @@
 
 #ifndef PARSE_H
 # define PARSE_H
-# include "../../../inc/defines.h"
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
 # include "../../../libs/lib/inc/libft.h"
+# include "defines.h"
+# include "objects.h"
+# include "structs.h"
 # include <fcntl.h>
 # include <math.h>
 # include "parse_enum.h"
-# include "../../../inc/objects.h"
-# include "../../../inc/structs.h"
 
 typedef void	(*t_build)(t_mrt *);
 

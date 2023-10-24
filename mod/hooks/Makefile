@@ -30,14 +30,13 @@ HEADER		=	inc/hooks.h \
 				../../libs/v3d/inc/v3d.h \
 				../../libs/rgb/inc/rgb.h \
 				../../libs/lib/inc/libft.h \
-				../../inc/defines.h \
-				../../inc/objects.h \
-                ../../inc/structs.h \
+				../../common/defines.h \
+				../../common/objects.h \
+                ../../common/structs.h \
 				../parser/inc/parse.h
 
 CFLAGS 		=	-Wall -Wextra -Werror
-INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
-#INCLUDES	= -Iinc -I../../libs/v3d/inc -I../../libs/libs/rbg/inc
+INCLUDES	= -Iinc -I../../libs/v3d/inc -I../../libs/rgb/inc -I../../libs/lib/inc -I../parser/inc -I../../inc -I../../common
 
 all: $(NAME) $(HEADER)
 

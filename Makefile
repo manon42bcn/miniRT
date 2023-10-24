@@ -58,9 +58,9 @@ SRCS_FILES		= 	intersections/intersections.c \
 					texture/bump_texture.c \
 					minirt.c
 HEAD_FILES		=	inc/minirt.h \
-					inc/defines.h \
-					inc/objects.h \
-					inc/structs.h
+					common/defines.h \
+					common/objects.h \
+					common/structs.h
 INCLUDES_LIBS	:=	$(patsubst %,-I%,$(dir $(LIBS_HEADERS)))
 INCLUDES_MODS	:=	$(patsubst %,-I%,$(dir $(MODS_HEADERS)))
 INCLUDES_HEAD	:=	$(patsubst %,-I%,$(dir $(HEAD_FILES)))
@@ -68,7 +68,7 @@ SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
 CFLAGS			=	-Wall -Wextra -Werror
 LIBRARIES		=	$(LIBS_LIBS) $(MODS_MODULES)
-INCLUDES		=	$(INCLUDES_LIBS) $(INCLUDES_MODS) $(INCLUDES_HEAD)
+INCLUDES		=	-Icommon $(INCLUDES_LIBS) $(INCLUDES_MODS) $(INCLUDES_HEAD)
 LIB_LINKS		=	-L./$(LIB_FT) -lft -L./$(LIB_V3D) -lv3d -L./$(LIB_RGB) -lrgb -L./$(MODS_PARSER) -lparser -L./$(MODS_SOLVERS) -lsolvers -L./$(MODS_HOOKS) -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
 RM				=	rm -rf
 BONUS_FILE		=	.bonus

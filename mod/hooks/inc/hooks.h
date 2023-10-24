@@ -17,9 +17,9 @@
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
 # include "../../../libs/lib/inc/libft.h"
-# include "../../../inc/defines.h"
-# include "../../../inc/objects.h"
-# include "../../../inc/structs.h"
+# include "defines.h"
+# include "objects.h"
+# include "structs.h"
 # include "../../parser/inc/parse.h"
 # include "../../../mlx/mlx.h"
 
