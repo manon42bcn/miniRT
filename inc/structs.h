@@ -24,6 +24,13 @@ typedef void			(*t_hook)(t_mrt *, int);
 # define RAD_ANGLE 0.0174533
 
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
+
+typedef struct s_ray
+{
+	t_v3d	from;
+	t_v3d	to;
+}				t_ray;
+
 enum e_fig
 {
 	CLOSE_OBJ=-1,
@@ -145,6 +152,7 @@ typedef struct s_mrt
 	int			mode;
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
+	t_v3d		(*ray_pixel)(int, int, t_mrt *);
 	t_solver	(*get_solver)(int);
 }					t_mrt;
 

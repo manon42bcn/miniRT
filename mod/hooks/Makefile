@@ -11,16 +11,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	camera_hooks.c \
-				camera_orbit_hooks.c \
-				common.c \
-				cylinder_hooks.c \
-				cylinder_rotation_hooks.c \
-				keys_handler.c \
-				light_rotation_hooks.c \
-				main_hooks.c \
-				mouse_handler.c \
-				sphere_hooks.c
+SRCS		=	camera_handlers.c \
+				camera_translate_handlers.c \
+				keys_handlers.c \
+				light_handlers.c \
+				modes_handlers.c \
+				normal_handlers.c \
+				objects_handlers.c \
+				selection_handlers.c \
+				special_handlers.c
 SRCS_DIR	=	src
 OBJS_DIR	=	obj
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
@@ -38,6 +37,7 @@ HEADER		=	inc/hooks.h \
 
 CFLAGS 		=	-Wall -Wextra -Werror
 INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
+#INCLUDES	= -Iinc -I../../libs/v3d/inc -I../../libs/libs/rbg/inc
 
 all: $(NAME) $(HEADER)
 

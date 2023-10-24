@@ -120,6 +120,28 @@ t_rgb	calc_ray(int n, t_pix pix, t_mrt *mrt)
 	return (color);
 }
 
+/**
+ * @brief Compute the direction of a ray originating from a camera and passing
+ * through a pixel.
+ *
+ * Given pixel coordinates (x, y) on the viewport/screen, this function
+ * calculates the direction of the ray that would pass through that pixel.
+ * This ray originates from the camera's position (eye) and aims towards a point
+ * in the 3D scene represented by the pixel.
+ *
+ * The process involves two major steps:
+ * 1. Determine the 3D coordinates in the viewplane corresponding to the pixel.
+ * 2. Set the direction of the ray from the camera's position to the computed
+ * 3D point.
+ *
+ * @param x The x-coordinate of the pixel.
+ * @param y The y-coordinate of the pixel.
+ * @param mrt Pointer to the main runtime structure containing the application's
+ * state and context, which includes the scene configuration, camera details,
+ * etc.
+ * @return t_v3d Returns the direction vector of the ray that would pass through
+ * the pixel.
+ */
 t_v3d	ray_from_pixel(int x, int y, t_mrt *mrt)
 {
 	t_pix	pix;

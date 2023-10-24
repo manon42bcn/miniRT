@@ -45,16 +45,7 @@ MODS_HEADERS	=	$(MODS_PARSER)/inc/parse.h \
 MODS_MODULES	=	$(MODS_PARSER)/libparser.a \
 					$(MODS_HOOKS)/libhooks.a \
 					$(MODS_SOLVERS)/libsolvers.a
-SRCS_FILES		= 	handlers/modes_handlers.c \
-					handlers/selection_handlers.c \
-					handlers/objects_handlers.c \
-					handlers/light_handlers.c \
-					handlers/normal_handlers.c \
-					handlers/camera_handlers.c \
-					handlers/camera_translate_handlers.c \
-					handlers/keys_handlers.c \
-					handlers/special_handlers.c \
-					intersections/intersections.c \
+SRCS_FILES		= 	intersections/intersections.c \
 					light/light.c \
 					rays/tracer.c \
 					rays/rays.c \

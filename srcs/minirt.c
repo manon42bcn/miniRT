@@ -74,8 +74,8 @@ static inline void	after_parse_process(t_mrt *mrt)
 	mrt->clean_window = &mlx_clear_window;
 	mrt->clean_image = &mlx_destroy_image;
 	mrt->get_solver = &get_solver;
+	mrt->ray_pixel = &ray_from_pixel;
 	mrt->window = FALSE;
-	load_hooks(mrt);
 	mlx_starter(mrt);
 	get_bumps_textures(mrt);
 }

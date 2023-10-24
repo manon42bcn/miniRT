@@ -1,112 +1,75 @@
 
-# Hooks Module for mrt #
+# MiniRT Hooks Module
 
 This library provides functionality to handle user input, enabling dynamic transformations on 3D objects like spheres, cylinders, lights, and the camera in a scene. Each function responds to specific key presses, causing updates in the runtime structure and subsequently triggering a re-render of the scene.
 
 To better understanding of hooks functionality:
 * https://harm-smits.github.io/42docs/libs/minilibx/hooks.html
 
-## Key Functionality ##
+## Overview
+Our ray-tracing library provides a comprehensive solution to render 3D scenes using the ray-tracing technique. This README offers a high-level overview of the library's features, its flow, and other relevant details that can assist developers in understanding and utilizing its capabilities.
 
-* Dynamic Transformations: Apply translations, rotations, and size adjustments to the scene's 3D objects.
-* Camera Handling: Modify camera position, orientation, and perspective based on user input.
-* User Feedback: Informative console messages guide the user's input experience.
-* Integrated Event Loop: Seamless integration with the event loop, ensuring that user input is constantly monitored and processed.
+## ASCII Flow Diagram
+```
++--------------+       +-----------+       +----------+        +---------+
+| Key Presses  | ----> | Key Modes | ----> | Behavior |  ----> | Actions |
++--------------+       +-----------+       +----------+        +---------+
+      ^                                                             |
+      |                                                             v
++--------------+                                             +--------------+
+| Mouse Events |                                             | Scene Update |
++--------------+                                             +--------------+
+```
 
-## Function Prototypes and functionality ##
+## Key Features:
 
-- Common: 
-  - void	load_hooks(t_mrt \*mrt);
-- Windows handler:
-  - int	window_handler(t_mrt \*mrt);
+1. **Multiple Modes**: The library supports several modes like SELECTION, TRANSLATE, ROTATE, and more, offering precise control over objects and lights in the scene.
 
-- Common rotation functions for 3D vectors
-  * t_v3d	rotate_x(t_v3d old, double angle);
-  * t_v3d	rotate_y(t_v3d old, double angle);
-  * t_v3d	rotate_z(t_v3d old, double angle);
+2. **Flexible Interactions**: Users can control the scene via both key presses and mouse events, ensuring a more immersive experience.
 
-- Camera-related functions:
-  - Rotate over closest object:
-    * void	camera_closest_y(t_mrt \*mrt, int key_dir);
-    * void	camera_closest_x(t_mrt \*mrt, int key_dir);
-    * void	camera_closest_z(t_mrt \*mrt, int key_dir);
-  - Rotate over a fixed orbit:
-    * void	camera_orbit_y(t_mrt \*mrt, int key_dir);
-    * void	camera_orbit_x(t_mrt \*mrt, int key_dir);
-    * void	camera_orbit_z(t_mrt \*mrt, int key_dir);
+3. **Object and Light Manipulation**: Objects and lights in the scene can be translated, rotated, and adjusted in brightness, size, and position.
 
-- Cylinders related functions:
-  - Translation:
-    * void	cylinder_y_translation(t_mrt \*mrt, int key_dir);
-    * void	cylinder_x_translation(t_mrt \*mrt, int key_dir);
-    * void	cylinder_z_translation(t_mrt \*mrt, int key_dir);
-  - Rotation:
-    * void	cylinder_rotation_x(t_mrt \*mrt, int key_dir);
-    * void	cylinder_rotation_y(t_mrt \*mrt, int key_dir);
-    * void	cylinder_rotation_z(t_mrt \*mrt, int key_dir);
-  - Sizes:
-    * void	cylinder_diam(t_mrt \*mrt, int key_dir);
-    * void	cylinder_height(t_mrt \*mrt, int key_dir);
+4. **Camera Handling**: Users can switch between multiple cameras present in the scene for varied viewpoints.
 
-- Light-related functions
-  - Rotation:
-    * void	light_rotation_x(t_mrt \*mrt, int key_dir);
-    * void	light_rotation_y(t_mrt \*mrt, int key_dir);
-    * void	light_rotation_z(t_mrt \*mrt, int key_dir);
+5. **Resource Management**: Built-in functions ensure proper allocation and deallocation of resources, promoting optimal performance.
 
-- Sphere related functions
-  - Translation:
-    * void	sphere_y_translation(t_mrt \*mrt, int key_dir);
-    * void	sphere_x_translation(t_mrt \*mrt, int key_dir);
-    * void	sphere_z_translation(t_mrt \*mrt, int key_dir);
-  - Size:
-    * void	sphere_diam(t_mrt \*mrt, int key_dir);
+## Detailed Breakdown:
 
-- Informative and handler functions
-  * static inline void	axis_informator(int key);
-  * static inline void	handler_informator(int key);
-  * static inline int	action_handler(t_mrt \*mrt, int key);
-  * static inline int	change_camera(t_mrt \*mrt);
-  * int	keys_handler(int key, t_mrt \*mrt);
+1. **Key Handlers**: Functions like `key_behaviour` and `key_modes` process key inputs, determining the type of action or mode change required.
 
-## Usage ##
+2. **Mouse Selection**: The `mouse_select` function facilitates selection of scene objects using the mouse, aiding in direct interaction.
 
-To use a hook you have to use a particular key combinatios, according this table:
+3. **Object Modification**: Functions such as `object_traslation`, `object_rotation`, `object_width`, and `object_height` offer extensive control over objects in the scene.
 
-| Description               | Key1 | Key2 | Key3 |
-|---------------------------|------|------|------|
-| Cylinder Y translation    | C    | T    | Y    |
-| Cylinder X translation    | C    | T    | X    |
-| Cylinder Z translation    | C    | T    | Z    |
-| Cylinder Diameter         | C    | D    | Enter|
-| Cylinder Height           | C    | H    | Enter|
-| Sphere Y translation      | S    | T    | Y    |
-| Sphere X translation      | S    | T    | X    |
-| Sphere Z translation      | S    | T    | Z    |
-| Sphere Diameter           | S    | D    | Enter|
-| Camera X closest obj      | E    | N    | Y    |
-| Camera Y closest obj      | E    | N    | X    |
-| Camera Z closest obj      | E    | N    | Z    |
-| Camera Y orbit            | E    | O    | Y    |
-| Camera X orbit            | E    | O    | X    |
-| Camera Z orbit            | E    | O    | Z    |
-| Cylinder Y Rotation       | C    | R    | Y    |
-| Cylinder X Rotation       | C    | R    | X    |
-| Cylinder Z Rotation       | C    | R    | Z    |
-| Light Y Rotation          | L    | R    | Y    |
-| Light X Rotation          | L    | R    | X    |
-| Light Z Rotation          | L    | R    | Z    |
-| Camera Free (Y)           | E    | F    | Y    |
-| Camera Free (Enter)       | E    | F    | Enter|
+4. **Light Handling**: The library contains functions like `light_mode`, `light_traslation`, and `light_bright` for manipulating scene lights.
 
-the order is not important. If you make a mistake or want to chance the behaviour of the hook, press esc.
-After set a particular behaviour, you can apply them using key arrows (up-down-right-left).
+5. **Camera Management**: The `change_camera` function lets users toggle between different cameras in the scene.
 
+6. **Cleanup Operations**: With the `window_handler` function, the library ensures that resources are correctly released upon application exit.
 
+## Camera Rotation around Selected Object
 
+One of the unique features of our ray-tracing library is the ability to rotate the camera around a selected object. This feature offers a more in-depth view of the object from different angles, enhancing scene visualization.
 
+### How it Works:
 
+1. **Object Selection**:
+  - The first step involves selecting an object. This is achieved through the `mouse_select` function which, when a mouse click is detected on an object, sets it as the currently selected object.
+  - The selected object is then highlighted, indicating it's ready for camera rotation.
 
+2. **Camera Rotation Activation**:
+  - With an object selected, the user can initiate camera rotation mode using specific key bindings. The `camera_rotation_mode` function is responsible for activating this mode.
 
+3. **Rotation Execution**:
+  - During rotation, the camera moves in an orbit around the selected object, maintaining a consistent distance from it.
+  - The library ensures the camera's focus remains on the object, giving a revolving view of the object.
+  - The functions `cam_rotation` and `cam_translate` assist in adjusting the camera's position and orientation during this rotation.
 
+4. **Exit Rotation Mode**:
+  - Once the desired view is achieved, users can exit the camera rotation mode and return to the standard camera view or switch to other modes.
 
+### Benefits:
+
+- **Enhanced Visualization**: This feature allows users to gain a 360-degree perspective of an object, useful for understanding its geometry and visual attributes from all angles.
+
+- **Intuitive Interactions**: Rotating the camera around an object is a more natural way to explore the scene, especially for intricate objects or when meticulous details need to be observed.
