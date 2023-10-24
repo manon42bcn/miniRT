@@ -23,6 +23,7 @@ typedef void			(*t_hook)(t_mrt *, int);
 # define LEFT_CLICK 2
 # define RAD_ANGLE 0.0174533
 
+typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 enum e_fig
 {
 	CLOSE_OBJ=-1,
@@ -58,6 +59,7 @@ typedef struct s_cmr
 	double			fov;
 	double			orbit;
 	double			ratio;
+	double			angle_new[3];
 	double			angle;
 	t_obj			*close_obj;
 	void			*img_ptr;
@@ -74,7 +76,6 @@ typedef struct s_light
 	double			bright;
 	t_rgb			color;
 	double			angle;
-	t_bool			selected;
 	struct s_light	*next;
 }					t_light;
 
@@ -144,6 +145,7 @@ typedef struct s_mrt
 	int			mode;
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
+	t_solver	(*get_solver)(int);
 }					t_mrt;
 
 typedef	struct s_thr

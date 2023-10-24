@@ -50,7 +50,7 @@ int	light_mode(t_mrt *mrt)
  *
  * This function allows the user to move the selected light source in the 3D
  * space along the x, y, and z axes. The magnitude of the translation is set
- * to 0.1 units It only works when the mode is in SELECTION.
+ * to 0.5 units It only works when the mode is in TO_LIGHT.
  *
  * Key Options:
  * - K_UP: Move the light upwards in the y direction.
@@ -76,18 +76,17 @@ static inline int	light_traslation(int key, t_mrt *mrt)
 
 	node = mrt->scn.sel_light;
 	if (key == K_UP)
-		node->origin.y += 0.1f;
+		node->origin.y += 0.5f;
 	if (key == K_DOWN)
-		node->origin.y -= 0.1f;
+		node->origin.y -= 0.5f;
 	if (key == K_LEFT)
-		node->origin.x -= 0.1f;
+		node->origin.x += 0.5f;
 	if (key == K_RIGHT)
-		node->origin.x += 0.1f;
+		node->origin.x += 0.5f;
 	if (key == K_PLUS)
-		node->origin.z += 0.1f;
+		node->origin.z += 0.5f;
 	if (key == K_MINUS)
-		node->origin.z -= 0.1f;
-	mrt->to_img = TO_RENDER;
+		node->origin.z -= 0.5f;
 	return (TRUE);
 }
 
@@ -100,7 +99,8 @@ static inline int	light_traslation(int key, t_mrt *mrt)
  * Each key press adjusts the brightness by a magnitude of 0.1 units.
  *
  * Key Options:
- * - K_B: Increase the brightness of the light by 0.1.
+ * - K_B: Increase the brightness of the light by 0.1, ensuring it doesn't
+ * 		  go up 1.
  * - K_V: Decrease the brightness of the light by 0.1, ensuring it doesn't
  * 		  go below 0.
  *
@@ -109,41 +109,60 @@ static inline int	light_traslation(int key, t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure, holding information
  * about the scene.
  *
- * @return int Returns TRUE after adjusting the brightness.
+ * @return int Returns TRUE after adjusting the brightness, otherwise FALSE.
  */
 static inline int	light_bright(int key, t_mrt *mrt)
 {
 	t_light	*light;
 
 	light = mrt->scn.sel_light;
-	if (key == K_B)
+	if (key == K_B && light->bright + 0.1 < 1)
+	{
 		light->bright += 0.1f;
+		return (TRUE);
+	}
 	if (key == K_V && light->bright - 0.1f > 0)
+	{
 		light->bright -= 0.1f;
-	return (TRUE);
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
 /**
- * @brief Handles changes to the behavior of the currently selected light source.
+ * @brief Handles user interactions related to modifying the properties
+ * of a selected light source.
  *
- * Depending on the key pressed, this function adjusts the position or brightness
- * of the selected light source. If no light source is currently selected, the
- * function returns immediately.
+ * When a specific light is selected, this function processes user input
+ * (key presses) to adjust the properties of the selected light source.
+ * Depending on the key pressed, the function either translates the position
+ * of the light or adjusts its brightness.
+ *
+ * Keys `K_MINUS`, `K_PLUS`, `K_LEFT`, `K_RIGHT`, `K_UP`, and `K_DOWN`
+ * are reserved for translations.
+ * Keys `K_B` and `K_V` are reserved for adjusting brightness.
  *
  * @param key An integer representing the key pressed by the user.
- * @param mrt Pointer to the main ray-tracing structure, holding information
- * about the scene and selected elements.
+ * @param mrt Pointer to the main ray-tracing structure, which contains
+ * details about the scene and selected light.
  *
- * @return int Returns TRUE if any changes were made to the light's behavior;
- * otherwise returns FALSE.
+ * @return int Returns TRUE if a valid modification action was performed,
+ * FALSE otherwise.
  */
 int	light_behaviour(int key, t_mrt *mrt)
 {
 	if (mrt->scn.sel_light == NULL)
 		return (FALSE);
 	if (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP))
-		return (light_traslation(key, mrt));
+	{
+		if (!light_traslation(key, mrt))
+			return (FALSE);
+	}
 	if (key == K_B || key == K_V)
-		return (light_bright(key, mrt));
-	return (FALSE);
+	{
+		if (!light_bright(key, mrt))
+			return (FALSE);
+	}
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
 }

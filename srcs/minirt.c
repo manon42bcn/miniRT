@@ -63,6 +63,8 @@ static inline void	after_parse_process(t_mrt *mrt)
 	node = mrt->cmr;
 	if (mrt->scn.res_init == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
+	mrt->scn.w_x /= 3;
+	mrt->scn.w_y /= 3;
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 	while (node)
 	{
@@ -71,6 +73,7 @@ static inline void	after_parse_process(t_mrt *mrt)
 	}
 	mrt->clean_window = &mlx_clear_window;
 	mrt->clean_image = &mlx_destroy_image;
+	mrt->get_solver = &get_solver;
 	mrt->window = FALSE;
 	load_hooks(mrt);
 	mlx_starter(mrt);
@@ -84,88 +87,6 @@ void	map_obj(t_obj *obj)
 		printf("%d type %p pointer\n", obj->type, obj);
 		obj = obj->next;
 	}
-}
-
-int	cam_rotation(int key, t_mrt *mrt)
-{
-	t_cmr	*cmr;
-
-	cmr = mrt->cmr;
-	if (key == K_UP)
-		cmr->position.y += 0.1f;
-	if (key == K_DOWN)
-		cmr->position.y -= 0.1f;
-	if (key == K_LEFT)
-		cmr->position.x -= 0.1f;
-	if (key == K_RIGHT)
-		cmr->position.x += 0.1f;
-	if (key == K_PLUS)
-		cmr->position.z += 0.1f;
-	if (key == K_MINUS)
-		cmr->position.z -= 0.1f;
-	printVector(&cmr->dir);
-	mrt->to_img = TO_RENDER;
-	return (TRUE);
-}
-
-int	key_modes(int key, t_mrt *mrt)
-{
-	if (mrt->mode == TO_TRANSLATE
-		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
-		return (object_traslation(key, mrt));
-	if (mrt->mode == TO_ROTATE
-		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
-		return (object_rotation(key, mrt));
-	if (mrt->mode == TO_WIDTH
-		&& (key == K_MINUS || key == K_PLUS))
-		return (object_width(key, mrt));
-	if (mrt->mode == TO_HEIGHT
-		&& (key == K_MINUS || key == K_PLUS))
-		return (object_height(key, mrt));
-	if (mrt->mode == TO_CAMERA
-		&& (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP)))
-		return (cam_rotation(key, mrt));
-	if (mrt->mode == TO_LIGHT
-		&& (key == K_B || key == K_V || key == K_MINUS || key == K_PLUS
-			|| (key >= K_LEFT && key <= K_UP)))
-		return (light_behaviour(key, mrt));
-	return (FALSE);
-}
-
-int	camera_mode(t_mrt *mrt)
-{
-	if (mrt->mode == TO_CAMERA)
-		return (normal_mode(mrt));
-	if (mrt->mode != NORMAL)
-		return (FALSE);
-	mrt->mode = TO_CAMERA;
-	ft_putstr_fd("[CAMERA ROTATION MODE ACTIVATE]\n", STDOUT_FILENO);
-	return (TRUE);
-}
-
-int	key_behaviour(int key, t_mrt *mrt)
-{
-	if (mrt->mode != NORMAL
-		&& ((key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP))
-			|| key == K_B || key == K_V))
-		return (key_modes(key, mrt));
-	if (key == K_Q)
-		return (normal_mode(mrt));
-	if (key == K_S)
-		return (selection_mode(mrt));
-	if (key == K_T)
-		return (translate_mode(mrt));
-	if (key == K_R)
-		return (rotation_mode(mrt));
-	if (key == K_D)
-		return (width_mode(mrt));
-	if (key == K_H)
-		return (height_mode(mrt));
-	if (key == K_C)
-		return (camera_mode(mrt));
-	if (key == K_L)
-		return (light_mode(mrt));
-	return (FALSE);
 }
 
 /**
@@ -194,7 +115,7 @@ int	main(int argc, char const *argv[])
 	map_obj(mrt->obj);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
 			mrt->scn.w_y, "miniRT");
-	mlx_key_hook(mrt->mlx_win, key_behaviour, mrt);
+	mlx_key_hook(mrt->mlx_win, key_main, mrt);
 	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
 	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_select, mrt);
 	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_select, mrt);

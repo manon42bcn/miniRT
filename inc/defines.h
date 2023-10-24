@@ -27,7 +27,7 @@ typedef enum e_local_pix
 # define TO_HEIGHT		5
 # define TO_CAMERA		6
 # define TO_LIGHT		7
-# define LIGHT_MOVE		8
+# define TO_EYE			8
 
 // KEY DEFINITIONS
 # define NO_HOOK		0
@@ -61,19 +61,13 @@ typedef enum e_local_pix
 # define K_PLUS			69
 # define K_B			11
 # define K_V			9
-# define K_1			18
-# define K_2			19
-# define K_3			20
-# define K_4			21
-# define K_5			23
-# define K_6			22
-# define K_7			26
-# define K_8			28
-# define K_9			25
 
 # define EPSILON 0.00001
 # define SQRT2_2 0.7071067811865476
 # define RAD_ANGLE 0.0174533
+# define PI_2 6.283185
+# define COS_ANGLE 0.999939
+# define SIN_ANGLE 0.0174533
 # define TO_RENDER 0
 # define RENDERED 1
 # define RIGHT_CLICK 1
