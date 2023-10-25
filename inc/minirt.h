@@ -27,6 +27,8 @@
 # include <math.h>
 # include <stdio.h>
 
+# define THREADS	10
+
 typedef struct		s_pix
 {
 	int		limit;
@@ -62,36 +64,17 @@ double		specular_transform(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj);
 t_rgb		calc_ray(int n, t_pix pix, t_mrt *mrt);
 t_rgb		tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth);
 //Render
+t_rgb		*create_edges_new(int size);
 void		render_main(t_mrt *mrt);
 void		mlx_starter(t_mrt *mrt);
 int			to_win(t_mrt *mrt);
 //Sampler
-int			*sample_pixel(int *edges, int sides[2], t_pix pix, t_mrt *mrt);
+int			*sample_pixel(int *edges, int sides[2], t_pix pix, t_info *dta);
 t_rgb		supersample(int *color, t_pix pix, t_mrt *mrt);
 // utl
 void		msg_instructions(void);
 void		msg_error_exit(char *message);
-// hooks - handlers
-//int			key_main(int key, t_mrt *mrt);
-//int			mouse_select(int mouse_code, int x, int y, t_mrt *mrt);
-//int			normal_light(t_mrt *mrt);
-//int			normal_object(t_mrt *mrt);
-//int			normal_mode(t_mrt *mrt);
-//int			selection_mode(t_mrt *mrt);
-//int			translate_mode(t_mrt *mrt);
-//int			rotation_mode(t_mrt *mrt);
-//int			camera_translate_mode(t_mrt *mrt);
-//int			camera_rotation_mode(t_mrt *mrt);
-//int			width_mode(t_mrt *mrt);
-//int			height_mode(t_mrt *mrt);
-//int			light_mode(t_mrt *mrt);
-//int			light_behaviour(int key, t_mrt *mrt);
-//int			cam_rotation(int key, t_mrt *mrt);
-//int			cam_translate(int key, t_mrt *mrt);
-//int			object_traslation(int key_dir, t_mrt *mrt);
-//int			object_rotation(int key, t_mrt *mrt);
-//int			object_width(int key, t_mrt *mrt);
-//int			object_height(int key, t_mrt *mrt);
+
 # ifdef BONUS
 //Texture
 void		texturize(int texture, t_inter *inter, t_obj *obj);

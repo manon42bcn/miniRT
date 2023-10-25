@@ -123,8 +123,10 @@ int	translate_mode(t_mrt *mrt)
  */
 int	selection_mode(t_mrt *mrt)
 {
-	if (mrt->mode != NORMAL)
+	if (mrt->mode > TO_CAMERA)
 		return (FALSE);
+	if (mrt->mode > NORMAL && mrt->mode <= TO_CAMERA)
+		return (normal_mode(mrt));
 	mrt->mode = TO_SELECT;
 	ft_putstr_fd("[SELECTION MODE ACTIVATE]\n", STDOUT_FILENO);
 	return (TRUE);

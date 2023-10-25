@@ -156,12 +156,14 @@ typedef struct s_mrt
 	t_solver	(*get_solver)(int);
 }					t_mrt;
 
-typedef	struct s_thr
+typedef	struct s_info
 {
 	t_mrt	*mrt;
+	t_pixel	x;
+	t_pixel	y;
 	t_pixel	start_y;
 	t_pixel	end_y;
-}				t_thr;
+}				t_info;
 
 #endif
 

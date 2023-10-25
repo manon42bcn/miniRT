@@ -13,31 +13,32 @@
 #include "minirt.h"
 
 /**
- * @brief Calculate RGB values for the first pixel in the rendering scene.
+ * @brief Calculate the color for the first pixel in a row.
  *
- * This function determines the color of a pixel that is in the first column
- * of the rendered scene. It takes into consideration the RGB values of adjacent
- * pixels and utilizes ray tracing to compute the final color.
+ * This function specifically determines the color for the first pixel in a row
+ * by computing the ray color from multiple points around the pixel and
+ * returning an array of colors.
  *
- * @param edges Pointer to an array representing the edges' RGB values.
- * @param sides Array of RGB values representing the sides of the pixel.
- * @param pix Structure containing information about the current pixel.
- * @param mrt Pointer to the main rendering structure containing scene and
- * camera details.
- * @return Pointer to an array of RGB values representing the pixel's color.
+ * @param edges Array representing color values of edges.
+ * @param sides Array representing color values of the sides.
+ * @param pix The pixel coordinates.
+ * @param dta A pointer to a data structure containing context-specific
+ * information.
+ * @return t_rgb* Returns a pointer to an array of RGB values representing the
+ * colors for the first pixel.
  */
 static inline t_rgb	*first_pixel(int *edges, int sides[2],
-						t_pix pix, t_mrt *mrt)
+						t_pix pix, t_info *dta)
 {
 	int		*color;
 
 	color = (int *)ft_sec_calloc(sizeof(int) * 4);
-	if (mrt->y == mrt->scn.w_y)
+	if (dta->y == dta->end_y)
 	{
-		color[0] = calc_ray(0, pix, mrt);
-		color[1] = calc_ray(2, pix, mrt);
-		color[2] = calc_ray(6, pix, mrt);
-		color[3] = calc_ray(8, pix, mrt);
+		color[0] = calc_ray(0, pix, dta->mrt);
+		color[1] = calc_ray(2, pix, dta->mrt);
+		color[2] = calc_ray(6, pix, dta->mrt);
+		color[3] = calc_ray(8, pix, dta->mrt);
 		sides[0] = color[3];
 		sides[1] = color[1];
 		edges[0] = color[2];
@@ -46,8 +47,8 @@ static inline t_rgb	*first_pixel(int *edges, int sides[2],
 	{
 		color[0] = edges[0];
 		color[1] = edges[1];
-		color[2] = calc_ray(6, pix, mrt);
-		color[3] = calc_ray(8, pix, mrt);
+		color[2] = calc_ray(6, pix, dta->mrt);
+		color[3] = calc_ray(8, pix, dta->mrt);
 		sides[0] = color[3];
 		edges[0] = color[2];
 	}
@@ -55,118 +56,113 @@ static inline t_rgb	*first_pixel(int *edges, int sides[2],
 }
 
 /**
- * @brief Calculate RGB values for a pixel located on the sides of the
- * rendering scene.
+ * @brief Calculate the color for the side pixels.
  *
- * This function determines the color of a pixel that's located on either
- * the left or right boundaries of the rendered scene.
- * It computes the pixel's color by considering the RGB values of its
- * adjacent pixels and performing ray tracing for certain color
- * components.
+ * This function computes the color for the side pixels by taking the
+ * current state of the pixel and the scene context into consideration.
  *
- * @param edges Pointer to an array representing the edges' RGB values.
- * @param sides Array of RGB values representing the sides of the pixel.
- * @param pix Structure containing information about the current pixel.
- * @param mrt Pointer to the main rendering structure containing scene
- * and camera details.
- * @return Pointer to an array of RGB values representing the pixel's color.
+ * @param edges Array representing color values of edges.
+ * @param sides Array representing color values of the sides.
+ * @param pix The pixel coordinates.
+ * @param dta A pointer to a data structure containing context-specific
+ * information.
+ * @return t_rgb* Returns a pointer to an array of RGB values representing
+ * the colors for the side pixels.
  */
 static inline t_rgb	*sides_pixel(int *edges, int sides[2],
-														t_pix pix, t_mrt *mrt)
+														t_pix pix, t_info *dta)
 {
 	int		*color;
 
 	color = (int *)ft_sec_calloc(sizeof(int) * 4);
-	if (mrt->y == mrt->scn.w_y)
+	if (dta->y == dta->end_y)
 	{
 		color[0] = sides[1];
-		color[1] = calc_ray(2, pix, mrt);
+		color[1] = calc_ray(2, pix, dta->mrt);
 		color[2] = sides[0];
-		color[3] = calc_ray(8, pix, mrt);
-		edges[mrt->x] = color[2];
-		edges[mrt->x + 1] = color[3];
+		color[3] = calc_ray(8, pix, dta->mrt);
+		edges[dta->x] = color[2];
+		edges[dta->x + 1] = color[3];
 	}
 	else
 	{
-		color[0] = edges[mrt->x];
-		color[1] = edges[mrt->x + 1];
+		color[0] = edges[dta->x];
+		color[1] = edges[dta->x + 1];
 		color[2] = sides[0];
-		color[3] = calc_ray(3, pix, mrt);
-		edges[mrt->x] = color[2];
-		edges[mrt->x + 1] = color[3];
+		color[3] = calc_ray(3, pix, dta->mrt);
+		edges[dta->x] = color[2];
+		edges[dta->x + 1] = color[3];
 	}
 	return (color);
 }
 
 /**
- * @brief Calculate RGB values for a pixel located within the central
- * region of the rendering scene.
+ * @brief Calculate the color for the central pixels.
  *
- * This function determines the color of a pixel that's not located on the
- * boundaries of the rendered scene. The color computation for such a pixel
- * relies on the RGB values of its surrounding pixels as well as the result
- * of a ray tracing operation. The function considers pixels that are within
- * the main portion of the scene, excluding the outermost boundaries.
+ * This function computes the color for the pixels that are not on the
+ * edges or sides by using the ray tracing method and considering the
+ * surrounding pixel colors.
  *
- * @param edges Pointer to an array representing the edges' RGB values.
- * @param sides Array of RGB values representing the sides of the pixel.
- * @param pix Structure containing information about the current pixel.
- * @param mrt Pointer to the main rendering structure containing scene and
- * camera details.
- * @return Pointer to an array of RGB values representing the pixel's color.
+ * @param edges Array representing color values of edges.
+ * @param sides Array representing color values of the sides.
+ * @param pix The pixel coordinates.
+ * @param dta A pointer to a data structure containing context-specific
+ * information.
+ * @return t_rgb* Returns a pointer to an array of RGB values representing
+ * the colors for the central pixels.
  */
 static inline t_rgb	*centre_pixel(int *edges, int sides[2],
-														t_pix pix, t_mrt *mrt)
+														t_pix pix, t_info *dta)
 {
 	int		*color;
 
 	color = (int *)ft_sec_calloc(sizeof(int) * 4);
-	if (mrt->y == mrt->scn.w_y)
+	if (dta->y == dta->end_y)
 	{
 		color[0] = sides[1];
-		color[1] = calc_ray(2, pix, mrt);
+		color[1] = calc_ray(2, pix, dta->mrt);
 		color[2] = sides[0];
-		color[3] = calc_ray(8, pix, mrt);
+		color[3] = calc_ray(8, pix, dta->mrt);
 		sides[0] = color[3];
 		sides[1] = color[1];
-		edges[mrt->x] = color[2];
+		edges[dta->x] = color[2];
 	}
 	else
 	{
-		color[0] = edges[mrt->x];
-		color[1] = edges[mrt->x + 1];
+		color[0] = edges[dta->x];
+		color[1] = edges[dta->x + 1];
 		color[2] = sides[0];
-		color[3] = calc_ray(4, pix, mrt);
+		color[3] = calc_ray(4, pix, dta->mrt);
 		sides[0] = color[3];
-		edges[mrt->x] = color[2];
+		edges[dta->x] = color[2];
 	}
 	return (color);
 }
 
 /**
- * @brief Sample a pixel's color based on its position in the scene.
+ * @brief Sample the color of a pixel.
  *
- * Depending on the pixel's x-coordinate, this function determines its color by
- * invoking an appropriate method to handle edge pixels (first or last column)
- * or center pixels.
+ * Based on the position of the pixel (whether it's a first pixel,
+ * side pixel, or a central pixel),
+ * the appropriate color sampling function is chosen to compute the color.
  *
- * @param edges Pointer to an array representing the edges' RGB values.
- * @param sides Array of RGB values representing the sides.
- * @param pix Structure containing information about the current pixel.
- * @param mrt Pointer to the main rendering structure containing scene and
- * camera details.
- * @return Pointer to an array of RGB values representing the sampled
- * pixel color.
+ * @param edges Array representing color values of edges.
+ * @param sides Array representing color values of the sides.
+ * @param pix The pixel coordinates.
+ * @param dta A pointer to a data structure containing context-specific
+ * information.
+ * @return int* Returns a pointer to an array of RGB values representing
+ * the colors for the sampled pixel.
  */
-int	*sample_pixel(int *edges, int sides[2], t_pix pix, t_mrt *mrt)
+int	*sample_pixel(int *edges, int sides[2], t_pix pix, t_info *dta)
 {
 	int		*color;
 
-	if (mrt->x == 0)
-		color = first_pixel(edges, sides, pix, mrt);
-	else if (mrt->x == mrt->scn.w_x - 1)
-		color = sides_pixel(edges, sides, pix, mrt);
+	if (dta->x == 0)
+		color = first_pixel(edges, sides, pix, dta);
+	else if (dta->x == dta->mrt->scn.w_x - 1)
+		color = sides_pixel(edges, sides, pix, dta);
 	else
-		color = centre_pixel(edges, sides, pix, mrt);
+		color = centre_pixel(edges, sides, pix, dta);
 	return (color);
 }

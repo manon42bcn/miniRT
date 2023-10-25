@@ -23,6 +23,16 @@
 # include "../../parser/inc/parse.h"
 # include "../../../mlx/mlx.h"
 
+# define NORMAL			0
+# define TO_SELECT		1
+# define TO_TRANSLATE	2
+# define TO_ROTATE		3
+# define TO_WIDTH		4
+# define TO_HEIGHT		5
+# define TO_CAMERA		6
+# define TO_LIGHT		7
+# define TO_EYE			8
+
 int			key_main(int key, t_mrt *mrt);
 int			mouse_select(int mouse_code, int x, int y, t_mrt *mrt);
 int			normal_light(t_mrt *mrt);

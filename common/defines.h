@@ -19,16 +19,6 @@ typedef enum e_local_pix
 	E_V=1
 }			t_local_pix;
 
-# define NORMAL			0
-# define TO_SELECT		1
-# define TO_TRANSLATE	2
-# define TO_ROTATE		3
-# define TO_WIDTH		4
-# define TO_HEIGHT		5
-# define TO_CAMERA		6
-# define TO_LIGHT		7
-# define TO_EYE			8
-
 // KEY DEFINITIONS
 # define NO_HOOK		0
 # define K_D			2
