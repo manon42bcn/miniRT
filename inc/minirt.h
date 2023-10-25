@@ -36,6 +36,7 @@ typedef struct		s_pix
 	int		w_y;
 	int		x;
 	int		y;
+	int 	max_y;
 }					t_pix;
 
 typedef struct		s_inter

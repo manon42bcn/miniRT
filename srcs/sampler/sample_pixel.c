@@ -33,7 +33,7 @@ static inline t_rgb	*first_pixel(int *edges, int sides[2],
 	int		*color;
 
 	color = (int *)ft_sec_calloc(sizeof(int) * 4);
-	if (dta->y == dta->end_y)
+	if (dta->y == dta->mrt->scn.w_y)
 	{
 		color[0] = calc_ray(0, pix, dta->mrt);
 		color[1] = calc_ray(2, pix, dta->mrt);
@@ -75,7 +75,7 @@ static inline t_rgb	*sides_pixel(int *edges, int sides[2],
 	int		*color;
 
 	color = (int *)ft_sec_calloc(sizeof(int) * 4);
-	if (dta->y == dta->end_y)
+	if (dta->y == dta->mrt->scn.w_y)
 	{
 		color[0] = sides[1];
 		color[1] = calc_ray(2, pix, dta->mrt);
@@ -117,7 +117,7 @@ static inline t_rgb	*centre_pixel(int *edges, int sides[2],
 	int		*color;
 
 	color = (int *)ft_sec_calloc(sizeof(int) * 4);
-	if (dta->y == dta->end_y)
+	if (dta->y == dta->mrt->scn.w_y)
 	{
 		color[0] = sides[1];
 		color[1] = calc_ray(2, pix, dta->mrt);

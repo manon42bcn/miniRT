@@ -34,6 +34,7 @@ static inline t_rgb	calc_pixel_color(int *edges, t_rgb sides[2], t_info *dta)
 	pix.limit = 3;
 	pix.w_x = dta->mrt->scn.w_x;
 	pix.w_y = dta->mrt->scn.w_y;
+	pix.max_y = dta->end_y;
 	pix.x = dta->x;
 	pix.y = dta->y;
 	color = sample_pixel(edges, sides, pix, dta);
@@ -102,16 +103,17 @@ void	render_cam(t_mrt *mrt, int band_height)
 	int			thr;
 
 	thr = -1;
-	ft_memset(&data, 0, sizeof(t_info) * THREADS);
+
 	while (++thr < THREADS)
 	{
+		ft_memset(&data[thr], 0, sizeof(t_info));
+		ft_memset(&thread[thr], 0, sizeof(pthread_t));
 		data[thr].mrt = mrt;
-		data[thr].start_y = thr * band_height;
+		data[thr].y = thr * band_height;
 		if (thr == THREADS - 1)
 			data[thr].end_y = mrt->scn.w_y;
 		else
-			data[thr].end_y = data[thr].start_y + band_height;
-		data[thr].y = data[thr].start_y;
+			data[thr].end_y = data[thr].y + band_height;
 		if (pthread_create(&thread[thr], NULL, render_scene, &data[thr]) != 0)
 			msg_error_exit("Tread creation error");
 	}
@@ -122,7 +124,7 @@ void	render_cam(t_mrt *mrt, int band_height)
 
 /**
  * @brief Renders the main scene using all cameras available.
- *
+ * -BONUS VERSION-
  * Iterates through each camera in the scene, calling the multi-threaded
  * render function to generate the scene's perspective for that particular
  * camera. Once all cameras have rendered their views, the primary camera
@@ -133,16 +135,13 @@ void	render_cam(t_mrt *mrt, int band_height)
  */
 void	render_main(t_mrt *mrt)
 {
-	t_info	info;
+	int	band;
 
-	info.mrt = mrt;
-	info.start_y = 0;
-	info.end_y = mrt->scn.w_y;
-	info.x = 0;
-	info.y = 0;
+	band = mrt->scn.w_y / THREADS;
+	printf("%d band\n", band);
 	while (mrt->cmr)
 	{
-		render_cam(mrt, mrt->scn.w_y / THREADS);
+		render_cam(mrt, band);
 		mrt->cmr = mrt->cmr->next;
 	}
 	mrt->cmr = mrt->main_cam;

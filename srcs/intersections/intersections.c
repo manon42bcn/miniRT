@@ -48,16 +48,18 @@ void	try_all_intersections(t_ray ray, t_obj *obj,
 {
 	double		dist;
 	t_solver	solve;
+	t_obj		*node;
 
-	while (obj)
+	node = obj;
+	while (node)
 	{
-		solve = get_solver(obj->type);
-		dist = solve(ray.from, ray.to, obj);
+		solve = get_solver(node->type);
+		dist = solve(ray.from, ray.to, node);
 		if (dist > EPSILON && dist < *closest_intersection)
 		{
-			*closest_figure = *obj;
+			*closest_figure = *node;
 			*closest_intersection = dist;
 		}
-		obj = obj->next;
+		node = node->next;
 	}
 }
