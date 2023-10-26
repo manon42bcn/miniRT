@@ -71,10 +71,10 @@ static inline double	bounds(t_v3d origin, t_v3d dir,
 
 	pnt = ft_plus_v3d(origin, ft_scalar_v3d(t, dir));
 	vec_vertex = ft_minus_v3d(pnt, cone->elm.con.centre);
-	d_p = ft_dot_v3d(vec_vertex, cone->normal);
+	d_p = ft_dot_v3d(vec_vertex, cone->elm.con.dir);
 	if (d_p < 0)
 		return (INFINITY);
-	height_axs = ft_dot_v3d(vec_vertex, cone->normal);
+	height_axs = ft_dot_v3d(vec_vertex, cone->elm.con.dir);
 	if (height_axs < 0 || height_axs > cone->elm.con.height)
 		return (INFINITY);
 	return (t);

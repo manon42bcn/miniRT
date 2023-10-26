@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/20 08:42:41 by mgarcia-          #+#    #+#             */
+/*   Created: 2020/01/20 08:42:41 by mporras-          #+#    #+#             */
 /*   Updated: 2023/06/26 00:25:09 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -27,7 +27,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define THREADS	10
+# define THREADS	3
 
 typedef struct		s_pix
 {

@@ -62,7 +62,7 @@ double	triangle_solver(t_v3d origin, t_v3d dir, t_obj *trg)
 	double	inter_dist;
 	t_v3d	inter_point;
 
-	inter_dist = plane_hit(origin, dir, trg->elm.trg.v1, trg->normal);
+	inter_dist = plane_hit(origin, dir, trg->elm.trg.v1, trg->elm.trg.dir);
 	inter_point = ft_plus_v3d(origin, ft_scalar_v3d(inter_dist, dir));
 	if (triangle_hit(trg->elm.trg.v1, trg->elm.trg.v2,
 			trg->elm.trg.v3, inter_point))

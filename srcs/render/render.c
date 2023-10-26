@@ -112,7 +112,6 @@ void	render_cam(t_mrt *mrt, int band)
 			data[thr].end_y = mrt->scn.w_y;
 		else
 			data[thr].end_y = (thr + 1) * band;
-		data[thr].thr = thr;
 		data[thr].max_y = thr * band;
 		if (pthread_create(&thread[thr], NULL, render_scene, &data[thr]) != 0)
 			msg_error_exit("Tread creation error");
