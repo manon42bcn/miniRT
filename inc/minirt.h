@@ -27,7 +27,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define THREADS	3
+# define THREADS	10
 
 typedef struct		s_pix
 {

@@ -163,8 +163,8 @@ void	render_main(t_mrt *mrt)
 	t_info	info;
 
 	info.mrt = mrt;
-	info.start_y = 0;
 	info.end_y = mrt->scn.w_y;
+	info.max_y = mrt->scn.w_y;
 	info.x = 0;
 	info.y = 0;
 	render_scene(&info);
