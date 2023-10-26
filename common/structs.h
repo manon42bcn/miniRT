@@ -159,10 +159,12 @@ typedef struct s_mrt
 typedef	struct s_info
 {
 	t_mrt	*mrt;
+	int		thr;
 	t_pixel	x;
 	t_pixel	y;
 	t_pixel	start_y;
 	t_pixel	end_y;
+	t_pixel	max_y;
 }				t_info;
 
 #endif

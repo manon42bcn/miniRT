@@ -96,24 +96,24 @@ static inline void	*render_scene(void *info)
  * @param band_height Height of the band (portion of the scene) each thread
  * is responsible for.
  */
-void	render_cam(t_mrt *mrt, int band_height)
+void	render_cam(t_mrt *mrt, int band)
 {
 	pthread_t	thread[THREADS];
 	t_info		data[THREADS];
 	int			thr;
 
 	thr = -1;
-
+	ft_memset(&thread, 0, sizeof(pthread_t) * THREADS);
 	while (++thr < THREADS)
 	{
-		ft_memset(&data[thr], 0, sizeof(t_info));
-		ft_memset(&thread[thr], 0, sizeof(pthread_t));
 		data[thr].mrt = mrt;
-		data[thr].y = thr * band_height;
+		data[thr].y = thr * band;
 		if (thr == THREADS - 1)
 			data[thr].end_y = mrt->scn.w_y;
 		else
-			data[thr].end_y = data[thr].y + band_height;
+			data[thr].end_y = (thr + 1) * band;
+		data[thr].thr = thr;
+		data[thr].max_y = thr * band;
 		if (pthread_create(&thread[thr], NULL, render_scene, &data[thr]) != 0)
 			msg_error_exit("Tread creation error");
 	}
@@ -138,7 +138,6 @@ void	render_main(t_mrt *mrt)
 	int	band;
 
 	band = mrt->scn.w_y / THREADS;
-	printf("%d band\n", band);
 	while (mrt->cmr)
 	{
 		render_cam(mrt, band);
