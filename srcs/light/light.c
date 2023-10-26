@@ -53,12 +53,12 @@ static inline void	brightness(double (*rgb)[3], double coef, int color)
 {
 	unsigned int	mask;
 
-	mask = RGB_MASK << 16;
-	(*rgb)[0] += coef * ((color & mask) >> 16) / RGB_MASK;
+	mask = 255 << 16;
+	(*rgb)[0] += coef * ((color & mask) >> 16) / 255;
 	mask >>= 8;
-	(*rgb)[1] += coef * ((color & mask) >> 8) / RGB_MASK;
+	(*rgb)[1] += coef * ((color & mask) >> 8) / 255;
 	mask >>= 8;
-	(*rgb)[2] += coef * (color & mask) / RGB_MASK;
+	(*rgb)[2] += coef * (color & mask) / 255;
 }
 
 double	specular_transform(t_ray ray, t_inter *inter, t_light *scn_light, t_obj *obj)

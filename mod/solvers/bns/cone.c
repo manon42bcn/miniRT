@@ -36,7 +36,8 @@ t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_obj *obj)
 
 	(void)dir;
 	v_apex = ft_minus_v3d(hit, obj->elm.con.centre);
-	parallel = ft_scalar_v3d(ft_dot_v3d(v_apex, obj->normal), obj->normal);
+	parallel = ft_scalar_v3d(ft_dot_v3d(v_apex, obj->elm.con.dir),
+			obj->elm.con.dir);
 	normal = ft_minus_v3d(v_apex, ft_scalar_v3d(1 + obj->elm.con.alpha
 				* obj->elm.con.alpha, parallel));
 	normal = ft_normal_v3d(normal);

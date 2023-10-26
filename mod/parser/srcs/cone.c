@@ -47,8 +47,6 @@ void	inp_cone(t_mrt *mrt)
 	if (!check_range(mrt->obj->elm.con.height, 0, INFINITY))
 		msg_error_parsing("Cone height out of range", mrt);
 	get_common(mrt, CON_HEIGHT, "Cone");
-	mrt->obj->normal = ft_copy_v3d(&mrt->obj->elm.con.dir);
-	mrt->obj->position = ft_copy_v3d(&mrt->obj->elm.con.centre);
 	mrt->obj->elm.con.alpha = diam / (2.0f * mrt->obj->elm.con.height);
 }
 

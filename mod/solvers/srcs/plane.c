@@ -47,5 +47,5 @@ double	plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
  */
 double	plane_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 {
-	return (plane_hit(origin, dir, obj->elm.pl.centre, obj->normal));
+	return (plane_hit(origin, dir, obj->elm.pl.centre, obj->elm.pl.orient));
 }

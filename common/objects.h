@@ -55,6 +55,7 @@ typedef struct s_cylinder
 
 typedef struct s_triangle
 {
+	t_v3d	dir;
 	t_v3d	v1;
 	t_v3d	v2;
 	t_v3d	v3;

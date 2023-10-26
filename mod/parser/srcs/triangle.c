@@ -36,7 +36,7 @@ void	inp_triangle(t_mrt *mrt)
 	mrt->obj->elm.trg.v3 = get_v3d(mrt, mrt->tab[TRG_VERTEX_3],
 			V3D_COOR);
 	get_common(mrt, TRG_VERTEX_3, "Triangle");
-	mrt->obj->normal = ft_cross_v3d(
+	mrt->obj->elm.trg.dir = ft_cross_v3d(
 			ft_minus_v3d(mrt->obj->elm.trg.v3, mrt->obj->elm.trg.v1),
 			ft_minus_v3d(mrt->obj->elm.trg.v2, mrt->obj->elm.trg.v1));
 }

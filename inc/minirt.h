@@ -77,6 +77,6 @@ void		msg_error_exit(char *message);
 # ifdef BONUS
 //Texture
 void		texturize(int texture, t_inter *inter, t_obj *obj);
-t_rgb		bump_texture(t_v3d hit, t_obj *obj);
+t_rgb		bump_texture(t_v3d hit, t_obj *obj, t_mrt *mrt);
 # endif
 #endif

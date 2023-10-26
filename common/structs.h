@@ -95,7 +95,7 @@ typedef struct s_scene
 	t_light			*light;
 	t_light			*sel_light;
 	double			bright;
-	int				amb_rgb;
+	t_rgb			amb_rgb;
 	double			ratio;
 	t_rgb			bgr;
 }					t_scene;
@@ -108,7 +108,6 @@ typedef struct s_obj
 	t_rgb			color;
 	t_rgb			orig_color;
 	t_rgb			sel_color;
-	double			angle;
 	int				specular;
 	double			reflex;
 	double			refract;
