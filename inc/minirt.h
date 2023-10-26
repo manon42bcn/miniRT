@@ -9,7 +9,7 @@
 /*   Updated: 2023/06/26 00:25:09 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -52,15 +52,12 @@ typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 void		printVector(t_v3d *vector);
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 
-//double		cube_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-//double		cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
 void		try_all_intersections(t_ray ray, t_obj *obj,
 				t_obj *closest_figure, double *closest_intersection);
 t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
 //light
-void		hit_direction(t_v3d hitted, t_v3d dir, t_v3d *normal, t_obj *obj);
 void		light_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj);
-double		specular_transform(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj);
+double		specular_transform(t_ray ray, t_inter *inter, t_light *scn_light, t_obj *obj);
 //Rays
 t_rgb		calc_ray(int n, t_pix pix, t_mrt *mrt);
 t_rgb		tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth);
@@ -73,6 +70,7 @@ int			to_win(t_mrt *mrt);
 int			*sample_pixel(int *edges, int sides[2], t_pix pix, t_info *dta);
 t_rgb		supersample(int *color, t_pix pix, t_mrt *mrt);
 // utl
+void		after_parse_process(t_mrt *mrt);
 void		msg_instructions(void);
 void		msg_error_exit(char *message);
 

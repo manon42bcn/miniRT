@@ -15,7 +15,6 @@ HEAD_DIR		= 	inc
 SRC_DIR			= 	srcs
 OBJ_DIR			= 	objs
 OBJ_SUBS		= 	objs \
-					objs/handlers \
 					objs/utl \
 					objs/sampler \
 					objs/texture \
@@ -52,6 +51,7 @@ SRCS_FILES		= 	intersections/intersections.c \
 					render/mlx_hooks.c \
 					render/render.c \
 					utl/error_handling.c \
+					utl/after_parse_process.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \
