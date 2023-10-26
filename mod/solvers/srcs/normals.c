@@ -57,6 +57,8 @@ t_v3d	get_normal(t_obj *obj, t_v3d dir, t_v3d hit)
 		&cylinder_normal, &common_normal, &common_normal,
 		&box_normal, &common_normal, &cone_normal};
 
+	if (!obj)
+		return ((t_v3d){0, 0, 0});
 	return (normal[obj->type](dir, hit, obj));
 }
 

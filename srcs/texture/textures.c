@@ -113,21 +113,14 @@ static inline t_rgb	texture_rainbow(t_inter *inter)
 	return (((t_rgb)color[0] << 16) | ((t_rgb)color[1] << 8) | (t_rgb)color[2]);
 }
 
-/**
- * @brief Apply a specific texture to an intersection point based
- * on a texture ID.
- *
- * @param texture The ID of the texture to be applied.
- * @param inter Intersection information, which will be modified based
- * on the texture.
- * @param obj The object to which the texture will be applied.
- */
-void	texturize(int texture, t_inter *inter, t_obj *obj)
+void	texturize(t_inter *inter)
 {
-	if (texture == CHECKBOARD)
+	if (!inter->hitted)
+		return ;
+	if (inter->obj->texture == CHECKBOARD)
 		inter->color = texture_checkboard(inter);
-	else if (texture == WAVES)
-		inter->normal = texture_waves(inter, obj);
-	else if (texture == RAINBOW)
+	else if (inter->obj->texture == WAVES)
+		inter->normal = texture_waves(inter, inter->obj);
+	else if (inter->obj->texture == RAINBOW)
 		inter->color = texture_rainbow(inter);
 }

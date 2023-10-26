@@ -17,6 +17,15 @@ void	printVector(t_v3d *vector)
 	printf("[%f x %f y %f z]\n", vector->x, vector->y, vector->z);
 }
 
+void	objPnt(t_obj *obj)
+{
+	while (obj)
+	{
+		printf("%p\n", obj);
+		obj = obj->next;
+	}
+}
+
 /**
  * @brief The main entry point for the miniRT application.
  *
@@ -39,6 +48,7 @@ int	main(int argc, char const *argv[])
 		msg_error_exit("invalid argument\n");
 	mrt = readfile_parser(argv[1]);
 	after_parse_process(mrt);
+	objPnt(mrt->obj);
 	render_main(mrt);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
 			mrt->scn.w_y, "miniRT");

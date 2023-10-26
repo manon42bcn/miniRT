@@ -12,43 +12,24 @@
 
 #include "minirt.h"
 
-/**
- * @brief Resets the reflection and refraction properties of the closest
- * object if not a CLOSE_OBJ.
- *
- * @param closest Pointer to the closest object to the ray.
- */
-static inline void	clean_rgb_interactions(t_obj *closest)
+static inline void	get_hits(t_inter *inter, t_obj *obj, t_mrt *mrt)
 {
-	if (closest->type != CLOSE_OBJ)
-		return ;
-	closest->reflex = 0;
-	closest->refract = 0;
-}
-
-/**
- * @brief Computes the intersection point of a ray with all objects in the scene.
- *
- * Identifies the closest intersection point of a given ray with objects in the
- * scene.
- *
- * @param inter Struct containing information about the ray being cast.
- * @param obj Pointer to the list of objects in the scene.
- * @param closest Pointer to the closest intersected object.
- * @return A 3D vector representing the intersection point in world coordinates.
- */
-static inline t_v3d	get_hits(t_inter inter, t_obj *obj, t_obj *closest)
-{
-	double	close_dist;
-	t_v3d	origin;
-	t_v3d	dir;
-
-	close_dist = INFINITY;
-	origin = inter.ray.from;
-	dir = inter.ray.to;
-	closest->type = CLOSE_OBJ;
-	try_all_intersections(inter.ray, obj, closest, &close_dist);
-	return (ft_plus_v3d(origin, ft_scalar_v3d(close_dist, dir)));
+	get_inter(inter, obj);
+	if (inter->obj)
+	{
+		inter->hitted = TRUE;
+		inter->color = inter->obj->color;
+		inter->hit = ft_plus_v3d(inter->ray.from, ft_scalar_v3d(inter->dist, inter->ray.to));
+		inter->reflex = inter->obj->reflex;
+		inter->refract = inter->obj->refract;
+	}
+	else
+	{
+		inter->hitted = FALSE;
+		inter->color = mrt->scn.bgr;
+		inter->reflex = 0.0;
+		inter->refract = 0.0;
+	}
 }
 
 #ifdef BONUS
@@ -62,7 +43,7 @@ static inline t_v3d	get_hits(t_inter inter, t_obj *obj, t_obj *closest)
  * @param obj Object through which refraction occurs.
  * @return A 3D vector representing the refracted direction.
  */
-static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
+static inline t_v3d	refraction(t_inter inter, t_obj *obj)
 {
 	double	cos_theta;
 	double	refr_coef;
@@ -70,7 +51,7 @@ static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 	double	refr_relative;
 	double	coef_disc;
 
-	cos_theta = ft_dot_v3d(from, dir);
+	cos_theta = ft_dot_v3d(inter.ray.from, inter.ray.to);
 	refr_coef = 1;
 	refr_transmitted = obj->refract;
 	if (obj->elm.sph.inside == 1)
@@ -82,9 +63,9 @@ static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 	refr_relative = refr_coef / refr_transmitted;
 	coef_disc = 1 - refr_relative * refr_relative * (1 - cos_theta * cos_theta);
 	if (coef_disc < 0)
-		return (reflect_ray(ft_scalar_v3d(-1, from), dir));
-	return (ft_plus_v3d(ft_scalar_v3d(refr_relative, from),
-			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc), dir)));
+		return (reflect_ray(ft_scalar_v3d(-1, inter.ray.from), inter.ray.to));
+	return (ft_plus_v3d(ft_scalar_v3d(refr_relative, inter.ray.from),
+			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc), inter.ray.to)));
 }
 
 /**
@@ -104,32 +85,26 @@ static inline t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
  */
 t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
-	t_obj		close_obj;
 	t_inter		inter;
 
 	depth = depth * 2;
 	inter.ray.from = origin;
 	inter.ray.to = dir;
-	ft_memset(&close_obj, 0, sizeof(t_obj));
-	inter.hit = get_hits(inter, mrt->obj, &close_obj);
-	inter.normal = get_normal(&close_obj, dir, inter.hit);
-	inter.color = mrt->scn.bgr;
-	if (close_obj.type != CLOSE_OBJ)
-		inter.color = close_obj.color;
-	if (close_obj.type == SPHERE && close_obj.bump == TRUE)
-		inter.color = bump_texture(inter.hit, &close_obj, mrt);
-	texturize(close_obj.texture, &inter, mrt->obj);
-	light_hit(inter.ray, &inter, mrt->scn, mrt->obj);
-	clean_rgb_interactions(&close_obj);
-	if (close_obj.refract > 0)
+	get_hits(&inter, mrt->obj, mrt);
+	inter.normal = get_normal(inter.obj, dir, inter.hit);
+	inter.color = bump_texture(inter, inter.hit, inter.obj, mrt);
+	texturize(&inter);
+	if (inter.hitted)
+		light_hit(inter.ray, &inter, mrt->scn, inter.obj);
+	if (inter.hitted && inter.refract > 0)
 		inter.color = tracer(inter.hit,
-				refraction(dir, inter.normal, &close_obj), mrt, depth);
-	if (close_obj.reflex > 0 && depth > 0)
+				refraction(inter, inter.obj), mrt, depth);
+	if (inter.hitted && inter.reflex > 0 && depth > 0)
 		inter.ref_color = tracer(inter.hit,
 				reflect_ray(ft_scalar_v3d(-1, dir), inter.normal),
 				mrt, depth - 1);
-	return (ft_rgb_add(ft_rgb_dot(inter.color, 1 - close_obj.reflex),
-			ft_rgb_dot(inter.ref_color, close_obj.reflex)));
+	return (ft_rgb_add(ft_rgb_dot(inter.color, 1 - inter.reflex),
+			ft_rgb_dot(inter.ref_color, inter.reflex)));
 }
 
 #else

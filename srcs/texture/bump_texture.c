@@ -23,13 +23,15 @@ void	sphere_uv_mapping(t_v3d local, double *uv)
 	uv[E_V] = 0.5 - theta / M_PI;
 }
 
-t_rgb	bump_texture(t_v3d hit, t_obj *obj, t_mrt *mrt)
+t_rgb	bump_texture(t_inter inter, t_v3d hit, t_obj *obj, t_mrt *mrt)
 {
 	t_v3d	local;
 	double	uv[2];
 	int		pix[2];
 	t_rgb	bump;
 
+	if (!inter.hitted || obj->type != SPHERE || obj->bump == FALSE)
+		return (inter.color);
 	local = ft_normal_v3d(ft_minus_v3d(hit, obj->elm.sph.centre));
 	sphere_uv_mapping(local, &uv[0]);
 	pix[X_C] = uv[E_U] * (obj->xpm.width - 1);

@@ -43,23 +43,25 @@ t_v3d	reflect_ray(t_v3d ray, t_v3d normal)
  * @param closest_intersection Reference to the distance to the closest
  * intersected object.
  */
-void	try_all_intersections(t_ray ray, t_obj *obj,
-					t_obj *closest_figure, double *closest_intersection)
+t_obj	*get_inter(t_inter *inter, t_obj *obj)
 {
 	double		dist;
 	t_solver	solve;
 	t_obj		*node;
 
+	inter->dist = INFINITY;
+	inter->obj = NULL;
 	node = obj;
 	while (node)
 	{
 		solve = get_solver(node->type);
-		dist = solve(ray.from, ray.to, node);
-		if (dist > EPSILON && dist < *closest_intersection)
+		dist = solve(inter->ray.from, inter->ray.to, node);
+		if (dist > EPSILON && dist < inter->dist)
 		{
-			*closest_figure = *node;
-			*closest_intersection = dist;
+			inter->obj = node;
+			inter->dist = dist;
 		}
 		node = node->next;
 	}
+	return (inter->obj);
 }
