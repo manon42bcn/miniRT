@@ -27,7 +27,6 @@
 static inline t_obj	*get_selected(t_ray ray, t_obj *obj, t_mrt *mrt)
 {
 	double		dist;
-	t_solver	solve;
 	t_obj		*rst;
 	double		closest;
 
@@ -35,8 +34,7 @@ static inline t_obj	*get_selected(t_ray ray, t_obj *obj, t_mrt *mrt)
 	closest = INFINITY;
 	while (obj)
 	{
-		solve = mrt->get_solver(obj->type);
-		dist = solve(ray.from, ray.to, obj);
+		dist = mrt->get_solver(ray.from, ray.to, obj);
 		if (dist > EPSILON && dist < closest)
 		{
 			rst = obj;

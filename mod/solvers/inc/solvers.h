@@ -43,7 +43,8 @@ enum e_dist
 typedef t_v3d	(*t_normal)(t_v3d, t_v3d, t_inter *);
 
 t_bool			quadratic(double *vars, double *dist);
-t_solver		get_solver(int index);
+t_solver		get_solver_old(int index);
+double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			plane_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
 					t_v3d plane_dir);

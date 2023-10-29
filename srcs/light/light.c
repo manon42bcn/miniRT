@@ -12,29 +12,15 @@
 
 #include "minirt.h"
 
-/**
- * @brief Determines if the path between an origin and direction is
- * not get shadowed by objects.
- *
- * Checks whether there's any object blocking the path between the origin
- * and direction by evaluating intersections with objects.
- *
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param obj Pointer to the list of objects in the scene.
- * @return TRUE if path is clear, FALSE if shadowed.
- */
-static inline t_bool	lighted(t_v3d origin, t_v3d dir, t_obj *obj, t_mrt *mrt)
+static inline t_bool	lighted(t_v3d dir, t_inter inter, t_mrt *mrt)
 {
 	double		evl;
-	t_solver	solve;
 	double		to_light;
 
 	to_light = ft_length_v3d(dir);
-	pthread_mutex_lock(&mrt->gethits);
-	solve = get_solver(obj->type);
-	evl = solve(origin, dir, obj);
-	pthread_mutex_unlock(&mrt->gethits);
+	pthread_mutex_lock(&mrt->getsolver);
+	evl = get_solver(inter.hit, dir, inter.obj);
+	pthread_mutex_unlock(&mrt->getsolver);
 	if (evl > EPSILON && evl < to_light)
 		return (FALSE);
 	return (TRUE);
@@ -59,7 +45,7 @@ static inline void	brightness(double (*rgb)[3], double coef, int color)
 	(*rgb)[2] += coef * (color & mask) / 255;
 }
 
-static inline double	specular_transform(t_ray ray, t_inter inter, t_light *scn_light, t_obj *obj)
+static inline double	specular_transform(t_ray ray, t_inter inter, t_light *scn_light)
 {
 	double	light;
 	t_v3d	direction;
@@ -71,23 +57,18 @@ static inline double	specular_transform(t_ray ray, t_inter inter, t_light *scn_l
 	reflected = reflect_ray(direction, inter.normal);
 	if (ft_dot_v3d(reflected, p_to_cam) > 0)
 		light = scn_light->bright
-			* pow(ft_cos_v3d(reflected, p_to_cam), obj->specular);
+			* pow(ft_cos_v3d(reflected, p_to_cam), inter.specular);
 	else
 		light = 0;
 	return (light);
 }
 
-/**
- * @brief Computes the lighting at a given intersection point.
- *
- * Considers both diffuse and specular components of lighting. Adjusts
- * the intersection color based on the computed lighting.
- *
- * @param ray The ray of interest.
- * @param inter Intersection information, containing details like hit point.
- * @param scn Scene settings and information.
- * @param obj The object that the ray has hit.
- */
+static inline t_bool	is_lighted(t_inter inter, t_v3d dir, t_mrt *mrt)
+{
+	return (lighted(dir, inter, mrt)
+		&& ft_dot_v3d(inter.normal, dir) > 0);
+}
+
 t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
 	t_light			*node;
@@ -102,15 +83,14 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 	while (node)
 	{
 		direction = ft_minus_v3d(node->origin, inter.hit);
-		if (lighted(inter.hit, direction, inter.obj, mrt)
-			&& ft_dot_v3d(inter.normal, direction) > 0)
+		if (is_lighted(inter, direction, mrt))
 		{
 			light = node->bright * ft_cos_v3d(inter.normal, direction);
 			brightness(&rgb, light, node->color);
 		}
 		if (inter.specular)
 		{
-			light = specular_transform(ray, inter, node, inter.obj);
+			light = specular_transform(ray, inter, node);
 			brightness(&rgb, light, node->color);
 		}
 		node = node->next;

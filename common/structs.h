@@ -136,8 +136,8 @@ typedef struct s_mrt
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
 	t_v3d		(*ray_pixel)(int, int, t_mrt *);
-	t_solver	(*get_solver)(int);
-	pthread_mutex_t	gethits;
+	double		(*get_solver)(t_v3d, t_v3d, t_obj *);
+	pthread_mutex_t	getsolver;
 	pthread_mutex_t	getnormal;
 	pthread_mutex_t	getlight;
 }					t_mrt;
@@ -153,7 +153,6 @@ typedef	struct s_info
 
 typedef struct		s_inter
 {
-	t_bool			hitted;
 	t_ray			ray;
 	t_obj			*obj;
 	double			dist;
@@ -165,6 +164,7 @@ typedef struct		s_inter
 	t_bool			inside;
 	t_v3d			normal;
 	t_v3d			hit;
+	int 			face;
 }					t_inter;
 
 #endif

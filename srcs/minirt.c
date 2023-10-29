@@ -49,7 +49,7 @@ int	main(int argc, char const *argv[])
 	mrt = readfile_parser(argv[1]);
 	after_parse_process(mrt);
 	objPnt(mrt->obj);
-	if (pthread_mutex_init(&mrt->gethits, NULL) != 0)
+	if (pthread_mutex_init(&mrt->getsolver, NULL) != 0)
 		return (ERROR);
 	if (pthread_mutex_init(&mrt->getnormal, NULL) != 0)
 		return (ERROR);

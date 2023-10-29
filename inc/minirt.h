@@ -27,7 +27,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define THREADS	20
+# define THREADS	10
 # define RFX		0
 # define RFRC		1
 
@@ -45,11 +45,10 @@ typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 void		printVector(t_v3d *vector);
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 
-t_obj		*get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt);
+void		get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt);
 t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
 //light
 t_rgb		light_hit(t_ray ray, t_inter inter, t_mrt *mrt);
-//double		specular_transform(t_ray ray, t_inter *inter, t_light *scn_light, t_obj *obj);
 //Rays
 t_rgb		calc_ray(int n, t_pix pix, t_mrt *mrt);
 t_rgb		tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth);

@@ -12,27 +12,17 @@
 
 #include "minirt.h"
 
-/**
- * @brief Compute the reflection of a ray given its normal.
- *
- * The function calculates the reflection of an incoming ray with respect
- * to the given normal.
- *
- * @param ray The incoming ray direction.
- * @param normal The normal direction at the reflection point.
- * @return The reflected ray direction.
- */
+# ifdef BONUS
+
 t_v3d	reflect_ray(t_v3d ray, t_v3d normal)
 {
 	return (ft_minus_v3d(ft_scalar_v3d(2
 				* ft_dot_v3d(normal, ray), normal), ray));
 }
-# ifdef BONUS
 
-t_obj	*get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt)
+void	get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt)
 {
 	double		dist;
-	t_solver	solve;
 	t_obj		*node;
 
 	inter->dist = INFINITY;
@@ -40,10 +30,9 @@ t_obj	*get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt)
 	node = obj;
 	while (node)
 	{
-		pthread_mutex_lock(&mrt->gethits);
-		solve = get_solver(node->type);
-		dist = solve(inter->ray.from, inter->ray.to, node);
-		pthread_mutex_unlock(&mrt->gethits);
+		pthread_mutex_lock(&mrt->getsolver);
+		dist = get_solver(inter->ray.from, inter->ray.to, node);
+		pthread_mutex_unlock(&mrt->getsolver);
 		if (dist > EPSILON && dist < inter->dist)
 		{
 			inter->obj = node;
@@ -51,15 +40,13 @@ t_obj	*get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt)
 		}
 		node = node->next;
 	}
-	return (inter->obj);
 }
 
 #else
 
-t_obj	*get_inter(t_inter *inter, t_obj *obj)
+void	get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt)
 {
 	double		dist;
-	t_solver	solve;
 	t_obj		*node;
 
 	inter->dist = INFINITY;
@@ -67,8 +54,7 @@ t_obj	*get_inter(t_inter *inter, t_obj *obj)
 	node = obj;
 	while (node)
 	{
-		solve = get_solver(node->type);
-		dist = solve(inter->ray.from, inter->ray.to, node);
+		dist = get_solver(inter->ray.from, inter->ray.to, node);
 		if (dist > EPSILON && dist < inter->dist)
 		{
 			inter->obj = node;
@@ -76,7 +62,6 @@ t_obj	*get_inter(t_inter *inter, t_obj *obj)
 		}
 		node = node->next;
 	}
-	return (inter->obj);
 }
 
 #endif

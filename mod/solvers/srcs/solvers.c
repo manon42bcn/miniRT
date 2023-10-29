@@ -12,21 +12,6 @@
 
 #include "solvers.h"
 
-/**
- * @brief Outputs an error message to the standard error stream and
- * then exits the program.
- *
- * @param message A pointer to the string message to be displayed.
- */
-static inline void	solver_error(char *message)
-{
-	ft_putstr_fd("miniRT ERROR [solver module]", STDERR_FILENO);
-	if (message)
-		ft_putstr_fd(message, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	exit(ERROR);
-}
-
 #ifdef BONUS
 
 /**
@@ -42,10 +27,37 @@ static inline void	solver_error(char *message)
  * @return A pointer to the solver function corresponding to the given
  * object type.
  */
-t_solver	get_solver(int index)
+double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 {
-	if (index < 0 || index > ELLIPS)
-		solver_error("object id out of range to get solver");
+	if (obj->type == SPHERE)
+		return (sphere_solver(origin, dir, obj));
+	if (obj->type == PLANE)
+		return (plane_solver(origin, dir, obj));
+	if (obj->type == CYLINDER)
+		return (cylinder_solver(origin, dir, obj));
+	if (obj->type == RECTANGLE)
+		return (rectangle_solver(origin, dir, obj));
+	if (obj->type == TRIANGLE)
+		return (triangle_solver(origin, dir, obj));
+	if (obj->type == BOX)
+		return (box_solver(origin, dir, obj));
+	if (obj->type == CONE)
+		return (cone_solver(origin, dir, obj));
+	if (obj->type == ELLIPS)
+		return (ellipsoid_solver(origin, dir, obj));
+	return (INFINITY);
+}
+
+t_solver	get_solver_old(int index)
+{
+//	static t_solver	solve[] = {&sphere_solver, &plane_solver,
+//								  &cylinder_solver, &rectangle_solver,
+//								  &triangle_solver, &box_solver,
+//								  &cone_solver, &ellipsoid_solver};
+//
+//	if (index > (int)(sizeof(solve) / sizeof (t_solver)))
+//		solver_error("object id out of range to get solver");
+//	return (solve[index]);
 	if (index == SPHERE)
 		return (&sphere_solver);
 	if (index == PLANE)
