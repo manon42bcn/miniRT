@@ -166,11 +166,7 @@ double	cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl)
 	if (cylinder_inter < INFINITY || caps_inter < INFINITY)
 	{
 		if (cylinder_inter < caps_inter)
-		{
-//			cyl->normal = cy_normal;
 			return (cylinder_inter);
-		}
-//		cyl->normal = cyl->elm.cyl.dir;
 		return (caps_inter);
 	}
 	return (INFINITY);

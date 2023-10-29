@@ -27,7 +27,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define THREADS	10
+# define THREADS	20
 # define RFX		0
 # define RFRC		1
 
@@ -41,29 +41,15 @@ typedef struct		s_pix
 	int 	max_y;
 }					t_pix;
 
-typedef struct		s_inter
-{
-	t_bool			hitted;
-	t_ray			ray;
-	t_obj			*obj;
-	double			dist;
-	t_rgb			color;
-	t_rgb			ref_color;
-	double			reflex;
-	double			refract;
-	t_v3d			normal;
-	t_v3d			hit;
-}					t_inter;
-
 typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
 void		printVector(t_v3d *vector);
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 
-t_obj		*get_inter(t_inter *inter, t_obj *obj);
+t_obj		*get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt);
 t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
 //light
-void		light_hit(t_ray ray, t_inter *inter, t_scene scn, t_obj *obj);
-double		specular_transform(t_ray ray, t_inter *inter, t_light *scn_light, t_obj *obj);
+t_rgb		light_hit(t_ray ray, t_inter inter, t_mrt *mrt);
+//double		specular_transform(t_ray ray, t_inter *inter, t_light *scn_light, t_obj *obj);
 //Rays
 t_rgb		calc_ray(int n, t_pix pix, t_mrt *mrt);
 t_rgb		tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth);

@@ -115,8 +115,6 @@ static inline t_rgb	texture_rainbow(t_inter *inter)
 
 void	texturize(t_inter *inter)
 {
-	if (!inter->hitted)
-		return ;
 	if (inter->obj->texture == CHECKBOARD)
 		inter->color = texture_checkboard(inter);
 	else if (inter->obj->texture == WAVES)

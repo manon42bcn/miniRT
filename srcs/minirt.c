@@ -49,6 +49,12 @@ int	main(int argc, char const *argv[])
 	mrt = readfile_parser(argv[1]);
 	after_parse_process(mrt);
 	objPnt(mrt->obj);
+	if (pthread_mutex_init(&mrt->gethits, NULL) != 0)
+		return (ERROR);
+	if (pthread_mutex_init(&mrt->getnormal, NULL) != 0)
+		return (ERROR);
+	if (pthread_mutex_init(&mrt->getlight, NULL) != 0)
+		return (ERROR);
 	render_main(mrt);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
 			mrt->scn.w_y, "miniRT");

@@ -30,7 +30,7 @@ t_rgb	bump_texture(t_inter inter, t_v3d hit, t_obj *obj, t_mrt *mrt)
 	int		pix[2];
 	t_rgb	bump;
 
-	if (!inter.hitted || obj->type != SPHERE || obj->bump == FALSE)
+	if (obj->type != SPHERE || obj->bump == FALSE)
 		return (inter.color);
 	local = ft_normal_v3d(ft_minus_v3d(hit, obj->elm.sph.centre));
 	sphere_uv_mapping(local, &uv[0]);

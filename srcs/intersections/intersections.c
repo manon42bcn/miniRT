@@ -27,22 +27,35 @@ t_v3d	reflect_ray(t_v3d ray, t_v3d normal)
 	return (ft_minus_v3d(ft_scalar_v3d(2
 				* ft_dot_v3d(normal, ray), normal), ray));
 }
+# ifdef BONUS
 
-/**
- * @brief Iterates through all objects in the scene and identifies the
- * closest object that the ray intersects.
- *
- * Uses the solver specific to each object type to determine the intersection
- * distance. If the intersection distance is closer than the current closest
- * intersection, the function updates the closest intersection and object
- * references.
- *
- * @param ray The casted ray.
- * @param obj Pointer to the list of objects in the scene.
- * @param closest_figure Reference to the closest intersected object.
- * @param closest_intersection Reference to the distance to the closest
- * intersected object.
- */
+t_obj	*get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt)
+{
+	double		dist;
+	t_solver	solve;
+	t_obj		*node;
+
+	inter->dist = INFINITY;
+	inter->obj = NULL;
+	node = obj;
+	while (node)
+	{
+		pthread_mutex_lock(&mrt->gethits);
+		solve = get_solver(node->type);
+		dist = solve(inter->ray.from, inter->ray.to, node);
+		pthread_mutex_unlock(&mrt->gethits);
+		if (dist > EPSILON && dist < inter->dist)
+		{
+			inter->obj = node;
+			inter->dist = dist;
+		}
+		node = node->next;
+	}
+	return (inter->obj);
+}
+
+#else
+
 t_obj	*get_inter(t_inter *inter, t_obj *obj)
 {
 	double		dist;
@@ -65,3 +78,5 @@ t_obj	*get_inter(t_inter *inter, t_obj *obj)
 	}
 	return (inter->obj);
 }
+
+#endif

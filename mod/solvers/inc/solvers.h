@@ -40,7 +40,7 @@ enum e_dist
 	T_1=1
 };
 
-typedef t_v3d	(*t_normal)(t_v3d, t_v3d, t_obj *);
+typedef t_v3d	(*t_normal)(t_v3d, t_v3d, t_inter *);
 
 t_bool			quadratic(double *vars, double *dist);
 t_solver		get_solver(int index);
@@ -50,9 +50,9 @@ double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
 double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
 double			top_intersect(t_v3d o, t_v3d d, t_obj *lst);
 double			sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph);
-t_v3d			get_normal(t_obj *obj, t_v3d dir, t_v3d hit);
-t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj);
-t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			get_normal(t_inter *inter, t_v3d dir, t_v3d hit);
+t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter);
+t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # ifdef BONUS
 
@@ -62,9 +62,10 @@ double			cone_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 double			rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
-t_v3d			box_normal(t_v3d dir, t_v3d hit, t_obj *obj);
-t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_obj *obj);
-t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj);
+t_v3d			box_normal(t_v3d dir, t_v3d hit, t_inter *obj);
+t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_inter *obj);
+t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *obj);
+t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # endif
 

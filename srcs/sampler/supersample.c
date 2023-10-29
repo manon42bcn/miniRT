@@ -151,8 +151,6 @@ t_rgb	supersample(int *color, t_pix pix, t_mrt *mrt)
 {
 	int				centre;
 	int				corner;
-	static t_rgb	(*sampling[])(t_rgb *, int, t_pix, t_mrt *)
-		= {first_corner, second_corner, third_corner, fourth_corner};
 
 	centre = calc_ray(4, pix, mrt);
 	corner = 0;
@@ -161,7 +159,16 @@ t_rgb	supersample(int *color, t_pix pix, t_mrt *mrt)
 		if (!ft_rgb_diff(color[corner], centre) || pix.limit == 0)
 			color[corner] = ft_rgb_avg(color[corner], centre);
 		else
-			color[corner] = sampling[corner](color, centre, pix, mrt);
+		{
+			if (corner == 0)
+				color[corner] = first_corner(color, centre, pix, mrt);
+			else if (corner == 1)
+				color[corner] = second_corner(color, centre, pix, mrt);
+			else if (corner == 2)
+				color[corner] = third_corner(color, centre, pix, mrt);
+			else
+				color[corner] = fourth_corner(color, centre, pix, mrt);
+		}
 		corner++;
 	}
 	return (ft_rgb_balance(color));

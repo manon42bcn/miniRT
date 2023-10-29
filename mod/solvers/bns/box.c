@@ -13,24 +13,32 @@
 #include "solvers.h"
 
 /**
- * @brief Calculates the normal of the hit face on the box.
+ * @brief Compute the normal vector at the point of intersection for a box.
  *
- * The function determines the normal vector of the face of the box that was
- * hit. The normal direction is dependent on the direction of the incoming ray.
+ * This function calculates the normal vector at the point where a ray
+ * intersects a box. Since a box consists of multiple flat faces, the function
+ * derives the normal based on which face of the box is hit by the ray.
+ * The orientation of the normal might be inverted depending on the direction
+ * of the incoming ray.
+ *
+ * The function utilizes the `hit` index stored in the `box` structure of the
+ * object to determine which face was hit and subsequently, retrieves the
+ * precomputed normal orientation for that face.
  *
  * @param dir The direction of the incoming ray.
- * @param hit Unused. To make normal functions standard
- * @param obj Pointer to the object structure, which contains details about
- * the hit box.
- * @return t_v3d structure representing the normal of the hit face.
+ * @param hit The point of intersection on the box (unused in the function).
+ * @param inter Pointer to the intersection structure containing details about
+ * the intersection.
+ *
+ * @return The normal vector at the point of intersection.
  */
-t_v3d	box_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+t_v3d	box_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	(void)hit;
-	if (ft_cos_v3d(dir, obj->elm.box.faces[obj->elm.box.hit].orient) > 0)
-		return (ft_scalar_v3d(-1, obj->elm.box.faces[obj->elm.box.hit].orient));
+	if (ft_cos_v3d(dir, inter->obj->elm.box.faces[inter->obj->elm.box.hit].orient) > 0)
+		return (ft_scalar_v3d(-1, inter->obj->elm.box.faces[inter->obj->elm.box.hit].orient));
 	else
-		return (obj->elm.box.faces[obj->elm.box.hit].orient);
+		return (inter->obj->elm.box.faces[inter->obj->elm.box.hit].orient);
 }
 
 /**

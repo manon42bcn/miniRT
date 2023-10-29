@@ -13,33 +13,37 @@
 #include "solvers.h"
 
 /**
- * @brief Computes the normal vector at a given intersection point on the cone.
+ * @brief Compute the normal vector at the point of intersection for a cone.
  *
- * This function determines the normal vector of a cone at a given point of
- * intersection. The normal is calculated based on the cone's center (apex),
- * orientation, and the tangent of its angle (alpha). The resulting normal
- * is essential for shading and reflection calculations in a ray tracing
- * context.
+ * This function calculates the normal vector at the point where a ray intersects
+ * a cone. Cones, being curved surfaces, require a more complex method for normal
+ * derivation compared to flat surfaces. This function uses the vector between
+ * the hit point and the apex of the cone (`v_apex`), and a parallel vector
+ * (`parallel`) to derive the normal.
  *
- * @param dir Unused. To make normal functions standard
- * @param hit Point on the cone where the normal vector is to be
- * calculated.
- * @param obj Pointer to the cone object containing its geometric and
- * material properties.
- * @return t_v3d The computed normal vector at the intersection point.
+ * The function employs mathematical properties of cones and their defined
+ * `alpha` (which represents the cone's angle) to compute the correct orientation
+ * for the normal at the intersection point.
+ *
+ * @param dir The direction of the incoming ray (unused in the function).
+ * @param hit The point of intersection on the cone.
+ * @param inter Pointer to the intersection structure containing details about
+ * the intersection.
+ *
+ * @return The normal vector at the point of intersection.
  */
-t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	t_v3d	v_apex;
 	t_v3d	parallel;
 	t_v3d	normal;
 
 	(void)dir;
-	v_apex = ft_minus_v3d(hit, obj->elm.con.centre);
-	parallel = ft_scalar_v3d(ft_dot_v3d(v_apex, obj->elm.con.dir),
-			obj->elm.con.dir);
-	normal = ft_minus_v3d(v_apex, ft_scalar_v3d(1 + obj->elm.con.alpha
-				* obj->elm.con.alpha, parallel));
+	v_apex = ft_minus_v3d(hit, inter->obj->elm.con.centre);
+	parallel = ft_scalar_v3d(ft_dot_v3d(v_apex, inter->obj->elm.con.dir),
+			inter->obj->elm.con.dir);
+	normal = ft_minus_v3d(v_apex, ft_scalar_v3d(1 + inter->obj->elm.con.alpha
+				* inter->obj->elm.con.alpha, parallel));
 	normal = ft_normal_v3d(normal);
 	return (normal);
 }

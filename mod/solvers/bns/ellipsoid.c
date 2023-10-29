@@ -13,29 +13,38 @@
 #include "solvers.h"
 
 /**
- * @brief Calculate the normal vector of an ellipsoid at a given point.
+ * @brief Compute the normal vector at the intersection point for an ellipsoid.
  *
- * Computes the surface normal of an ellipsoid at the specified point. The
- * normal is essential for shading calculations in computer graphics.
+ * This function calculates the normal vector at the point where a ray
+ * intersects an ellipsoid. Ellipsoids, similar to spheres but stretched or
+ * compressed along the different axes, have  a mathematical formula for their
+ * normal vectors based on their radius along each axis and the hit point.
  *
- * @param dir Unused. To make normal functions standard
- * @param hit The 3D point on the ellipsoid's surface where the normal is to
- * be computed.
- * @param obj Pointer to the object structure, which contains details about the
- * ellipsoid.
+ * Given the ellipsoid equation (x^2/a^2 + y^2/b^2 + z^2/c^2 = 1), the gradient
+ * of the surface at any point `(x, y, z)` is directly proportional to the vector
+ * `(2x/a^2, 2y/b^2, 2z/c^2)`. This gradient becomes the normal vector once
+ * normalized.
  *
- * @return The normal vector at the specified point on the ellipsoid.
+ * @param dir The direction of the incoming ray (unused in the function).
+ * @param hit The point of intersection on the ellipsoid.
+ * @param inter Pointer to the intersection structure containing details about
+ * the intersection.
+ *
+ * @return The normalized normal vector at the point of intersection.
  */
-t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	t_v3d	normal;
 	t_v3d	local;
 
 	(void)dir;
-	local = ft_minus_v3d(hit, obj->elm.elp.centre);
-	normal.x = 2.0 * local.x / (obj->elm.elp.rx * obj->elm.elp.rx);
-	normal.y = 2.0 * local.y / (obj->elm.elp.ry * obj->elm.elp.ry);
-	normal.z = 2.0 * local.z / (obj->elm.elp.rz * obj->elm.elp.rz);
+	local = ft_minus_v3d(hit, inter->obj->elm.elp.centre);
+	normal.x = 2.0 * local.x / (inter->obj->elm.elp.rx
+			* inter->obj->elm.elp.rx);
+	normal.y = 2.0 * local.y / (inter->obj->elm.elp.ry
+			* inter->obj->elm.elp.ry);
+	normal.z = 2.0 * local.z / (inter->obj->elm.elp.rz
+			* inter->obj->elm.elp.rz);
 	return (ft_normal_v3d(normal));
 }
 

@@ -12,18 +12,34 @@
 
 #include "solvers.h"
 
-t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_obj *obj)
+/**
+ * @brief Compute the normal vector at the point of intersection for a sphere.
+ *
+ * This function calculates the normal vector at the point where a ray
+ * intersects a sphere. The direction of the normal depends on whether the ray
+ * hits the sphere from the outside or if it originates from inside the sphere.
+ * If the ray is inside the sphere, the normal vector is inverted, and the
+ * intersection structure's `inside` flag is set to TRUE.
+ *
+ * @param dir The direction of the incoming ray.
+ * @param hit The point of intersection on the sphere.
+ * @param inter Pointer to the intersection structure containing details about
+ * the intersection.
+ *
+ * @return The normal vector at the point of intersection.
+ */
+t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	t_v3d	rst;
 
-	rst = ft_normal_v3d(ft_minus_v3d(hit, obj->elm.sph.centre));
+	rst = ft_normal_v3d(ft_minus_v3d(hit, inter->obj->elm.sph.centre));
 	if (ft_cos_v3d(dir, rst) > 0)
 	{
 		rst = ft_scalar_v3d(-1, rst);
-		obj->elm.sph.inside = TRUE;
+		inter->inside = TRUE;
 	}
 	else
-		obj->elm.sph.inside = FALSE;
+		inter->inside = FALSE;
 	return (rst);
 }
 

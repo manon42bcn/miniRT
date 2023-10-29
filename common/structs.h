@@ -13,6 +13,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+#include <pthread.h>
 typedef struct s_obj	t_obj;
 typedef int				t_pixel;
 typedef struct s_mrt	t_mrt;
@@ -136,6 +137,9 @@ typedef struct s_mrt
 	int			(*clean_image)(void *, void *);
 	t_v3d		(*ray_pixel)(int, int, t_mrt *);
 	t_solver	(*get_solver)(int);
+	pthread_mutex_t	gethits;
+	pthread_mutex_t	getnormal;
+	pthread_mutex_t	getlight;
 }					t_mrt;
 
 typedef	struct s_info
@@ -146,5 +150,21 @@ typedef	struct s_info
 	t_pixel	end_y;
 	t_pixel	max_y;
 }				t_info;
+
+typedef struct		s_inter
+{
+	t_bool			hitted;
+	t_ray			ray;
+	t_obj			*obj;
+	double			dist;
+	t_rgb			color;
+	t_rgb			ref_color;
+	t_bool			specular;
+	double			reflex;
+	double			refract;
+	t_bool			inside;
+	t_v3d			normal;
+	t_v3d			hit;
+}					t_inter;
 
 #endif

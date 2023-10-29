@@ -14,7 +14,7 @@
 
 static inline void	get_hits(t_inter *inter, t_obj *obj, t_mrt *mrt)
 {
-	get_inter(inter, obj);
+	get_inter(inter, obj, mrt);
 	if (inter->obj)
 	{
 		inter->hitted = TRUE;
@@ -54,7 +54,7 @@ static inline t_v3d	refraction(t_inter inter, t_obj *obj)
 	cos_theta = ft_dot_v3d(inter.ray.from, inter.ray.to);
 	refr_coef = 1;
 	refr_transmitted = obj->refract;
-	if (obj->elm.sph.inside == 1)
+	if (inter.inside == TRUE)
 	{
 		coef_disc = refr_coef;
 		refr_coef = refr_transmitted;
@@ -68,21 +68,7 @@ static inline t_v3d	refraction(t_inter inter, t_obj *obj)
 			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc), inter.ray.to)));
 }
 
-/**
- * @brief Computes the color of a pixel by casting rays into the scene
- * and handling interactions.
- *
- * This is the main ray tracing function at bonus version.
- * It handles object intersections, shading, reflection, and refraction.
- * The function is recursive, with the depth indicating the number of
- * recursive steps for reflection and refraction.
- *
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param mrt Main structure containing scene and rendering information.
- * @param depth Current recursion depth.
- * @return RGB color value for the given ray.
- */
+
 t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_inter		inter;
@@ -91,15 +77,16 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	inter.ray.from = origin;
 	inter.ray.to = dir;
 	get_hits(&inter, mrt->obj, mrt);
-	inter.normal = get_normal(inter.obj, dir, inter.hit);
+	if (inter.obj == NULL)
+		return (mrt->scn.bgr);
+	inter.normal = get_normal(&inter, dir, inter.hit);
 	inter.color = bump_texture(inter, inter.hit, inter.obj, mrt);
 	texturize(&inter);
-	if (inter.hitted)
-		light_hit(inter.ray, &inter, mrt->scn, inter.obj);
-	if (inter.hitted && inter.refract > 0)
+	inter.color = light_hit(inter.ray, inter, mrt);
+	if (inter.refract > 0)
 		inter.color = tracer(inter.hit,
 				refraction(inter, inter.obj), mrt, depth);
-	if (inter.hitted && inter.reflex > 0 && depth > 0)
+	if (inter.reflex > 0 && depth > 0)
 		inter.ref_color = tracer(inter.hit,
 				reflect_ray(ft_scalar_v3d(-1, dir), inter.normal),
 				mrt, depth - 1);
@@ -130,7 +117,7 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	depth = depth * 2;
 	inter.ray.from = origin;
 	inter.ray.to = dir;
-	inter.hit = get_hits(inter, mrt->obj, &close_obj);
+	inter.hit = get_hits(&inter, mrt->obj, &close_obj);
 	inter.normal = get_normal(&close_obj,dir, inter.hit);
 	if (close_obj.type != CLOSE_OBJ)
 		inter.color = close_obj.color;
