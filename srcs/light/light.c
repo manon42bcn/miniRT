@@ -45,29 +45,13 @@ static inline void	brightness(double (*rgb)[3], double coef, int color)
 	(*rgb)[2] += coef * (color & mask) / 255;
 }
 
-static inline double	specular_transform(t_ray ray, t_inter inter, t_light *scn_light)
-{
-	double	light;
-	t_v3d	direction;
-	t_v3d	p_to_cam;
-	t_v3d	reflected;
-
-	direction = ft_minus_v3d(scn_light->origin, inter.hit);
-	p_to_cam = ft_minus_v3d(ray.from, inter.hit);
-	reflected = reflect_ray(direction, inter.normal);
-	if (ft_dot_v3d(reflected, p_to_cam) > 0)
-		light = scn_light->bright
-			* pow(ft_cos_v3d(reflected, p_to_cam), inter.specular);
-	else
-		light = 0;
-	return (light);
-}
-
 static inline t_bool	is_lighted(t_inter inter, t_v3d dir, t_mrt *mrt)
 {
 	return (lighted(dir, inter, mrt)
 		&& ft_dot_v3d(inter.normal, dir) > 0);
 }
+
+#ifdef BONUS
 
 t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
@@ -97,3 +81,31 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 	}
 	return (ft_rgb_light(inter.color, rgb));
 }
+
+#else
+
+t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
+{
+	t_light			*node;
+	double			light;
+	double			rgb[3];
+	t_v3d			direction;
+
+	light = 0.0;
+	ft_memset(rgb, 0, 3 * sizeof(double));
+	brightness(&rgb, mrt->scn.bright, mrt->scn.amb_rgb);
+	node = mrt->scn.light;
+	while (node)
+	{
+		direction = ft_minus_v3d(node->origin, inter.hit);
+		if (is_lighted(inter, direction, mrt))
+		{
+			light = node->bright * ft_cos_v3d(inter.normal, direction);
+			brightness(&rgb, light, node->color);
+		}
+		node = node->next;
+	}
+	return (ft_rgb_light(inter.color, rgb));
+}
+
+#endif

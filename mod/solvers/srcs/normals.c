@@ -93,12 +93,12 @@ t_v3d	get_normal(t_inter *inter, t_v3d dir, t_v3d hit)
  *
  * @return t_v3d The normal vector at the point of intersection on the object.
  */
-t_v3d	get_normal(t_obj *obj, t_v3d dir, t_v3d hit)
+t_v3d	get_normal(t_inter *inter, t_v3d dir, t_v3d hit)
 {
 	static t_normal	normal[] = {&sphere_normal, &common_normal,
 		&cylinder_normal};
 
-	return (normal[obj->type](dir, hit, obj));
+	return (normal[inter->obj->type](dir, hit, inter));
 }
 
 #endif

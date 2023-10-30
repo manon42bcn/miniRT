@@ -48,33 +48,6 @@ double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 	return (INFINITY);
 }
 
-t_solver	get_solver_old(int index)
-{
-//	static t_solver	solve[] = {&sphere_solver, &plane_solver,
-//								  &cylinder_solver, &rectangle_solver,
-//								  &triangle_solver, &box_solver,
-//								  &cone_solver, &ellipsoid_solver};
-//
-//	if (index > (int)(sizeof(solve) / sizeof (t_solver)))
-//		solver_error("object id out of range to get solver");
-//	return (solve[index]);
-	if (index == SPHERE)
-		return (&sphere_solver);
-	if (index == PLANE)
-		return (&plane_solver);
-	if (index == CYLINDER)
-		return (&cylinder_solver);
-	if (index == RECTANGLE)
-		return (&rectangle_solver);
-	if (index == TRIANGLE)
-		return (&triangle_solver);
-	if (index == BOX)
-		return (&box_solver);
-	if (index == CONE)
-		return (&cone_solver);
-	return (&ellipsoid_solver);
-}
-
 #else
 
 /**
@@ -87,14 +60,12 @@ t_solver	get_solver_old(int index)
  * @return A pointer to the solver function corresponding to the
  * given object type.
  */
-t_solver	get_solver(int index)
+double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj)
 {
 	static t_solver	solve[] = {&sphere_solver, &plane_solver,
 		&cylinder_solver};
 
-	if (index > (int)(sizeof(solve) / sizeof (t_solver)))
-		solver_error("object id out of range to get solver");
-	return (solve[index]);
+	return (solve[obj->type](origin, dir, obj));
 }
 
 #endif

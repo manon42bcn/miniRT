@@ -46,7 +46,6 @@ void		printVector(t_v3d *vector);
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 
 void		get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt);
-t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
 //light
 t_rgb		light_hit(t_ray ray, t_inter inter, t_mrt *mrt);
 //Rays
@@ -69,5 +68,8 @@ void		msg_error_exit(char *message);
 //Texture
 void		texturize(t_inter *inter);
 t_rgb		bump_texture(t_inter inter, t_v3d hit, t_obj *obj, t_mrt *mrt);
+t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
+double		specular_transform(t_ray ray, t_inter inter, t_light *scn_light);
+
 # endif
 #endif

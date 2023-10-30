@@ -46,6 +46,7 @@ MODS_MODULES	=	$(MODS_PARSER)/libparser.a \
 					$(MODS_SOLVERS)/libsolvers.a
 SRCS_FILES		= 	intersections/intersections.c \
 					light/light.c \
+					light/light_utils.c \
 					rays/tracer.c \
 					rays/rays.c \
 					render/mlx_hooks.c \
