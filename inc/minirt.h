@@ -41,7 +41,7 @@ typedef struct		s_pix
 	int 	max_y;
 }					t_pix;
 
-typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
+typedef double	(*t_solver)(t_v3d, t_v3d, int, t_obj *);
 void		printVector(t_v3d *vector);
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 

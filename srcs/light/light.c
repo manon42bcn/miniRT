@@ -17,10 +17,9 @@ static inline t_bool	lighted(t_v3d dir, t_inter inter, t_mrt *mrt)
 	double		evl;
 	double		to_light;
 
+	(void)mrt;
 	to_light = ft_length_v3d(dir);
-	pthread_mutex_lock(&mrt->getsolver);
-	evl = get_solver(inter.hit, dir, inter.obj);
-	pthread_mutex_unlock(&mrt->getsolver);
+	evl = get_solver(inter.hit, dir, inter.obj, &inter);
 	if (evl > EPSILON && evl < to_light)
 		return (FALSE);
 	return (TRUE);
@@ -92,6 +91,7 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 	t_v3d			direction;
 
 	light = 0.0;
+	(void)ray;
 	ft_memset(rgb, 0, 3 * sizeof(double));
 	brightness(&rgb, mrt->scn.bright, mrt->scn.amb_rgb);
 	node = mrt->scn.light;

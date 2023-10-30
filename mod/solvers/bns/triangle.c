@@ -57,21 +57,19 @@ static inline t_bool	triangle_hit(t_v3d v1, t_v3d v2,
  * @return Distance from the ray's origin to the intersection point.
  *         Returns INFINITY if the ray doesn't intersect with the triangle.
  */
-double	triangle_solver(t_v3d origin, t_v3d dir, t_obj *trg)
+double	triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg)
 {
 	double	inter_dist;
 	t_v3d	inter_point;
 
-	inter_dist = plane_hit(origin, dir, trg->elm.trg.v1, trg->elm.trg.dir);
+	inter_dist = plane_hit(origin, dir, trg.v1, trg.dir);
 	inter_point = ft_plus_v3d(origin, ft_scalar_v3d(inter_dist, dir));
-	if (triangle_hit(trg->elm.trg.v1, trg->elm.trg.v2,
-			trg->elm.trg.v3, inter_point))
+	if (triangle_hit(trg.v1, trg.v2,
+			trg.v3, inter_point))
 		return (INFINITY);
-	if (triangle_hit(trg->elm.trg.v2, trg->elm.trg.v3,
-			trg->elm.trg.v1, inter_point))
+	if (triangle_hit(trg.v2, trg.v3, trg.v1, inter_point))
 		return (INFINITY);
-	if (triangle_hit(trg->elm.trg.v3, trg->elm.trg.v1,
-			trg->elm.trg.v2, inter_point))
+	if (triangle_hit(trg.v3, trg.v1, trg.v2, inter_point))
 		return (INFINITY);
 	return (inter_dist);
 }

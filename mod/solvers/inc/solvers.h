@@ -43,30 +43,34 @@ enum e_dist
 typedef t_v3d	(*t_normal)(t_v3d, t_v3d, t_inter *);
 
 t_bool			quadratic(double *vars, double *dist);
-t_solver		get_solver_old(int index);
-double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-double			plane_solver(t_v3d origin, t_v3d dir, t_obj *obj);
+
+double			plane_solver(t_v3d origin, t_v3d dir, t_plane pl);
 double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
 					t_v3d plane_dir);
-double			cylinder_solver(t_v3d from, t_v3d dir, t_obj *cyl);
-double			top_intersect(t_v3d o, t_v3d d, t_obj *lst);
-double			sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph);
+double			cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl);
+double			top_intersect(t_v3d o, t_v3d d, t_cylinder lst);
+double			sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph);
 t_v3d			get_normal(t_inter *inter, t_v3d dir, t_v3d hit);
 t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # ifdef BONUS
 
-double			triangle_solver(t_v3d origin, t_v3d dir, t_obj *trg);
-double			box_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-double			cone_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj);
-double			rectangle_solver(t_v3d origin, t_v3d dir, t_obj *obj);
+double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter);
+double			triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg);
+double			box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter);
+double			cone_solver(t_v3d origin, t_v3d dir, t_cone con);
+double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_ellip elp);
+double			rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc);
 
 t_v3d			box_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
+
+# else
+
+double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
 # endif
 

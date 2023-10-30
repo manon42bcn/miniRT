@@ -35,10 +35,10 @@
 t_v3d	box_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	(void)hit;
-	if (ft_cos_v3d(dir, inter->obj->elm.box.faces[inter->obj->elm.box.hit].orient) > 0)
-		return (ft_scalar_v3d(-1, inter->obj->elm.box.faces[inter->obj->elm.box.hit].orient));
+	if (ft_cos_v3d(dir, inter->obj->elm.box.faces[inter->face].orient) > 0)
+		return (ft_scalar_v3d(-1, inter->obj->elm.box.faces[inter->face].orient));
 	else
-		return (inter->obj->elm.box.faces[inter->obj->elm.box.hit].orient);
+		return (inter->obj->elm.box.faces[inter->face].orient);
 }
 
 /**
@@ -53,25 +53,26 @@ t_v3d	box_normal(t_v3d dir, t_v3d hit, t_inter *inter)
  * @return The distance from the ray origin to the intersection,
  * or INFINITY if no hit.
  */
-double	box_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+double	box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter)
 {
-	double	evl;
-	t_obj	tmp;
-	double	t;
-	int		face;
+	double		evl;
+	t_rectangle	tmp;
+	double		t;
+	int			face;
 
 	evl = INFINITY;
 	t = INFINITY;
 	face = 0;
 	while (face++ < 6)
 	{
-		tmp.elm.rc = obj->elm.box.faces[face];
-		t = rectangle_solver(origin, dir, &tmp);
+		tmp = box.faces[face];
+		t = rectangle_solver(origin, dir, tmp);
 		if (t < evl && t > 0)
 		{
 			evl = t;
-			obj->elm.box.hit = face;
+			box.hit = face;
 		}
 	}
+	inter->face = box.hit;
 	return (evl);
 }

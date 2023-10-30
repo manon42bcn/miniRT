@@ -66,7 +66,7 @@ t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_inter *inter)
  * cone's bounds, otherwise INFINITY.
  */
 static inline double	bounds(t_v3d origin, t_v3d dir,
-		double t, t_obj *cone)
+		double t, t_cone con)
 {
 	t_v3d	pnt;
 	t_v3d	vec_vertex;
@@ -74,12 +74,12 @@ static inline double	bounds(t_v3d origin, t_v3d dir,
 	double	height_axs;
 
 	pnt = ft_plus_v3d(origin, ft_scalar_v3d(t, dir));
-	vec_vertex = ft_minus_v3d(pnt, cone->elm.con.centre);
-	d_p = ft_dot_v3d(vec_vertex, cone->elm.con.dir);
+	vec_vertex = ft_minus_v3d(pnt, con.centre);
+	d_p = ft_dot_v3d(vec_vertex, con.dir);
 	if (d_p < 0)
 		return (INFINITY);
-	height_axs = ft_dot_v3d(vec_vertex, cone->elm.con.dir);
-	if (height_axs < 0 || height_axs > cone->elm.con.height)
+	height_axs = ft_dot_v3d(vec_vertex, con.dir);
+	if (height_axs < 0 || height_axs > con.height)
 		return (INFINITY);
 	return (t);
 }
@@ -98,23 +98,23 @@ static inline double	bounds(t_v3d origin, t_v3d dir,
  * @param origin The origin of the ray.
  * @param dir The direction of the ray.
  */
-static inline void	cone_quad(double *coef, t_obj *obj, t_v3d origin, t_v3d dir)
+static inline void	cone_quad(double *coef, t_cone con, t_v3d origin, t_v3d dir)
 {
 	t_v3d	oc;
 	double	dot_d;
 	double	dot_oc;
 
-	oc = ft_minus_v3d(origin, obj->elm.con.centre);
-	dot_d = ft_dot_v3d(dir, obj->elm.con.dir);
-	dot_oc = ft_dot_v3d(oc, obj->elm.con.dir);
+	oc = ft_minus_v3d(origin, con.centre);
+	dot_d = ft_dot_v3d(dir, con.dir);
+	dot_oc = ft_dot_v3d(oc, con.dir);
 	coef[E_A] = ft_dot_v3d(dir, dir)
-		- (1 + (obj->elm.con.alpha * obj->elm.con.alpha))
+		- (1 + (con.alpha * con.alpha))
 		* (dot_d * dot_d);
 	coef[E_B] = 2 * (ft_dot_v3d(dir, oc)
-			- (1 + (obj->elm.con.alpha * obj->elm.con.alpha))
+			- (1 + (con.alpha * con.alpha))
 			* (dot_d * dot_oc));
 	coef[E_C] = ft_dot_v3d(oc, oc)
-		- (1 + (obj->elm.con.alpha * obj->elm.con.alpha))
+		- (1 + (con.alpha * con.alpha))
 		* (dot_oc * dot_oc);
 }
 
@@ -127,17 +127,17 @@ static inline void	cone_quad(double *coef, t_obj *obj, t_v3d origin, t_v3d dir)
  * @return double Distance from the ray origin to the closest intersection
  * point or INFINITY.
  */
-double	cone_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+double	cone_solver(t_v3d origin, t_v3d dir, t_cone con)
 {
 	double	coef[3];
 	double	t[2];
 	double	t_c[2];
 
-	cone_quad(&coef[0], obj, origin, dir);
+	cone_quad(&coef[0], con, origin, dir);
 	if (!quadratic(&coef[0], &t[0]))
 		return (INFINITY);
-	t_c[0] = bounds(origin, dir, t[0], obj);
-	t_c[1] = bounds(origin, dir, t[1], obj);
+	t_c[0] = bounds(origin, dir, t[0], con);
+	t_c[1] = bounds(origin, dir, t[1], con);
 	if (t_c[0] == INFINITY && t_c[1] == INFINITY)
 		return (INFINITY);
 	if (t_c[0] < t[1])

@@ -101,19 +101,19 @@ static inline int	is_within_range(double id, t_v3d point,
  * no valid intersection.
  */
 static inline double	handle_intersection(double id1, double id2,
-	t_v3d p[], t_obj *lst)
+	t_v3d p[], t_cylinder cyl)
 {
-	if (is_within_range(id1, p[IP1], lst->elm.cyl.centre, lst->elm.cyl.radius)
-		&& is_within_range(id2, p[IP2], p[C_DIST], lst->elm.cyl.radius))
+	if (is_within_range(id1, p[IP1], cyl.centre, cyl.radius)
+		&& is_within_range(id2, p[IP2], p[C_DIST], cyl.radius))
 	{
 		if (id1 < id2)
 			return (id1);
 		else
 			return (id2);
 	}
-	if (is_within_range(id1, p[IP1], lst->elm.cyl.centre, lst->elm.cyl.radius))
+	if (is_within_range(id1, p[IP1], cyl.centre, cyl.radius))
 		return (id1);
-	if (is_within_range(id2, p[IP2], p[C_DIST], lst->elm.cyl.radius))
+	if (is_within_range(id2, p[IP2], p[C_DIST], cyl.radius))
 		return (id2);
 	return (INFINITY);
 }
@@ -130,23 +130,23 @@ static inline double	handle_intersection(double id1, double id2,
  * @return The distance from the ray's origin to the intersection point,
  * or INFINITY if no intersection.
  */
-double	top_intersect(t_v3d o, t_v3d d, t_obj *lst)
+double	top_intersect(t_v3d o, t_v3d d, t_cylinder cyl)
 {
 	double	id1;
 	double	id2;
 	t_v3d	p[3];
 	t_v3d	o_d[2];
 
-	p[C_DIST] = ft_plus_v3d(lst->elm.cyl.centre,
-			ft_scalar_v3d(lst->elm.cyl.height, lst->elm.cyl.dir));
+	p[C_DIST] = ft_plus_v3d(cyl.centre,
+			ft_scalar_v3d(cyl.height, cyl.dir));
 	o_d[0] = o;
 	o_d[1] = d;
-	id1 = plane_hit(o, d, lst->elm.cyl.centre, lst->elm.cyl.dir);
-	id2 = plane_hit(o, d, p[C_DIST], lst->elm.cyl.dir);
+	id1 = plane_hit(o, d, cyl.centre, cyl.dir);
+	id2 = plane_hit(o, d, p[C_DIST], cyl.dir);
 	if (id1 < INFINITY || id2 < INFINITY)
 	{
 		compute_p_values(p, o_d, id1, id2);
-		return (handle_intersection(id1, id2, p, lst));
+		return (handle_intersection(id1, id2, p, cyl));
 	}
 	return (INFINITY);
 }

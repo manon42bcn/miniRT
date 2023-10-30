@@ -63,20 +63,20 @@ t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *inter)
  * @param origin The origin point of the ray.
  * @param dir    The direction vector of the ray.
  */
-static void	ellipsoid_quad(double *coef, t_obj *obj, t_v3d origin, t_v3d dir)
+static void	ellipsoid_quad(double *coef, t_ellip elp, t_v3d origin, t_v3d dir)
 {
 	t_v3d	oc;
 
-	oc = ft_minus_v3d(origin, obj->elm.elp.centre);
-	coef[E_A] = (dir.x * dir.x / (obj->elm.elp.rx * obj->elm.elp.rx))
-		+ (dir.y * dir.y / (obj->elm.elp.ry * obj->elm.elp.ry))
-		+ (dir.z * dir.z / (obj->elm.elp.rz * obj->elm.elp.rz));
-	coef[E_B] = 2 * (oc.x * dir.x / (obj->elm.elp.rx * obj->elm.elp.rx))
-		+ 2 * (oc.y * dir.y / (obj->elm.elp.ry * obj->elm.elp.ry))
-		+ 2 * (oc.z * dir.z / (obj->elm.elp.rz * obj->elm.elp.rz));
-	coef[E_C] = (oc.x * oc.x / (obj->elm.elp.rx * obj->elm.elp.rx))
-		+ (oc.y * oc.y / (obj->elm.elp.ry * obj->elm.elp.ry))
-		+ (oc.z * oc.z / (obj->elm.elp.rz * obj->elm.elp.rz)) - 1;
+	oc = ft_minus_v3d(origin, elp.centre);
+	coef[E_A] = (dir.x * dir.x / (elp.rx * elp.rx))
+		+ (dir.y * dir.y / (elp.ry * elp.ry))
+		+ (dir.z * dir.z / (elp.rz * elp.rz));
+	coef[E_B] = 2 * (oc.x * dir.x / (elp.rx * elp.rx))
+		+ 2 * (oc.y * dir.y / (elp.ry * elp.ry))
+		+ 2 * (oc.z * dir.z / (elp.rz * elp.rz));
+	coef[E_C] = (oc.x * oc.x / (elp.rx * elp.rx))
+		+ (oc.y * oc.y / (elp.ry * elp.ry))
+		+ (oc.z * oc.z / (elp.rz * elp.rz)) - 1;
 }
 
 /**
@@ -93,12 +93,12 @@ static void	ellipsoid_quad(double *coef, t_obj *obj, t_v3d origin, t_v3d dir)
  * @return The minimum non-negative intersection distance or INFINITY if there
  *         is no intersection.
  */
-double	ellipsoid_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+double	ellipsoid_solver(t_v3d origin, t_v3d dir, t_ellip elp)
 {
 	double	coef[3];
 	double	t[2];
 
-	ellipsoid_quad(&coef[0], obj, origin, dir);
+	ellipsoid_quad(&coef[0], elp, origin, dir);
 	if (!quadratic(&coef[0], &t[0]))
 		return (INFINITY);
 	if (t[0] > 0)

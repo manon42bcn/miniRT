@@ -23,7 +23,7 @@ typedef struct s_mrt	t_mrt;
 # define LEFT_CLICK 2
 # define RAD_ANGLE 0.0174533
 
-typedef double	(*t_solver)(t_v3d, t_v3d, t_obj *);
+typedef double	(*t_solver)(t_v3d, t_v3d, int, t_obj *);
 
 typedef struct s_ray
 {
@@ -115,6 +115,22 @@ typedef struct s_obj
 	union u_figures	elm;
 }					t_obj;
 
+typedef struct		s_inter
+{
+	t_ray			ray;
+	t_obj			*obj;
+	double			dist;
+	t_rgb			color;
+	t_rgb			ref_color;
+	t_bool			specular;
+	double			reflex;
+	double			refract;
+	t_bool			inside;
+	t_v3d			normal;
+	t_v3d			hit;
+	int 			face;
+}					t_inter;
+
 typedef struct s_mrt
 {
 	t_bool		to_img;
@@ -136,7 +152,7 @@ typedef struct s_mrt
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
 	t_v3d		(*ray_pixel)(int, int, t_mrt *);
-	double		(*get_solver)(t_v3d, t_v3d, t_obj *);
+	double		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
 	pthread_mutex_t	getsolver;
 	pthread_mutex_t	getnormal;
 	pthread_mutex_t	getlight;
@@ -151,20 +167,6 @@ typedef	struct s_info
 	t_pixel	max_y;
 }				t_info;
 
-typedef struct		s_inter
-{
-	t_ray			ray;
-	t_obj			*obj;
-	double			dist;
-	t_rgb			color;
-	t_rgb			ref_color;
-	t_bool			specular;
-	double			reflex;
-	double			refract;
-	t_bool			inside;
-	t_v3d			normal;
-	t_v3d			hit;
-	int 			face;
-}					t_inter;
+
 
 #endif

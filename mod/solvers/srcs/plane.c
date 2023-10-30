@@ -45,7 +45,7 @@ double	plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
  * @return The distance from the ray's origin to the intersection point,
  * or INFINITY if no intersection.
  */
-double	plane_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+double	plane_solver(t_v3d origin, t_v3d dir, t_plane pl)
 {
-	return (plane_hit(origin, dir, obj->elm.pl.centre, obj->elm.pl.orient));
+	return (plane_hit(origin, dir, pl.centre, pl.orient));
 }

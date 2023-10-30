@@ -27,24 +27,27 @@
  * @return A pointer to the solver function corresponding to the given
  * object type.
  */
-double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 {
-	if (obj->type == SPHERE)
-		return (sphere_solver(origin, dir, obj));
-	if (obj->type == PLANE)
-		return (plane_solver(origin, dir, obj));
-	if (obj->type == CYLINDER)
-		return (cylinder_solver(origin, dir, obj));
-	if (obj->type == RECTANGLE)
-		return (rectangle_solver(origin, dir, obj));
-	if (obj->type == TRIANGLE)
-		return (triangle_solver(origin, dir, obj));
-	if (obj->type == BOX)
-		return (box_solver(origin, dir, obj));
-	if (obj->type == CONE)
-		return (cone_solver(origin, dir, obj));
-	if (obj->type == ELLIPS)
-		return (ellipsoid_solver(origin, dir, obj));
+	int	type;
+
+	type = obj->type;
+	if (type == SPHERE)
+		return (sphere_solver(origin, dir, obj->elm.sph));
+	if (type == PLANE)
+		return (plane_solver(origin, dir, obj->elm.pl));
+	if (type == CYLINDER)
+		return (cylinder_solver(origin, dir, obj->elm.cyl));
+	if (type == RECTANGLE)
+		return (rectangle_solver(origin, dir, obj->elm.rc));
+	if (type == TRIANGLE)
+		return (triangle_solver(origin, dir, obj->elm.trg));
+	if (type == BOX)
+		return (box_solver(origin, dir, obj->elm.box, inter));
+	if (type == CONE)
+		return (cone_solver(origin, dir, obj->elm.con));
+	if (type == ELLIPS)
+		return (ellipsoid_solver(origin, dir, obj->elm.elp));
 	return (INFINITY);
 }
 
@@ -60,12 +63,14 @@ double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj)
  * @return A pointer to the solver function corresponding to the
  * given object type.
  */
-double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+double	get_solver(t_v3d origin, t_v3d dir, int type, t_obj *obj)
 {
-	static t_solver	solve[] = {&sphere_solver, &plane_solver,
-		&cylinder_solver};
-
-	return (solve[obj->type](origin, dir, obj));
+	if (type == SPHERE)
+		return (sphere_solver(origin, dir, obj->elm.sph));
+	if (type == CYLINDER)
+		return (cylinder_solver(origin, dir, obj->elm.cyl));
+	else
+		return (plane_solver(origin, dir, obj->elm.pl));
 }
 
 #endif

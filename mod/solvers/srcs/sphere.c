@@ -12,25 +12,9 @@
 
 #include "solvers.h"
 
-/**
- * @brief Compute the normal vector at the point of intersection for a sphere.
- *
- * This function calculates the normal vector at the point where a ray
- * intersects a sphere. The direction of the normal depends on whether the ray
- * hits the sphere from the outside or if it originates from inside the sphere.
- * If the ray is inside the sphere, the normal vector is inverted, and the
- * intersection structure's `inside` flag is set to TRUE.
- *
- * @param dir The direction of the incoming ray.
- * @param hit The point of intersection on the sphere.
- * @param inter Pointer to the intersection structure containing details about
- * the intersection.
- *
- * @return The normal vector at the point of intersection.
- */
 t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
-	t_v3d	rst;
+	t_v3d		rst;
 
 	rst = ft_normal_v3d(ft_minus_v3d(hit, inter->obj->elm.sph.centre));
 	if (ft_cos_v3d(dir, rst) > 0)
@@ -43,34 +27,21 @@ t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 	return (rst);
 }
 
-/**
- * @brief Calculates the intersection points between a ray and a sphere.
- *
- * @param points Array of 2 doubles to hold the intersection distances.
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param sph The sphere object.
- */
 static inline void	sphere_hit_area(double points[2], t_v3d origin,
-		t_v3d dir, t_obj *sph)
+		t_v3d dir, t_sphere sph)
 {
 	t_v3d	dist_from_centre;
 	double	p[3];
 
-	dist_from_centre = ft_minus_v3d(origin, sph->elm.sph.centre);
+	dist_from_centre = ft_minus_v3d(origin, sph.centre);
 	p[0] = ft_length_v3d(dir);
 	p[1] = 2 * ft_dot_v3d(dir, dist_from_centre);
-	p[2] = ft_length_v3d(dist_from_centre) - sph->elm.sph.radius
-		* sph->elm.sph.radius;
+	p[2] = ft_length_v3d(dist_from_centre) - sph.radius
+		* sph.radius;
 	quadratic(&p[0], &points[0]);
 }
 
-/**
- * @brief Returns the smaller of the two intersection points.
- *
- * @param points Array of 2 intersection points.
- * @return The smaller intersection point.
- */
+
 static inline double	hit_between_points(double points[2])
 {
 	if (points[0] < points[1])
@@ -79,16 +50,7 @@ static inline double	hit_between_points(double points[2])
 		return (points[1]);
 }
 
-/**
- * @brief Solver function for the intersection between a ray and a sphere.
- *
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param sph The sphere object.
- * @return The distance from the ray's origin to the closest intersection
- * point, or INFINITY if no intersection.
- */
-double	sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph)
+double	sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph)
 {
 	double	distance;
 	double	points[2];
@@ -100,17 +62,19 @@ double	sphere_solver(t_v3d origin, t_v3d dir, t_obj *sph)
 	if (points[0] > EPSILON && points[0] < INFINITY)
 		distance = points[0];
 	if (points[1] > EPSILON && points[1] < INFINITY)
+	{
 		if (points[1] < points[0])
 			distance = points[1];
-	if (sph->texture != 4)
+	}
+	if (sph.texture != 4)
 		return (distance);
 	p1 = ft_plus_v3d(origin, ft_scalar_v3d(points[0], dir));
 	p2 = ft_plus_v3d(origin, ft_scalar_v3d(points[1], dir));
-	if (p1.y >= sph->elm.sph.centre.y && p2.y >= sph->elm.sph.centre.y)
+	if (p1.y >= sph.centre.y && p2.y >= sph.centre.y)
 		return (hit_between_points(points));
-	else if (p1.y >= sph->elm.sph.centre.y)
+	else if (p1.y >= sph.centre.y)
 		return (points[0]);
-	else if (p2.y >= sph->elm.sph.centre.y)
+	else if (p2.y >= sph.centre.y)
 		return (points[1]);
 	return (INFINITY);
 }
