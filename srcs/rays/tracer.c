@@ -12,27 +12,6 @@
 
 #include "minirt.h"
 
-static inline void	get_hits(t_inter *inter, t_obj *obj, t_mrt *mrt)
-{
-	get_inter(inter, obj, mrt);
-	if (inter->obj)
-	{
-		inter->color = inter->obj->color;
-		inter->hit = ft_plus_v3d(inter->ray.from,
-				ft_scalar_v3d(inter->dist, inter->ray.to));
-		inter->reflex = inter->obj->reflex;
-		inter->refract = inter->obj->refract;
-		inter->specular = inter->obj->specular;
-	}
-	else
-	{
-		inter->color = mrt->scn.bgr;
-		inter->reflex = 0.0;
-		inter->refract = 0.0;
-		inter->specular = FALSE;
-	}
-}
-
 #ifdef BONUS
 
 static inline t_v3d	refraction(t_inter inter, t_obj *obj)
@@ -100,8 +79,7 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 		return (mrt->scn.bgr);
 	inter.normal = get_normal(&inter, dir, inter.hit);
 	inter.color = light_hit(inter.ray, inter, mrt);
-	return (ft_rgb_add(ft_rgb_dot(inter.color, 1 - inter.reflex),
-			ft_rgb_dot(inter.ref_color, inter.reflex)));
+	return (inter.color);
 }
 
 #endif

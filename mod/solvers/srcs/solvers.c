@@ -14,19 +14,6 @@
 
 #ifdef BONUS
 
-/**
- * @brief Returns a pointer to the appropriate solver function for a
- * specified geometric object type (Bonus version).
- *
- * Maps an index representing the type of an object to its corresponding
- * solver function. This solver function is used to determine if and
- * how a ray intersects the object. Includes solvers for advanced
- * geometric shapes.
- *
- * @param index Integer representing the object type.
- * @return A pointer to the solver function corresponding to the given
- * object type.
- */
 double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 {
 	int	type;
@@ -53,18 +40,12 @@ double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 
 #else
 
-/**
- * @brief Returns a pointer to the appropriate solver function for a
- * specified geometric object type (Standard version).
- *
- * Similar to the Bonus version, but limited to basic geometric shapes.
- *
- * @param index Integer representing the object type.
- * @return A pointer to the solver function corresponding to the
- * given object type.
- */
-double	get_solver(t_v3d origin, t_v3d dir, int type, t_obj *obj)
+double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 {
+	int	type;
+
+	(void)inter;
+	type = obj->type;
 	if (type == SPHERE)
 		return (sphere_solver(origin, dir, obj->elm.sph));
 	if (type == CYLINDER)

@@ -43,7 +43,7 @@ enum e_dist
 typedef t_v3d	(*t_normal)(t_v3d, t_v3d, t_inter *);
 
 t_bool			quadratic(double *vars, double *dist);
-
+double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter);
 double			plane_solver(t_v3d origin, t_v3d dir, t_plane pl);
 double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
 					t_v3d plane_dir);
@@ -56,7 +56,6 @@ t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # ifdef BONUS
 
-double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter);
 double			triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg);
 double			box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter);
 double			cone_solver(t_v3d origin, t_v3d dir, t_cone con);
@@ -67,10 +66,6 @@ t_v3d			box_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
-
-# else
-
-double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj);
 
 # endif
 

@@ -13,7 +13,6 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-#include <pthread.h>
 typedef struct s_obj	t_obj;
 typedef int				t_pixel;
 typedef struct s_mrt	t_mrt;
@@ -22,8 +21,6 @@ typedef struct s_mrt	t_mrt;
 # define RIGHT_CLICK 1
 # define LEFT_CLICK 2
 # define RAD_ANGLE 0.0174533
-
-typedef double	(*t_solver)(t_v3d, t_v3d, int, t_obj *);
 
 typedef struct s_ray
 {
@@ -153,9 +150,6 @@ typedef struct s_mrt
 	int			(*clean_image)(void *, void *);
 	t_v3d		(*ray_pixel)(int, int, t_mrt *);
 	double		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
-	pthread_mutex_t	getsolver;
-	pthread_mutex_t	getnormal;
-	pthread_mutex_t	getlight;
 }					t_mrt;
 
 typedef	struct s_info

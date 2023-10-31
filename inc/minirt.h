@@ -13,7 +13,9 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include <pthread.h>
+# ifdef BONUS
+#  include <pthread.h>
+# endif
 
 # include "../mlx/mlx.h"
 # include "defines.h"
@@ -44,8 +46,8 @@ typedef struct		s_pix
 typedef double	(*t_solver)(t_v3d, t_v3d, int, t_obj *);
 void		printVector(t_v3d *vector);
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
-
-void		get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt);
+void		get_hits(t_inter *inter, t_obj *obj, t_mrt *mrt);
+//void		get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt);
 //light
 t_rgb		light_hit(t_ray ray, t_inter inter, t_mrt *mrt);
 //Rays
@@ -65,6 +67,7 @@ void		msg_instructions(void);
 void		msg_error_exit(char *message);
 
 # ifdef BONUS
+
 //Texture
 void		texturize(t_inter *inter);
 t_rgb		bump_texture(t_inter inter, t_v3d hit, t_obj *obj, t_mrt *mrt);
