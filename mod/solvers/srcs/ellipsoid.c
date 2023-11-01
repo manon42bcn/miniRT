@@ -13,24 +13,17 @@
 #include "solvers.h"
 
 /**
- * @brief Compute the normal vector at the intersection point for an ellipsoid.
+ * @brief Calculate the normal vector for a hit point on an ellipsoid surface.
  *
- * This function calculates the normal vector at the point where a ray
- * intersects an ellipsoid. Ellipsoids, similar to spheres but stretched or
- * compressed along the different axes, have  a mathematical formula for their
- * normal vectors based on their radius along each axis and the hit point.
+ * This function computes the normal vector for a point of intersection on an
+ * ellipsoid surface based on the incoming ray direction and the ellipsoid's
+ * properties.
  *
- * Given the ellipsoid equation (x^2/a^2 + y^2/b^2 + z^2/c^2 = 1), the gradient
- * of the surface at any point `(x, y, z)` is directly proportional to the vector
- * `(2x/a^2, 2y/b^2, 2z/c^2)`. This gradient becomes the normal vector once
- * normalized.
+ * @param dir The direction vector of the incoming ray (unused in this version).
+ * @param hit The point of intersection on the ellipsoid surface.
+ * @param inter Pointer to the intersection data structure.
  *
- * @param dir The direction of the incoming ray (unused in the function).
- * @param hit The point of intersection on the ellipsoid.
- * @param inter Pointer to the intersection structure containing details about
- * the intersection.
- *
- * @return The normalized normal vector at the point of intersection.
+ * @return The normal vector at the point of intersection.
  */
 t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
@@ -49,19 +42,18 @@ t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 }
 
 /**
- * @brief Calculate the coefficients for a quadratic equation representing an
- *        ellipsoid intersection.
+ * @brief Calculate the coefficients for the quadratic equation representing an
+ * ellipsoid.
  *
- * Given an ellipsoid object and a ray defined by its origin and direction, this
- * function computes the coefficients for the quadratic equation that
- * represents the intersection of the ray with the ellipsoid, and store them
- * at coef array.
+ * This function computes the coefficients of the quadratic equation that
+ * represents the intersection of a ray with an ellipsoid. The equation is used
+ * to solve for the intersection points.
  *
- * @param coef   An array to store the coefficients [A, B, C] of the
- *               quadratic equation.
- * @param obj    A pointer to the ellipsoid object.
+ * @param coef An array to store the coefficients (E_A, E_B, E_C) of the
+ * quadratic equation.
+ * @param elp The ellipsoid structure representing the ellipsoid.
  * @param origin The origin point of the ray.
- * @param dir    The direction vector of the ray.
+ * @param dir The direction vector of the ray.
  */
 static void	ellipsoid_quad(double *coef, t_ellip elp, t_v3d origin, t_v3d dir)
 {
@@ -80,18 +72,18 @@ static void	ellipsoid_quad(double *coef, t_ellip elp, t_v3d origin, t_v3d dir)
 }
 
 /**
- * @brief Solve for the intersection between a ray and an ellipsoid.
+ * @brief Calculate the intersection point of a ray with an ellipsoid.
  *
- * Given a ray defined by its origin and direction, this function calculates the
- * intersection points between the ray and an ellipsoid object. It returns the
- * minimum non-negative solution or INFINITY if no intersection occurs.
+ * This function finds the intersection point of a ray with an ellipsoid and
+ * returns the distance from the ray origin to the intersection point. It uses
+ * quadratic equations to solve for the intersection.
  *
- * @param origin A point representing the origin of the ray.
- * @param dir    The direction vector of the ray.
- * @param obj    A pointer to the ellipsoid object.
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param elp The ellipsoid structure representing the ellipsoid.
  *
- * @return The minimum non-negative intersection distance or INFINITY if there
- *         is no intersection.
+ * @return The distance from the ray origin to the intersection point or INFINITY
+ * if there is no intersection with the ellipsoid.
  */
 double	ellipsoid_solver(t_v3d origin, t_v3d dir, t_ellip elp)
 {

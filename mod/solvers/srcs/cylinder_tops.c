@@ -13,27 +13,20 @@
 #include "solvers.h"
 
 /**
- * @brief Compute the normal vector at the point of intersection for a cylinder.
+ * @brief Calculate the normal vector for a hit point on a cylinder's surface.
  *
- * This function calculates the normal vector at the point where a ray intersects
- * a cylinder. The computed normal depends on whether the ray intersects the
- * curved surface or one of the cylinder's flat end caps.
+ * This function calculates the normal vector for a point of intersection on a
+ * cylinder's surface based on the incoming ray direction and the cylinder's
+ * properties.
  *
- * If the intersection occurs on an end cap, the direction of the normal might
- * be inverted based on the direction of the incoming ray. For the curved
- * surface of the cylinder, the normal is derived from the local hit point and
- * the orientation of the cylinder.
- *
- * @param dir The direction of the incoming ray.
- * @param hit The point of intersection on the cylinder.
- * @param inter Pointer to the intersection structure containing details about
- * the intersection.
+ * @param dir The direction vector of the incoming ray.
+ * @param hit The point of intersection on the cylinder's surface.
+ * @param inter Pointer to the intersection data structure.
  *
  * @return The normal vector at the point of intersection.
  */
 t_v3d	cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
-	t_v3d	normal;
 	t_v3d	local_hit;
 	double	dot;
 
@@ -44,64 +37,48 @@ t_v3d	cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 		if (ft_cos_v3d(dir, inter->obj->elm.cyl.dir) > 0)
 			return (ft_scalar_v3d(-1, inter->obj->elm.cyl.dir));
 		else
-			return (inter->obj->elm.cyl.dir);
+			return (inter->normal);
 	}
-	else
-	{
-		normal = ft_minus_v3d(local_hit,
-				ft_scalar_v3d(dot, inter->obj->elm.cyl.dir));
-		normal = ft_normal_v3d(normal);
-	}
-	return (normal);
+	return (ft_normal_v3d(ft_minus_v3d(local_hit,
+				ft_scalar_v3d(dot, inter->obj->elm.cyl.dir))));
 }
 
 /**
- * @brief Compute the intersection points given the intersection distances.
+ * @brief Check if a point is within a specified range from another point.
  *
- * @param p[] Array to store computed intersection points.
- * @param o_d[] Array containing starting point of the ray (o_d[0])
- * and its direction (o_d[1]).
- * @param id1 Intersection distance for the first intersection.
- * @param id2 Intersection distance for the second intersection.
- */
-static inline void	compute_p_values(t_v3d p[], t_v3d o_d[],
-	double id1, double id2)
-{
-	p[IP1] = ft_plus_v3d(o_d[0], ft_scalar_v3d(id1, o_d[1]));
-	p[IP2] = ft_plus_v3d(o_d[0], ft_scalar_v3d(id2, o_d[1]));
-}
-
-/**
- * @brief Check if a point is within a given distance from the cylinder center.
+ * This function checks if a given point is within a specified range (radius)
+ * from another point (center).
  *
- * @param id Intersection distance.
- * @param point Intersection point.
- * @param centre Center of the cylinder.
- * @param radius Radius of the cylinder.
- * @return Returns 1 if within range, 0 otherwise.
+ * @param id The distance from the given point to the center.
+ * @param point The point being tested.
+ * @param centre The center point.
+ * @param radius The specified range (radius).
+ *
+ * @return 1 if the point is within the specified range, 0 otherwise.
  */
 static inline int	is_within_range(double id, t_v3d point,
-	t_v3d centre, double radius)
+			t_v3d centre, double radius)
 {
 	return (id < INFINITY && ft_distance_v3d(point, centre) <= radius);
 }
 
 /**
- * @brief Determine the appropriate intersection distance.
+ * @brief Handle the intersection with the top and bottom caps of a cylinder.
  *
- * Given two potential intersections, determine which is the correct one.
- * The function will also ensure the intersection is within the
- * cylinder's bounds.
+ * This function handles the intersection with the top and bottom caps of a
+ * cylinder. It checks if the intersection points are within the caps and returns
+ * the closest intersection point if any.
  *
- * @param id1 Intersection distance for the first intersection.
- * @param id2 Intersection distance for the second intersection.
- * @param p[] Intersection points.
- * @param lst The list of objects in the scene.
- * @return The correct intersection distance, or INFINITY if
- * no valid intersection.
+ * @param id1 The intersection distance for the first cap.
+ * @param id2 The intersection distance for the second cap.
+ * @param p An array containing intersection points.
+ * @param cyl The cylinder structure representing the cylinder.
+ *
+ * @return The closest intersection distance or INFINITY if there is no
+ * intersection.
  */
 static inline double	handle_intersection(double id1, double id2,
-	t_v3d p[], t_cylinder cyl)
+											t_v3d p[], t_cylinder cyl)
 {
 	if (is_within_range(id1, p[IP1], cyl.centre, cyl.radius)
 		&& is_within_range(id2, p[IP2], p[C_DIST], cyl.radius))
@@ -119,16 +96,18 @@ static inline double	handle_intersection(double id1, double id2,
 }
 
 /**
- * @brief Main solver function for intersections with the top of the cylinder.
+ * @brief Find the intersection point of a ray with a cylinder's top cap.
  *
- * Computes intersections against the top cap of the cylinder.
- * Uses helper functions to calculate and validate intersection points.
+ * This function calculates the intersection point of a ray with a cylinder's
+ * top cap. It returns the distance from the ray's origin to the intersection
+ * point.
  *
- * @param o Starting point of the ray.
- * @param d Direction of the ray.
- * @param lst The list of objects in the scene.
- * @return The distance from the ray's origin to the intersection point,
- * or INFINITY if no intersection.
+ * @param o The origin point of the ray.
+ * @param d The direction vector of the ray.
+ * @param cyl The cylinder structure representing the cylinder.
+ *
+ * @return The distance from the ray origin to the intersection point or
+ * INFINITY if there is no intersection with the top cap.
  */
 double	top_intersect(t_v3d o, t_v3d d, t_cylinder cyl)
 {
@@ -145,7 +124,8 @@ double	top_intersect(t_v3d o, t_v3d d, t_cylinder cyl)
 	id2 = plane_hit(o, d, p[C_DIST], cyl.dir);
 	if (id1 < INFINITY || id2 < INFINITY)
 	{
-		compute_p_values(p, o_d, id1, id2);
+		p[IP1] = ft_plus_v3d(o_d[0], ft_scalar_v3d(id1, o_d[1]));
+		p[IP2] = ft_plus_v3d(o_d[0], ft_scalar_v3d(id2, o_d[1]));
 		return (handle_intersection(id1, id2, p, cyl));
 	}
 	return (INFINITY);

@@ -13,22 +13,14 @@
 #include "solvers.h"
 
 /**
- * @brief Compute the normal vector at the point of intersection for a cone.
+ * @brief Calculate the normal vector for a hit point on a cone surface.
  *
- * This function calculates the normal vector at the point where a ray intersects
- * a cone. Cones, being curved surfaces, require a more complex method for normal
- * derivation compared to flat surfaces. This function uses the vector between
- * the hit point and the apex of the cone (`v_apex`), and a parallel vector
- * (`parallel`) to derive the normal.
+ * This function computes the normal vector for a point of intersection on a cone
+ * surface based on the incoming ray direction and the cone's properties.
  *
- * The function employs mathematical properties of cones and their defined
- * `alpha` (which represents the cone's angle) to compute the correct orientation
- * for the normal at the intersection point.
- *
- * @param dir The direction of the incoming ray (unused in the function).
- * @param hit The point of intersection on the cone.
- * @param inter Pointer to the intersection structure containing details about
- * the intersection.
+ * @param dir The direction vector of the incoming ray (unused in this version).
+ * @param hit The point of intersection on the cone surface.
+ * @param inter Pointer to the intersection data structure.
  *
  * @return The normal vector at the point of intersection.
  */
@@ -49,21 +41,17 @@ t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 }
 
 /**
- * @brief Checks if the intersection point of a ray with a cone lies within
- * the bounds of the cone.
+ * @brief Calculate the bounds of intersection with a cone.
  *
- * This function checks whether the intersection point of a ray with a cone
- * is located between the base and the tip of the cone. If the intersection
- * is out of these bounds, it returns INFINITY. Otherwise, it returns the
- * distance `t` from the ray's origin to the intersection point.
+ * This function calculates the bounds of intersection of a ray with a cone
+ * based on the ray's origin, direction, and the cone's properties.
  *
- * @param origin The origin of the ray.
- * @param dir The direction of the ray.
- * @param t The distance from the ray's origin to a potential intersection
- * point.
- * @param cone Pointer to the cone object.
- * @return double The distance `t` if the intersection is within the
- * cone's bounds, otherwise INFINITY.
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param t The calculated intersection distance with the cone.
+ * @param con The cone structure representing the cone.
+ *
+ * @return The intersection distance or INFINITY if there is no intersection.
  */
 static inline double	bounds(t_v3d origin, t_v3d dir,
 		double t, t_cone con)
@@ -85,18 +73,18 @@ static inline double	bounds(t_v3d origin, t_v3d dir,
 }
 
 /**
- * @brief Computes the quadratic coefficients for ray-cone intersection.
+ * @brief Calculate the intersection point of a ray with a cone.
  *
- * This function calculates the coefficients A, B, and C for the quadratic
- * equation that determines the intersections between a ray and a cone.
- * These coefficients are essential for solving the quadratic equation
- * and determining if and where the ray intersects the cone.
+ * This function finds the intersection point of a ray with a cone and returns
+ * the distance from the ray origin to the intersection point. It utilizes
+ * quadratic equations to solve for the intersection.
  *
- * @param coef Pointer to an array to store the computed coefficients
- * A, B, and C.
- * @param obj Pointer to the cone object.
- * @param origin The origin of the ray.
- * @param dir The direction of the ray.
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param con The cone structure representing the cone.
+ *
+ * @return The distance from the ray origin to the intersection point or INFINITY
+ * if there is no intersection with the cone.
  */
 static inline void	cone_quad(double *coef, t_cone con, t_v3d origin, t_v3d dir)
 {
@@ -118,15 +106,6 @@ static inline void	cone_quad(double *coef, t_cone con, t_v3d origin, t_v3d dir)
 		* (dot_oc * dot_oc);
 }
 
-/**
- * @brief Computes the intersection of a ray with a cone.
- *
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param obj Cone object.
- * @return double Distance from the ray origin to the closest intersection
- * point or INFINITY.
- */
 double	cone_solver(t_v3d origin, t_v3d dir, t_cone con)
 {
 	double	coef[3];

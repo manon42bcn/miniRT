@@ -12,6 +12,19 @@
 
 #include "solvers.h"
 
+/**
+ * @brief Calculate the normal vector for a hit point on a sphere's surface.
+ *
+ * This function calculates the normal vector for a point of intersection on a
+ * sphere's surface based on the incoming ray direction and the sphere's
+ * properties. It also checks if the intersection is inside the sphere.
+ *
+ * @param dir The direction vector of the incoming ray.
+ * @param hit The point of intersection on the sphere's surface.
+ * @param inter Pointer to the intersection data structure.
+ *
+ * @return The normal vector at the point of intersection.
+ */
 t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	t_v3d		rst;
@@ -27,6 +40,18 @@ t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 	return (rst);
 }
 
+/**
+ * @brief Calculate the intersection points between a ray and a sphere.
+ *
+ * This function calculates the two intersection points of a ray with a
+ * sphere defined by its center and radius. It stores the points in the
+ * 'points' array.
+ *
+ * @param points An array to store the two intersection points.
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param sph The sphere structure representing the sphere.
+ */
 static inline void	sphere_hit_area(double points[2], t_v3d origin,
 		t_v3d dir, t_sphere sph)
 {
@@ -41,7 +66,18 @@ static inline void	sphere_hit_area(double points[2], t_v3d origin,
 	quadratic(&p[0], &points[0]);
 }
 
-
+/**
+ * @brief Determine the nearest valid intersection point.
+ *
+ * This function determines the nearest valid intersection point between two
+ * calculated points based on the ray's direction and whether they are valid
+ * and positive distances.
+ *
+ * @param points An array containing the two intersection points.
+ *
+ * @return The nearest valid intersection distance or INFINITY if no valid
+ * intersection exists.
+ */
 static inline double	hit_between_points(double points[2])
 {
 	if (points[0] < points[1])
@@ -50,6 +86,20 @@ static inline double	hit_between_points(double points[2])
 		return (points[1]);
 }
 
+/**
+ * @brief Calculate the intersection point between a ray and a sphere.
+ *
+ * This function calculates the intersection point of a ray with a sphere
+ * defined by its center and radius. It returns the distance from the ray's
+ * origin to the intersection point or INFINITY if there is no intersection.
+ *
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param sph The sphere structure representing the sphere.
+ *
+ * @return The distance from the ray origin to the intersection point or
+ * INFINITY if there is no intersection with the sphere.
+ */
 double	sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph)
 {
 	double	distance;

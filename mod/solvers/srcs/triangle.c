@@ -13,20 +13,17 @@
 #include "solvers.h"
 
 /**
- * @brief Checks if a given intersection point is inside a triangle.
+ * @brief Check if a point is inside a triangle defined by its vertices.
  *
- * This function uses the barycentric technique to determine if the
- * intersection point is within the triangle boundaries. The barycentric
- * technique leverages vector cross products to check the location of the
- * intersection point relative to the triangle's vertices.
+ * This function checks if a given point is inside a triangle defined by its
+ * three vertices.
  *
- * @param v1 First vertex of the triangle.
- * @param v2 Second vertex of the triangle.
- * @param v3 Third vertex of the triangle.
- * @param inter_point The point to be checked if it lies within the
- * triangle.
- * @return TRUE if the intersection point is outside the triangle,
- * FALSE otherwise.
+ * @param v1 The first vertex of the triangle.
+ * @param v2 The second vertex of the triangle.
+ * @param v3 The third vertex of the triangle.
+ * @param inter_point The point being tested for inclusion.
+ *
+ * @return TRUE if the point is inside the triangle, FALSE otherwise.
  */
 static inline t_bool	triangle_hit(t_v3d v1, t_v3d v2,
 	t_v3d v3, t_v3d inter_point)
@@ -45,17 +42,19 @@ static inline t_bool	triangle_hit(t_v3d v1, t_v3d v2,
 }
 
 /**
- * @brief Determines the intersection between a ray and a triangle.
+ * @brief Find the intersection of a ray with a triangle.
  *
- * This function checks if the ray intersects the plane on which the
- * triangle lies. After finding the intersection point with the plane,
- * the function verifies whether the point is within the triangle's boundaries.
+ * This function calculates the intersection point of a ray with a triangle
+ * defined by its vertices and normal direction. It returns the distance from
+ * the ray's origin to the intersection point or INFINITY if there is no
+ * intersection.
  *
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param trg The triangle object.
- * @return Distance from the ray's origin to the intersection point.
- *         Returns INFINITY if the ray doesn't intersect with the triangle.
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param trg The triangle structure representing the triangle.
+ *
+ * @return The distance from the ray origin to the intersection point or
+ * INFINITY if there is no intersection with the triangle.
  */
 double	triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg)
 {

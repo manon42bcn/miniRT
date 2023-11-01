@@ -13,14 +13,13 @@
 #include "solvers.h"
 
 /**
- * @brief Check if a given point is inside a rectangle.
+ * @brief Check if a point is inside a rectangle.
  *
- * Determines whether the specified point lies inside the bounds of the given
- * rectangle object.
+ * This function checks if a given point is inside a rectangle defined by
+ * its center, orientation, width, and height.
  *
- * @param point 3D point to be checked.
- * @param obj Pointer to the object structure, which contains details about
- * the rectangle.
+ * @param point The point being tested for inclusion.
+ * @param rc The rectangle structure representing the rectangle.
  *
  * @return TRUE if the point is inside the rectangle, FALSE otherwise.
  */
@@ -43,6 +42,21 @@ t_bool	is_point_inside_rect(t_v3d point, t_rectangle rc)
 	return (FALSE);
 }
 
+/**
+ * @brief Find the intersection of a ray with a rectangle.
+ *
+ * This function calculates the intersection point of a ray with a rectangle
+ * defined by its center, orientation, width, and height. It returns the distance
+ * from the ray's origin to the intersection point or INFINITY if there is no
+ * intersection.
+ *
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param rc The rectangle structure representing the rectangle.
+ *
+ * @return The distance from the ray origin to the intersection point or INFINITY
+ * if there is no intersection with the rectangle.
+ */
 double	rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc)
 {
 	double	dist;
