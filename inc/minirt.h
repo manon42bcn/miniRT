@@ -43,11 +43,9 @@ typedef struct		s_pix
 	int 	max_y;
 }					t_pix;
 
-typedef double	(*t_solver)(t_v3d, t_v3d, int, t_obj *);
 void		printVector(t_v3d *vector);
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 void		get_hits(t_inter *inter, t_obj *obj, t_mrt *mrt);
-//void		get_inter(t_inter *inter, t_obj *obj, t_mrt *mrt);
 //light
 t_rgb		light_hit(t_ray ray, t_inter inter, t_mrt *mrt);
 //Rays
