@@ -77,6 +77,8 @@ typedef enum e_local_pix
 # define CHECKBOARD 1
 # define WAVES 2
 # define RAINBOW 3
+# define HALF_SPHERE 4
+# define NO_CAPS 4
 # define REFLECTION_LIMIT 3
 # define ERROR 1
 # define SUCCESS 0
