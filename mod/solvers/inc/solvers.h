@@ -47,7 +47,8 @@ double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter);
 double			plane_solver(t_v3d origin, t_v3d dir, t_plane pl);
 double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
 					t_v3d plane_dir);
-double			cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl, t_inter *inter);
+double			cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl,
+					t_inter *inter);
 double			top_intersect(t_v3d o, t_v3d d, t_cylinder lst);
 double			sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph);
 t_v3d			get_normal(t_inter *inter, t_v3d dir, t_v3d hit);

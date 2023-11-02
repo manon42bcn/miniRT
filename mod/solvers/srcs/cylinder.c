@@ -129,7 +129,8 @@ static inline t_v3d	cyl_orientation(double x2[2], t_v3d from,
  * @return The distance from the ray's origin to the intersection point or
  * INFINITY if there is no intersection with the cylinder's side surface.
  */
-static inline double	body_intersect(t_v3d o, t_v3d d, t_v3d *normal, t_cylinder cyl)
+static inline double	body_intersect(t_v3d o, t_v3d d, t_v3d *normal
+				, t_cylinder cyl)
 {
 	double	x2[2];
 
