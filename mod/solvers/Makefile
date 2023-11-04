@@ -11,24 +11,21 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRCS_B		=	box.c \
-				triangle.c \
-				cone.c \
-				ellipsoid.c \
-				rectangle.c
 SRCS		=	cylinder.c \
 				cylinder_tops.c \
 				plane.c \
 				solvers.c \
 				sphere.c \
 				quadratic.c \
-				normals.c
+				normals.c \
+				box.c \
+                triangle.c \
+                cone.c \
+                ellipsoid.c \
+                rectangle.c
 SRCS_DIR	=	srcs
 OBJS_DIR	=	obj
-BNS_DIR		=	bns
-OBJS_B_DIR	=	obj_bns
 OBJS 		=	$(addprefix $(OBJS_DIR)/,$(SRCS:.c=.o))
-OBJS_BNS 	=	$(addprefix $(OBJS_B_DIR)/,$(SRCS_B:.c=.o))
 CC			=	gcc
 RM			=	@rm -rf
 NAME		=	libsolvers.a
@@ -36,11 +33,11 @@ HEADER		=	inc/solvers.h \
 				../../libs/v3d/inc/v3d.h \
                 ../../libs/rgb/inc/rgb.h \
                 ../../libs/lib/inc/libft.h \
-				../../inc/defines.h \
-				../../inc/objects.h \
-                ../../inc/structs.h
+				../../common/defines.h \
+				../../common/objects.h \
+                ../../common/structs.h
 CFLAGS 		=	-Wall -Wextra -Werror
-INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
+INCLUDES 	= 	-Iinc -I../../libs/v3d/inc -I../../libs/rgb/inc -I../../libs/lib/inc -I../parser/inc -I../../inc -I../../common
 BONUS_FILE	= 	.bonus
 
 all: version $(NAME) $(HEADER)
@@ -67,25 +64,18 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(OBJS_SUBS)
-	$(RM) $(BONUS_FILE)
 
 bonus: CFLAGS += -DBONUS
-bonus: version_bonus $(BONUS_FILE)
+bonus: version_bonus $(BONUS_FILE) $(HEADER)
 
 version_bonus:
 	@if [ ! -f $(BONUS_FILE) ] && [ -f $(NAME) ]; then \
 		$(MAKE) fclean; \
     fi
 
-$(BONUS_FILE): $(OBJS_DIR) $(OBJS_B_DIR) $(OBJS) $(OBJS_BNS)
+$(BONUS_FILE): $(OBJS_DIR) $(OBJS)
 	ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
 	touch $(BONUS_FILE)
-
-$(OBJS_B_DIR)/%.o: $(BNS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
-
-$(OBJS_B_DIR):
-	-@mkdir $(OBJS_B_DIR)
 
 re:	fclean $(NAME)
 

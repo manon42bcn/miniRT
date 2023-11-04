@@ -16,12 +16,17 @@
 typedef struct s_obj	t_obj;
 typedef int				t_pixel;
 typedef struct s_mrt	t_mrt;
-typedef void			(*t_hook)(t_mrt *, int);
 # define TO_RENDER 0
 # define RENDERED 1
 # define RIGHT_CLICK 1
 # define LEFT_CLICK 2
 # define RAD_ANGLE 0.0174533
+
+typedef struct s_ray
+{
+	t_v3d	from;
+	t_v3d	to;
+}				t_ray;
 
 enum e_fig
 {
@@ -47,7 +52,6 @@ typedef	struct s_img
 	int		ll;
 	int		endian;
 	int		addr_incr;
-	int		antialiasing_on;
 }				t_img;
 
 typedef struct s_cmr
@@ -58,7 +62,6 @@ typedef struct s_cmr
 	double			fov;
 	double			orbit;
 	double			ratio;
-	double			angle;
 	t_obj			*close_obj;
 	void			*img_ptr;
 	int				*addr;
@@ -73,7 +76,6 @@ typedef struct s_light
 	t_v3d			origin;
 	double			bright;
 	t_rgb			color;
-	double			angle;
 	struct s_light	*next;
 }					t_light;
 
@@ -84,8 +86,9 @@ typedef struct s_scene
 	int				w_x;
 	int				w_y;
 	t_light			*light;
+	t_light			*sel_light;
 	double			bright;
-	int				amb_rgb;
+	t_rgb			amb_rgb;
 	double			ratio;
 	t_rgb			bgr;
 }					t_scene;
@@ -98,13 +101,10 @@ typedef struct s_obj
 	t_rgb			color;
 	t_rgb			orig_color;
 	t_rgb			sel_color;
-	double			angle;
 	int				specular;
 	double			reflex;
 	double			refract;
 	int				texture;
-	t_v3d			position;
-	t_v3d			normal;
 	double			wavelength;
 	t_bool			bump;
 	t_img			xpm;
@@ -112,12 +112,21 @@ typedef struct s_obj
 	union u_figures	elm;
 }					t_obj;
 
-typedef struct s_hooks
+typedef struct		s_inter
 {
-	int				keys;
-	t_hook			fnc;
-	struct t_hooks	*next;
-}				t_hooks;
+	t_ray			ray;
+	t_obj			*obj;
+	double			dist;
+	t_rgb			color;
+	t_rgb			ref_color;
+	t_bool			specular;
+	double			reflex;
+	double			refract;
+	t_bool			inside;
+	t_v3d			normal;
+	t_v3d			hit;
+	int 			face;
+}					t_inter;
 
 typedef struct s_mrt
 {
@@ -127,13 +136,11 @@ typedef struct s_mrt
 	void		*mlx_win;
 	t_scene		scn;
 	t_obj		*obj;
+	t_obj		*sel_obj;
 	t_cmr		*cmr;
 	t_cmr		*main_cam;
 	t_pixel		x;
 	t_pixel		y;
-	int			behaviour;
-	int			key_press;
-	t_hook		hooks[256];
 	char		*aux;
 	char		**tab;
 	int			fd;
@@ -141,18 +148,19 @@ typedef struct s_mrt
 	int			mode;
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
+	t_v3d		(*ray_pixel)(int, int, t_mrt *);
+	double		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
 }					t_mrt;
 
-typedef	struct s_thr
+typedef	struct s_info
 {
 	t_mrt	*mrt;
-	t_pixel	start_y;
+	t_pixel	x;
+	t_pixel	y;
 	t_pixel	end_y;
-}				t_thr;
+	t_pixel	max_y;
+}				t_info;
 
-#endif
 
-#ifndef RAYER
-# define RAYER
-static int rayer=0;
+
 #endif

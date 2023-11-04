@@ -17,39 +17,43 @@
 # include "../../../libs/v3d/inc/v3d.h"
 # include "../../../libs/rgb/inc/rgb.h"
 # include "../../../libs/lib/inc/libft.h"
-# include "../../../inc/defines.h"
-# include "../../../inc/objects.h"
-# include "../../../inc/structs.h"
+# include "defines.h"
+# include "objects.h"
+# include "structs.h"
 # include "../../parser/inc/parse.h"
 # include "../../../mlx/mlx.h"
 
-t_v3d	rotate_x(t_v3d old, double angle);
-t_v3d	rotate_y(t_v3d old, double angle);
-t_v3d	rotate_z(t_v3d old, double angle);
-int		keys_handler(int key, t_mrt *mrt);
-void	load_hooks(t_mrt *mrt);
-int		window_handler(t_mrt *mrt);
-int		mouse_handler(int mouse_code, int mouseX, int mouseY, t_mrt *mrt);
-void	cylinder_x_translation(t_mrt *mrt, int mouse_code);
-void	cylinder_y_translation(t_mrt *mrt, int mouse_code);
-void	cylinder_z_translation(t_mrt *mrt, int mouse_code);
-void	cylinder_diam(t_mrt *mrt, int mouse_code);
-void	cylinder_height(t_mrt *mrt, int mouse_code);
-void	sphere_x_translation(t_mrt *mrt, int mouse_code);
-void	sphere_y_translation(t_mrt *mrt, int mouse_code);
-void	sphere_z_translation(t_mrt *mrt, int mouse_code);
-void	sphere_diam(t_mrt *mrt, int mouse_code);
-void	camera_closest_x(t_mrt *mrt, int mouse_code);
-void	camera_closest_y(t_mrt *mrt, int mouse_code);
-void	camera_closest_z(t_mrt *mrt, int mouse_code);
-void	camera_orbit_x(t_mrt *mrt, int mouse_code);
-void	camera_orbit_y(t_mrt *mrt, int mouse_code);
-void	camera_orbit_z(t_mrt *mrt, int mouse_code);
-void	cylinder_rotation_x(t_mrt *mrt, int mouse_code);
-void	cylinder_rotation_y(t_mrt *mrt, int mouse_code);
-void	cylinder_rotation_z(t_mrt *mrt, int mouse_code);
-void	light_rotation_x(t_mrt *mrt, int mouse_code);
-void	light_rotation_y(t_mrt *mrt, int mouse_code);
-void	light_rotation_z(t_mrt *mrt, int mouse_code);
+# define NORMAL			0
+# define TO_SELECT		1
+# define TO_TRANSLATE	2
+# define TO_ROTATE		3
+# define TO_WIDTH		4
+# define TO_HEIGHT		5
+# define TO_CAMERA		6
+# define TO_LIGHT		7
+# define TO_EYE			8
+
+int			key_main(int key, t_mrt *mrt);
+int			mouse_select(int mouse_code, int x, int y, t_mrt *mrt);
+int			normal_light(t_mrt *mrt);
+int			normal_object(t_mrt *mrt);
+int			normal_mode(t_mrt *mrt);
+int			selection_mode(t_mrt *mrt);
+int			translate_mode(t_mrt *mrt);
+int			rotation_mode(t_mrt *mrt);
+int			camera_translate_mode(t_mrt *mrt);
+int			camera_rotation_mode(t_mrt *mrt);
+int			width_mode(t_mrt *mrt);
+int			height_mode(t_mrt *mrt);
+int			light_mode(t_mrt *mrt);
+int			light_behaviour(int key, t_mrt *mrt);
+int			cam_rotation(int key, t_mrt *mrt);
+int			cam_translate(int key, t_mrt *mrt);
+int			object_traslation(int key_dir, t_mrt *mrt);
+int			object_rotation(int key, t_mrt *mrt);
+int			object_width(int key, t_mrt *mrt);
+int			object_height(int key, t_mrt *mrt);
+int			change_camera(t_mrt *mrt);
+int			window_handler(t_mrt *mrt);
 
 #endif

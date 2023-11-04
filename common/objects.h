@@ -18,6 +18,7 @@ typedef struct s_fig
 	t_v3d	centre;
 	t_v3d	orient;
 	double	width;
+	double	height;
 }				t_fig;
 
 typedef struct s_sphere
@@ -26,6 +27,7 @@ typedef struct s_sphere
 	t_v3d	dir;
 	double	radius;
 	int		inside;
+	int 	texture;
 }				t_sphere;
 
 typedef struct s_plane
@@ -50,10 +52,12 @@ typedef struct s_cylinder
 	double	height;
 	double	d1;
 	double	d2;
+	int 	texture;
 }				t_cylinder;
 
 typedef struct s_triangle
 {
+	t_v3d	dir;
 	t_v3d	v1;
 	t_v3d	v2;
 	t_v3d	v3;

@@ -13,130 +13,160 @@
 #include "minirt.h"
 
 /**
- * @brief Calculate the color value for a given pixel.
+ * @brief Calculate the color of a specific pixel.
  *
- * The function determines the color of a pixel based on the scene's
- * information, edges, and sides. It uses supersampling if there's a
- * difference in adjacent pixel colors to enhance image quality.
+ * This function determines the color of a pixel based on its location and the
+ * given edges. If the colors at the four corners of a pixel are different,
+ * the function uses supersampling to get a more accurate color. Otherwise,
+ * it computes an average color.
  *
- * @param edges Pointer to an array representing the edges' RGB values.
- * @param sides Array of RGB values representing the sides.
- * @param mrt Pointer to the main rendering structure containing scene
- * and camera details.
- * @return Calculated RGB color for the pixel.
+ * @param edges Pointer to the array of edge colors for the scene.
+ * @param sides An array of RGB colors representing the sides of the pixel.
+ * @param dta Pointer to a structure containing scene and pixel details.
+ *
+ * @return The RGB color of the pixel.
  */
-static inline t_rgb	calc_pixel_color(int *edges, t_rgb sides[2], t_mrt *mrt)
+static inline t_rgb	calc_pixel_color(int *edges, t_rgb sides[2], t_info *dta)
 {
 	t_pix	pix;
 	int		*color;
 
 	pix.limit = 3;
-	pix.w_x = mrt->scn.w_x;
-	pix.w_y = mrt->scn.w_y;
-	pix.x = mrt->x;
-	pix.y = mrt->y;
-	color = sample_pixel(edges, sides, pix, mrt);
+	pix.w_x = dta->mrt->scn.w_x;
+	pix.w_y = dta->mrt->scn.w_y;
+	pix.max_y = dta->end_y;
+	pix.x = dta->x;
+	pix.y = dta->y;
+	color = sample_pixel(edges, sides, pix, dta);
 	if (ft_rgb_diff(color[0], color[3])
 		|| ft_rgb_diff(color[1], color[2]))
-		return (supersample(color, pix, mrt));
+		return (supersample(color, pix, dta->mrt));
 	return (ft_rgb_balance(color));
 }
 
 /**
- * @brief Allocates memory for an array of RGB values to represent edges.
+ * @brief Render a part of the scene.
  *
- * Uses secure memory allocation to prevent unexpected behaviors.
- * This function serves as a utility for preparing edge data structures
- * in the rendering process.
+ * This function is designed to be thread-safe and can be used as a target
+ * for pthreads or for a single thread execution. It renders a portion of the
+ * scene based on the information in the provided structure,
+ * storing the resulting colors in a buffer associated with the current camera.
  *
- * @param size Number of RGB values required (often corresponds to
- * screen width + 2).
- * @return Pointer to the newly allocated array of RGB values.
+ * @param info A pointer to the structure containing details about the part of
+ * the scene to render. It includes the starting and ending y-coordinates,
+ * as well as scene and pixel details.
+ *
+ * @return NULL. It's a convention for pthread functions.
  */
-static inline t_rgb	*create_edges_new(int size)
-{
-	t_rgb	*rst;
-
-	rst = (t_rgb *)ft_sec_calloc(sizeof(t_rgb) * size);
-	return (rst);
-}
-
-/**
- * @brief Renders the scene for a given camera.
- *
- * Iteratively calculates the color for each pixel in the scene using
- * the camera's perspective and fills the corresponding pixel in the
- * camera's image buffer. Utilizes edge calculation for defining scene
- * boundaries and then uses the calculated edges to derive pixel color.
- *
- * @param mrt Pointer to the main structure containing scene, camera,
- * and other essential data.
- */
-static inline void	render_scene(t_mrt *mrt)
+static inline void	*render_scene(void *info)
 {
 	t_rgb	*edges;
 	t_rgb	sides[3];
 	t_rgb	color;
+	t_info	*dta;
 
-	edges = create_edges_new(mrt->scn.w_x + 2);
-	mrt->y = 0;
-	while (mrt->y < mrt->scn.w_y)
+	dta = (t_info *)info;
+	edges = create_edges_new(dta->mrt->scn.w_x + 2);
+	while (dta->y < dta->end_y)
 	{
-		mrt->x = 0;
-		while (mrt->x < mrt->scn.w_x)
+		dta->x = 0;
+		while (dta->x < dta->mrt->scn.w_x)
 		{
-			color = calc_pixel_color(edges, sides, mrt);
-			mrt->cmr->addr[mrt->y * mrt->scn.w_x + mrt->x] = color;
-			mrt->x++;
+			color = calc_pixel_color(edges, sides, dta);
+			dta->mrt->cmr->addr[dta->y * dta->mrt->scn.w_x + dta->x] = color;
+			dta->x++;
 		}
-		mrt->y++;
+		dta->y++;
 	}
 	ft_sec_free(edges);
+	return (NULL);
+}
+
+#ifdef BONUS
+
+/**
+ * @brief Renders a part of the scene using multiple threads.
+ *
+ * The scene's height is divided into bands, and each thread renders a
+ * specific band. This parallel processing enhances the rendering speed
+ * by utilizing multi-core processors.
+ *
+ * @param mrt Pointer to the main structure containing all the information
+ * about the scene, including cameras, objects, and other settings.
+ * @param band_height Height of the band (portion of the scene) each thread
+ * is responsible for.
+ */
+void	render_cam(t_mrt *mrt, int band)
+{
+	pthread_t	thread[THREADS];
+	t_info		data[THREADS];
+	int			thr;
+
+	thr = -1;
+	ft_memset(&thread, 0, sizeof(pthread_t) * THREADS);
+	while (++thr < THREADS)
+	{
+		data[thr].mrt = mrt;
+		data[thr].y = thr * band;
+		if (thr == THREADS - 1)
+			data[thr].end_y = mrt->scn.w_y;
+		else
+			data[thr].end_y = (thr + 1) * band;
+		data[thr].max_y = thr * band;
+		if (pthread_create(&thread[thr], NULL, render_scene, &data[thr]) != 0)
+			msg_error_exit("Tread creation error");
+	}
+	thr = -1;
+	while (++thr < THREADS)
+		pthread_join(thread[thr], NULL);
 }
 
 /**
- * @brief Renders the entire scene for each camera in the scene.
+ * @brief Renders the main scene using all cameras available.
+ * -BONUS VERSION-
+ * Iterates through each camera in the scene, calling the multi-threaded
+ * render function to generate the scene's perspective for that particular
+ * camera. Once all cameras have rendered their views, the primary camera
+ * is set as the active camera.
  *
- * Iterates through all the cameras in the scene and calls the render
- * function for each. After rendering, it resets the active camera to the
- * main camera of the scene.
- *
- * @param mrt Pointer to the main structure containing scene, camera,
- * and other essential data.
+ * @param mrt Pointer to the main structure containing all the information
+ * about the scene, including cameras, objects, and other settings.
  */
-//void	render_main(t_mrt *mrt)
-//{
-//	pthread_t	thread[10];
-//	t_thr		data[10];
-//	t_pix		pix_i[2];
-//	int			thr;
-//	int band_height = mrt->scn.w_y / 10;
-//
-//	thr = -1;
-//	ft_init_vector(&pix_i, 0, 2);
-//	while (++thr < 10)
-//	{
-//		data[thr].mrt = mrt;
-//		data[thr].start_y = thr * band_height;
-//		if (thr == 10 - 1)
-//			data[thr].end_y = mrt->scn.w_y;
-//		else
-//			data[thr].end_y = data[thr].start_y + band_height;
-//	}
-//	while (mrt->cmr)
-//	{
-//		render_scene(mrt);
-//		mrt->cmr = mrt->cmr->next;
-//	}
-//	mrt->cmr = mrt->main_cam;
-//}
-
 void	render_main(t_mrt *mrt)
 {
+	int	band;
+
+	band = mrt->scn.w_y / THREADS;
 	while (mrt->cmr)
 	{
-		render_scene(mrt);
+		render_cam(mrt, band);
 		mrt->cmr = mrt->cmr->next;
 	}
 	mrt->cmr = mrt->main_cam;
 }
+
+#else
+
+/**
+ * @brief Renders the main scene using the primary camera perspective.
+ * -MANDATORY VERSION-
+ * Initializes the rendering parameters, such as starting and ending
+ * coordinates, then invokes the rendering function to generate the scene
+ * from the primary camera's viewpoint.
+ *
+ * @param mrt Pointer to the main structure containing all the information
+ * about the scene, including cameras, objects, and other settings.
+ */
+void	render_main(t_mrt *mrt)
+{
+	t_info	info;
+
+	info.mrt = mrt;
+	info.end_y = mrt->scn.w_y;
+	info.max_y = mrt->scn.w_y;
+	info.x = 0;
+	info.y = 0;
+	render_scene(&info);
+}
+
+#endif

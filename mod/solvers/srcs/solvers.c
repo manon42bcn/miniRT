@@ -12,68 +12,72 @@
 
 #include "solvers.h"
 
-/**
- * @brief Outputs an error message to the standard error stream and
- * then exits the program.
- *
- * @param message A pointer to the string message to be displayed.
- */
-static inline void	solver_error(char *message)
-{
-	ft_putstr_fd("miniRT ERROR [solver module]", STDERR_FILENO);
-	if (message)
-		ft_putstr_fd(message, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
-	exit(ERROR);
-}
-
 #ifdef BONUS
 
-/**
- * @brief Returns a pointer to the appropriate solver function for a
- * specified geometric object type (Bonus version).
- *
- * Maps an index representing the type of an object to its corresponding
- * solver function. This solver function is used to determine if and
- * how a ray intersects the object. Includes solvers for advanced
- * geometric shapes.
- *
- * @param index Integer representing the object type.
- * @return A pointer to the solver function corresponding to the given
- * object type.
- */
-t_solver	get_solver(int index)
+/* @brief Get the solver for ray-object intersection.
+* -BONUS VERSION-
+* This function calculates the intersection point of a ray with a specific object
+* and returns the distance from the ray origin to the intersection point.
+*
+* @param origin The origin point of the ray.
+* @param dir The direction vector of the ray.
+* @param obj Pointer to the object for which the intersection is calculated.
+* @param inter Pointer to the intersection data structure to be updated.
+*
+* @return The distance from the ray origin to the intersection point or INFINITY
+* if there is no intersection.
+*/
+double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 {
-	static t_solver	solve[] = {&sphere_solver, &plane_solver,
-		&cylinder_solver, &rectangle_solver,
-		&triangle_solver, &box_solver,
-		&cone_solver, &ellipsoid_solver};
+	int	type;
 
-	if (index > (int)(sizeof(solve) / sizeof (t_solver)))
-		solver_error("object id out of range to get solver");
-	return (solve[index]);
+	type = obj->type;
+	if (type == SPHERE)
+		return (sphere_solver(origin, dir, obj->elm.sph));
+	if (type == PLANE)
+		return (plane_solver(origin, dir, obj->elm.pl));
+	if (type == CYLINDER)
+		return (cylinder_solver(origin, dir, obj->elm.cyl, inter));
+	if (type == RECTANGLE)
+		return (rectangle_solver(origin, dir, obj->elm.rc));
+	if (type == TRIANGLE)
+		return (triangle_solver(origin, dir, obj->elm.trg));
+	if (type == BOX)
+		return (box_solver(origin, dir, obj->elm.box, inter));
+	if (type == CONE)
+		return (cone_solver(origin, dir, obj->elm.con));
+	if (type == ELLIPS)
+		return (ellipsoid_solver(origin, dir, obj->elm.elp));
+	return (INFINITY);
 }
 
 #else
 
 /**
- * @brief Returns a pointer to the appropriate solver function for a
- * specified geometric object type (Standard version).
+ * @brief Get the solver for ray-object intersection without the BONUS feature.
  *
- * Similar to the Bonus version, but limited to basic geometric shapes.
+ * This function calculates the intersection point of a ray with a specific
+ * object and returns the distance from the ray origin to the intersection point.
  *
- * @param index Integer representing the object type.
- * @return A pointer to the solver function corresponding to the
- * given object type.
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param obj Pointer to the object for which the intersection is calculated.
+ * @param inter This parameter is unused in this version.
+ *
+ * @return The distance from the ray origin to the intersection point or INFINITY
+ * if there is no intersection.
  */
-t_solver	get_solver(int index)
+double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 {
-	static t_solver	solve[] = {&sphere_solver, &plane_solver,
-		&cylinder_solver};
+	int	type;
 
-	if (index > (int)(sizeof(solve) / sizeof (t_solver)))
-		solver_error("object id out of range to get solver");
-	return (solve[index]);
+	type = obj->type;
+	if (type == SPHERE)
+		return (sphere_solver(origin, dir, obj->elm.sph));
+	if (type == CYLINDER)
+		return (cylinder_solver(origin, dir, obj->elm.cyl, inter));
+	else
+		return (plane_solver(origin, dir, obj->elm.pl));
 }
 
 #endif

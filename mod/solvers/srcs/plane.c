@@ -13,14 +13,19 @@
 #include "solvers.h"
 
 /**
- * @brief Calculates the intersection between a ray and a plane.
+ * @brief Calculate the intersection point of a ray with a plane.
  *
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param plane_centre A point on the plane.
- * @param plane_dir Normal vector of the plane.
- * @return The distance from the ray's origin to the intersection point,
- * or INFINITY if no intersection.
+ * This function computes the intersection point of a ray with a plane defined
+ * by its center and normal direction. It returns the distance from the ray's
+ * origin to the intersection point.
+ *
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param plane_centre The center point of the plane.
+ * @param plane_dir The normal direction of the plane.
+ *
+ * @return The distance from the ray origin to the intersection point or
+ * INFINITY if there is no intersection with the plane.
  */
 double	plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
 {
@@ -37,15 +42,19 @@ double	plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
 }
 
 /**
- * @brief Solver function for the intersection between a ray and a plane object.
+ * @brief Find the intersection point of a ray with a plane.
  *
- * @param origin Origin of the ray.
- * @param dir Direction of the ray.
- * @param obj The plane object in the scene.
- * @return The distance from the ray's origin to the intersection point,
- * or INFINITY if no intersection.
+ * This function calculates the intersection point of a ray with a plane and
+ * returns the distance from the ray's origin to the intersection point.
+ *
+ * @param origin The origin point of the ray.
+ * @param dir The direction vector of the ray.
+ * @param pl The plane structure representing the plane.
+ *
+ * @return The distance from the ray origin to the intersection point or
+ * INFINITY if there is no intersection with the plane.
  */
-double	plane_solver(t_v3d origin, t_v3d dir, t_obj *obj)
+double	plane_solver(t_v3d origin, t_v3d dir, t_plane pl)
 {
-	return (plane_hit(origin, dir, obj->elm.pl.centre, obj->normal));
+	return (plane_hit(origin, dir, pl.centre, pl.orient));
 }

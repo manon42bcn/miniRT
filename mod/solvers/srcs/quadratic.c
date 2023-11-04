@@ -13,11 +13,16 @@
 #include "solvers.h"
 
 /**
- * @brief Solves a linear equation of the form Bx + C = 0.
+ * @brief Check if the quadratic equation has a linear solution.
  *
- * @param coef Array containing the coefficients [B, C].
- * @param dist Array where the solution will be stored.
- * @return t_bool Returns TRUE if a solution is found, otherwise returns FALSE.
+ * This function checks if the quadratic equation represented by its coefficients
+ * has a linear solution (one real root). If so, it calculates and stores the
+ * distance to the root in 'dist'.
+ *
+ * @param coef An array containing the quadratic coefficients (E_A, E_B, E_C).
+ * @param dist An array to store the distances to the root (T_0, T_1).
+ *
+ * @return TRUE if the equation has a linear solution, FALSE otherwise.
  */
 static inline t_bool	lineal(double *coef, double *dist)
 {
@@ -33,9 +38,12 @@ static inline t_bool	lineal(double *coef, double *dist)
 }
 
 /**
- * @brief Swaps the values of dist[T_0] and dist[T_1] if dist[T_0] > dist[T_1].
+ * @brief Swap the distances if the first distance is greater than the second.
  *
- * @param dist Array containing the two distance values.
+ * This function swaps the values in the 'dist' array if the first distance (T_0)
+ * is greater than the second distance (T_1).
+ *
+ * @param dist An array containing the distances to be swapped (T_0, T_1).
  */
 static inline void	quad_swap(double *dist)
 {

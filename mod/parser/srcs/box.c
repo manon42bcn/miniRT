@@ -114,7 +114,6 @@ void	inp_box(t_mrt *mrt)
 	box = mrt->obj;
 	box->elm.box.centre = get_v3d(mrt, mrt->tab[BOX_CENTRE], V3D_COOR);
 	box->elm.box.dir = get_v3d(mrt, mrt->tab[BOX_ORIENTATION], V3D_NORM);
-	box->normal = box->elm.box.dir;
 	box->elm.box.width = ft_atolf(mrt->tab[BOX_WIDTH]);
 	if (!check_range(box->elm.box.width, 0, INFINITY))
 		msg_error_parsing("Box width out of range", mrt);

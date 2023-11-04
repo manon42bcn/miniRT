@@ -16,11 +16,11 @@ set(SOURCES
         srcs/solvers.c
         srcs/sphere.c
         srcs/quadratic.c
-        bns/box.c
-        bns/triangle.c
-        bns/cone.c
-        bns/ellipsoid.c
-        bns/rectangle.c
+        srcs/box.c
+        srcs/triangle.c
+        srcs/cone.c
+        srcs/ellipsoid.c
+        srcs/rectangle.c
         )
 
 # Crear una biblioteca estática con los archivos fuente

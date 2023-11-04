@@ -28,7 +28,7 @@ int	parser_dict(char *id)
 		"co", "el", "R", "A", "c", "l", NULL};
 
 	i = 0;
-	if (ft_match_cmp(id, "#"))
+	if (!id || id[0] == '#')
 		return (IDX_COMMENT);
 	while (dictionary[i])
 	{

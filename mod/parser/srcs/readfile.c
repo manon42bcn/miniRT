@@ -32,7 +32,7 @@ static inline t_obj	*closer_object(t_cmr *camera, t_obj *obj)
 	{
 		if (obj->type != PLANE)
 		{
-			dist = fabs(ft_distance_v3d(camera->position, obj->elm.fig.centre));
+			dist = ft_distance_v3d(camera->position, obj->elm.fig.centre);
 			if (rst == NULL)
 			{
 				rst = obj;
@@ -65,7 +65,7 @@ static inline void	close_to_cam(t_mrt *mrt)
 	{
 		node->close_obj = closer_object(node, mrt->obj);
 		node->orbit = ft_distance_v3d(node->position,
-				node->close_obj->position);
+				node->close_obj->elm.fig.centre);
 		node = node->next;
 	}
 }
@@ -147,8 +147,7 @@ t_mrt	*readfile_parser(char const *filename)
 		rt->aux = get_next_line(fd);
 		if (!rt->aux)
 			break ;
-		if (rt->aux[0] != '#' && rt->aux[0] != '\n')
-			load_object(rt);
+		load_object(rt);
 	}
 	ft_safe_free_char(&rt->aux);
 	close(rt->fd);

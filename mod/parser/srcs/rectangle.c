@@ -38,7 +38,6 @@ void	inp_rectangle(t_mrt *mrt)
 	if (!check_range(mrt->obj->elm.rc.height, 0, INFINITY))
 		msg_error_parsing("Rectangle height out of range", mrt);
 	get_common(mrt, RCT_HEIGHT, "Rectangle");
-	mrt->obj->normal = mrt->obj->elm.rc.orient;
 }
 
 #else
@@ -55,5 +54,3 @@ void	inp_rectangle(t_mrt *mrt)
 }
 
 #endif
-
-
