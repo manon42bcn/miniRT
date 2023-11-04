@@ -16,8 +16,8 @@
 
 t_mode	element_check(int type, t_mrt *mrt)
 {
-	int			tab_size;
-	static int	elements[] = {4, 4, 6,
+	int				tab_size;
+	static size_t	elements[] = {4, 4, 6,
 		6, 5, 7, 6, 6};
 
 	tab_size = ft_count_tab(mrt->tab);
@@ -40,7 +40,7 @@ t_mode	element_check(int type, t_mrt *mrt)
 
 t_mode	element_check(int type, t_mrt *mrt)
 {
-	static int	elements[] = {4, 4, 6};
+	static size_t	elements[] = {4, 4, 6};
 
 	if (ft_count_tab(mrt->tab) == elements[type])
 		return (MANDATORY);

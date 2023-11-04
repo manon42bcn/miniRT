@@ -50,7 +50,7 @@ static inline t_bool	load_object(t_mrt *mrt)
 		ft_perror("Split Line error");
 	type = parser_dict(mrt->tab[0]);
 	if (type == IDX_ERR)
-		ft_perror("element not founded");
+		msg_error_parsing("Element not founded", mrt);
 	if (type == IDX_COMMENT)
 		return (FALSE);
 	build = get_builder(type, mrt);
