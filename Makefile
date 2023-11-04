@@ -98,7 +98,7 @@ $(BONUS_FILE): $(OBJ_SUBS) $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 	touch .bonus
 
-$(NAME): $(OBJS) $(LIBRARIES)
+$(NAME): $(OBJS) $(LIBRARIES) $(HEAD_FILES)
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
 library:
