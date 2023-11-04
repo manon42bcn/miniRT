@@ -56,6 +56,7 @@ void	after_parse_process(t_mrt *mrt)
 	t_cmr	*node;
 
 	node = mrt->cmr;
+	mrt->main_cam = node;
 	if (mrt->scn.res_init == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
 	mrt->scn.w_x /= 3;

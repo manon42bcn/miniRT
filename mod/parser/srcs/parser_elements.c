@@ -16,7 +16,7 @@
 
 t_mode	element_check(int type, t_mrt *mrt)
 {
-	int				tab_size;
+	size_t			tab_size;
 	static size_t	elements[] = {4, 4, 6,
 		6, 5, 7, 6, 6};
 

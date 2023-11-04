@@ -13,32 +13,23 @@
 #include "parse.h"
 
 /**
- * @brief Checks if the number of elements in the tab after the "last"
- * index matches LAST_COMMON.
+ * @brief Retrieve and initialize the color properties of the current object.
  *
- * @param mrt  Main structure containing the parsed data.
- * @param last The index after which to start checking in the tab.
- * @param mode Parse mode to compare num of elements expected.
- * @return     TRUE if the number of elements matches LAST_COMMON,
- * FALSE otherwise.
+ * This function is responsible for fetching and setting the color attributes
+ * of the current object, based on the information provided in the data table.
+ * The original and selected colors are stored in the object for later
+ * reference.
+ *
+ * @param mrt Pointer to the main data structure containing the scene and
+ * objects.
+ * @param last Index of the last processed value in the data table.
  */
-static inline t_bool	check_common(t_mrt *mrt, int last, t_mode mode)
+static inline void	get_obj_color(t_mrt *mrt, int last)
 {
-	int	len;
-
-	len = 0;
-	while (mrt->tab[++last])
-		len++;
-	if (mode == MANDATORY && len == LAST_COMMON)
-		return (TRUE);
-	if (mode == BONUS_MODE && len == LAST_COMMON)
-		return (TRUE);
-	if (mode == BUMP_MODE && len == LAST_COMMON + 1)
-		return (TRUE);
-	return (FALSE);
+	mrt->obj->color = get_color(mrt->tab[++last], mrt);
+	mrt->obj->orig_color = mrt->obj->color;
+	mrt->obj->sel_color = ft_invert_color(mrt->obj->orig_color);
 }
-
-#ifdef BONUS
 
 /**
  * @brief Retrieves common object properties in BONUS VERSION.
@@ -54,8 +45,11 @@ static inline t_bool	check_common(t_mrt *mrt, int last, t_mode mode)
  */
 void	get_common(t_mrt *mrt, int last, char *elem, t_mode mode)
 {
-	if (check_common(mrt, last, mode) == FALSE)
-		msg_error_parsing(elem, mrt);
+	if (mode == MANDATORY)
+	{
+		get_obj_color(mrt, last);
+		return ;
+	}
 	mrt->obj->specular = ft_atolf(mrt->tab[++last]);
 	if (!check_range(mrt->obj->specular, 0, INFINITY))
 		msg_error_parsing(elem, mrt);
@@ -70,36 +64,10 @@ void	get_common(t_mrt *mrt, int last, char *elem, t_mode mode)
 		msg_error_parsing(elem, mrt);
 	if (mrt->obj->texture == 2)
 		mrt->obj->wavelength = ft_atolf(mrt->tab[++last]);
-	mrt->obj->color = get_color(mrt->tab[++last], mrt);
-	mrt->obj->orig_color = mrt->obj->color;
-	mrt->obj->sel_color = ft_invert_color(mrt->obj->orig_color);
+	get_obj_color(mrt, last);
 	if (mode == BUMP_MODE)
 		get_bump(mrt, ++last);
 }
-
-#else
-
-/**
- * @brief Retrieves common object properties in MANDATORY VERSION.
- *
- * In non-BONUS mode, this function only fetches the color
- * property for the object.
- *
- * @param mrt  Main structure containing the parsed data.
- * @param last The index in the tab where common properties start.
- * @param elem The element name for error reporting.
- * @param mode Parse mode to check num of elements to parse from file
- */
-void	get_common(t_mrt *mrt, int last, char *elem, t_mode mode)
-{
-	if (check_common(mrt, last, mode) == FALSE)
-		msg_error_parsing(elem, mrt);
-	mrt->obj->color = get_color(mrt->tab[++last], mrt);
-	mrt->obj->orig_color = mrt->obj->color;
-	mrt->obj->sel_color = ft_invert_color(mrt->obj->orig_color);
-}
-
-#endif
 
 /**
  * @brief Validates if a given value falls within a specified range.

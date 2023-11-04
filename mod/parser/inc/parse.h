@@ -58,6 +58,7 @@ t_v3d		get_v3d(t_mrt *mrt, char *line, int mode);
 void		get_common(t_mrt *mrt, int last, char *elem, t_mode mode);
 t_bool		check_range(double value, double min, double max);
 void		msg_error_parsing(char *message, t_mrt *mrt);
+void		get_bump(t_mrt *mrt, int index);
 // Parser builders
 t_obj		*object_builder(int id, t_obj *next);
 t_light		*light_builder(t_light *next);
@@ -70,8 +71,6 @@ void		parse_error(char *message);
 # ifdef BONUS
 
 #  define LAST_COMMON 5
-
-void		get_bump(t_mrt *mrt, int index);
 
 # else
 
