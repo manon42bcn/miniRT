@@ -62,7 +62,6 @@ typedef struct s_cmr
 	double			fov;
 	double			orbit;
 	double			ratio;
-	t_obj			*close_obj;
 	void			*img_ptr;
 	int				*addr;
 	int				bpp;

@@ -25,7 +25,7 @@ int	parser_dict(char *id)
 	int			i;
 	static char	*dictionary[] = {
 		"sp", "pl", "cy", "rc", "tr", "bx",
-		"co", "el", "R", "A", "c", "l", NULL};
+		"co", "el", "R", "A", "C", "L", NULL};
 
 	i = 0;
 	if (!id || id[0] == '#')
