@@ -28,7 +28,10 @@
  */
 void	inp_cylinder(t_mrt *mrt)
 {
-	if (ft_count_tab(mrt->tab) != ELM_CYL)
+	t_mode	mode;
+
+	mode = element_check(CYLINDER, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build Cylinder", mrt);
 	mrt->obj = object_builder(CYLINDER, mrt->obj);
 	mrt->obj->elm.cyl.centre = get_v3d(mrt, mrt->tab[CYL_CENTRE],
@@ -41,6 +44,6 @@ void	inp_cylinder(t_mrt *mrt)
 	mrt->obj->elm.cyl.height = ft_atolf(mrt->tab[CYL_HEIGHT]);
 	if (!check_range(mrt->obj->elm.cyl.height, 0, INFINITY))
 		msg_error_parsing("Cylinder height out of range", mrt);
-	get_common(mrt, CYL_HEIGHT, "Cylinder");
+	get_common(mrt, CYL_HEIGHT, "Cylinder", mode);
 	mrt->obj->elm.cyl.texture = mrt->obj->texture;
 }

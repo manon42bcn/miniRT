@@ -26,12 +26,15 @@
  */
 void	inp_plane(t_mrt *mrt)
 {
-	if (ft_count_tab(mrt->tab) != ELM_PL)
+	t_mode	mode;
+
+	mode = element_check(PLANE, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build plane", mrt);
 	mrt->obj = object_builder(PLANE, mrt->obj);
 	mrt->obj->elm.pl.centre = get_v3d(mrt, mrt->tab[PLN_CENTRE],
 			V3D_COOR);
 	mrt->obj->elm.pl.orient = get_v3d(mrt, mrt->tab[PLN_ORIENTATION],
 			V3D_NORM);
-	get_common(mrt, PLN_ORIENTATION, "Plane");
+	get_common(mrt, PLN_ORIENTATION, "Plane", mode);
 }

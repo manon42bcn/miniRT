@@ -31,8 +31,10 @@
 void	inp_cone(t_mrt *mrt)
 {
 	double	diam;
+	t_mode	mode;
 
-	if (ft_count_tab(mrt->tab) != ELM_CO)
+	mode = element_check(CONE, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build cone", mrt);
 	mrt->obj = object_builder(CONE, mrt->obj);
 	mrt->obj->elm.con.centre = get_v3d(mrt, mrt->tab[CON_CENTRE],
@@ -46,7 +48,7 @@ void	inp_cone(t_mrt *mrt)
 	mrt->obj->elm.con.height = ft_atolf(mrt->tab[CON_HEIGHT]);
 	if (!check_range(mrt->obj->elm.con.height, 0, INFINITY))
 		msg_error_parsing("Cone height out of range", mrt);
-	get_common(mrt, CON_HEIGHT, "Cone");
+	get_common(mrt, CON_HEIGHT, "Cone", mode);
 	mrt->obj->elm.con.alpha = diam / (2.0f * mrt->obj->elm.con.height);
 }
 

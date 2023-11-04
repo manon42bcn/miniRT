@@ -17,6 +17,7 @@ SRCS		=	builders.c \
 				parser_ambient.c \
 				parser_builders.c \
 				parser_camera.c \
+				parser_elements.c \
 				parser_light.c \
 				parser_resolution.c \
 				parser_rgb.c \

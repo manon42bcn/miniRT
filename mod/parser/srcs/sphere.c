@@ -26,10 +26,10 @@
  */
 void	inp_sphere(t_mrt *mrt)
 {
-	size_t	elems;
+	t_mode	mode;
 
-	elems = ft_count_tab(mrt->tab);
-	if (elems < ELM_SPH && elems > ELM_SPH + 1)
+	mode = element_check(SPHERE, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build sphere", mrt);
 	mrt->obj = object_builder(SPHERE, mrt->obj);
 	mrt->obj->elm.sph.centre = get_v3d(mrt, mrt->tab[SPH_CENTRE],
@@ -37,6 +37,6 @@ void	inp_sphere(t_mrt *mrt)
 	mrt->obj->elm.sph.radius = ft_atolf(mrt->tab[SPH_DIAM]) / 2.0f;
 	if (!check_range(mrt->obj->elm.sph.radius, 0, INFINITY))
 		msg_error_parsing("Sphere radius out of range", mrt);
-	get_common(mrt, SPH_DIAM, "Sphere");
+	get_common(mrt, SPH_DIAM, "Sphere", mode);
 	mrt->obj->elm.sph.texture = mrt->obj->texture;
 }

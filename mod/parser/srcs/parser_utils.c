@@ -18,17 +18,22 @@
  *
  * @param mrt  Main structure containing the parsed data.
  * @param last The index after which to start checking in the tab.
+ * @param mode Parse mode to compare num of elements expected.
  * @return     TRUE if the number of elements matches LAST_COMMON,
  * FALSE otherwise.
  */
-static inline t_bool	check_common(t_mrt *mrt, int last)
+static inline t_bool	check_common(t_mrt *mrt, int last, t_mode mode)
 {
 	int	len;
 
 	len = 0;
 	while (mrt->tab[++last])
 		len++;
-	if (len == LAST_COMMON || len == LAST_COMMON + 1)
+	if (mode == MANDATORY && len == LAST_COMMON)
+		return (TRUE);
+	if (mode == BONUS_MODE && len == LAST_COMMON)
+		return (TRUE);
+	if (mode == BUMP_MODE && len == LAST_COMMON + 1)
 		return (TRUE);
 	return (FALSE);
 }
@@ -45,10 +50,11 @@ static inline t_bool	check_common(t_mrt *mrt, int last)
  * @param mrt  Main structure containing the parsed data.
  * @param last The index in the tab where common properties start.
  * @param elem The element name for error reporting.
+ * @param mode Parse mode to check num of elements to parse from file
  */
-void	get_common(t_mrt *mrt, int last, char *elem)
+void	get_common(t_mrt *mrt, int last, char *elem, t_mode mode)
 {
-	if (check_common(mrt, last) == FALSE)
+	if (check_common(mrt, last, mode) == FALSE)
 		msg_error_parsing(elem, mrt);
 	mrt->obj->specular = ft_atolf(mrt->tab[++last]);
 	if (!check_range(mrt->obj->specular, 0, INFINITY))
@@ -67,7 +73,8 @@ void	get_common(t_mrt *mrt, int last, char *elem)
 	mrt->obj->color = get_color(mrt->tab[++last], mrt);
 	mrt->obj->orig_color = mrt->obj->color;
 	mrt->obj->sel_color = ft_invert_color(mrt->obj->orig_color);
-	get_bump(mrt, ++last);
+	if (mode == BUMP_MODE)
+		get_bump(mrt, ++last);
 }
 
 #else
@@ -81,10 +88,11 @@ void	get_common(t_mrt *mrt, int last, char *elem)
  * @param mrt  Main structure containing the parsed data.
  * @param last The index in the tab where common properties start.
  * @param elem The element name for error reporting.
+ * @param mode Parse mode to check num of elements to parse from file
  */
-void	get_common(t_mrt *mrt, int last, char *elem)
+void	get_common(t_mrt *mrt, int last, char *elem, t_mode mode)
 {
-	if (check_common(mrt, last) == FALSE)
+	if (check_common(mrt, last, mode) == FALSE)
 		msg_error_parsing(elem, mrt);
 	mrt->obj->color = get_color(mrt->tab[++last], mrt);
 	mrt->obj->orig_color = mrt->obj->color;
