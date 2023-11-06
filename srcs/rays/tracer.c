@@ -14,32 +14,22 @@
 
 #ifdef BONUS
 
-static inline t_v3d	refraction(t_inter inter, t_obj *obj)
-{
-	double	cos_theta;
-	double	refr_coef;
-	double	refr_transmitted;
-	double	refr_relative;
-	double	coef_disc;
-
-	cos_theta = ft_dot_v3d(inter.ray.from, inter.ray.to);
-	refr_coef = 1;
-	refr_transmitted = obj->refract;
-	if (inter.inside == TRUE)
-	{
-		coef_disc = refr_coef;
-		refr_coef = refr_transmitted;
-		refr_transmitted = coef_disc;
-	}
-	refr_relative = refr_coef / refr_transmitted;
-	coef_disc = 1 - refr_relative * refr_relative * (1 - cos_theta * cos_theta);
-	if (coef_disc < 0)
-		return (reflect_ray(ft_scalar_v3d(-1, inter.ray.from), inter.ray.to));
-	return (ft_plus_v3d(ft_scalar_v3d(refr_relative, inter.ray.from),
-			ft_scalar_v3d(refr_relative * cos_theta
-				- sqrt(coef_disc), inter.ray.to)));
-}
-
+/**
+ * @brief Trace rays and calculate pixel color for ray tracing.
+ * -BONUS VERSION-
+ *
+ * This function traces rays from the camera into the scene and calculates the
+ * pixel color. It performs intersection tests with objects in the scene,
+ * computes lighting, reflections, and refractions. The result is the color of
+ * the pixel seen from the camera.
+ *
+ * @param origin The origin point of the ray (camera position).
+ * @param dir The direction of the ray (normalized direction vector).
+ * @param mrt The main ray tracing structure containing scene and object data.
+ * @param depth The recursion depth for reflection and refraction (set to 0
+ * for primary rays).
+ * @return The color of the pixel in the scene.
+ */
 t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_inter		inter;
@@ -67,11 +57,26 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 
 #else
 
+/**
+ * @brief Trace rays and calculate pixel color for ray tracing.
+ * -MANDATORY VERSION-
+ *
+ * This function traces rays from the camera into the scene and calculates the
+ * pixel color. It performs intersection tests with objects in the scene,
+ * and computes lighting. The result is the color of
+ * the pixel seen from the camera.
+ *
+ * @param origin The origin point of the ray (camera position).
+ * @param dir The direction of the ray (normalized direction vector).
+ * @param mrt The main ray tracing structure containing scene and object data.
+ * @param depth Unused at mandatory version.
+ * @return The color of the pixel in the scene.
+ */
 t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 {
 	t_inter		inter;
 
-	depth = depth * 2;
+	(void)depth;
 	inter.ray.from = origin;
 	inter.ray.to = dir;
 	get_hits(&inter, mrt->obj, mrt);

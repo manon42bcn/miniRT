@@ -71,6 +71,7 @@ void		texturize(t_inter *inter);
 t_rgb		bump_texture(t_inter inter, t_v3d hit, t_obj *obj, t_mrt *mrt);
 t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
 double		specular_transform(t_ray ray, t_inter inter, t_light *scn_light);
+t_v3d		refraction(t_inter inter, t_obj *obj);
 
 # endif
 #endif

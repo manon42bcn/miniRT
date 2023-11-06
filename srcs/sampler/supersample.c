@@ -25,7 +25,7 @@
  * @return A color resulting from super-sampling.
  */
 static inline t_rgb	first_corner(t_rgb *color, int centre,
-												t_pix pix, t_mrt *mrt)
+								t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
 	int		*mini_sqr;
@@ -55,7 +55,7 @@ static inline t_rgb	first_corner(t_rgb *color, int centre,
  * @return A color resulting from super-sampling.
  */
 static inline t_rgb	second_corner(t_rgb *color, int centre,
-												t_pix pix, t_mrt *mrt)
+								t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
 	int		*mini_sqr;
@@ -85,7 +85,7 @@ static inline t_rgb	second_corner(t_rgb *color, int centre,
  * @return A color resulting from super-sampling.
  */
 static inline t_rgb	third_corner(t_rgb *color, int centre,
-												t_pix pix, t_mrt *mrt)
+								t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
 	int		*mini_sqr;
@@ -115,7 +115,7 @@ static inline t_rgb	third_corner(t_rgb *color, int centre,
  * @return A color resulting from super-sampling.
  */
 static inline t_rgb	fourth_corner(t_rgb *color, int centre,
-												t_pix pix, t_mrt *mrt)
+								t_pix pix, t_mrt *mrt)
 {
 	t_pix	mini_pix;
 	int		*mini_sqr;
