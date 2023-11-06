@@ -12,15 +12,18 @@
 
 #include "minirt.h"
 
-static inline t_bool	lighted(t_v3d dir, t_inter inter, t_mrt *mrt)
-{
-	double		evl;
-	double		to_light;
+# define NO_SHADOW -1
 
-	(void)mrt;
-	to_light = ft_length_v3d(dir);
-	evl = get_solver(inter.hit, dir, inter.obj, &inter);
-	if (evl > EPSILON && evl < to_light)
+static inline t_bool lighted(t_v3d dir, t_inter inter, t_mrt *mrt)
+{
+	t_inter		new_inter;
+
+	new_inter.ray.from = inter.hit;
+	new_inter.ray.to = dir;
+	get_hits(&new_inter, mrt->obj, mrt);
+	if (!new_inter.obj)
+		return (TRUE);
+	if (new_inter.dist > EPSILON && new_inter.dist < 1)
 		return (FALSE);
 	return (TRUE);
 }
@@ -44,10 +47,14 @@ static inline void	brightness(double (*rgb)[3], double coef, int color)
 	(*rgb)[2] += coef * (color & mask) / 255;
 }
 
-static inline t_bool	is_lighted(t_inter inter, t_v3d dir, t_mrt *mrt)
+static inline double	is_lighted(t_inter inter, t_v3d dir, t_mrt *mrt)
 {
-	return (lighted(dir, inter, mrt)
-		&& ft_dot_v3d(inter.normal, dir) > 0);
+//	double	dist;
+	return (lighted(dir, inter, mrt) && ft_dot_v3d(inter.normal, dir) > 0);
+//	dist = lighted(dir, inter, mrt);
+//	if (dist > 0.0 && ft_dot_v3d(inter.normal, dir) > 0)
+//		return (1.0 / (1.0 + 0.1 * dist + 0.01 * dist * dist));
+//	return (0.0);
 }
 
 #ifdef BONUS
@@ -88,22 +95,20 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 	t_light			*node;
 	double			light;
 	double			rgb[3];
-	t_v3d			direction;
+	t_v3d			dir;
+//	double			shadow;
 
 	light = 0.0;
 	(void)ray;
 	ft_memset(rgb, 0, 3 * sizeof(double));
 	brightness(&rgb, mrt->scn.bright, mrt->scn.amb_rgb);
 	node = mrt->scn.light;
-	while (node)
+	dir = ft_minus_v3d(node->origin, inter.hit);
+//		shadow = is_lighted(inter, dir, mrt);
+	if (is_lighted(inter, dir, mrt))
 	{
-		direction = ft_minus_v3d(node->origin, inter.hit);
-		if (is_lighted(inter, direction, mrt))
-		{
-			light = node->bright * ft_cos_v3d(inter.normal, direction);
-			brightness(&rgb, light, node->color);
-		}
-		node = node->next;
+		light = node->bright * ft_cos_v3d(inter.normal, dir);
+		brightness(&rgb, light, node->color);
 	}
 	return (ft_rgb_light(inter.color, rgb));
 }
