@@ -26,7 +26,7 @@
  */
 static inline void	get_obj_color(t_mrt *mrt, int last)
 {
-	mrt->obj->color = get_color(mrt->tab[++last], mrt);
+	mrt->obj->color = get_color(mrt->tab[last], mrt);
 	mrt->obj->orig_color = mrt->obj->color;
 	mrt->obj->sel_color = ft_invert_color(mrt->obj->orig_color);
 }
@@ -47,7 +47,7 @@ void	get_common(t_mrt *mrt, int last, char *elem, t_mode mode)
 {
 	if (mode == MANDATORY)
 	{
-		get_obj_color(mrt, last);
+		get_obj_color(mrt, ++last);
 		return ;
 	}
 	mrt->obj->specular = ft_atolf(mrt->tab[++last]);
@@ -64,7 +64,7 @@ void	get_common(t_mrt *mrt, int last, char *elem, t_mode mode)
 		msg_error_parsing(elem, mrt);
 	if (mrt->obj->texture == 2)
 		mrt->obj->wavelength = ft_atolf(mrt->tab[++last]);
-	get_obj_color(mrt, last);
+	get_obj_color(mrt, ++last);
 	if (mode == BUMP_MODE)
 		get_bump(mrt, ++last);
 }
