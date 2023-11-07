@@ -81,7 +81,7 @@ static inline void	is_lighted(t_inter inter, t_mrt *mrt,
 
 	dir = ft_minus_v3d(node.origin, inter.hit);
 	shadowed = on_shadow(dir, inter, mrt);
-	if (shadowed)
+	if (!shadowed)
 	{
 		if (ft_dot_v3d(inter.normal, dir) <= 0)
 			return ;
