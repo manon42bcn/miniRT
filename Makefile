@@ -52,7 +52,6 @@ SRCS_FILES		= 	intersections/intersections.c \
 					render/render_utils.c \
 					render/render.c \
 					utl/error_handling.c \
-					utl/after_parse_process.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \
