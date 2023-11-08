@@ -1,0 +1,13 @@
+
+A	0.2				255,255,255
+C	30,0,90			0,0,-1			70
+L	-50,-100,-20		0.7				255,230,240
+
+sp	0,0,0		4		0 0 0 0 	0,0,0   xpm:scenes/xpm/mercurymap.xpm
+sp	10,0,0		9.5		0 0 0 0 	0,0,0   xpm:scenes/xpm/venusmap.xpm
+sp	20,0,0		10		0 0 0 0 	0,0,0   xpm:scenes/xpm/earthmap1k.xpm
+sp	30,0,0		5.3		0 0 0 0 	0,0,0   xpm:scenes/xpm/marsmap1k.xpm
+sp	40,70,0		90		0 0 0 0 	0,0,0   xpm:scenes/xpm/jupitermap.xpm
+sp	60,90,0		85		0 0 0 0 	0,0,0   xpm:scenes/xpm/saturnmap.xpm
+sp	70,0,0		39		0 0 0 0 	0,0,0   xpm:scenes/xpm/uranusmap.xpm
+sp	80,0,0		40		0 0 0 0 	0,0,0   xpm:scenes/xpm/neptunemap.xpm
