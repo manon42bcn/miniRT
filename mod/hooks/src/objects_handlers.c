@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:52 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/22 00:41:54 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:16:36 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,17 @@ int	object_traslation(int key, t_mrt *mrt)
 	if (!node || (node->type == BOX))
 		return (FALSE);
 	if (key == K_UP)
-		node->elm.fig.centre.y += 0.1f;
+		node->elm.fig.centre.y += MOVE_FACTOR;
 	if (key == K_DOWN)
-		node->elm.fig.centre.y -= 0.1f;
+		node->elm.fig.centre.y -= MOVE_FACTOR;
 	if (key == K_LEFT)
-		node->elm.fig.centre.x -= 0.1f;
+		node->elm.fig.centre.x -= MOVE_FACTOR;
 	if (key == K_RIGHT)
-		node->elm.fig.centre.x += 0.1f;
+		node->elm.fig.centre.x += MOVE_FACTOR;
 	if (key == K_PLUS)
-		node->elm.fig.centre.z += 0.1f;
+		node->elm.fig.centre.z += MOVE_FACTOR;
 	if (key == K_MINUS)
-		node->elm.fig.centre.z -= 0.1f;
+		node->elm.fig.centre.z -= MOVE_FACTOR;
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }
@@ -118,9 +118,9 @@ int	object_width(int key, t_mrt *mrt)
 	if (obj == NULL || obj->type == PLANE)
 		return (FALSE);
 	if (key == K_PLUS)
-		obj->elm.fig.width *= 1.1f;
-	else if (key == K_MINUS && obj->elm.fig.width / 1.1f > 0)
-		obj->elm.fig.width /= 1.1f;
+		obj->elm.fig.width *= SIZE_FACTOR;
+	else if (key == K_MINUS && obj->elm.fig.width / SIZE_FACTOR > 0)
+		obj->elm.fig.width /= SIZE_FACTOR;
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }
@@ -151,9 +151,9 @@ int	object_height(int key, t_mrt *mrt)
 	if (obj == NULL || obj->type == PLANE || obj->type == SPHERE)
 		return (FALSE);
 	if (key == K_PLUS)
-		obj->elm.fig.height *= 1.1f;
-	else if (key == K_MINUS && obj->elm.fig.height / 1.1f > 0)
-		obj->elm.fig.height /= 1.1f;
+		obj->elm.fig.height *= SIZE_FACTOR;
+	else if (key == K_MINUS && obj->elm.fig.height / SIZE_FACTOR > 0)
+		obj->elm.fig.height /= SIZE_FACTOR;
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }

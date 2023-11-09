@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:54:21 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:26:32 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:25:10 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <math.h>
 # include "parse_enum.h"
 
+# define SEP " \t\n"
+# define IDX_ERR	-1
+# define IDX_COMMENT -2
 # define MANDATORY	1
 # define BONUS_MODE	2
 # define BUMP_MODE	3

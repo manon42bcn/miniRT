@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:26:37 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:52:50 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:14:46 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ typedef struct s_mrt	t_mrt;
 # define RENDERED 1
 # define RIGHT_CLICK 1
 # define LEFT_CLICK 2
-# define RAD_ANGLE 0.0174533
 
 typedef struct s_ray
 {
