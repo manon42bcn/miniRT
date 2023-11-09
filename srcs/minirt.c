@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
+/*   By: vaguilar <vaguilar@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:39:55 by mgarcia-          #+#    #+#             */
-/*   Updated: 2023/11/08 22:57:23 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:00:48 by vaguilar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,11 +141,11 @@ int	print_help(void)
 	printf("miniRT, version 1.0\n\n");
 	printf("miniRT is a simple RayTracer program that generates images using the Raytracing protocol.\n");
     printf("This program is an introduction to the beautiful world of Raytracing.\n\n");
-	printf("Usage: ./miniRT [map]\n\n");
+	printf("Usage: ./miniRT <scene_file.rt>\n\n");
     printf("Options:\n");
     printf("  --help\t\tShow this help message and exit.\n\n");
 	printf("Arguments:\n");
-    printf("  SCENE.rt\t\tA scene description file in the .rt format that describes the objects, lights, and camera.\n\n");
+    printf("  <scene_file.rt>\t\tA scene description file in the .rt format that describes the objects, lights, and camera.\n\n");
 	return (1);
 }
 
