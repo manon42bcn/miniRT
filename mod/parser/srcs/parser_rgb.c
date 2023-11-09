@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 12:57:47 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/12 12:57:49 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:58:31 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,5 @@ t_rgb	get_color(char *line, t_mrt *mrt)
 	rgb[B_I] = ft_atoi(tmp[B_I]);
 	ft_clear_tabs(tmp);
 	check_color_range(rgb, mrt);
-	rgb[R_I] <<= 16;
-	rgb[G_I] <<= 8;
-	return (rgb[R_I] | rgb[G_I] | rgb[B_I]);
+	return (ft_rgb_get(rgb));
 }

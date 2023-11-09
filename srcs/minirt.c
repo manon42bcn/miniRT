@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:39:55 by mgarcia-          #+#    #+#             */
-/*   Updated: 2023/11/08 22:57:23 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 22:13:09 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static inline void	after_parse_process(t_mrt *mrt)
 	mrt->main_cam = node;
 	if (mrt->scn.res_init == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
-	mrt->scn.w_x /= 3;
-	mrt->scn.w_y /= 3;
+//	mrt->scn.w_x /= 3;
+//	mrt->scn.w_y /= 3;
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 	while (node)
 	{

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:56:17 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:21:45 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 20:44:07 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@
 # include "../../parser/inc/parse.h"
 # include "../../../mlx/mlx.h"
 
-# define MOVE_FACTOR	0.1f
-# define SIZE_FACTOR	1.1f
+//# define MOVE_FACTOR	0.1f
+//# define SIZE_FACTOR	1.1f
+//# define LIGHT_TRANS	0.5f
+//# define BRIGHT_FACTOR	0.1f
+# define MOVE_FACTOR	1.0f
+# define SIZE_FACTOR	1.2f
 # define LIGHT_TRANS	0.5f
 # define BRIGHT_FACTOR	0.1f
 # define RAD_ANGLE		0.0174533

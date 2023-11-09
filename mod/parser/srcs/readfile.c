@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 00:23:35 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:26:36 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 10:47:23 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ t_mrt	*readfile_parser(char const *filename)
 	int		fd;
 	t_mrt	*rt;
 
+	if (!ft_myregex((char *)filename, "*.rt"))
+		msg_error_parsing("Scene not *.rt format", NULL);
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		msg_error_parsing("Loading file error", NULL);

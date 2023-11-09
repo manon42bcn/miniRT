@@ -17,6 +17,7 @@ Some useful resources to understand this library:
 - `ft_rgb_avg(t_rgb ca, t_rgb cb):` Computes the average of two RGB colors.
 - `ft_rgb_balance(t_rgb *rgb):` Balances an array of four RGB colors, computing their average.
 - `ft_invert_color(t_rgb original):` Invert a given color.
+- `ft_rgb_get(t_rgb color[3])`: Return t_rgb color from RGB color.
 
 ## Usage ##
 To use the library, include its header in your project and compile the source files with your project.
