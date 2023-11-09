@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:19:23 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/24 20:19:25 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:13:14 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ int	cam_translate(int key, t_mrt *mrt)
 
 	node = mrt->cmr;
 	if (key == K_UP)
-		node->position.y += 0.1f;
+		node->position.y += MOVE_FACTOR;
 	if (key == K_DOWN)
-		node->position.y -= 0.1f;
+		node->position.y -= MOVE_FACTOR;
 	if (key == K_LEFT)
-		node->position.x -= 0.1f;
+		node->position.x -= MOVE_FACTOR;
 	if (key == K_RIGHT)
-		node->position.x += 0.1f;
+		node->position.x += MOVE_FACTOR;
 	if (key == K_PLUS)
-		node->position.z += 0.1f;
+		node->position.z += MOVE_FACTOR;
 	if (key == K_MINUS)
-		node->position.z -= 0.1f;
+		node->position.z -= MOVE_FACTOR;
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }

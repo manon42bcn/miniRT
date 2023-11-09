@@ -170,7 +170,7 @@ double	cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl, t_inter *inter)
 	double	caps_inter;
 
 	cylinder_inter = body_intersect(from, dir, &inter->normal, cyl);
-	if (cyl.texture == 4)
+	if (cyl.texture == NO_CAPS)
 		caps_inter = INFINITY;
 	else
 		caps_inter = top_intersect(from, dir, cyl);

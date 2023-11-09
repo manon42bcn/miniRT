@@ -26,7 +26,10 @@
  */
 void	inp_triangle(t_mrt *mrt)
 {
-	if (ft_count_tab(mrt->tab) != ELM_TR)
+	t_mode	mode;
+
+	mode = element_check(TRIANGLE, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build triangle", mrt);
 	mrt->obj = object_builder(TRIANGLE, mrt->obj);
 	mrt->obj->elm.trg.v1 = get_v3d(mrt, mrt->tab[TRG_VERTEX_1],
@@ -35,7 +38,7 @@ void	inp_triangle(t_mrt *mrt)
 			V3D_COOR);
 	mrt->obj->elm.trg.v3 = get_v3d(mrt, mrt->tab[TRG_VERTEX_3],
 			V3D_COOR);
-	get_common(mrt, TRG_VERTEX_3, "Triangle");
+	get_common(mrt, TRG_VERTEX_3, "Triangle", mode);
 	mrt->obj->elm.trg.dir = ft_cross_v3d(
 			ft_minus_v3d(mrt->obj->elm.trg.v3, mrt->obj->elm.trg.v1),
 			ft_minus_v3d(mrt->obj->elm.trg.v2, mrt->obj->elm.trg.v1));

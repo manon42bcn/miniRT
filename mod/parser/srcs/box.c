@@ -107,8 +107,10 @@ void	build_box(t_mrt *mrt)
 void	inp_box(t_mrt *mrt)
 {
 	t_obj	*box;
+	t_mode	mode;
 
-	if (ft_count_tab(mrt->tab) != ELM_BOX)
+	mode = element_check(BOX, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build box/cube", mrt);
 	mrt->obj = object_builder(BOX, mrt->obj);
 	box = mrt->obj;
@@ -123,7 +125,7 @@ void	inp_box(t_mrt *mrt)
 	box->elm.box.depth = ft_atolf(mrt->tab[BOX_DEPTH]);
 	if (!check_range(box->elm.box.width, 0, INFINITY))
 		msg_error_parsing("Box depth out of range", mrt);
-	get_common(mrt, BOX_DEPTH, "Box");
+	get_common(mrt, BOX_DEPTH, "Box", mode);
 	build_box(mrt);
 }
 

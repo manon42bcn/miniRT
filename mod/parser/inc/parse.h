@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:54:21 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:26:32 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:25:10 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,20 @@
 # include <math.h>
 # include "parse_enum.h"
 
-typedef void	(*t_build)(t_mrt *);
+# define SEP " \t\n"
+# define IDX_ERR	-1
+# define IDX_COMMENT -2
+# define MANDATORY	1
+# define BONUS_MODE	2
+# define BUMP_MODE	3
+# define ERROR_MODE	4
+# define ELM_RES 3
+# define ELM_AMB 3
+# define ELM_CAM 4
+# define ELM_LGH 4
 
+typedef void	(*t_build)(t_mrt *);
+typedef int		t_mode;
 // Cleaners
 int			clear_all(t_mrt *mrt, int status, int (*win)(void *, void *),
 				int (*img)(void *, void *));
@@ -43,11 +55,13 @@ void		inp_rectangle(t_mrt *mrt);
 // Parser readfile
 t_mrt		*readfile_parser(char const *filename);
 // Parser common
+t_mode		element_check(int type, t_mrt *mrt);
 t_rgb		get_color(char *line, t_mrt *mrt);
 t_v3d		get_v3d(t_mrt *mrt, char *line, int mode);
-void		get_common(t_mrt *mrt, int last, char *elem);
+void		get_common(t_mrt *mrt, int last, char *elem, t_mode mode);
 t_bool		check_range(double value, double min, double max);
 void		msg_error_parsing(char *message, t_mrt *mrt);
+void		get_bump(t_mrt *mrt, int index);
 // Parser builders
 t_obj		*object_builder(int id, t_obj *next);
 t_light		*light_builder(t_light *next);
@@ -60,31 +74,10 @@ void		parse_error(char *message);
 # ifdef BONUS
 
 #  define LAST_COMMON 5
-#  define ELM_SPH 8
-#  define ELM_PL 8
-#  define ELM_CYL 10
-#  define ELM_RES 3
-#  define ELM_AMB 3
-#  define ELM_CAM 4
-#  define ELM_LGH 4
-#  define ELM_TR 9
-#  define ELM_CO 10
-#  define ELM_BOX 11
-#  define ELM_ELLIP 10
-#  define ELM_RECT 10
-
-void		get_bump(t_mrt *mrt, int index);
 
 # else
-#  define LAST_COMMON 1
 
-#  define ELM_SPH 4
-#  define ELM_PL  4
-#  define ELM_CYL 6
-#  define ELM_RES 3
-#  define ELM_AMB 3
-#  define ELM_CAM 4
-#  define ELM_LGH 4
+#  define LAST_COMMON 1
 
 # endif
 

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 22:09:53 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/22 22:09:55 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 09:18:45 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,17 @@ static inline int	light_traslation(int key, t_mrt *mrt)
 
 	node = mrt->scn.sel_light;
 	if (key == K_UP)
-		node->origin.y += 0.5f;
+		node->origin.y += LIGHT_TRANS;
 	if (key == K_DOWN)
-		node->origin.y -= 0.5f;
+		node->origin.y -= LIGHT_TRANS;
 	if (key == K_LEFT)
-		node->origin.x += 0.5f;
+		node->origin.x += LIGHT_TRANS;
 	if (key == K_RIGHT)
-		node->origin.x += 0.5f;
+		node->origin.x += LIGHT_TRANS;
 	if (key == K_PLUS)
-		node->origin.z += 0.5f;
+		node->origin.z += LIGHT_TRANS;
 	if (key == K_MINUS)
-		node->origin.z -= 0.5f;
+		node->origin.z -= LIGHT_TRANS;
 	return (TRUE);
 }
 
@@ -116,14 +116,14 @@ static inline int	light_bright(int key, t_mrt *mrt)
 	t_light	*light;
 
 	light = mrt->scn.sel_light;
-	if (key == K_B && light->bright + 0.1 < 1)
+	if (key == K_B && light->bright + BRIGHT_FACTOR < 1)
 	{
-		light->bright += 0.1f;
+		light->bright += BRIGHT_FACTOR;
 		return (TRUE);
 	}
-	if (key == K_V && light->bright - 0.1f > 0)
+	if (key == K_V && light->bright - BRIGHT_FACTOR > 0)
 	{
-		light->bright -= 0.1f;
+		light->bright -= BRIGHT_FACTOR;
 		return (TRUE);
 	}
 	return (FALSE);

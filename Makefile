@@ -49,10 +49,9 @@ SRCS_FILES		= 	intersections/intersections.c \
 					light/light_utils.c \
 					rays/tracer.c \
 					rays/rays.c \
-					render/mlx_hooks.c \
+					render/render_utils.c \
 					render/render.c \
 					utl/error_handling.c \
-					utl/after_parse_process.c \
 					sampler/supersample.c \
 					sampler/sample_pixel.c \
 					texture/textures.c \

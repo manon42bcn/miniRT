@@ -26,7 +26,10 @@
  */
 void	inp_rectangle(t_mrt *mrt)
 {
-	if (ft_count_tab(mrt->tab) != ELM_RECT)
+	t_mode	mode;
+
+	mode = element_check(RECTANGLE, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build rectangle", mrt);
 	mrt->obj = object_builder(RECTANGLE, mrt->obj);
 	mrt->obj->elm.rc.centre = get_v3d(mrt, mrt->tab[RCT_CENTRE], V3D_COOR);
@@ -37,7 +40,7 @@ void	inp_rectangle(t_mrt *mrt)
 	mrt->obj->elm.rc.height = ft_atolf(mrt->tab[RCT_HEIGHT]);
 	if (!check_range(mrt->obj->elm.rc.height, 0, INFINITY))
 		msg_error_parsing("Rectangle height out of range", mrt);
-	get_common(mrt, RCT_HEIGHT, "Rectangle");
+	get_common(mrt, RCT_HEIGHT, "Rectangle", mode);
 }
 
 #else

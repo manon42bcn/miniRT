@@ -12,6 +12,17 @@
 
 #include "minirt.h"
 
+/**
+ * @brief Perform UV mapping for a sphere object.
+ *
+ * This function calculates the UV coordinates for a point on a sphere's surface
+ * based on its local normal vector. It's used for texture mapping on spherical
+ * objects.
+ *
+ * @param local The local normal vector of the point on the sphere's surface.
+ * @param uv An array to store the resulting UV coordinates
+ * 			 (uv[0] = U, uv[1] = V).
+ */
 void	sphere_uv_mapping(t_v3d local, double *uv)
 {
 	double	phi;
@@ -23,6 +34,21 @@ void	sphere_uv_mapping(t_v3d local, double *uv)
 	uv[E_V] = 0.5 - theta / M_PI;
 }
 
+/**
+ * @brief Apply bump mapping to an intersection point on a textured sphere.
+ *
+ * This function applies bump mapping to an intersection point on a textured
+ * sphere based on the sphere's UV mapping. It reads the texture color at the
+ * corresponding UV coordinates and returns the modified color. If the object
+ * doesn't have a texture or is not a sphere, the original color is returned.
+ *
+ * @param inter The intersection information, including the color and UV
+ * 					coordinates.
+ * @param hit The intersection point.
+ * @param obj The object that was intersected.
+ * @param mrt The main ray tracing structure.
+ * @return The color of the intersection point with bump mapping applied.
+ */
 t_rgb	bump_texture(t_inter inter, t_v3d hit, t_obj *obj, t_mrt *mrt)
 {
 	t_v3d	local;

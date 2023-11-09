@@ -13,64 +13,6 @@
 #include "parse.h"
 
 /**
- * @brief   Determines the closest object to the camera from a given
- * list of objects.
- *
- * @param   camera  Pointer to the camera structure.
- * @param   obj     Pointer to the linked list of objects.
- * @return  Pointer to the closest object.
- */
-static inline t_obj	*closer_object(t_cmr *camera, t_obj *obj)
-{
-	double	dist;
-	double	target;
-	t_obj	*rst;
-
-	target = 0;
-	rst = NULL;
-	while (obj)
-	{
-		if (obj->type != PLANE)
-		{
-			dist = ft_distance_v3d(camera->position, obj->elm.fig.centre);
-			if (rst == NULL)
-			{
-				rst = obj;
-				target = dist;
-			}
-			if (dist < target)
-			{
-				rst = obj;
-				target = dist;
-			}
-		}
-		obj = obj->next;
-	}
-	return (rst);
-}
-
-/**
- * @brief   Iterate over each cam to find the object closest to
- * each camera in the list.
- *
- * @param   mrt     Pointer to the main Ray Tracer structure.
- */
-static inline void	close_to_cam(t_mrt *mrt)
-{
-	t_cmr	*node;
-
-	node = mrt->cmr;
-	mrt->main_cam = node;
-	while (node)
-	{
-		node->close_obj = closer_object(node, mrt->obj);
-		node->orbit = ft_distance_v3d(node->position,
-				node->close_obj->elm.fig.centre);
-		node = node->next;
-	}
-}
-
-/**
  * @brief   Validates the parsed data from the scene to check if
  * the mandatory elements are present and call to close_to_cam function
  *
@@ -87,7 +29,6 @@ static inline t_bool	checking_parse(t_mrt *mrt)
 		return (FALSE);
 	if (!mrt->scn.light)
 		return (FALSE);
-	close_to_cam(mrt);
 	return (TRUE);
 }
 
@@ -116,7 +57,7 @@ static inline t_bool	load_object(t_mrt *mrt)
 		ft_perror("Split Line error");
 	type = parser_dict(mrt->tab[0]);
 	if (type == IDX_ERR)
-		ft_perror("element not founded");
+		msg_error_parsing("Element not founded", mrt);
 	if (type == IDX_COMMENT)
 		return (FALSE); 
 	build = get_builder(type, mrt); // Retorna la funcion

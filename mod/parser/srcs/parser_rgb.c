@@ -52,10 +52,7 @@ t_rgb	get_color(char *line, t_mrt *mrt)
 
 	tmp = ft_split(line, ',');
 	if (tmp == NULL || ft_count_tab(tmp) != 3)
-	{
-		ft_clear_tabs(tmp);
 		ft_perror("Error getting color");
-	}
 	rgb[R_I] = ft_atoi(tmp[R_I]);
 	rgb[G_I] = ft_atoi(tmp[G_I]);
 	rgb[B_I] = ft_atoi(tmp[B_I]);

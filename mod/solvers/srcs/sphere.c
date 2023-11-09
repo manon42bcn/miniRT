@@ -116,7 +116,7 @@ double	sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph)
 		if (points[1] < points[0])
 			distance = points[1];
 	}
-	if (sph.texture != 4)
+	if (sph.texture != HALF_SPHERE)
 		return (distance);
 	p1 = ft_plus_v3d(origin, ft_scalar_v3d(points[0], dir));
 	p2 = ft_plus_v3d(origin, ft_scalar_v3d(points[1], dir));

@@ -31,8 +31,10 @@
 void	inp_ellipsoid(t_mrt *mrt)
 {
 	t_obj	*elp;
+	t_mode	mode;
 
-	if (ft_count_tab(mrt->tab) != ELM_ELLIP)
+	mode = element_check(ELLIPS, mrt);
+	if (mode == ERROR_MODE)
 		msg_error_parsing("Wrong data elements to build ellipsoid", mrt);
 	mrt->obj = object_builder(ELLIPS, mrt->obj);
 	elp = mrt->obj;
@@ -46,7 +48,7 @@ void	inp_ellipsoid(t_mrt *mrt)
 	elp->elm.elp.rz = ft_atolf(mrt->tab[ELP_RAD_Z]);
 	if (!check_range(elp->elm.elp.rz, 0, INFINITY))
 		msg_error_parsing("Ellipsoid radius z out of range", mrt);
-	get_common(mrt, ELP_RAD_Z, "Ellipsoid");
+	get_common(mrt, ELP_RAD_Z, "Ellipsoid", mode);
 }
 
 #else
