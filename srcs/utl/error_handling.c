@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void	msg_instructions(void)
+void	msg_instructions(void) // VICTOR: esta funcion no se usa
 {
 	ft_putendl_fd("\x1b[35m------------------------------------------", STDIN_FILENO);
 	ft_putendl_fd("\e[1m\e[34mHELP - OPTIONS\x1b[0m", STDIN_FILENO);
@@ -44,7 +44,6 @@ void	msg_error_exit(char *message)
 	ft_putstr_fd("miniRT ERROR ", STDERR_FILENO);
 	if (message)
 		ft_putstr_fd(message, STDERR_FILENO);
-	ft_putstr_fd("\n", STDERR_FILENO);
 	exit(ERROR);
 }
 

@@ -40,4 +40,3 @@ typedef struct s_mrt	t_mrt;
 typedef int				t_pixel;
 
 #endif
-

@@ -136,6 +136,19 @@ int	to_win(t_mrt *mrt)
 	return (TRUE);
 }
 
+int	print_help(void)
+{
+	printf("miniRT, version 1.0\n\n");
+	printf("miniRT is a simple RayTracer program that generates images using the Raytracing protocol.\n");
+    printf("This program is an introduction to the beautiful world of Raytracing.\n\n");
+	printf("Usage: ./miniRT [map]\n\n");
+    printf("Options:\n");
+    printf("  --help\t\tShow this help message and exit.\n\n");
+	printf("Arguments:\n");
+    printf("  SCENE.rt\t\tA scene description file in the .rt format that describes the objects, lights, and camera.\n\n");
+	return (1);
+}
+
 /**
  * @brief The main entry point for the miniRT application.
  *
@@ -153,10 +166,12 @@ int	main(int argc, char const *argv[])
 	t_mrt	*mrt;
 
 	if (argc < 2 || argc > 3)
-		msg_error_exit("Args error. Type --help for instructions.");
+		msg_error_exit("Args error. Type --help for instructions.\n"); // VICTOR: Agregar salto de linea
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
-	mrt = readfile_parser(argv[1]);
+	if (ft_strncmp("--help", (char *)argv[1], 7) == 0 && print_help()) // Siento que esta comparacion es sucia con otra que quizas pueda realizar manuel
+		return(SUCCESS);
+	mrt = readfile_parser(argv[1]); // parseo de objetos
 	after_parse_process(mrt);
 	render_main(mrt);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,

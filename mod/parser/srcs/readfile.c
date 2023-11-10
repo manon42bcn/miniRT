@@ -45,16 +45,23 @@ static inline t_bool	load_object(t_mrt *mrt)
 	t_build		build;
 
 	ft_clear_tabs(mrt->tab);
-	mrt->tab = ft_split_cs(mrt->aux, SEP);
+	mrt->tab = ft_split_cs(mrt->aux, SEP); // Split por ' '\n\t
+	// int i = 0;
+	// while(mrt->tab[i])
+	// {
+	// 	printf("TAB[%i] == (%s)\n", i, mrt->tab[i]);
+	// 	i++;
+	// }
+	// exit(0);
 	if (mrt->tab == NULL)
 		ft_perror("Split Line error");
 	type = parser_dict(mrt->tab[0]);
 	if (type == IDX_ERR)
 		msg_error_parsing("Element not founded", mrt);
 	if (type == IDX_COMMENT)
-		return (FALSE);
-	build = get_builder(type, mrt);
-	build(mrt);
+		return (FALSE); 
+	build = get_builder(type, mrt); // Retorna la funcion
+	build(mrt); // Ejecuta la funcion?
 	return (TRUE);
 }
 
