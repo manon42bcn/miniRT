@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:42:41 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/08 22:11:56 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/11 00:07:48 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # ifdef BONUS
 #  include <pthread.h>
-#  define THREADS	10
+#  define THREADS	20
 # endif
 
 # include "../mlx/mlx.h"
