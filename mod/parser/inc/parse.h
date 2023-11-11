@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:54:21 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:25:10 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/11 01:40:40 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ t_mrt		*readfile_parser(char const *filename);
 t_mode		element_check(int type, t_mrt *mrt);
 t_rgb		get_color(char *line, t_mrt *mrt);
 t_v3d		get_v3d(t_mrt *mrt, char *line, int mode);
-void		get_common(t_mrt *mrt, int last, char *elem, t_mode mode);
+t_bool		get_common(t_mrt *mrt, int last, char *elem, t_mode mode);
 t_bool		check_range(double value, double min, double max);
 void		msg_error_parsing(char *message, t_mrt *mrt);
-void		get_bump(t_mrt *mrt, int index);
+t_bool		get_bump(t_mrt *mrt, int index);
 // Parser builders
 t_obj		*object_builder(int id, t_obj *next);
 t_light		*light_builder(t_light *next);

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:20:28 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/07 18:20:30 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/11 02:31:40 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_bool	valid_file(char *file)
 	return (TRUE);
 }
 
-void	get_bump(t_mrt *mrt, int index)
+t_bool	get_bump(t_mrt *mrt, int index)
 {
 	char	**tmp;
 
 	if (!mrt->tab[index])
-		return ;
+		return (FALSE);
 	tmp = ft_split(mrt->tab[index], ':');
 	if (tmp == NULL || ft_count_tab(tmp) != 2)
 		ft_perror("Split texture info error");
@@ -41,4 +41,5 @@ void	get_bump(t_mrt *mrt, int index)
 	mrt->obj->xpm.path = ft_strdup(tmp[1]);
 	mrt->obj->bump = TRUE;
 	ft_clear_tabs(tmp);
+	return (TRUE);
 }
