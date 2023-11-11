@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:20:28 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 02:31:40 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:32:03 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_bool	get_bump(t_mrt *mrt, int index)
 	char	**tmp;
 
 	if (!mrt->tab[index])
+		return (FALSE);
+	if (mrt->obj->type != SPHERE)
 		return (FALSE);
 	tmp = ft_split(mrt->tab[index], ':');
 	if (tmp == NULL || ft_count_tab(tmp) != 2)

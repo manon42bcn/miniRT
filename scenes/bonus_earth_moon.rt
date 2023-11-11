@@ -2,5 +2,5 @@ A	0.2			255,255,255
 C	0,0,-50		0,0,1			70
 L	0,20,0		0.7				255,230,240
 
-sp	0,0,5		32		0 0 0 0 	0,0,0	xpm:scenes/xpm/earthmap1k.xpm
-sp	30,0,-5		8		0 0 0 0 	0,0,0	xpm:scenes/xpm//moonmap1k.xpm
+sp	0,0,5		32		0,0,0	xpm:scenes/xpm/earthmap1k.xpm
+sp	30,0,-5		8	 	0,0,0	xpm:scenes/xpm//moonmap1k.xpm

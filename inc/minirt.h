@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:42:41 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 00:07:48 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/11 13:20:29 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void		msg_error_exit(char *message);
 
 //Texture
 void		texturize(t_inter *inter);
-t_rgb		bump_texture(t_inter inter, t_v3d hit, t_obj *obj, t_mrt *mrt);
+t_rgb		bump_texture(t_inter inter, t_v3d hit, t_obj obj, t_mrt *mrt);
 t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
 double		specular_transform(t_ray ray, t_inter inter, t_light *scn_light);
 t_v3d		refraction(t_inter inter, t_obj *obj);
