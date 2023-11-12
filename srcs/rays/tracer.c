@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 11:41:32 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 13:22:47 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/12 23:07:49 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	inter.color = light_hit(inter.ray, inter, mrt);
 	if (inter.refract > 0)
 		inter.color = tracer(inter.hit,
-				refraction(inter, inter.obj), mrt, depth);
+				refraction(dir, inter.normal, inter.obj), mrt, depth);
 	if (inter.reflex > 0 && depth > 0)
 		inter.ref_color = tracer(inter.hit,
 				reflect_ray(ft_scalar_v3d(-1, dir), inter.normal),
