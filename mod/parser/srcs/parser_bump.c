@@ -6,12 +6,22 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 18:20:28 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 22:32:03 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/12 23:47:15 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parse.h"
 
+/**
+ * @brief Check if the file is a valid xpm file.
+ *
+ * This function checks if the given file is a valid xpm file by attempting to
+ * open it. If the file cannot be opened, an error is displayed using ft_perror.
+ * The function returns TRUE if the file is valid and FALSE otherwise.
+ *
+ * @param file The path of the xpm file to check.
+ * @return TRUE if the file is valid, FALSE otherwise.
+ */
 t_bool	valid_file(char *file)
 {
 	int	fd;
@@ -23,6 +33,21 @@ t_bool	valid_file(char *file)
 	return (TRUE);
 }
 
+/**
+ * @brief Parse and set the bump texture information for the object.
+ *
+ * This function parses and sets the bump texture information for the object
+ * at the specified index. It checks if the object type is a sphere and if the
+ * provided texture information is in the correct format. If successful, it
+ * sets the xpm path, marks the object with bump mapping, and performs
+ * additional validations.
+ *
+ * @param mrt A pointer to the MiniRT structure.
+ * @param index The index in the tab array corresponding to the bump texture
+ * 				information.
+ * @return TRUE if the bump texture information is successfully parsed and set,
+ * 				FALSE otherwise.
+ */
 t_bool	get_bump(t_mrt *mrt, int index)
 {
 	char	**tmp;

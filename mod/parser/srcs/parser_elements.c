@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 15:39:45 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 22:00:58 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/12 23:43:47 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 
 #ifdef BONUS
 
+/**
+ * @brief Check the validity of the provided elements based on the object type.
+ *
+ * This function checks the validity of the provided elements based on the
+ * object type. It compares the number of elements in the input with the
+ * expected number of elements for the specified object type. The function
+ * returns the mode (MANDATORY, BONUS_MODE, BUMP_MODE, or ERROR_MODE) based on
+ * the comparison result.
+ * This approach allows the render of mandatory format files at bonus version.
+ *
+ * @param type The object type.
+ * @param mrt A pointer to the MiniRT structure.
+ * @return The mode indicating the validity of the provided elements.
+ */
 t_mode	element_check(int type, t_mrt *mrt)
 {
 	size_t			tab_size;
@@ -32,6 +46,19 @@ t_mode	element_check(int type, t_mrt *mrt)
 
 #else
 
+/**
+ * @brief Check the validity of the provided elements based on the object type.
+ *
+ * This function checks the validity of the provided elements based on the
+ * object type. It compares the number of elements in the input with the
+ * expected number of elements for the specified object type. The function
+ * returns the mode (MANDATORY or ERROR_MODE) based on
+ * the comparison result.
+ *
+ * @param type The object type.
+ * @param mrt A pointer to the MiniRT structure.
+ * @return The mode indicating the validity of the provided elements.
+ */
 t_mode	element_check(int type, t_mrt *mrt)
 {
 	static size_t	elements[] = {4, 4, 6};
