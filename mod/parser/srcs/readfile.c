@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 00:23:35 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 13:03:14 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:30:41 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,23 +45,16 @@ static inline t_bool	load_object(t_mrt *mrt)
 	t_build		build;
 
 	ft_clear_tabs(mrt->tab);
-	mrt->tab = ft_split_cs(mrt->aux, SEP); // Split por ' '\n\t
-	// int i = 0;
-	// while(mrt->tab[i])
-	// {
-	// 	printf("TAB[%i] == (%s)\n", i, mrt->tab[i]);
-	// 	i++;
-	// }
-	// exit(0);
+	mrt->tab = ft_split_cs(mrt->aux, SEP);
 	if (mrt->tab == NULL)
 		ft_perror("Split Line error");
 	type = parser_dict(mrt->tab[0]);
 	if (type == IDX_ERR)
 		msg_error_parsing("Element not founded", mrt);
 	if (type == IDX_COMMENT)
-		return (FALSE); 
-	build = get_builder(type, mrt); // Retorna la funcion
-	build(mrt); // Ejecuta la funcion?
+		return (FALSE);
+	build = get_builder(type, mrt);
+	build(mrt);
 	return (TRUE);
 }
 

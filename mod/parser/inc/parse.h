@@ -9,7 +9,7 @@
 /*   Updated: 2023/11/11 01:40:40 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef PARSE_H
 # define PARSE_H
 # include "../../../libs/v3d/inc/v3d.h"

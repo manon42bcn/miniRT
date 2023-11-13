@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:28:10 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 22:30:57 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/13 22:23:27 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static inline void	uv_mapping(t_v3d local, double *uv)
 	double	phi;
 	double	theta;
 
-	phi = atan2(local.y, local.x);
-	theta = asin(local.z);
+	phi = atan2(local.x, local.z);
+	theta = asin(local.y);
 	uv[E_U] = 0.5 + phi / (2 * M_PI);
 	uv[E_V] = 0.5 - theta / M_PI;
 }
