@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 00:30:09 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:21:16 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/17 22:17:35 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -67,9 +67,10 @@ enum e_ellip_parse
 {
 	ELP_ID = 0,
 	ELP_CENTRE = 1,
-	ELP_RAD_X = 2,
-	ELP_RAD_Y = 3,
-	ELP_RAD_Z = 4
+	ELP_ORIENTATION = 2,
+	ELP_RAD_X = 3,
+	ELP_RAD_Y = 4,
+	ELP_RAD_Z = 5
 };
 
 enum e_cone_parse

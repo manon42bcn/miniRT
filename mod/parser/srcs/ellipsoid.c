@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 13:42:35 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/23 13:42:37 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:20:02 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	inp_ellipsoid(t_mrt *mrt)
 	mrt->obj = object_builder(ELLIPS, mrt->obj);
 	elp = mrt->obj;
 	elp->elm.elp.centre = get_v3d(mrt, mrt->tab[ELP_CENTRE], V3D_COOR);
+	elp->elm.elp.dir = get_v3d(mrt, mrt->tab[ELP_ORIENTATION], V3D_NORM);
 	elp->elm.elp.rx = ft_atolf(mrt->tab[ELP_RAD_X]);
 	if (!check_range(elp->elm.elp.rx, 0, INFINITY))
 		msg_error_parsing("Ellipsoid radius x out of range", mrt);
@@ -49,6 +50,8 @@ void	inp_ellipsoid(t_mrt *mrt)
 	if (!check_range(elp->elm.elp.rz, 0, INFINITY))
 		msg_error_parsing("Ellipsoid radius z out of range", mrt);
 	get_common(mrt, ELP_RAD_Z, "Ellipsoid", mode);
+	elp->elm.elp.dirx = ft_perp_v3d(elp->elm.elp.dir);
+	elp->elm.elp.diry = ft_cross_v3d(elp->elm.elp.dir, elp->elm.elp.dirx);
 }
 
 #else

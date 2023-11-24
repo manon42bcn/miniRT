@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:52 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:16:36 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:52:25 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,15 @@ int	object_traslation(int key, t_mrt *mrt)
  *
  * @return int Returns TRUE if the rotation was performed, and FALSE otherwise.
  */
+
+void	rotation_perp(t_obj *node)
+{
+	if (node->type != ELLIPS)
+		return ;
+	node->elm.elp.dirx = ft_perp_v3d(node->elm.elp.dir);
+	node->elm.elp.diry = ft_cross_v3d(node->elm.elp.dir, node->elm.elp.dirx);
+}
+
 int	object_rotation(int key, t_mrt *mrt)
 {
 	t_obj	*node;
@@ -88,6 +97,7 @@ int	object_rotation(int key, t_mrt *mrt)
 	if (key == K_MINUS)
 		node->elm.fig.orient = ft_rot_v3d_z(node->elm.fig.orient, -RAD_ANGLE);
 	node->elm.fig.orient = ft_normal_v3d(node->elm.fig.orient);
+	rotation_perp(node);
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }
@@ -115,7 +125,7 @@ int	object_width(int key, t_mrt *mrt)
 	t_obj	*obj;
 
 	obj = mrt->sel_obj;
-	if (obj == NULL || obj->type == PLANE)
+	if (obj == NULL || obj->type == PLANE || obj->type == ELLIPS)
 		return (FALSE);
 	if (key == K_PLUS)
 		obj->elm.fig.width *= SIZE_FACTOR;
@@ -148,7 +158,8 @@ int	object_height(int key, t_mrt *mrt)
 	t_obj	*obj;
 
 	obj = mrt->sel_obj;
-	if (obj == NULL || obj->type == PLANE || obj->type == SPHERE)
+	if (obj == NULL || obj->type == PLANE || obj->type == SPHERE
+		|| obj->type == ELLIPS)
 		return (FALSE);
 	if (key == K_PLUS)
 		obj->elm.fig.height *= SIZE_FACTOR;

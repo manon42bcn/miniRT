@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:28:04 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 23:16:40 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:17:57 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -88,9 +88,12 @@ typedef struct s_box
 typedef struct	s_ellip
 {
 	t_v3d	centre;
+	t_v3d	dir;
 	double	rx;
 	double	ry;
 	double	rz;
+	t_v3d	dirx;
+	t_v3d	diry;
 }				t_ellip;
 
 typedef union u_figures
