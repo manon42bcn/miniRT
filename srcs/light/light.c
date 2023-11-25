@@ -34,7 +34,12 @@ static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
 	if (!new_inter.obj)
 		return (FALSE);
 	if (new_inter.dist > EPSILON && new_inter.dist < 1)
-		return (TRUE);
+    {
+        printf("%f dist shadow...\n", new_inter.dist);
+        return (TRUE);
+    }
+    if (new_inter.dist <= EPSILON)
+        printf("%f ZERO dist shadow...\n", new_inter.dist);
 	return (FALSE);
 }
 
@@ -79,7 +84,7 @@ static inline void	is_lighted(t_inter inter, t_mrt *mrt,
 	t_v3d	dir;
 	double	light;
 
-	dir = ft_minus_v3d(node.origin, inter.hit);
+	dir = ft_normal_v3d(ft_minus_v3d(node.origin, inter.hit));
 	shadowed = on_shadow(dir, inter, mrt);
 	if (!shadowed)
 	{

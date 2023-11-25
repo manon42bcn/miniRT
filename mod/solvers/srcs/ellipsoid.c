@@ -28,8 +28,16 @@
 
 t_v3d	ft_div_v3d_by_vec(t_v3d vec, t_v3d vec2)
 {
+    if (vec2.x == 0) vec2.x = 1;
+    if (vec2.y == 0) vec2.y = 1;
+    if (vec2.z == 0) vec2.z = 1;
 	return ((t_v3d){vec.x / (vec2.x * vec2.x), vec.y / (vec2.y * vec2.y), vec.z / (vec2.z * vec2.z)});
 }
+
+//void printVec(t_v3d vec, char *msg)
+//{
+//    printf("[%f x] [%f y] [%f z] %s ", vec.x, vec.y, vec.z, msg);
+//}
 
 t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
@@ -41,6 +49,10 @@ t_v3d	ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 	rad = (t_v3d){inter->obj->elm.elp.rx, inter->obj->elm.elp.ry, inter->obj->elm.elp.rz};
 	hit_to_centre = ft_minus_v3d(hit, inter->obj->elm.elp.centre);
 	normal = ft_div_v3d_by_vec(hit_to_centre, rad);
+//    printVec(hit, "hit - ");
+//    printVec(dir, "dir hit -");
+//    printVec(hit_to_centre, " hit to centre - ");
+//    printVec(ft_normal_v3d(normal), " normal to return\n");
 	return (ft_normal_v3d(normal));
 }
 
