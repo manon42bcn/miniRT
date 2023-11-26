@@ -21,7 +21,6 @@ SRCS		=	cylinder.c \
 				box.c \
                 triangle.c \
                 cone.c \
-                ellipsoid.c \
                 rectangle.c
 SRCS_DIR	=	srcs
 OBJS_DIR	=	obj

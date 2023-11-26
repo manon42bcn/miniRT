@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 00:10:58 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/27 00:11:02 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:07:02 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,6 @@ t_v3d	get_normal(t_inter *inter, t_v3d dir, t_v3d hit)
 		return (box_normal(dir, hit, inter));
 	if (inter->obj->type == CONE)
 		return (cone_normal(dir, hit, inter));
-	if (inter->obj->type == ELLIPS)
-		return (ellipsoid_normal(dir, hit, inter));
 	else
 		return (common_normal(dir, hit, inter));
 }

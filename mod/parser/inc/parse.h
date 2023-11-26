@@ -50,7 +50,6 @@ void		inp_light(t_mrt *mrt);
 void		inp_triangle(t_mrt *mrt);
 void		inp_box(t_mrt *mrt);
 void		inp_cone(t_mrt *mrt);
-void		inp_ellipsoid(t_mrt *mrt);
 void		inp_rectangle(t_mrt *mrt);
 // Parser readfile
 t_mrt		*readfile_parser(char const *filename);

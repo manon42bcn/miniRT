@@ -19,7 +19,6 @@ set(SOURCES
         srcs/box.c
         srcs/triangle.c
         srcs/cone.c
-        srcs/ellipsoid.c
         srcs/rectangle.c
         )
 

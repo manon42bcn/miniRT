@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:04:06 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/30 17:04:11 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:07:26 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -61,11 +61,9 @@ double			rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc);
 double			triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg);
 double			box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter);
 double			cone_solver(t_v3d origin, t_v3d dir, t_cone con);
-double			ellipsoid_solver(t_v3d origin, t_v3d dir, t_ellip elp);
 
 t_v3d			box_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_inter *obj);
-t_v3d			ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # endif

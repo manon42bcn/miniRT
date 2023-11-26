@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 16:58:19 by mporras-          #+#    #+#             */
-/*   Updated: 2023/07/04 16:58:22 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/26 22:09:51 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parser_dict(char *id)
 	int			i;
 	static char	*dictionary[] = {
 		"sp", "pl", "cy", "rc", "tr", "bx",
-		"co", "el", "R", "A", "C", "L", NULL};
+		"co", "R", "A", "C", "L", NULL};
 
 	i = 0;
 	if (!id || id[0] == '#')
@@ -52,9 +52,9 @@ t_build	get_builder(int index, t_mrt *mrt)
 	static t_build	builder[] = {&inp_sphere, &inp_plane,
 		&inp_cylinder, &inp_rectangle,
 		&inp_triangle, &inp_box,
-		&inp_cone, &inp_ellipsoid,
-		&inp_resolution, &inp_ambient,
-		&inp_camera, &inp_light};
+		&inp_cone, &inp_resolution,
+		&inp_ambient, &inp_camera,
+		&inp_light};
 
 	if (index > (int)(sizeof(builder) / sizeof(t_build)) || index < 0)
 		msg_error_parsing("builder out of index", mrt);

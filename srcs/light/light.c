@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:43:11 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/23 22:19:52 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/26 01:55:35 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,23 @@
 static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
 {
 	t_inter		new_inter;
+	double		discriminant;
 
 	new_inter.ray.from = inter.hit;
 	new_inter.ray.to = dir;
 	get_hits(&new_inter, mrt->obj, mrt);
 	if (!new_inter.obj)
 		return (FALSE);
+	discriminant = (dir.x * dir.x)
+				   + (dir.y * dir.y)
+				   + (dir.z * dir.z)
+				   - 2 * ((dir.x * inter.hit.x)
+						  + (dir.y * inter.hit.y)
+						  + (dir.z * inter.hit.z));
+	if (discriminant < EPSILON)
+		return (FALSE);
 	if (new_inter.dist > EPSILON && new_inter.dist < 1)
-    {
-        printf("%f dist shadow...\n", new_inter.dist);
-        return (TRUE);
-    }
-    if (new_inter.dist <= EPSILON)
-        printf("%f ZERO dist shadow...\n", new_inter.dist);
+		return (TRUE);
 	return (FALSE);
 }
 

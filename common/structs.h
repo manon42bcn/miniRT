@@ -36,8 +36,7 @@ enum e_fig
 	RECTANGLE=3,
 	TRIANGLE=4,
 	BOX=5,
-	CONE=6,
-	ELLIPS=7
+	CONE=6
 };
 
 typedef	struct s_img

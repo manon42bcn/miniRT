@@ -85,17 +85,6 @@ typedef struct s_box
 	t_v3d		max;
 }				t_box;
 
-typedef struct	s_ellip
-{
-	t_v3d	centre;
-	t_v3d	dir;
-	double	rx;
-	double	ry;
-	double	rz;
-	t_v3d	dirx;
-	t_v3d	diry;
-}				t_ellip;
-
 typedef union u_figures
 {
 	t_sphere	sph;
@@ -104,7 +93,6 @@ typedef union u_figures
 	t_triangle	trg;
 	t_cone		con;
 	t_box		box;
-	t_ellip		elp;
 	t_rectangle	rc;
 	t_fig		fig;
 }				t_figures;

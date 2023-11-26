@@ -92,14 +92,6 @@ t_bool	quadratic(double *coef, double *dist)
 		dist[T_1] = INFINITY;
 		return (FALSE);
 	}
-    if (discriminant == 0)
-    {
-        q = -0.5 * coef[E_B];
-        dist[T_0] = q / coef[E_A];
-        dist[T_1] = dist[T_0];
-        quad_swap(&dist[0]);
-        return (TRUE);
-    }
 	if (coef[E_B] > 0)
 		q = -0.5f * (coef[E_B] + sqrt(discriminant));
 	else
