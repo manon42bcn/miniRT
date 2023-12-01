@@ -29,7 +29,6 @@ SRCS		=	builders.c \
 				triangle.c \
 				box.c \
 				cone.c \
-				ellipsoid.c \
 				rectangle.c \
 				parser_bump.c
 SRCS_DIR	=	srcs

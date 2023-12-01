@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:00:05 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/07 22:16:12 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:56:57 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef RGB_H
 # define RGB_H
 
@@ -32,4 +32,6 @@ t_rgb	ft_rgb_diff(t_rgb ca, t_rgb cb);
 t_rgb	ft_rgb_avg(t_rgb ca, t_rgb cb);
 t_rgb	ft_rgb_balance(t_rgb *rgb);
 t_rgb	ft_invert_color(t_rgb original);
+t_rgb	ft_rgb_get(t_rgb color[3]);
+
 #endif

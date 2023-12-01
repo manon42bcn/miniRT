@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:00:05 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/08 00:08:29 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/19 00:06:49 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef V3D_H
 # define V3D_H
 
@@ -74,6 +74,8 @@ t_v3d	ft_copy_v3d(t_v3d *vec);
 t_v3d	ft_new_v3d(double x, double y, double z);
 t_v3d	ft_v3d_identity(int axis);
 //v3d_tools.c
+t_v3d	ft_rotate_v3d(t_v3d vec, t_v3d axis);
+t_v3d	ft_rotate_normal_v3d(t_v3d vec, t_v3d axis);
 t_v3d	ft_perp_v3d(t_v3d vec);
 t_v3d	ft_rot_v3d_x(t_v3d vec, double angle);
 t_v3d	ft_rot_v3d_y(t_v3d vec, double angle);

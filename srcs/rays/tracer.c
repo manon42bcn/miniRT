@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 11:41:32 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/24 17:35:40 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/23 22:17:10 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,12 @@ t_rgb	tracer(t_v3d origin, t_v3d dir, t_mrt *mrt, int depth)
 	if (inter.obj == NULL)
 		return (mrt->scn.bgr);
 	inter.normal = get_normal(&inter, dir, inter.hit);
-	inter.color = bump_texture(inter, inter.hit, inter.obj, mrt);
+	inter.color = bump_texture(inter, inter.hit, *inter.obj, mrt);
 	texturize(&inter);
 	inter.color = light_hit(inter.ray, inter, mrt);
 	if (inter.refract > 0)
 		inter.color = tracer(inter.hit,
-				refraction(inter, inter.obj), mrt, depth);
+				refraction(dir, inter.normal, inter.obj), mrt, depth);
 	if (inter.reflex > 0 && depth > 0)
 		inter.ref_color = tracer(inter.hit,
 				reflect_ray(ft_scalar_v3d(-1, dir), inter.normal),

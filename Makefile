@@ -44,6 +44,9 @@ MODS_HEADERS	=	$(MODS_PARSER)/inc/parse.h \
 MODS_MODULES	=	$(MODS_PARSER)/libparser.a \
 					$(MODS_HOOKS)/libhooks.a \
 					$(MODS_SOLVERS)/libsolvers.a
+MODS_BONUS		=	$(MODS_PARSER)/.bonus \
+                    $(MODS_HOOKS)/.bonus \
+                    $(MODS_SOLVERS)/.bonus
 SRCS_FILES		= 	intersections/intersections.c \
 					light/light.c \
 					light/light_utils.c \
@@ -84,33 +87,42 @@ version:
 	fi
 
 bonus: CFLAGS += -DBONUS
-bonus: $(BONUS_FILE)
+bonus: LIB_DET = bonus
+bonus: version_bonus library modules
+bonus: $(OBJ_SUBS) $(NAME) $(BONUS_FILE)
 
 version_bonus:
 	@if [ ! -f $(BONUS_FILE) ] && [ -f $(NAME) ]; then \
 		$(MAKE) fclean; \
     fi
 
-$(BONUS_FILE): $(OBJ_SUBS) $(OBJS)
-	$(MAKE) LIB_DET=bonus library
-	$(MAKE) LIB_DET=bonus modules
-	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
+$(BONUS_FILE):
 	touch .bonus
 
-$(NAME): $(OBJS) $(LIBRARIES) 
+$(NAME): $(OBJS) $(HEAD_FILES) $(LIBRARIES)
 	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
 library:
-	$(MAKE) -C $(LIB_FT) $(LIB_DET)
-	$(MAKE) -C $(LIB_V3D) $(LIB_DET)
-	$(MAKE) -C $(LIB_RGB) $(LIB_DET)
+	@echo "\033[1;34mBuilding LIBRARIES\033[0m"
+	@echo "\033[1;34m------------------\033[0m"
+	@echo -n  Building LIBFT --' '
+	@$(MAKE) -C $(LIB_FT)
+	@echo  -n  Building V3D --' '
+	@$(MAKE) -C $(LIB_V3D)
+	@echo -n  Building RGB --' '
+	@$(MAKE) -C $(LIB_RGB)
+	@echo -n  Building MLX --' '
 	# $(MAKE) -C $(LIB_MLX)
 
 modules:
-	echo $(LIB_DET) here
-	$(MAKE) -C $(MODS_PARSER) $(LIB_DET)
-	$(MAKE) -C $(MODS_HOOKS) $(LIB_DET)
-	$(MAKE) -C $(MODS_SOLVERS) $(LIB_DET)
+	@echo "\033[1;97mBuilding MODULES" $(LIB_DET) "\033[0m"
+	@echo "\033[1;97m----------------------\033[0m"
+	@echo -n  Building PARSER MODULE --' '
+	@$(MAKE) -C $(MODS_PARSER) $(LIB_DET)
+	@echo -n  Building HOOKS MODULE --' '
+	@$(MAKE) -C $(MODS_HOOKS) $(LIB_DET)
+	@echo -n  Building SOLVERS MODULE --' '
+	@$(MAKE) -C $(MODS_SOLVERS) $(LIB_DET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@

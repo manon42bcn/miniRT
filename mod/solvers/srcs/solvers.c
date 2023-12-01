@@ -46,8 +46,6 @@ double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 		return (box_solver(origin, dir, obj->elm.box, inter));
 	if (type == CONE)
 		return (cone_solver(origin, dir, obj->elm.con));
-	if (type == ELLIPS)
-		return (ellipsoid_solver(origin, dir, obj->elm.elp));
 	return (INFINITY);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 10:40:43 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/30 10:40:45 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/12 23:13:32 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@
 /**
  * @brief Calculate the refracted ray direction based on Snell's law.
  *
- * This function computes the direction of the refracted ray after it passes
- * through an interface with a change in refractive index. It uses Snell's law
- * to determine the refracted ray direction. The function takes into account the
- * relative refractive indices of the materials on either side of the interface.
+ * This function computes the refracted ray direction using Snell's law.
+ * It takes the incident ray direction, the point of intersection, and the
+ * refractive properties of the object. The refractive index is adjusted based
+ * on whether the ray is inside or outside the object. If the refraction is not
+ * possible (total internal reflection), the function returns the reflected ray.
  *
- * @param inter The intersection data containing the incident ray and properties.
- * @param obj The object containing the refractive index for the material.
- * @return The direction of the refracted ray.
+ * @param from The point of intersection.
+ * @param dir The incident ray direction.
+ * @param obj A pointer to the object.
+ * @return The refracted ray direction.
  */
-t_v3d	refraction(t_inter inter, t_obj *obj)
+t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 {
 	double	cos_theta;
 	double	refr_coef;
@@ -34,10 +36,10 @@ t_v3d	refraction(t_inter inter, t_obj *obj)
 	double	refr_relative;
 	double	coef_disc;
 
-	cos_theta = ft_dot_v3d(inter.ray.from, inter.ray.to);
+	cos_theta = ft_dot_v3d(from, dir);
 	refr_coef = 1;
 	refr_transmitted = obj->refract;
-	if (inter.inside == TRUE)
+	if (obj->elm.sph.inside == 1)
 	{
 		coef_disc = refr_coef;
 		refr_coef = refr_transmitted;
@@ -46,10 +48,10 @@ t_v3d	refraction(t_inter inter, t_obj *obj)
 	refr_relative = refr_coef / refr_transmitted;
 	coef_disc = 1 - refr_relative * refr_relative * (1 - cos_theta * cos_theta);
 	if (coef_disc < 0)
-		return (reflect_ray(ft_scalar_v3d(-1, inter.ray.from), inter.ray.to));
-	return (ft_plus_v3d(ft_scalar_v3d(refr_relative, inter.ray.from),
-			ft_scalar_v3d(refr_relative * cos_theta
-				- sqrt(coef_disc), inter.ray.to)));
+		return (reflect_ray(ft_scalar_v3d(-1, from), dir));
+	return (ft_plus_v3d(ft_scalar_v3d(refr_relative, from),
+			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc),
+				dir)));
 }
 
 /**
@@ -92,11 +94,10 @@ double	specular_transform(t_ray ray, t_inter inter, t_light *scn_light)
 	direction = ft_minus_v3d(scn_light->origin, inter.hit);
 	p_to_cam = ft_minus_v3d(ray.from, inter.hit);
 	reflected = reflect_ray(direction, inter.normal);
+	light = 0;
 	if (ft_dot_v3d(reflected, p_to_cam) > 0)
 		light = scn_light->bright
 			* pow(ft_cos_v3d(reflected, p_to_cam), inter.specular);
-	else
-		light = 0;
 	return (light);
 }
 

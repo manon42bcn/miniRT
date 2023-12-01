@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:48:08 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/07 23:00:20 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:55:31 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,23 @@ t_rgb	ft_rgb_balance(t_rgb *rgb)
 	rst[2] = rst[2] / 4;
 	ft_sec_free(rgb);
 	return ((rst[0] << 16) | (rst[1] << 8) | rst[2]);
+}
+
+/**
+ * @brief Combine individual color components into a single RGB color value.
+ *
+ * This function takes an array of individual color components (Red, Green,
+ * Blue) and combines them into a single 32-bit RGB color value. It performs
+ * bitwise left shifts to position each color component in the appropriate bits
+ * of the resulting RGB value.
+ *
+ * @param color An array containing the individual color components
+ * (color[0] = Red, color[1] = Green, color[2] = Blue).
+ * @return The combined RGB color value.
+ */
+t_rgb	ft_rgb_get(t_rgb color[3])
+{
+	color[R_I] <<= 16;
+	color[G_I] <<= 8;
+	return (color[R_I] | color[G_I] | color[B_I]);
 }

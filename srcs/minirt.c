@@ -6,7 +6,7 @@
 /*   By: vaguilar <vaguilar@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:39:55 by mgarcia-          #+#    #+#             */
-/*   Updated: 2023/11/12 17:23:44 by vaguilar         ###   ########.fr       */
+/*   Updated: 2023/12/01 17:55:53 by vaguilar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static inline void	after_parse_process(t_mrt *mrt)
 	mrt->main_cam = node;
 	if (mrt->scn.res_init == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
-	mrt->scn.w_x /= 3;
-	mrt->scn.w_y /= 3;
+//	mrt->scn.w_x /= 3;
+//	mrt->scn.w_y /= 3;
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 	while (node)
 	{
@@ -115,16 +115,16 @@ static inline void	after_parse_process(t_mrt *mrt)
  */
 int	to_win(t_mrt *mrt)
 {
-	t_obj *obj;
+//	t_obj *obj;
 	if (mrt->to_img == TO_RENDER)
 	{
-		obj = mrt->obj;
-		while (obj)
-		{
-			printf("%f diam %f x %f y %f z [%s]\n", obj->elm.sph.radius, obj->elm.sph.centre.x, obj->elm.sph.centre.y,obj->elm.sph.centre.z, obj->xpm.path);
-			obj = obj->next;
-		}
-		printf("Cam [%f x %f y %f z] ORIENT [%f x %f y %f z]\n", mrt->cmr->position.x, mrt->cmr->position.y, mrt->cmr->position.z, mrt->cmr->dir.x, mrt->cmr->dir.y, mrt->cmr->dir.z);
+//		obj = mrt->obj;
+//		while (obj)
+//		{
+//			printf("%f diam %f x %f y %f z [%s]\n", obj->elm.sph.radius, obj->elm.sph.centre.x, obj->elm.sph.centre.y,obj->elm.sph.centre.z, obj->xpm.path);
+//			obj = obj->next;
+//		}
+//		printf("Cam [%f x %f y %f z] ORIENT [%f x %f y %f z]\n", mrt->cmr->position.x, mrt->cmr->position.y, mrt->cmr->position.z, mrt->cmr->dir.x, mrt->cmr->dir.y, mrt->cmr->dir.z);
 
 		if (mrt->window == TRUE)
 			render_main(mrt);

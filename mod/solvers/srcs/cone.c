@@ -6,85 +6,94 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:24:39 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/21 19:24:56 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/25 22:59:41 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "solvers.h"
 
 /**
- * @brief Calculate the normal vector for a hit point on a cone surface.
+ * @brief Calculate the normal vector on the surface of a cone.
  *
- * This function computes the normal vector for a point of intersection on a cone
- * surface based on the incoming ray direction and the cone's properties.
+ * This function calculates the normal vector at a given point on the surface
+ * of a cone. It checks if the intersection point is inside or outside the
+ * cone and computes the normal accordingly.
  *
- * @param dir The direction vector of the incoming ray (unused in this version).
- * @param hit The point of intersection on the cone surface.
- * @param inter Pointer to the intersection data structure.
- *
- * @return The normal vector at the point of intersection.
+ * @param dir The direction of the ray.
+ * @param hit The intersection point.
+ * @param inter The intersection information.
+ * @return The normal vector at the intersection point.
  */
 t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	t_v3d	v_apex;
 	t_v3d	parallel;
 	t_v3d	normal;
+	double	height_axs;
 
-	(void)dir;
 	v_apex = ft_minus_v3d(hit, inter->obj->elm.con.centre);
-	parallel = ft_scalar_v3d(ft_dot_v3d(v_apex, inter->obj->elm.con.dir),
+	height_axs = ft_dot_v3d(v_apex, inter->obj->elm.con.dir);
+	if (height_axs < 0 || height_axs > inter->obj->elm.con.height)
+		return (common_normal(dir, hit, inter));
+	parallel = ft_scalar_v3d(
+			ft_dot_v3d(v_apex, inter->obj->elm.con.dir),
 			inter->obj->elm.con.dir);
-	normal = ft_minus_v3d(v_apex, ft_scalar_v3d(1 + inter->obj->elm.con.alpha
+	normal = ft_minus_v3d(v_apex,
+			ft_scalar_v3d(1 + inter->obj->elm.con.alpha
 				* inter->obj->elm.con.alpha, parallel));
 	normal = ft_normal_v3d(normal);
 	return (normal);
 }
 
 /**
- * @brief Calculate the bounds of intersection with a cone.
+ * @brief Check if a point is within the bounds of a cone.
  *
- * This function calculates the bounds of intersection of a ray with a cone
- * based on the ray's origin, direction, and the cone's properties.
+ * This function checks if a point is within the bounds of a cone defined by its
+ * apex, direction, height, and alpha angle.
  *
- * @param origin The origin point of the ray.
- * @param dir The direction vector of the ray.
- * @param t The calculated intersection distance with the cone.
- * @param con The cone structure representing the cone.
- *
- * @return The intersection distance or INFINITY if there is no intersection.
+ * @param origin The origin of the ray.
+ * @param dir The direction of the ray.
+ * @param t The distance to the intersection point.
+ * @param con The cone parameters (apex, direction, height, and alpha).
+ * @return The corrected distance to the intersection point or `INFINITY`
+ * if outside the bounds.
  */
 static inline double	bounds(t_v3d origin, t_v3d dir,
 		double t, t_cone con)
 {
 	t_v3d	pnt;
 	t_v3d	vec_vertex;
-	double	d_p;
+	double	evl;
 	double	height_axs;
 
 	pnt = ft_plus_v3d(origin, ft_scalar_v3d(t, dir));
 	vec_vertex = ft_minus_v3d(pnt, con.centre);
-	d_p = ft_dot_v3d(vec_vertex, con.dir);
-	if (d_p < 0)
+	evl = ft_dot_v3d(vec_vertex, con.dir);
+	if (evl < 0)
 		return (INFINITY);
 	height_axs = ft_dot_v3d(vec_vertex, con.dir);
 	if (height_axs < 0 || height_axs > con.height)
+		return (INFINITY);
+	evl = height_axs * tan(con.alpha);
+	if (ft_dot_v3d(ft_minus_v3d(vec_vertex,
+				ft_scalar_v3d(height_axs, con.dir)),
+			ft_minus_v3d(vec_vertex, ft_scalar_v3d(height_axs, con.dir)))
+		> (evl * evl))
 		return (INFINITY);
 	return (t);
 }
 
 /**
- * @brief Calculate the intersection point of a ray with a cone.
+ * @brief Calculate the coefficients for the quadratic equation of a cone.
  *
- * This function finds the intersection point of a ray with a cone and returns
- * the distance from the ray origin to the intersection point. It utilizes
- * quadratic equations to solve for the intersection.
+ * This function calculates the coefficients (A, B, C) for the quadratic
+ * equation of a cone, which is used to find the intersection points
+ * of a ray with the cone.
  *
- * @param origin The origin point of the ray.
- * @param dir The direction vector of the ray.
- * @param con The cone structure representing the cone.
- *
- * @return The distance from the ray origin to the intersection point or INFINITY
- * if there is no intersection with the cone.
+ * @param coef Array to store the coefficients (A, B, C).
+ * @param con The cone parameters (apex, direction, height, and alpha).
+ * @param origin The origin of the ray.
+ * @param dir The direction of the ray.
  */
 static inline void	cone_quad(double *coef, t_cone con, t_v3d origin, t_v3d dir)
 {
@@ -106,6 +115,18 @@ static inline void	cone_quad(double *coef, t_cone con, t_v3d origin, t_v3d dir)
 		* (dot_oc * dot_oc);
 }
 
+/**
+ * @brief Calculate the intersection of a ray with a cone.
+ *
+ * This function computes the intersection of a ray with a cone.
+ * If there is no intersection, it returns `INFINITY`.
+ *
+ * @param origin The origin of the ray.
+ * @param dir The direction of the ray.
+ * @param con The cone parameters (apex, direction, height, and alpha).
+ * @return The distance to the intersection point or `INFINITY`
+ * if no intersection.
+ */
 double	cone_solver(t_v3d origin, t_v3d dir, t_cone con)
 {
 	double	coef[3];

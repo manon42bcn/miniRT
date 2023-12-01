@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:28:04 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/21 22:32:42 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/21 21:17:57 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
@@ -85,14 +85,6 @@ typedef struct s_box
 	t_v3d		max;
 }				t_box;
 
-typedef struct	s_ellip
-{
-	t_v3d	centre;
-	double	rx;
-	double	ry;
-	double	rz;
-}				t_ellip;
-
 typedef union u_figures
 {
 	t_sphere	sph;
@@ -101,7 +93,6 @@ typedef union u_figures
 	t_triangle	trg;
 	t_cone		con;
 	t_box		box;
-	t_ellip		elp;
 	t_rectangle	rc;
 	t_fig		fig;
 }				t_figures;

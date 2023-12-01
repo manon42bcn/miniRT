@@ -62,5 +62,6 @@ Vector Creation and Identity
 - `ft_rot_v3d_x(t_v3d vec, double angle)`: Rotate a vector over X-Axis.
 - `ft_rot_v3d_x(t_v3d vec, double angle)`: Rotate a vector over Y-Axis.
 - `ft_rot_v3d_x(t_v3d vec, double angle)`: Rotate a vector over Z-Axis.
+- `ft_rotate_v3d(t_v3d vec, t_v3d axis)`: Rotate a vector using 3D angle (Norm direction vector)
 ### Usage ###
 Simply include the header file and link the library to your project to start leveraging the power of this 3D Vector utility.

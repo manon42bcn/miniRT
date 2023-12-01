@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 22:06:04 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/24 17:21:49 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/09 21:53:11 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,6 @@ void	inp_ambient(t_mrt *mrt)
 	if (!check_range(mrt->scn.bright, 0, 1))
 		msg_error_parsing("Ambient light ratio out of range", mrt);
 	mrt->scn.amb_rgb = get_color(mrt->tab[AMB_COLOR], mrt);
-	mrt->scn.bgr = 0x202020;
+	mrt->scn.bgr = ft_rgb_get((t_rgb [3]){0, 0, 0});
 	mrt->scn.parsed = TRUE;
 }
