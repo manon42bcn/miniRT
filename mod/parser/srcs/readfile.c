@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readfile.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
+/*   By: vaguilar <vaguilar@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 00:23:35 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:26:36 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/11/12 16:59:43 by vaguilar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,6 @@ static inline t_bool	load_object(t_mrt *mrt)
 
 	ft_clear_tabs(mrt->tab);
 	mrt->tab = ft_split_cs(mrt->aux, SEP); // Split por ' '\n\t
-	// int i = 0;
-	// while(mrt->tab[i])
-	// {
-	// 	printf("TAB[%i] == (%s)\n", i, mrt->tab[i]);
-	// 	i++;
-	// }
-	// exit(0);
 	if (mrt->tab == NULL)
 		ft_perror("Split Line error");
 	type = parser_dict(mrt->tab[0]);
@@ -61,7 +54,7 @@ static inline t_bool	load_object(t_mrt *mrt)
 	if (type == IDX_COMMENT)
 		return (FALSE); 
 	build = get_builder(type, mrt); // Retorna la funcion
-	build(mrt); // Ejecuta la funcion?
+	build(mrt); // DUDA: Ejecuta la funcion?
 	return (TRUE);
 }
 

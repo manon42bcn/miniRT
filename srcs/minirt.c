@@ -6,7 +6,7 @@
 /*   By: vaguilar <vaguilar@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:39:55 by mgarcia-          #+#    #+#             */
-/*   Updated: 2023/11/09 20:00:48 by vaguilar         ###   ########.fr       */
+/*   Updated: 2023/11/12 17:23:44 by vaguilar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,14 +172,14 @@ int	main(int argc, char const *argv[])
 	if (ft_strncmp("--help", (char *)argv[1], 7) == 0 && print_help()) // Siento que esta comparacion es sucia con otra que quizas pueda realizar manuel
 		return(SUCCESS);
 	mrt = readfile_parser(argv[1]); // parseo de objetos
-	after_parse_process(mrt);
+	after_parse_process(mrt); // Iniciacion de mlx, y bumps textures
 	render_main(mrt);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
 			mrt->scn.w_y, "miniRT");
 	mlx_key_hook(mrt->mlx_win, key_main, mrt);
-	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
-	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_select, mrt);
-	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_select, mrt);
+	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt); // DestroyNotify, NoEventMask
+	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_select, mrt); // ButtonPress, ButtonPressMask
+	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_select, mrt); // ButtonRelease, ButtonReleaseMask
 	mlx_loop_hook(mrt->mlx, to_win, mrt);
 	mlx_loop(mrt->mlx);
 	clear_all(mrt, SUCCESS, NULL, NULL);
