@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:05:01 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/17 23:23:28 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/12/04 22:33:09 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,11 @@ t_v3d	ft_rotate_v3d(t_v3d vec, t_v3d axis)
 
 	if (axis.x == 0.0f && axis.y == 0.0f && axis.z == 0.0f)
 		return (vec);
-	cs = axis.x / sqrt(axis.x * axis.x + axis.y * axis.y + axis.z * axis.z);
+	cs = axis.z / sqrt(axis.x * axis.x + axis.y * axis.y + axis.z * axis.z);
 	sn = sqrt(1 - cs * cs);
-
 	rot.x = vec.x * cs + vec.y * sn * axis.y - vec.z * sn * axis.z;
 	rot.y = vec.x * -sn * axis.x + vec.y * cs + vec.z * sn * axis.x;
 	rot.z = vec.x * sn * axis.z + vec.y * -sn * axis.y + vec.z * cs;
-
 	return (rot);
 }
 

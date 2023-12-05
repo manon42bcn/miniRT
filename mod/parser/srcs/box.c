@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:03:40 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/12 13:44:11 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/12/05 18:27:20 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_rectangle	build_box_face(t_box *box, int axis, int direction)
  * @param mrt Pointer to the main ray-tracer structure, which contains
  * details about the box object.
  */
-void	build_box(t_mrt *mrt)
+void	build_box(t_box *box)
 {
 	int	axis;
 	int	side;
@@ -83,8 +83,8 @@ void	build_box(t_mrt *mrt)
 		while (side <= 1)
 		{
 			face_idx = axis * 2 + (side + 1) / 2;
-			mrt->obj->elm.box.faces[face_idx] = build_box_face
-				(&mrt->obj->elm.box, axis, side);
+			box->faces[face_idx] = build_box_face
+				(box, axis, side);
 			side += 2;
 		}
 		axis++;
@@ -126,7 +126,7 @@ void	inp_box(t_mrt *mrt)
 	if (!check_range(box->elm.box.width, 0, INFINITY))
 		msg_error_parsing("Box depth out of range", mrt);
 	get_common(mrt, BOX_DEPTH, "Box", mode);
-	build_box(mrt);
+	build_box(&mrt->obj->elm.box);
 }
 
 #else

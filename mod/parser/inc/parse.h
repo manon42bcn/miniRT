@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 09:54:21 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/11 01:40:40 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/12/01 21:14:29 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -51,6 +51,7 @@ void		inp_triangle(t_mrt *mrt);
 void		inp_box(t_mrt *mrt);
 void		inp_cone(t_mrt *mrt);
 void		inp_rectangle(t_mrt *mrt);
+void		build_box(t_box *box);
 // Parser readfile
 t_mrt		*readfile_parser(char const *filename);
 // Parser common

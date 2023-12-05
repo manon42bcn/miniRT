@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:02:14 by mporras-          #+#    #+#             */
-/*   Updated: 2023/04/05 12:02:18 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/12/03 22:22:17 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,21 @@ double	ft_dot_v3d(t_v3d a, t_v3d b)
  */
 t_v3d	ft_scalar_v3d(double scalar, t_v3d vec)
 {
-	return ((t_v3d){vec.x * scalar, vec.y * scalar, vec.z * scalar});
+	t_v3d	rst;
+
+	if (vec.x == 0.0f || scalar == 0.0f)
+		rst.x = 0.0;
+	else
+		rst.x = vec.x * scalar;
+	if (vec.y == 0.0f || scalar == 0.0f)
+		rst.y = 0.0;
+	else
+		rst.y = vec.y * scalar;
+	if (vec.z == 0.0f || scalar == 0.0f)
+		rst.z = 0.0;
+	else
+		rst.z = vec.z * scalar;
+	return (rst);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:52 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/26 22:13:21 by mporras-         ###   ########.fr       */
+/*   Updated: 2023/12/01 21:31:16 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ int	object_rotation(int key, t_mrt *mrt)
 		node->elm.fig.orient = ft_rot_v3d_z(node->elm.fig.orient, -RAD_ANGLE);
 	node->elm.fig.orient = ft_normal_v3d(node->elm.fig.orient);
 	mrt->to_img = TO_RENDER;
+	printf("here we are.. %f x %f y %f z\n", node->elm.fig.orient.x, node->elm.fig.orient.y, node->elm.fig.orient.z);
+	printf("one side %f x %f y %f z\n", node->elm.box.faces[0].orient.x, node->elm.box.faces[0].orient.y, node->elm.box.faces[0].orient.z);
+	if (node->type == BOX)
+		build_box(&node->elm.box);
 	return (TRUE);
 }
 
