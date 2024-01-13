@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 15:39:45 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/17 22:21:01 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/13 01:18:18 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_mode	element_check(int type, t_mrt *mrt)
 {
 	size_t			tab_size;
 	static size_t	elements[] = {4, 4, 6,
-		6, 5, 7, 6, 7};
+		6, 5, 6, 6, 7};
 
 	tab_size = ft_count_tab(mrt->tab);
 	if (tab_size == elements[type])

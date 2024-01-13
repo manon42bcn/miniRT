@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:13:26 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/12 13:44:51 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/05 22:04:12 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ double	box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter)
 
 	evl = INFINITY;
 	t = INFINITY;
-	face = 0;
-	while (face++ < 6)
+	face = -1;
+	while (++face <= 5)
 	{
 		tmp = box.faces[face];
 		t = rectangle_solver(origin, dir, tmp);

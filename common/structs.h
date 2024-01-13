@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:26:37 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:14:46 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/13 01:56:38 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -39,7 +39,7 @@ enum e_fig
 	CONE=6
 };
 
-typedef	struct s_img
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;

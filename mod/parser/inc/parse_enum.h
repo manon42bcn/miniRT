@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 00:30:09 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/26 22:11:39 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/13 01:56:18 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -57,10 +57,9 @@ enum e_box_parse
 {
 	BOX_ID = 0,
 	BOX_CENTRE = 1,
-	BOX_ORIENTATION = 2,
-	BOX_WIDTH = 3,
-	BOX_HEIGHT = 4,
-	BOX_DEPTH = 5
+	BOX_WIDTH = 2,
+	BOX_HEIGHT = 3,
+	BOX_DEPTH = 4
 };
 
 enum e_cone_parse

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:56:17 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 20:44:07 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:53:19 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -27,11 +27,11 @@
 //# define SIZE_FACTOR	1.1f
 //# define LIGHT_TRANS	0.5f
 //# define BRIGHT_FACTOR	0.1f
-# define MOVE_FACTOR	1.0f
-# define SIZE_FACTOR	1.2f
-# define LIGHT_TRANS	0.5f
-# define BRIGHT_FACTOR	0.1f
-# define RAD_ANGLE		0.0174533
+# define MOVE_FACTOR	1.0L
+# define SIZE_FACTOR	1.2L
+# define LIGHT_TRANS	0.5L
+# define BRIGHT_FACTOR	0.1L
+# define RAD_ANGLE		0.0174533L
 # define NORMAL			0
 # define TO_SELECT		1
 # define TO_TRANSLATE	2

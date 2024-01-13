@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:52 by mporras-          #+#    #+#             */
-/*   Updated: 2023/12/01 21:31:16 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/13 01:58:39 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,30 +69,28 @@ int	object_traslation(int key, t_mrt *mrt)
 int	object_rotation(int key, t_mrt *mrt)
 {
 	t_obj	*node;
+	t_v3d	dir;
 
 	if (mrt->mode != TO_ROTATE)
 		return (FALSE);
 	node = mrt->sel_obj;
-	if (!node || node->type == SPHERE)
+	if (!node || node->type == SPHERE || node->type == BOX)
 		return (FALSE);
+	dir = node->elm.fig.orient;
 	if (key == K_UP)
-		node->elm.fig.orient = ft_rot_v3d_y(node->elm.fig.orient, RAD_ANGLE);
+		node->elm.fig.orient = ft_rot_v3d(dir, Y_C, RAD_ANGLE);
 	if (key == K_DOWN)
-		node->elm.fig.orient = ft_rot_v3d_y(node->elm.fig.orient, -RAD_ANGLE);
+		node->elm.fig.orient = ft_rot_v3d(dir, Y_C, -RAD_ANGLE);
 	if (key == K_LEFT)
-		node->elm.fig.orient = ft_rot_v3d_x(node->elm.fig.orient, RAD_ANGLE);
+		node->elm.fig.orient = ft_rot_v3d(dir, X_C, RAD_ANGLE);
 	if (key == K_RIGHT)
-		node->elm.fig.orient = ft_rot_v3d_x(node->elm.fig.orient, -RAD_ANGLE);
+		node->elm.fig.orient = ft_rot_v3d(dir, X_C, -RAD_ANGLE);
 	if (key == K_PLUS)
-		node->elm.fig.orient = ft_rot_v3d_z(node->elm.fig.orient, RAD_ANGLE);
+		node->elm.fig.orient = ft_rot_v3d(dir, Z_C, RAD_ANGLE);
 	if (key == K_MINUS)
-		node->elm.fig.orient = ft_rot_v3d_z(node->elm.fig.orient, -RAD_ANGLE);
+		node->elm.fig.orient = ft_rot_v3d(dir, Z_C, -RAD_ANGLE);
 	node->elm.fig.orient = ft_normal_v3d(node->elm.fig.orient);
 	mrt->to_img = TO_RENDER;
-	printf("here we are.. %f x %f y %f z\n", node->elm.fig.orient.x, node->elm.fig.orient.y, node->elm.fig.orient.z);
-	printf("one side %f x %f y %f z\n", node->elm.box.faces[0].orient.x, node->elm.box.faces[0].orient.y, node->elm.box.faces[0].orient.z);
-	if (node->type == BOX)
-		build_box(&node->elm.box);
 	return (TRUE);
 }
 

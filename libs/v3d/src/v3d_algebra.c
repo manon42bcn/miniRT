@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:06:51 by mporras-          #+#    #+#             */
-/*   Updated: 2023/04/05 12:06:56 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:46:00 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param vec The input vector.
  * @return The squared magnitude (length) of the vector.
  */
-double	ft_length_v3d(t_v3d vec)
+t_dec	ft_length_v3d(t_v3d vec)
 {
 	return ((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
 }
@@ -29,7 +29,7 @@ double	ft_length_v3d(t_v3d vec)
  * @param vector The input vector.
  * @return The magnitude of the vector.
  */
-double	ft_mag_v3d(t_v3d vector)
+t_dec	ft_mag_v3d(t_v3d vector)
 {
 	return (sqrt(ft_length_v3d(vector)));
 }
@@ -41,7 +41,7 @@ double	ft_mag_v3d(t_v3d vector)
  * @param b The second vector.
  * @return The cosine of the angle between the vectors.
  */
-double	ft_cos_v3d(t_v3d a, t_v3d b)
+t_dec	ft_cos_v3d(t_v3d a, t_v3d b)
 {
 	return (ft_dot_v3d(a, b) / (ft_mag_v3d(a) * ft_mag_v3d(b)));
 }
@@ -53,12 +53,12 @@ double	ft_cos_v3d(t_v3d a, t_v3d b)
  * @param b The second vector.
  * @return The sine of the angle between the vectors.
  */
-double	ft_sin_v3d(t_v3d a, t_v3d b)
+t_dec	ft_sin_v3d(t_v3d a, t_v3d b)
 {
-	double	cos;
+	t_dec	cos;
 
 	cos = ft_cos_v3d(a, b);
-	return (sqrt(1 - (cos * cos)));
+	return ((t_dec)sqrt(1.0L - (cos * cos)));
 }
 
 /**

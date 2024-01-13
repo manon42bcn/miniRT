@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:03:40 by mporras-          #+#    #+#             */
-/*   Updated: 2023/12/05 18:27:20 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/13 01:55:01 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,32 +30,32 @@
  *
  * @return t_rectangle structure representing the constructed face of the box.
  */
-t_rectangle	build_box_face(t_box *box, int axis, int direction)
+t_rectangle	build_box_face(t_box *box, int axis, double direction)
 {
 	t_rectangle	face;
-	t_v3d		offset;
+	t_dec		off[3];
 
-	offset = (t_v3d){0.0, 0.0, 0.0};
+	off[0] = 0.5L * direction * box->depth;
+	off[1] = 0.5L * direction * box->height;
+	off[2] = 0.5L * direction * box->width;
 	if (axis == 0)
 	{
-		offset.x = 0.5 * direction * box->width;
-		face.width = box->depth;
 		face.height = box->height;
+		face.width = box->width;
 	}
-	else if (axis == 1)
+	if (axis == 1)
 	{
-		offset.y = 0.5 * direction * box->height;
-		face.width = box->depth;
-		face.height = box->width;
+		face.height = box->depth;
+		face.width = box->width;
 	}
-	else if (axis == 2)
+	if (axis == 2)
 	{
-		offset.z = 0.5 * direction * box->depth;
+		face.height = box->depth;
 		face.width = box->height;
-		face.height = box->width;
 	}
-	face.centre = ft_plus_v3d(box->centre, offset);
 	face.orient = ft_v3d_identity(axis);
+	face.centre = ft_plus_v3d(box->centre,
+			ft_scalar_v3d(off[axis], face.orient));
 	return (face);
 }
 
@@ -67,14 +67,14 @@ t_rectangle	build_box_face(t_box *box, int axis, int direction)
  * provided `mrt` structure. Each face is represented by a rectangle,
  * built using the `build_box_face` function.
  *
- * @param mrt Pointer to the main ray-tracer structure, which contains
- * details about the box object.
+ * @param box Pointer to box structure, to save its faces.
  */
+
 void	build_box(t_box *box)
 {
-	int	axis;
 	int	side;
-	int	face_idx;
+	int	face;
+	int	axis;
 
 	axis = 0;
 	while (axis < 3)
@@ -82,9 +82,8 @@ void	build_box(t_box *box)
 		side = -1;
 		while (side <= 1)
 		{
-			face_idx = axis * 2 + (side + 1) / 2;
-			box->faces[face_idx] = build_box_face
-				(box, axis, side);
+			face = axis * 2 + (side + 1) / 2;
+			box->faces[face] = build_box_face(box, axis, side);
 			side += 2;
 		}
 		axis++;
@@ -115,7 +114,6 @@ void	inp_box(t_mrt *mrt)
 	mrt->obj = object_builder(BOX, mrt->obj);
 	box = mrt->obj;
 	box->elm.box.centre = get_v3d(mrt, mrt->tab[BOX_CENTRE], V3D_COOR);
-	box->elm.box.dir = get_v3d(mrt, mrt->tab[BOX_ORIENTATION], V3D_NORM);
 	box->elm.box.width = ft_atolf(mrt->tab[BOX_WIDTH]);
 	if (!check_range(box->elm.box.width, 0, INFINITY))
 		msg_error_parsing("Box width out of range", mrt);

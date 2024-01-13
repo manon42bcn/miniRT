@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:56:02 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:30:40 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/10 22:14:56 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 # define BONUS 1
@@ -25,6 +25,7 @@ typedef enum e_local_pix
 # define TRUE	1
 # define FALSE	0
 # define MATCH	0
+# define NO_INDEX -1
 
 # define CHECKBOARD 1
 # define WAVES 2

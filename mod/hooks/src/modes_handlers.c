@@ -121,6 +121,8 @@ int	translate_mode(t_mrt *mrt)
  * notification message if NORMAL mode is active. Otherwise
  * return FALSE.
  */
+
+// TODO: Make a speaker for errors (not changed mode)
 int	selection_mode(t_mrt *mrt)
 {
 	if (mrt->mode > TO_CAMERA)

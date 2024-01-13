@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:19:22 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/07 23:53:53 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:51:01 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  */
 void	ft_normalize_v3d(t_v3d *vec)
 {
-	double	mag;
+	t_dec	mag;
 
 	mag = (vec->x * vec->x) + (vec->y * vec->y) + (vec->z * vec->z);
 	vec->x /= mag;
@@ -38,10 +38,12 @@ void	ft_normalize_v3d(t_v3d *vec)
  */
 t_v3d	ft_normal_v3d(t_v3d vec)
 {
-	double	mag;
+	t_dec	mag;
 
 	mag = ft_mag_v3d(vec);
-	return ((t_v3d){vec.x / mag, vec.y / mag, vec.z / mag});
+	if (mag != 0.0f)
+		return ((t_v3d){vec.x / mag, vec.y / mag, vec.z / mag});
+	return (vec);
 }
 
 /**
@@ -63,7 +65,7 @@ t_v3d	ft_copy_v3d(t_v3d *vec)
  * @param z The z-component of the vector.
  * @return A new 3D vector with the specified components.
  */
-t_v3d	ft_new_v3d(double x, double y, double z)
+t_v3d	ft_new_v3d(t_dec x, t_dec y, t_dec z)
 {
 	return ((t_v3d){x, y, z});
 }
@@ -80,9 +82,9 @@ t_v3d	ft_new_v3d(double x, double y, double z)
 t_v3d	ft_v3d_identity(int axis)
 {
 	static const t_v3d	idt[3] = {
-		(t_v3d){1.0, 0.0, 0.0},
-		(t_v3d){0.0, 1.0, 0.0},
-		(t_v3d){0.0, 0.0, 1.0}};
+		(t_v3d){1.0L, 0.0L, 0.0L},
+		(t_v3d){0.0L, 1.0L, 0.0L},
+		(t_v3d){0.0L, 0.0L, 1.0L}};
 
 	return (idt[axis]);
 }
