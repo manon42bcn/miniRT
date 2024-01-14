@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 22:09:53 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:18:45 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:56:52 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the current mode, the selected light, and other scene details.
  *
- * @return int Returns TRUE if a light was successfully selected or toggled to,
- * and FALSE if the mode change wasn't allowed due to the current mode.
+ * @return t_bool Returns TRUE if a light was successfully selected or toggled
+ * to, and FALSE if the mode change wasn't allowed due to the current mode.
  */
-int	light_mode(t_mrt *mrt)
+t_bool	light_mode(t_mrt *mrt)
 {
 	if (mrt->mode > NORMAL && mrt->mode <= TO_CAMERA)
 		return (FALSE);
@@ -67,10 +67,10 @@ int	light_mode(t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure, holding information
  * about the scene.
  *
- * @return int Returns TRUE if the light was successfully translated,
+ * @return t_bool Returns TRUE if the light was successfully translated,
  * FALSE otherwise.
  */
-static inline int	light_traslation(int key, t_mrt *mrt)
+static inline t_bool	light_traslation(int key, t_mrt *mrt)
 {
 	t_light	*node;
 
@@ -109,9 +109,9 @@ static inline int	light_traslation(int key, t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure, holding information
  * about the scene.
  *
- * @return int Returns TRUE after adjusting the brightness, otherwise FALSE.
+ * @return t_bool Returns TRUE after adjusting the brightness, otherwise FALSE.
  */
-static inline int	light_bright(int key, t_mrt *mrt)
+static inline t_bool	light_bright(int key, t_mrt *mrt)
 {
 	t_light	*light;
 
@@ -146,18 +146,15 @@ static inline int	light_bright(int key, t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure, which contains
  * details about the scene and selected light.
  *
- * @return int Returns TRUE if a valid modification action was performed,
+ * @return t_bool Returns TRUE if a valid modification action was performed,
  * FALSE otherwise.
  */
-int	light_behaviour(int key, t_mrt *mrt)
+t_bool	light_behaviour(int key, t_mrt *mrt)
 {
 	if (mrt->scn.sel_light == NULL)
 		return (FALSE);
 	if (key == K_MINUS || key == K_PLUS || (key >= K_LEFT && key <= K_UP))
-	{
-		if (!light_traslation(key, mrt))
-			return (FALSE);
-	}
+		light_traslation(key, mrt);
 	if (key == K_B || key == K_V)
 	{
 		if (!light_bright(key, mrt))

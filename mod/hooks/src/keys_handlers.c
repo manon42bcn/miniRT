@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:44:41 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/24 20:44:43 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:53:27 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static inline t_bool	is_direction(int key)
  *
  * @param key The key code that was pressed.
  * @param mrt Main runtime structure containing the application's state.
- * @return int Returns TRUE if an action was taken, otherwise FALSE.
+ * @return t_bool Returns TRUE if an action was taken, otherwise FALSE.
  */
-static inline int	key_modes(int key, t_mrt *mrt)
+static inline t_bool	key_modes(int key, t_mrt *mrt)
 {
 	if (mrt->mode == TO_TRANSLATE && is_direction(key))
 		return (object_traslation(key, mrt));
@@ -72,10 +72,10 @@ static inline int	key_modes(int key, t_mrt *mrt)
  *
  * @param key The key code that was pressed.
  * @param mrt Main runtime structure containing the application's state.
- * @return int Returns TRUE if an action was taken or a mode was changed,
+ * @return t_bool Returns TRUE if an action was taken or a mode was changed,
  * otherwise FALSE.
  */
-static inline int	key_behaviour(int key, t_mrt *mrt)
+static inline t_bool	key_behaviour(int key, t_mrt *mrt)
 {
 	if (mrt->mode != NORMAL
 		&& (is_direction(key) || key == K_B || key == K_V))
@@ -112,10 +112,10 @@ static inline int	key_behaviour(int key, t_mrt *mrt)
  * @param key The key code of the pressed key.
  * @param mrt Pointer to the main runtime structure containing the
  * application's state and context, including active mode, cameras, and objects.
- * @return int Returns TRUE if a valid key action was triggered,
+ * @return t_bool Returns TRUE if a valid key action was triggered,
  * otherwise returns FALSE.
  */
-int	key_main(int key, t_mrt *mrt)
+t_bool	key_main(int key, t_mrt *mrt)
 {
 	if (key == K_ESC)
 		exit(clear_all(mrt, 0, mrt->clean_window, mrt->clean_image));

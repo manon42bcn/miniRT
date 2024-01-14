@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 22:28:04 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/21 21:17:57 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:36:03 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef OBJECTS_H
 # define OBJECTS_H
 
@@ -17,17 +17,17 @@ typedef struct s_fig
 {
 	t_v3d	centre;
 	t_v3d	orient;
-	double	width;
-	double	height;
+	t_dec	width;
+	t_dec	height;
 }				t_fig;
 
 typedef struct s_sphere
 {
 	t_v3d	centre;
 	t_v3d	dir;
-	double	radius;
-	int		inside;
-	int 	texture;
+	t_dec	radius;
+	t_bool	inside;
+	t_bool	texture;
 }				t_sphere;
 
 typedef struct s_plane
@@ -36,23 +36,23 @@ typedef struct s_plane
 	t_v3d	orient;
 }				t_plane;
 
-typedef struct	s_rectangle
+typedef struct s_rectangle
 {
 	t_v3d	centre;
 	t_v3d	orient;
-	double	width;
-	double	height;
+	t_dec	width;
+	t_dec	height;
 }				t_rectangle;
 
 typedef struct s_cylinder
 {
 	t_v3d	centre;
 	t_v3d	dir;
-	double	radius;
-	double	height;
-	double	d1;
-	double	d2;
-	int 	texture;
+	t_dec	radius;
+	t_dec	height;
+	t_dec	d1;
+	t_dec	d2;
+	t_bool	texture;
 }				t_cylinder;
 
 typedef struct s_triangle
@@ -67,20 +67,20 @@ typedef struct s_cone
 {
 	t_v3d	centre;
 	t_v3d	dir;
-	double	radius;
-	double	height;
-	double	alpha;
+	t_dec	radius;
+	t_dec	height;
+	t_dec	alpha;
 }				t_cone;
 
 typedef struct s_box
 {
 	t_v3d		centre;
 	t_v3d		dir;
-	double		width;
-	double		height;
-	double		depth;
+	t_dec		width;
+	t_dec		height;
+	t_dec		depth;
 	t_rectangle	faces[6];
-	int			hit;
+	t_bool		hit;
 	t_v3d		min;
 	t_v3d		max;
 }				t_box;

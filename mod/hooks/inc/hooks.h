@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/13 15:56:17 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/08 11:53:19 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:06:29 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef HOOKS_H
 # define HOOKS_H
 
@@ -62,27 +62,27 @@
 # define K_B			11
 # define K_V			9
 
-int			key_main(int key, t_mrt *mrt);
-int			mouse_select(int mouse_code, int x, int y, t_mrt *mrt);
-int			normal_light(t_mrt *mrt);
-int			normal_object(t_mrt *mrt);
-int			normal_mode(t_mrt *mrt);
-int			selection_mode(t_mrt *mrt);
-int			translate_mode(t_mrt *mrt);
-int			rotation_mode(t_mrt *mrt);
-int			camera_translate_mode(t_mrt *mrt);
-int			camera_rotation_mode(t_mrt *mrt);
-int			width_mode(t_mrt *mrt);
-int			height_mode(t_mrt *mrt);
-int			light_mode(t_mrt *mrt);
-int			light_behaviour(int key, t_mrt *mrt);
-int			cam_rotation(int key, t_mrt *mrt);
-int			cam_translate(int key, t_mrt *mrt);
-int			object_traslation(int key_dir, t_mrt *mrt);
-int			object_rotation(int key, t_mrt *mrt);
-int			object_width(int key, t_mrt *mrt);
-int			object_height(int key, t_mrt *mrt);
-int			change_camera(t_mrt *mrt);
-int			window_handler(t_mrt *mrt);
+t_bool	key_main(int key, t_mrt *mrt);
+t_bool	mouse_select(int mouse_code, int x, int y, t_mrt *mrt);
+t_bool	normal_light(t_mrt *mrt);
+t_bool	normal_object(t_mrt *mrt);
+t_bool	normal_mode(t_mrt *mrt);
+t_bool	selection_mode(t_mrt *mrt);
+t_bool	translate_mode(t_mrt *mrt);
+t_bool	rotation_mode(t_mrt *mrt);
+t_bool	camera_translate_mode(t_mrt *mrt);
+t_bool	camera_rotation_mode(t_mrt *mrt);
+t_bool	width_mode(t_mrt *mrt);
+t_bool	height_mode(t_mrt *mrt);
+t_bool	light_mode(t_mrt *mrt);
+t_bool	light_behaviour(int key, t_mrt *mrt);
+t_bool	cam_rotation(int key, t_mrt *mrt);
+t_bool	cam_translate(int key, t_mrt *mrt);
+t_bool	object_traslation(int key_dir, t_mrt *mrt);
+t_bool	object_rotation(int key, t_mrt *mrt);
+t_bool	object_width(int key, t_mrt *mrt);
+t_bool	object_height(int key, t_mrt *mrt);
+t_bool	change_camera(t_mrt *mrt);
+t_bool	window_handler(t_mrt *mrt);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:04 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/24 20:43:05 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:05:07 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,10 @@ static inline t_obj	*get_selected(t_ray ray, t_obj *obj, t_mrt *mrt)
  * @param mrt Pointer to the main renderer structure, which contains
  * scene details and settings.
  *
- * @return int Returns TRUE if an object was successfully selected,
+ * @return t_bool Returns TRUE if an object was successfully selected,
  * FALSE otherwise.
  */
-int	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
+t_bool	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
 {
 	t_ray	rfp;
 	t_obj	*obj_hit;

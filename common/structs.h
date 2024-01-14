@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:26:37 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/13 01:56:38 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:32:53 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
@@ -57,9 +57,9 @@ typedef struct s_cmr
 	t_v3d			position;
 	t_v3d			dir;
 	int				inp_fov;
-	double			fov;
-	double			orbit;
-	double			ratio;
+	long double		fov;
+	long double		orbit;
+	long double		ratio;
 	void			*img_ptr;
 	int				*addr;
 	int				bpp;
@@ -84,9 +84,9 @@ typedef struct s_scene
 	int				w_y;
 	t_light			*light;
 	t_light			*sel_light;
-	double			bright;
+	long double		bright;
 	t_rgb			amb_rgb;
-	double			ratio;
+	long double		ratio;
 	t_rgb			bgr;
 }					t_scene;
 
@@ -99,10 +99,10 @@ typedef struct s_obj
 	t_rgb			orig_color;
 	t_rgb			sel_color;
 	int				specular;
-	double			reflex;
-	double			refract;
+	long double		reflex;
+	long double		refract;
 	int				texture;
-	double			wavelength;
+	long double		wavelength;
 	t_bool			bump;
 	t_img			xpm;
 	t_bool			selected;
@@ -113,12 +113,12 @@ typedef struct		s_inter
 {
 	t_ray			ray;
 	t_obj			*obj;
-	double			dist;
+	long double		dist;
 	t_rgb			color;
 	t_rgb			ref_color;
 	t_bool			specular;
-	double			reflex;
-	double			refract;
+	long double		reflex;
+	long double		refract;
 	t_bool			inside;
 	t_v3d			normal;
 	t_v3d			hit;

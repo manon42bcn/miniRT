@@ -6,11 +6,36 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:52 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/13 01:58:39 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:08:10 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "hooks.h"
+
+/**
+ * @brief Rotate the dimensions of a box object.
+ *
+ * This function rotates the dimensions of a selected box object by swapping
+ * its width, depth, and height. After the rotation, the function triggers the
+ * rebuilding of the box with the updated dimensions.
+ *
+ * @param mrt A pointer to the Mini Ray Tracer structure.
+ * @return always TRUE.
+ */
+static inline t_bool	box_rotation(t_mrt *mrt)
+{
+	t_obj	*box;
+	double	tmp;
+
+	box = mrt->sel_obj;
+	tmp = box->elm.box.width;
+	box->elm.box.width = box->elm.box.depth;
+	box->elm.box.depth = box->elm.box.height;
+	box->elm.box.height = tmp;
+	build_box(&box->elm.box);
+	mrt->to_img = TO_RENDER;
+	return (TRUE);
+}
 
 /**
  * @brief Translates the selected object based on key inputs.
@@ -27,14 +52,14 @@
  * @return int Returns TRUE if the translation was successful,
  * otherwise returns FALSE.
  */
-int	object_traslation(int key, t_mrt *mrt)
+t_bool	object_traslation(int key, t_mrt *mrt)
 {
 	t_obj	*node;
 
 	if (mrt->mode != TO_TRANSLATE)
 		return (FALSE);
 	node = mrt->sel_obj;
-	if (!node || (node->type == BOX))
+	if (!node)
 		return (FALSE);
 	if (key == K_UP)
 		node->elm.fig.centre.y += MOVE_FACTOR;
@@ -48,6 +73,8 @@ int	object_traslation(int key, t_mrt *mrt)
 		node->elm.fig.centre.z += MOVE_FACTOR;
 	if (key == K_MINUS)
 		node->elm.fig.centre.z -= MOVE_FACTOR;
+	if (node->type == BOX)
+		build_box(&node->elm.box);
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }
@@ -66,16 +93,16 @@ int	object_traslation(int key, t_mrt *mrt)
  *
  * @return int Returns TRUE if the rotation was performed, and FALSE otherwise.
  */
-int	object_rotation(int key, t_mrt *mrt)
+t_bool	object_rotation(int key, t_mrt *mrt)
 {
 	t_obj	*node;
 	t_v3d	dir;
 
-	if (mrt->mode != TO_ROTATE)
-		return (FALSE);
 	node = mrt->sel_obj;
-	if (!node || node->type == SPHERE || node->type == BOX)
+	if (mrt->mode != TO_ROTATE || !node || node->type == SPHERE)
 		return (FALSE);
+	if (node->type == BOX)
+		return (box_rotation(mrt));
 	dir = node->elm.fig.orient;
 	if (key == K_UP)
 		node->elm.fig.orient = ft_rot_v3d(dir, Y_C, RAD_ANGLE);
@@ -112,7 +139,7 @@ int	object_rotation(int key, t_mrt *mrt)
  *
  * @return int Returns TRUE if the width was adjusted, and FALSE otherwise.
  */
-int	object_width(int key, t_mrt *mrt)
+t_bool	object_width(int key, t_mrt *mrt)
 {
 	t_obj	*obj;
 
@@ -124,6 +151,8 @@ int	object_width(int key, t_mrt *mrt)
 	else if (key == K_MINUS && obj->elm.fig.width / SIZE_FACTOR > 0)
 		obj->elm.fig.width /= SIZE_FACTOR;
 	mrt->to_img = TO_RENDER;
+	if (obj->type == BOX)
+		build_box(&obj->elm.box);
 	return (TRUE);
 }
 
@@ -145,7 +174,7 @@ int	object_width(int key, t_mrt *mrt)
  *
  * @return int Returns TRUE if the height was adjusted, and FALSE otherwise.
  */
-int	object_height(int key, t_mrt *mrt)
+t_bool	object_height(int key, t_mrt *mrt)
 {
 	t_obj	*obj;
 
@@ -156,6 +185,8 @@ int	object_height(int key, t_mrt *mrt)
 		obj->elm.fig.height *= SIZE_FACTOR;
 	else if (key == K_MINUS && obj->elm.fig.height / SIZE_FACTOR > 0)
 		obj->elm.fig.height /= SIZE_FACTOR;
+	if (obj->type == BOX)
+		build_box(&obj->elm.box);
 	mrt->to_img = TO_RENDER;
 	return (TRUE);
 }

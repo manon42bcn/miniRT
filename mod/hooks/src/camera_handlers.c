@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 17:57:08 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/05 15:55:51 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 22:51:16 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@
  * @param key Keycode representing the desired rotation direction and axis.
  * @param mrt Main runtime structure with all scene details and current camera
  * settings.
- * @return int Returns TRUE if a valid rotation is performed, otherwise returns
- * FALSE.
+ * @return t_bool Returns TRUE if a valid rotation is performed, otherwise
+ * returns FALSE.
  */
-int	cam_rotation(int key, t_mrt *mrt)
+t_bool	cam_rotation(int key, t_mrt *mrt)
 {
 	t_v3d	to_cam;
 	t_v3d	cam_obj;
@@ -70,10 +70,10 @@ int	cam_rotation(int key, t_mrt *mrt)
  *
  * @param mrt Main runtime structure holding the current mode of the camera
  * and the selected object.
- * @return int Returns TRUE when entering or exiting camera rotation mode,
+ * @return t_bool Returns TRUE when entering or exiting camera rotation mode,
  * and FALSE otherwise.
  */
-int	camera_rotation_mode(t_mrt *mrt)
+t_bool	camera_rotation_mode(t_mrt *mrt)
 {
 	if (mrt->mode == TO_CAMERA)
 		return (normal_mode(mrt));

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:26 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/22 00:41:28 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:02:23 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the scene and current mode.
  *
- * @return int Returns TRUE if the rotation mode was activated,
+ * @return t_bool Returns TRUE if the rotation mode was activated,
  * and FALSE otherwise.
  */
-int	rotation_mode(t_mrt *mrt)
+t_bool	rotation_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
 		return (FALSE);
@@ -48,9 +48,9 @@ int	rotation_mode(t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the scene and current mode.
  *
- * @return int Returns TRUE if the mode was activated, and FALSE otherwise.
+ * @return t_bool Returns TRUE if the mode was activated, and FALSE otherwise.
  */
-int	width_mode(t_mrt *mrt)
+t_bool	width_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
 		return (FALSE);
@@ -71,10 +71,10 @@ int	width_mode(t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the scene and current mode.
  *
- * @return int Returns TRUE if the height mode was activated,
+ * @return t_bool Returns TRUE if the height mode was activated,
  * and FALSE otherwise.
  */
-int	height_mode(t_mrt *mrt)
+t_bool	height_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
 		return (FALSE);
@@ -95,10 +95,10 @@ int	height_mode(t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure which holds information
  * about the scene and current mode.
  *
- * @return int Returns TRUE if the translate mode was activated,
+ * @return t_bool Returns TRUE if the translate mode was activated,
  * and FALSE otherwise.
  */
-int	translate_mode(t_mrt *mrt)
+t_bool	translate_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
 		return (FALSE);
@@ -117,13 +117,11 @@ int	translate_mode(t_mrt *mrt)
  * @param mrt Pointer to the scene's main struct which contains the
  * list of objects and the current mode.
  *
- * @return int Returns TRUE after setting the mode and printing the
+ * @return t_bool Returns TRUE after setting the mode and printing the
  * notification message if NORMAL mode is active. Otherwise
  * return FALSE.
  */
-
-// TODO: Make a speaker for errors (not changed mode)
-int	selection_mode(t_mrt *mrt)
+t_bool	selection_mode(t_mrt *mrt)
 {
 	if (mrt->mode > TO_CAMERA)
 		return (FALSE);
