@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:39:11 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 01:21:32 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:57:11 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_rgb	ft_rgb_add(t_rgb ca, t_rgb cb)
  * @param rgb Lighting array with adjustments for each RGB component.
  * @return t_rgb The resulting adjusted RGB color.
  */
-t_rgb	ft_rgb_light(t_rgb color, double rgb[3])
+t_rgb	ft_rgb_light(t_rgb color, t_dec rgb[3])
 {
 	int				mask;
 	unsigned int	r;

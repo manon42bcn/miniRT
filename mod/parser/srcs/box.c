@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 20:03:40 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/13 01:55:01 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 02:36:33 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,16 @@ void	inp_box(t_mrt *mrt)
 }
 
 #else
+
+/**
+ * @brief void version of the builder to avoid hooks errors
+ *
+ * @param box Pointer to box structure.
+ */
+void	build_box(t_box *box)
+{
+	(void)box;
+}
 
 /**
  * @brief Displays an error when trying to parse a cube in

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:04:06 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 01:04:09 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 02:14:37 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_v3d			get_normal(t_inter *inter, t_v3d dir, t_v3d hit);
 t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 t_dec			rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc);
+t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # ifdef BONUS
 
@@ -63,7 +64,6 @@ t_dec			box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter);
 t_dec			cone_solver(t_v3d origin, t_v3d dir, t_cone con);
 t_v3d			box_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_inter *obj);
-t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # endif
 
