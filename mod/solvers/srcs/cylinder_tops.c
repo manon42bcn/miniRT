@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:40:01 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 00:42:21 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:13:10 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_v3d	cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 
 	local_hit = ft_minus_v3d(hit, inter->obj->elm.cyl.centre);
 	dot = ft_dot_v3d(local_hit, inter->obj->elm.cyl.dir);
-	if (dot < EPSILON || fabs(dot - inter->obj->elm.cyl.height) < EPSILON)
+	if (dot < EPSILON || fabsl(dot - inter->obj->elm.cyl.height) < EPSILON)
 	{
 		if (ft_cos_v3d(dir, inter->obj->elm.cyl.dir) > 0)
 			return (ft_scalar_v3d(-1, inter->obj->elm.cyl.dir));

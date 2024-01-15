@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:06:51 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/08 11:46:00 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:12:47 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_dec	ft_length_v3d(t_v3d vec)
  */
 t_dec	ft_mag_v3d(t_v3d vector)
 {
-	return (sqrt(ft_length_v3d(vector)));
+	return (sqrtl(ft_length_v3d(vector)));
 }
 
 /**
@@ -58,7 +58,7 @@ t_dec	ft_sin_v3d(t_v3d a, t_v3d b)
 	t_dec	cos;
 
 	cos = ft_cos_v3d(a, b);
-	return ((t_dec)sqrt(1.0L - (cos * cos)));
+	return ((t_dec)sqrtl(1.0L - (cos * cos)));
 }
 
 /**

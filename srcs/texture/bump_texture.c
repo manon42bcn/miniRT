@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:28:10 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/13 22:23:27 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:40:27 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@
  * @param uv An array to store the resulting UV coordinates
  * 			 (uv[0] = U, uv[1] = V).
  */
-static inline void	uv_mapping(t_v3d local, double *uv)
+static inline void	uv_mapping(t_v3d local, t_dec *uv)
 {
-	double	phi;
-	double	theta;
+	t_dec	phi;
+	t_dec	theta;
 
-	phi = atan2(local.x, local.z);
-	theta = asin(local.y);
+	phi = atan2l(local.x, local.z);
+	theta = asinl(local.y);
 	uv[E_U] = 0.5 + phi / (2 * M_PI);
 	uv[E_V] = 0.5 - theta / M_PI;
 }
@@ -52,7 +52,7 @@ static inline void	uv_mapping(t_v3d local, double *uv)
 t_rgb	bump_texture(t_inter inter, t_v3d hit, t_obj obj, t_mrt *mrt)
 {
 	t_v3d	local;
-	double	uv[2];
+	t_dec	uv[2];
 	int		pix[2];
 	t_rgb	bump;
 

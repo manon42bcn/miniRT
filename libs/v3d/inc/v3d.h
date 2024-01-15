@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:00:05 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/10 22:45:17 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:20:19 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef V3D_H
 # define V3D_H
 
@@ -52,8 +52,6 @@ typedef struct s_v3d
 	t_dec	z;
 }				t_v3d;
 
-typedef t_v3d	t_point;
-
 //v3d_algebra.c
 t_dec	ft_length_v3d(t_v3d vec);
 t_dec	ft_mag_v3d(t_v3d vector);
@@ -81,6 +79,5 @@ t_v3d	ft_v3d_identity(int axis);
 t_v3d	ft_rot_v3d(t_v3d vec, int axis, t_dec angle);
 t_v3d	ft_perp_v3d(t_v3d vec);
 t_bool	ft_is_idt_v3d(t_v3d vec);
-t_v3d	ft_next_id_v3d(t_v3d vec);
 
 #endif

@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:00:05 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 21:56:57 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:23:14 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef RGB_H
 # define RGB_H
 
@@ -23,9 +23,10 @@ typedef enum e_rgb_indx
 	B_I=2
 }	t_rgb_indx;
 
-typedef int	t_rgb;
+typedef int			t_rgb;
+typedef long double	t_dec;
 
-t_rgb	ft_rgb_dot(t_rgb color, double alpha);
+t_rgb	ft_rgb_dot(t_rgb color, t_dec alpha);
 t_rgb	ft_rgb_add(t_rgb ca, t_rgb cb);
 t_rgb	ft_rgb_light(t_rgb color, double rgb[3]);
 t_rgb	ft_rgb_diff(t_rgb ca, t_rgb cb);

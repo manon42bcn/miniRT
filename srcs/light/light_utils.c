@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 10:40:43 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/12 23:13:32 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:34:08 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
  */
 t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 {
-	double	cos_theta;
-	double	refr_coef;
-	double	refr_transmitted;
-	double	refr_relative;
-	double	coef_disc;
+	t_dec	cos_theta;
+	t_dec	refr_coef;
+	t_dec	refr_transmitted;
+	t_dec	refr_relative;
+	t_dec	coef_disc;
 
 	cos_theta = ft_dot_v3d(from, dir);
 	refr_coef = 1;
@@ -50,7 +50,7 @@ t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 	if (coef_disc < 0)
 		return (reflect_ray(ft_scalar_v3d(-1, from), dir));
 	return (ft_plus_v3d(ft_scalar_v3d(refr_relative, from),
-			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc),
+			ft_scalar_v3d(refr_relative * cos_theta - sqrtl(coef_disc),
 				dir)));
 }
 
@@ -84,9 +84,9 @@ t_v3d	reflect_ray(t_v3d ray, t_v3d normal)
  * @param scn_light The light source parameters.
  * @return The intensity of the specular reflection.
  */
-double	specular_transform(t_ray ray, t_inter inter, t_light *scn_light)
+t_dec	specular_transform(t_ray ray, t_inter inter, t_light *scn_light)
 {
-	double	light;
+	t_dec	light;
 	t_v3d	direction;
 	t_v3d	p_to_cam;
 	t_v3d	reflected;
@@ -94,10 +94,10 @@ double	specular_transform(t_ray ray, t_inter inter, t_light *scn_light)
 	direction = ft_minus_v3d(scn_light->origin, inter.hit);
 	p_to_cam = ft_minus_v3d(ray.from, inter.hit);
 	reflected = reflect_ray(direction, inter.normal);
-	light = 0;
+	light = 0.0L;
 	if (ft_dot_v3d(reflected, p_to_cam) > 0)
 		light = scn_light->bright
-			* pow(ft_cos_v3d(reflected, p_to_cam), inter.specular);
+			* powl(ft_cos_v3d(reflected, p_to_cam), inter.specular);
 	return (light);
 }
 

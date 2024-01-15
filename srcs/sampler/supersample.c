@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/03 00:34:23 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:22:22 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:39:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,8 +149,8 @@ static inline t_rgb	fourth_corner(t_rgb *color, int centre,
  */
 t_rgb	supersample(int *color, t_pix pix, t_mrt *mrt)
 {
-	int				centre;
-	int				corner;
+	int	centre;
+	int	corner;
 
 	centre = calc_ray(4, pix, mrt);
 	corner = 0;

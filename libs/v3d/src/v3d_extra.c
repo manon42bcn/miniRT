@@ -45,7 +45,7 @@ t_v3d	ft_plus_real(t_v3d vec, t_dec real)
  */
 t_dec	ft_distance_v3d(t_v3d a, t_v3d b)
 {
-	return ((t_dec)sqrt(((b.x - a.x) * (b.x - a.x))
+	return ((t_dec)sqrtl(((b.x - a.x) * (b.x - a.x))
 			+ ((b.y - a.y) * (b.y - a.y))
 			+ ((b.z - a.z) * (b.z - a.z))));
 }

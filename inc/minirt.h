@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:42:41 by mporras-          #+#    #+#             */
-/*   Updated: 2023/12/01 21:21:16 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:33:53 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -67,7 +67,7 @@ void		msg_error_exit(char *message);
 void		texturize(t_inter *inter);
 t_rgb		bump_texture(t_inter inter, t_v3d hit, t_obj obj, t_mrt *mrt);
 t_v3d		reflect_ray(t_v3d ray, t_v3d normal);
-double		specular_transform(t_ray ray, t_inter inter, t_light *scn_light);
+t_dec		specular_transform(t_ray ray, t_inter inter, t_light *scn_light);
 t_v3d		refraction(t_v3d from, t_v3d dir, t_obj *obj);
 
 # endif

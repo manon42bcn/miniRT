@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:35:15 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/03 18:35:18 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:26:58 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@
  */
 static inline void	get_inter(t_inter *inter, t_obj *obj)
 {
-	double		dist;
-	t_obj		*node;
+	t_dec	dist;
+	t_obj	*node;
 
 	inter->dist = INFINITY;
 	inter->obj = NULL;

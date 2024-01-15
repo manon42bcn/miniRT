@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 23:56:02 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/10 22:14:56 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:29:58 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+# define BONUS 1
 #ifndef DEFINES_H
 # define DEFINES_H
 
@@ -19,7 +19,7 @@ typedef enum e_local_pix
 	E_V=1
 }			t_local_pix;
 
-# define EPSILON 0.00001
+# define EPSILON 0.00001L
 # define TO_RENDER 0
 # define RENDERED 1
 # define TRUE	1

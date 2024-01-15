@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:43:11 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/26 01:55:35 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:35:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,17 @@
  */
 static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
 {
-	t_inter		new_inter;
-	double		discriminant;
+	t_inter	new_inter;
+	t_dec	discriminant;
 
 	new_inter.ray.from = inter.hit;
 	new_inter.ray.to = dir;
 	get_hits(&new_inter, mrt->obj, mrt);
 	if (!new_inter.obj)
 		return (FALSE);
-	discriminant = (dir.x * dir.x)
-				   + (dir.y * dir.y)
-				   + (dir.z * dir.z)
-				   - 2 * ((dir.x * inter.hit.x)
-						  + (dir.y * inter.hit.y)
-						  + (dir.z * inter.hit.z));
+	discriminant = (dir.x * dir.x) + (dir.y * dir.y)
+		+ (dir.z * dir.z) - 2 * ((dir.x * inter.hit.x)
+			+ (dir.y * inter.hit.y) + (dir.z * inter.hit.z));
 	if (discriminant < EPSILON)
 		return (FALSE);
 	if (new_inter.dist > EPSILON && new_inter.dist < 1)
@@ -57,16 +54,16 @@ static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
  * @param coef The brightness coefficient.
  * @param color The color value.
  */
-static inline void	brightness(double *rgb, double coef, int color)
+static inline void	brightness(double *rgb, t_dec coef, int color)
 {
 	unsigned int	mask;
 
 	mask = 255 << 16;
-	rgb[0] += coef * ((color & mask) >> 16) / 255;
+	rgb[0] += (double)coef * ((color & mask) >> 16) / 255;
 	mask >>= 8;
-	rgb[1] += coef * ((color & mask) >> 8) / 255;
+	rgb[1] += (double)coef * ((color & mask) >> 8) / 255;
 	mask >>= 8;
-	rgb[2] += coef * (color & mask) / 255;
+	rgb[2] += (double)coef * (color & mask) / 255;
 }
 
 /**
@@ -86,7 +83,7 @@ static inline void	is_lighted(t_inter inter, t_mrt *mrt,
 {
 	t_bool	shadowed;
 	t_v3d	dir;
-	double	light;
+	t_dec	light;
 
 	dir = ft_normal_v3d(ft_minus_v3d(node.origin, inter.hit));
 	shadowed = on_shadow(dir, inter, mrt);
@@ -116,11 +113,11 @@ static inline void	is_lighted(t_inter inter, t_mrt *mrt,
  */
 t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
-	t_light			*node;
-	double			light;
-	double			rgb[3];
+	t_light	*node;
+	t_dec	light;
+	t_dec	rgb[3];
 
-	light = 0.0;
+	light = 0.0L;
 	ft_memset(rgb, 0, 3 * sizeof(double));
 	brightness(&rgb[0], mrt->scn.bright, mrt->scn.amb_rgb);
 	node = mrt->scn.light;
@@ -153,7 +150,7 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
  */
 t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
-	double			rgb[3];
+	double	rgb[3];
 
 	(void)ray;
 	ft_memset(rgb, 0, 3 * sizeof(double));
