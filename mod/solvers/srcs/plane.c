@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 21:42:28 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/04 21:42:30 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:51:24 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@
  * @return The distance from the ray origin to the intersection point or
  * INFINITY if there is no intersection with the plane.
  */
-double	plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
+t_dec	plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
 {
-	double	point;
-	double	base;
+	t_dec	point;
+	t_dec	base;
 
 	base = ft_dot_v3d(plane_dir, dir);
 	if (base == 0)
@@ -54,7 +54,7 @@ double	plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre, t_v3d plane_dir)
  * @return The distance from the ray origin to the intersection point or
  * INFINITY if there is no intersection with the plane.
  */
-double	plane_solver(t_v3d origin, t_v3d dir, t_plane pl)
+t_dec	plane_solver(t_v3d origin, t_v3d dir, t_plane pl)
 {
 	return (plane_hit(origin, dir, pl.centre, pl.orient));
 }

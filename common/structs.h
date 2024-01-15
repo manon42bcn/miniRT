@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:26:37 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/14 22:32:53 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:07:37 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef struct s_cmr
 	t_v3d			position;
 	t_v3d			dir;
 	int				inp_fov;
-	long double		fov;
-	long double		orbit;
-	long double		ratio;
+	t_dec			fov;
+	t_dec			orbit;
+	t_dec			ratio;
 	void			*img_ptr;
 	int				*addr;
 	int				bpp;
@@ -84,9 +84,9 @@ typedef struct s_scene
 	int				w_y;
 	t_light			*light;
 	t_light			*sel_light;
-	long double		bright;
+	t_dec			bright;
 	t_rgb			amb_rgb;
-	long double		ratio;
+	t_dec			ratio;
 	t_rgb			bgr;
 }					t_scene;
 
@@ -99,30 +99,30 @@ typedef struct s_obj
 	t_rgb			orig_color;
 	t_rgb			sel_color;
 	int				specular;
-	long double		reflex;
-	long double		refract;
+	t_dec			reflex;
+	t_dec			refract;
 	int				texture;
-	long double		wavelength;
+	t_dec			wavelength;
 	t_bool			bump;
 	t_img			xpm;
 	t_bool			selected;
 	union u_figures	elm;
 }					t_obj;
 
-typedef struct		s_inter
+typedef struct s_inter
 {
 	t_ray			ray;
 	t_obj			*obj;
-	long double		dist;
+	t_dec			dist;
 	t_rgb			color;
 	t_rgb			ref_color;
 	t_bool			specular;
-	long double		reflex;
-	long double		refract;
+	t_dec			reflex;
+	t_dec			refract;
 	t_bool			inside;
 	t_v3d			normal;
 	t_v3d			hit;
-	int 			face;
+	int				face;
 }					t_inter;
 
 typedef struct s_mrt
@@ -146,7 +146,7 @@ typedef struct s_mrt
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
 	t_v3d		(*ray_pixel)(int, int, t_mrt *);
-	double		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
+	t_dec		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
 }					t_mrt;
 
 typedef	struct s_info

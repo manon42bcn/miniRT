@@ -38,9 +38,9 @@ HEADER		=	inc/hooks.h \
 CFLAGS 		=	-Wall -Wextra -Werror
 INCLUDES	= -Iinc -I../../libs/v3d/inc -I../../libs/rgb/inc -I../../libs/lib/inc -I../parser/inc -I../../inc -I../../common
 
-all: $(NAME) $(HEADER)
+all: $(NAME)
 
-$(NAME): $(OBJS_DIR) $(OBJS)
+$(NAME): $(OBJS_DIR) $(HEADER) $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)

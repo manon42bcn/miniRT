@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:00:58 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/04 13:01:00 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:53:11 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 * @return The distance from the ray origin to the intersection point or INFINITY
 * if there is no intersection.
 */
-double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
+t_dec	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 {
 	int	type;
 
@@ -65,7 +65,7 @@ double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
  * @return The distance from the ray origin to the intersection point or INFINITY
  * if there is no intersection.
  */
-double	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
+t_dec	get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter)
 {
 	int	type;
 

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 00:27:44 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/27 00:27:46 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:47:46 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
  *
  * @return TRUE if the equation has a linear solution, FALSE otherwise.
  */
-static inline t_bool	lineal(double *coef, double *dist)
+static inline t_bool	lineal(t_dec *coef, t_dec *dist)
 {
-	if (fabs(coef[E_B]) < EPSILON)
+	if (fabsl(coef[E_B]) < EPSILON)
 	{
 		dist[T_0] = INFINITY;
 		dist[T_1] = INFINITY;
@@ -45,9 +45,9 @@ static inline t_bool	lineal(double *coef, double *dist)
  *
  * @param dist An array containing the distances to be swapped (T_0, T_1).
  */
-static inline void	quad_swap(double *dist)
+static inline void	quad_swap(t_dec *dist)
 {
-	double	tmp;
+	t_dec	tmp;
 
 	if (dist[T_0] > dist[T_1])
 	{
@@ -78,12 +78,12 @@ static inline void	quad_swap(double *dist)
  *
  * @return Returns TRUE if real roots exist, FALSE otherwise.
  */
-t_bool	quadratic(double *coef, double *dist)
+t_bool	quadratic(t_dec *coef, t_dec *dist)
 {
-	double	discriminant;
-	double	q;
+	t_dec	discriminant;
+	t_dec	q;
 
-	if (fabs(coef[E_A]) < EPSILON)
+	if (fabsl(coef[E_A]) < EPSILON)
 		return (lineal(coef, dist));
 	discriminant = (coef[E_B] * coef[E_B]) - 4 * (coef[E_A] * coef[E_C]);
 	if (discriminant < 0)
@@ -93,9 +93,9 @@ t_bool	quadratic(double *coef, double *dist)
 		return (FALSE);
 	}
 	if (coef[E_B] > 0)
-		q = -0.5f * (coef[E_B] + sqrt(discriminant));
+		q = -0.5f * (coef[E_B] + sqrtl(discriminant));
 	else
-		q = -0.5f * (coef[E_B] - sqrt(discriminant));
+		q = -0.5f * (coef[E_B] - sqrtl(discriminant));
 	dist[T_0] = q / coef[E_A];
 	dist[T_1] = coef[E_C] / q;
 	quad_swap(&dist[0]);

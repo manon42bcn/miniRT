@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 21:59:08 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/04 21:59:10 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:54:45 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ static inline t_bool	triangle_hit(t_v3d v1, t_v3d v2,
  * @return The distance from the ray origin to the intersection point or
  * INFINITY if there is no intersection with the triangle.
  */
-double	triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg)
+t_dec	triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg)
 {
-	double	inter_dist;
+	t_dec	inter_dist;
 	t_v3d	inter_point;
 
 	inter_dist = plane_hit(origin, dir, trg.v1, trg.dir);

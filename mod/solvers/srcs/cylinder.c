@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 13:10:04 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/04 13:10:06 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:40:15 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@
  *
  * @return TRUE if an intersection is found, FALSE otherwise.
  */
-static inline t_bool	cyl_is_hit(double x[2], t_v3d origin,
+static inline t_bool	cyl_is_hit(t_dec x[2], t_v3d origin,
 					t_v3d dir, t_cylinder cyl)
 {
 	t_v3d	v;
 	t_v3d	u;
-	double	qr[3];
+	t_dec	qr[3];
 
 	v = ft_scalar_v3d(ft_dot_v3d(dir, cyl.dir), cyl.dir);
 	v = ft_minus_v3d(dir, v);
@@ -66,8 +66,8 @@ static inline t_bool	cyl_is_hit(double x[2], t_v3d origin,
  * @param dist A pointer to store the calculated distance.
  * @param x A pointer to store the intersection point.
  */
-static inline void	compute_dist_x(t_cylinder cyl, double x2[2],
-					double *dist, double *x)
+static inline void	compute_dist_x(t_cylinder cyl, t_dec x2[2],
+					t_dec *dist, t_dec *x)
 {
 	*x = x2[1];
 	*dist = cyl.d2;
@@ -101,11 +101,11 @@ static inline void	compute_dist_x(t_cylinder cyl, double x2[2],
  *
  * @return The normal vector at the point of intersection.
  */
-static inline t_v3d	cyl_orientation(double x2[2], t_v3d from,
+static inline t_v3d	cyl_orientation(t_dec x2[2], t_v3d from,
 					t_v3d to, t_cylinder cyl)
 {
-	double	dist;
-	double	x;
+	t_dec	dist;
+	t_dec	x;
 
 	compute_dist_x(cyl, x2, &dist, &x);
 	x2[0] = x;
@@ -129,10 +129,10 @@ static inline t_v3d	cyl_orientation(double x2[2], t_v3d from,
  * @return The distance from the ray's origin to the intersection point or
  * INFINITY if there is no intersection with the cylinder's side surface.
  */
-static inline double	body_intersect(t_v3d o, t_v3d d, t_v3d *normal
-				, t_cylinder cyl)
+static inline t_dec	body_intersect(t_v3d o, t_v3d d, t_v3d *normal,
+	t_cylinder cyl)
 {
-	double	x2[2];
+	t_dec	x2[2];
 
 	if (cyl_is_hit(x2, o, d, cyl) == FALSE)
 		return (INFINITY);
@@ -164,10 +164,10 @@ static inline double	body_intersect(t_v3d o, t_v3d d, t_v3d *normal
  * @return The distance from the ray origin to the intersection point or INFINITY
  * if there is no intersection with the cylinder.
  */
-double	cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl, t_inter *inter)
+t_dec	cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl, t_inter *inter)
 {
-	double	cylinder_inter;
-	double	caps_inter;
+	t_dec	cylinder_inter;
+	t_dec	caps_inter;
 
 	cylinder_inter = body_intersect(from, dir, &inter->normal, cyl);
 	if (cyl.texture == NO_CAPS)

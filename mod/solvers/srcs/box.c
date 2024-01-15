@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 17:13:26 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/05 22:04:12 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:35:21 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ t_v3d	box_normal(t_v3d dir, t_v3d hit, t_inter *inter)
  * @return The distance from the ray origin to the intersection point or INFINITY
  * if there is no intersection with the box.
  */
-double	box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter)
+t_dec	box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter)
 {
-	double		evl;
+	t_dec		evl;
 	t_rectangle	tmp;
-	double		t;
+	t_dec		t;
 	int			face;
 
 	evl = INFINITY;

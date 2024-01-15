@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 19:24:39 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/25 22:59:41 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:37:03 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 	t_v3d	v_apex;
 	t_v3d	parallel;
 	t_v3d	normal;
-	double	height_axs;
+	t_dec	height_axs;
 
 	v_apex = ft_minus_v3d(hit, inter->obj->elm.con.centre);
 	height_axs = ft_dot_v3d(v_apex, inter->obj->elm.con.dir);
@@ -58,13 +58,13 @@ t_v3d	cone_normal(t_v3d dir, t_v3d hit, t_inter *inter)
  * @return The corrected distance to the intersection point or `INFINITY`
  * if outside the bounds.
  */
-static inline double	bounds(t_v3d origin, t_v3d dir,
+static inline t_dec	bounds(t_v3d origin, t_v3d dir,
 		double t, t_cone con)
 {
 	t_v3d	pnt;
 	t_v3d	vec_vertex;
-	double	evl;
-	double	height_axs;
+	t_dec	evl;
+	t_dec	height_axs;
 
 	pnt = ft_plus_v3d(origin, ft_scalar_v3d(t, dir));
 	vec_vertex = ft_minus_v3d(pnt, con.centre);
@@ -95,11 +95,11 @@ static inline double	bounds(t_v3d origin, t_v3d dir,
  * @param origin The origin of the ray.
  * @param dir The direction of the ray.
  */
-static inline void	cone_quad(double *coef, t_cone con, t_v3d origin, t_v3d dir)
+static inline void	cone_quad(t_dec *coef, t_cone con, t_v3d origin, t_v3d dir)
 {
 	t_v3d	oc;
-	double	dot_d;
-	double	dot_oc;
+	t_dec	dot_d;
+	t_dec	dot_oc;
 
 	oc = ft_minus_v3d(origin, con.centre);
 	dot_d = ft_dot_v3d(dir, con.dir);
@@ -127,11 +127,11 @@ static inline void	cone_quad(double *coef, t_cone con, t_v3d origin, t_v3d dir)
  * @return The distance to the intersection point or `INFINITY`
  * if no intersection.
  */
-double	cone_solver(t_v3d origin, t_v3d dir, t_cone con)
+t_dec	cone_solver(t_v3d origin, t_v3d dir, t_cone con)
 {
-	double	coef[3];
-	double	t[2];
-	double	t_c[2];
+	t_dec	coef[3];
+	t_dec	t[2];
+	t_dec	t_c[2];
 
 	cone_quad(&coef[0], con, origin, dir);
 	if (!quadratic(&coef[0], &t[0]))
