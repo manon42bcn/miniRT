@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:44:41 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/14 22:53:27 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/17 23:20:17 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,12 @@ static inline t_bool	key_modes(int key, t_mrt *mrt)
  */
 static inline t_bool	key_behaviour(int key, t_mrt *mrt)
 {
+	printf("%d key...\n", key);
 	if (mrt->mode != NORMAL
 		&& (is_direction(key) || key == K_B || key == K_V))
 		return (key_modes(key, mrt));
 	if (key == K_Q)
 		return (normal_mode(mrt));
-	if (key == K_S)
-		return (selection_mode(mrt));
 	if (key == K_T)
 		return (translate_mode(mrt));
 	if (key == K_R)
@@ -121,9 +120,11 @@ t_bool	key_main(int key, t_mrt *mrt)
 		exit(clear_all(mrt, 0, mrt->clean_window, mrt->clean_image));
 	if (key == K_SPACE)
 		return (change_camera(mrt));
+	if (key == K_S)
+		return (selection_mode(mrt));
 	if (key == K_D || key == K_H || key == K_C || key == K_E
 		|| key == K_R || key == K_T || key == K_Q || key == K_L
-		|| key == K_S || key == K_B || key == K_V || is_direction(key))
+		|| key == K_B || key == K_V || is_direction(key))
 		return (key_behaviour(key, mrt));
 	return (FALSE);
 }

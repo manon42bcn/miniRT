@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:26 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/14 23:02:23 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:05:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_bool	rotation_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
 		return (FALSE);
+	if (mrt->sel_obj == NULL)
+		return (FALSE);
 	mrt->mode = TO_ROTATE;
 	ft_putstr_fd("[ROTATION MODE ACTIVATE]\n", STDOUT_FILENO);
 	return (TRUE);
@@ -53,6 +55,8 @@ t_bool	rotation_mode(t_mrt *mrt)
 t_bool	width_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
+		return (FALSE);
+	if (mrt->sel_obj == NULL)
 		return (FALSE);
 	mrt->mode = TO_WIDTH;
 	ft_putstr_fd("[WIDTH-DIAM MODE ACTIVATE]\n", STDOUT_FILENO);
@@ -78,6 +82,8 @@ t_bool	height_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
 		return (FALSE);
+	if (mrt->sel_obj == NULL)
+		return (FALSE);
 	mrt->mode = TO_HEIGHT;
 	ft_putstr_fd("[HEIGHT MODE ACTIVATE]\n", STDOUT_FILENO);
 	return (TRUE);
@@ -100,7 +106,9 @@ t_bool	height_mode(t_mrt *mrt)
  */
 t_bool	translate_mode(t_mrt *mrt)
 {
-	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA)
+	if (mrt->mode == NORMAL || mrt->mode > TO_CAMERA || mrt->mode == TO_SELECT)
+		return (FALSE);
+	if (mrt->sel_obj == NULL)
 		return (FALSE);
 	mrt->mode = TO_TRANSLATE;
 	ft_putstr_fd("[TRANSLATE MODE ACTIVATE]\n", STDOUT_FILENO);
@@ -125,7 +133,7 @@ t_bool	selection_mode(t_mrt *mrt)
 {
 	if (mrt->mode > TO_CAMERA)
 		return (FALSE);
-	if (mrt->mode > NORMAL && mrt->mode <= TO_CAMERA)
+	if (mrt->mode >= TO_SELECTED && mrt->mode <= TO_CAMERA)
 		return (normal_mode(mrt));
 	mrt->mode = TO_SELECT;
 	ft_putstr_fd("[SELECTION MODE ACTIVATE]\n", STDOUT_FILENO);

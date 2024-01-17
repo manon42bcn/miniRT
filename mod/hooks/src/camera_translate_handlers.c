@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:19:23 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/14 22:52:10 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/17 22:19:10 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	camera_translate_mode(t_mrt *mrt)
 	if (mrt->mode == TO_EYE)
 	{
 		mrt->mode = NORMAL;
+		ft_putstr_fd("[BACK TO NORMAL MODE]\n", STDOUT_FILENO);
 		return (FALSE);
 	}
 	mrt->mode = TO_EYE;

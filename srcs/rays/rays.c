@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:05:03 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 01:37:30 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:31:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ static inline t_v3d	camera_eye(int n, t_pix pix, t_mrt *mrt)
 
 /**
  * @brief Transform a given direction vector to align with the camera's
- * rientation.
+ * orientation.
  *
  * The function adjusts the given direction to be relative to the
- * camera'sorientation. This is achieved by constructing a local coordinate
+ * camera's orientation. This is achieved by constructing a local coordinate
  * system (or a basis) at the camera's position. The `cam_dir` represents
  * the forward direction (or z-axis) of the camera. The function computes
  * the right (x-axis) and up (y-axis) directions based on the camera's

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:26:37 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 01:07:37 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/17 23:49:02 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ typedef int				t_pixel;
 typedef struct s_mrt	t_mrt;
 # define TO_RENDER 0
 # define RENDERED 1
-# define RIGHT_CLICK 1
-# define LEFT_CLICK 2
 
 typedef struct s_ray
 {
@@ -145,11 +143,11 @@ typedef struct s_mrt
 	int			mode;
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
-	t_v3d		(*ray_pixel)(int, int, t_mrt *);
+	t_v3d		(*ray_pixel)(int x, int y, t_mrt *);
 	t_dec		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
 }					t_mrt;
 
-typedef	struct s_info
+typedef struct s_info
 {
 	t_mrt	*mrt;
 	t_pixel	x;
@@ -157,7 +155,5 @@ typedef	struct s_info
 	t_pixel	end_y;
 	t_pixel	max_y;
 }				t_info;
-
-
 
 #endif

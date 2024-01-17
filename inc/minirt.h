@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:42:41 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 01:33:53 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:46:05 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ t_rgb		supersample(int *color, t_pix pix, t_mrt *mrt);
 // utl
 void		msg_instructions(void);
 void		msg_error_exit(char *message);
+int			print_help(void);
 
 # ifdef BONUS
 
