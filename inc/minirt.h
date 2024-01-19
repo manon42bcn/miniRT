@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:42:41 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 12:46:05 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/18 00:39:38 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@
 # include <math.h>
 # include <stdio.h>
 
-# define RFX		0
-# define RFRC		1
-
-typedef struct		s_pix
+typedef struct s_pix
 {
 	int		limit;
 	int		w_x;
@@ -41,7 +38,7 @@ typedef struct		s_pix
 	int		x;
 	int		y;
 	int		max_y;
-}					t_pix;
+}				t_pix;
 
 t_v3d		ray_from_pixel(int x, int y, t_mrt *mrt);
 void		get_hits(t_inter *inter, t_obj *obj, t_mrt *mrt);

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:19:23 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/17 22:19:10 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:02:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_bool	cam_translate(int key, t_mrt *mrt)
  */
 int	camera_translate_mode(t_mrt *mrt)
 {
+	if (mrt->sel_obj)
+		return (FALSE);
 	if (mrt->mode == TO_EYE)
 	{
 		mrt->mode = NORMAL;

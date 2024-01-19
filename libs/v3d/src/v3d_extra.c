@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 13:12:03 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/08 11:49:34 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:00:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,18 @@ t_dec	ft_distance_v3d(t_v3d a, t_v3d b)
 
 /**
  * @brief Check if a given 3D vector is normalized
- * (its components magnitude is equal to 1).
+ * (its components magnitude is equal to 1). Some magnitudes
+ * can be approximate 1.
  *
  * @param v Pointer to the 3D vector.
  * @return TRUE if the vector is normalized, FALSE otherwise.
  */
 t_bool	ft_is_normal_v3d(t_v3d *v)
 {
-	if (ft_mag_v3d(*v) != 1.0L)
-		return (FALSE);
-	return (TRUE);
+	t_dec	mag;
+
+	mag = ft_mag_v3d(*v);
+	if (mag >= 0.99L && mag <= 1.01L)
+		return (TRUE);
+	return (FALSE);
 }

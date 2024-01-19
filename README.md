@@ -66,44 +66,75 @@ This project was made as part of 42 Barcelona Cursus. You are welcome to clone i
     - [H] -> Height.
 
 To create a scene properly it should have: Ambient Light, Camera, Light and at least one object. All Values are compulsory.
-At mandatory veresion, those components described with uppercase ids (A,C,L) can be declared just one.
+At mandatory version, those components described with uppercase ids (A,C,L) can be declared just one.
+
+### RT File: Bonus Version ###
+
+| COMPONENT     | ID | Values                      |
+|---------------|----|-----------------------------|
+| Ambient Light | A  | (R) (RGB)                   |
+| Camera        | C  | (C) (N) (FOV)               |
+| Light         | L  | (C) (R) (RGB)               |
+| Plane         | pl | (C) (N) (RGB)               |
+| Sphere        | sp | (C) (D) (RGB) (BNS)         |
+| Cylinder      | cy | (C) (N) (D) (H) (RGB) (BNS) |
+| Cone          | co | (C) (N) (D) (H) (RGB) (BNS) |
+| Rectangle     | cy | (C) (N) (W) (H) (RGB) (BNS) |
+| Triangle      | tr | (v1) (v2) (v3) (RGB) (BNS)  |
+| Box (cuboid)  | bx | (C) (W) (H) (D) (RGB) (BNS) |
 
 
+    - [R] -> Ratio: 0.1 - 1.0.
+    - [RGB] -> RGB color: (0-255) R,G,B.
+    - [C] -> Coordinates X,Y,Z.
+    - [N] -> Normalized 3D-Vector (-1, 1).
+    - [FOV] -> Field Of View (0, 180).
+    - [D] -> Diameter.
+    - [W] -> Width.
+    - [H] -> Height.
+    - [v1 - v2 - v3] -> Coordinates of 3 vortex to define a triangle.
+    - [BNS] Bonus string, two bonus behaviour can be defined.
+        BUMP: to load a bump map. -> xpm:[path/to/xpmmap.xpm]
+        TEXTURES: to apply bonus features. -> BNS:[RFC;RFL;SPC;TXT]
+            - RFC : Refraction (> 0).
+            - RFL : Reflex (> 0).
+            - SPC : Specular (> 0).
+            - Texture values:
+                - NO TEXTURE : 0
+                - CHECKBOARD : 1
+                - WAVES : 2
+                - RAINBOW : 3
+                - NO CAPS: 4 (No caps for cylinder, half sphere)
+
+Bonus mandatory allows more than one camera, and more than one light.
 
 
 - To get details about the format of a .rt file, please check en.subject.md file.
-- Use the interactive keys to adjust the view or manipulate the scene objects.
-Keys:
-- To use a hook you have to use a particular key combination:
 
-| Description            | Key1 | Key2 | Key3 |
-|------------------------|------|------|------|
-| Cylinder Y translation | C    | T    | Y    |
-| Cylinder X translation | C    | T    | X    |
-| Cylinder Z translation | C    | T    | Z    |
-| Cylinder Diameter      | C    | D    | Enter|
-| Cylinder Height        | C    | H    | Enter|
-| Sphere Y translation   | S    | T    | Y    |
-| Sphere X translation   | S    | T    | X    |
-| Sphere Z translation   | S    | T    | Z    |
-| Sphere Diameter        | S    | D    | Enter|
-| Camera X closest obj   | E    | N    | Y    |
-| Camera Y closest obj   | E    | N    | X    |
-| Camera Z closest obj   | E    | N    | Z    |
-| Camera Y orbit         | E    | O    | Y    |
-| Camera X orbit         | E    | O    | X    |
-| Camera Z orbit         | E    | O    | Z    |
-| Cylinder Y Rotation    | C    | R    | Y    |
-| Cylinder X Rotation    | C    | R    | X    |
-| Cylinder Z Rotation    | C    | R    | Z    |
-| Light Y Rotation       | L    | R    | Y    |
-| Light X Rotation       | L    | R    | X    |
-| Light Z Rotation       | L    | R    | Z    |
-| Camera Free (Y)        | E    | F    | Y    |
-| Camera Free            | E    | F    | Enter|
+# HOOKS - BEHAVIOUR
 
-the order is not important. If you make a mistake or want to chance the behaviour of the hook, press esc.
-After set a particular behaviour, you can apply them using key arrows (up-down-right-left).
+------------------------------
+
+## KEY | MODE
+
+- **S:** Selection Mode. Select an object to interact with it. After an object is selected, it will change color.
+- **T:** Translate a selected object using arrow keys.
+- **D:** Increase or reduce width or radius of a selected object using + or - keys.
+- **H:** Increase or reduce height of a selected object using + or - keys.
+- **R:** Rotate a selected object using arrow keys.
+- **E:** Orbit a camera around a selected object using arrow keys.
+- **L:** Light mode. Select a light to translate using arrow keys or change brightness using B or V keys.
+- **Q:** Back to normal.
+
+### MOVE KEYS
+
+- **Up-Down:** Move using the y-axis.
+- **Left-Right:** Move using the x-axis.
+- **Plus-Minus:** Move using the z-axis.
+
+- **ESC:** Exit miniRT.
+
+------------------------------
 
 ## Dependencies: ##
 - MiniLibX: This project uses the MiniLibX library for graphical representations. Ensure it's properly installed before compiling.
@@ -174,4 +205,4 @@ This code doesn't pretend to be super compact or the most optimal approach, but 
 
 ### NOTES ###
 
-DOCUMENTATION: Have been created with Doxygen tool. CmakeLists.txt are include to work with CLion
+DOCUMENTATION: Have been created with Doxygen tool.

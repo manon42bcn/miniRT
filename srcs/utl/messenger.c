@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:45:33 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/17 23:32:00 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/18 09:35:33 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ static inline int	help_hook(void)
 	ft_putendl_fd("L\tLight mode. Select a light to translate", STDOUT_FILENO);
 	ft_putendl_fd(" \tusing move keys, or change bright.", STDOUT_FILENO);
 	ft_putendl_fd(" \tusing B or V keys", STDOUT_FILENO);
+	ft_putendl_fd("Q\tBack to normal.", STDOUT_FILENO);
 	ft_putendl_fd("MOVE KEYS (up-down): move using y axis.", STDOUT_FILENO);
 	ft_putendl_fd("MOVE KEYS (left-right): move using x axis.", STDOUT_FILENO);
 	ft_putendl_fd("MOVE KEYS (plus-minus): move using z axis.", STDOUT_FILENO);
+	ft_putendl_fd("ESC Exit miniRT.", STDOUT_FILENO);
 	return (SUCCESS);
 }
 

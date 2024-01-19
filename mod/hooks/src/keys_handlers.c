@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:44:41 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/17 23:20:17 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:02:01 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ static inline t_bool	key_modes(int key, t_mrt *mrt)
  */
 static inline t_bool	key_behaviour(int key, t_mrt *mrt)
 {
-	printf("%d key...\n", key);
 	if (mrt->mode != NORMAL
 		&& (is_direction(key) || key == K_B || key == K_V))
 		return (key_modes(key, mrt));
