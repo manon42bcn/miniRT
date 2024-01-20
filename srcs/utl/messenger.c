@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/15 12:45:33 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/18 09:35:33 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/20 23:01:37 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,9 @@ static inline int	help_hook(void)
 	ft_putendl_fd("H\tIncrease or reduce height of a selected", STDOUT_FILENO);
 	ft_putendl_fd(" \tselected object using + or - keys.", STDOUT_FILENO);
 	ft_putendl_fd("R\tRotate a selected object using move keys", STDOUT_FILENO);
-	ft_putendl_fd("E\tOrbit a camera around selected object", STDOUT_FILENO);
+	ft_putendl_fd("C\tOrbit a camera around selected object", STDOUT_FILENO);
 	ft_putendl_fd(" \tusing move keys.", STDOUT_FILENO);
+	ft_putendl_fd("E\tTranslate a camera using move keys.", STDOUT_FILENO);
 	ft_putendl_fd("L\tLight mode. Select a light to translate", STDOUT_FILENO);
 	ft_putendl_fd(" \tusing move keys, or change bright.", STDOUT_FILENO);
 	ft_putendl_fd(" \tusing B or V keys", STDOUT_FILENO);

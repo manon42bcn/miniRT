@@ -124,7 +124,8 @@ Bonus mandatory allows more than one camera, and more than one light.
 - **D:** Increase or reduce width or radius of a selected object using + or - keys.
 - **H:** Increase or reduce height of a selected object using + or - keys.
 - **R:** Rotate a selected object using arrow keys.
-- **E:** Orbit a camera around a selected object using arrow keys.
+- **C:** Orbit a camera around a selected object using arrow keys.
+- **E:** Translate a camera using arrow keys.
 - **L:** Light mode. Select a light to translate using arrow keys or change brightness using B or V keys.
 - **Q:** Back to normal.
 
