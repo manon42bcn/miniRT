@@ -95,7 +95,7 @@ At mandatory version, those components described with uppercase ids (A,C,L) can 
     - [v1 - v2 - v3] -> Coordinates of 3 vortex to define a triangle.
     - [BNS] Bonus string, two bonus behaviour can be defined.
         BUMP: to load a bump map. -> xpm:[path/to/xpmmap.xpm]
-        TEXTURES: to apply bonus features. -> BNS:[RFC;RFL;SPC;TXT]
+        TEXTURES: to apply bonus features. -> BNS:[RFC;RFL;SPC;TXT;WL]
             - RFC : Refraction (> 0).
             - RFL : Reflex (> 0).
             - SPC : Specular (> 0).
@@ -105,6 +105,8 @@ At mandatory version, those components described with uppercase ids (A,C,L) can 
                 - WAVES : 2
                 - RAINBOW : 3
                 - NO CAPS: 4 (No caps for cylinder, half sphere)
+                - WAVE LENGHT: (> 0) if WAVES is defined.
+                - NOTE: you can use some textures at the same time, but you Specular will overwrite others.
 
 Bonus mandatory allows more than one camera, and more than one light.
 
