@@ -25,6 +25,12 @@ A simple Ray Tracing engine created in C. This project uses the MiniLibX, a simp
 [Important]
 This project was made as part of 42 Barcelona Cursus. You are welcome to clone it and use it as reference, but copy it without understand it is cheat yourself. All project is documented and commented to make it easy to understand.
 
+It's important to us say thanks to other projects than were helpful to understand the subject.
+Some scenes and textures were taken from this repositories: 
+https://github.com/magalhaesm/42-cursus-miniRT
+https://github.com/ricardoreves/42-minirt
+https://gitlab.com/my42lausanne/minirt
+
 ## Features: ##
 
 - Basic Shapes: The program supports rendering of basic geometric shapes like spheres and cylinders.
