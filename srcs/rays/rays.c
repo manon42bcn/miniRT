@@ -36,8 +36,8 @@ static inline t_v3d	camera_eye(int n, t_pix pix, t_mrt *mrt)
 	t_dec	y_ofs;
 	t_v3d	p;
 
-	x_ofs = ((n % 3) * 0.5L);
-	y_ofs = ((n / 3) * 0.5L);
+	x_ofs = ((n % 3) * 0.5F);
+	y_ofs = ((n / 3) * 0.5F);
 	p.x = ((2 * ((pix.x + x_ofs) / pix.w_x)) - 1)
 		* mrt->scn.ratio * mrt->cmr->fov;
 	p.y = (1 - (2 * ((pix.y + y_ofs) / pix.w_y))) * mrt->cmr->fov;

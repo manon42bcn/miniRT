@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 12:19:22 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/08 11:51:01 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:51:31 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,9 @@ t_v3d	ft_new_v3d(t_dec x, t_dec y, t_dec z)
 t_v3d	ft_v3d_identity(int axis)
 {
 	static const t_v3d	idt[3] = {
-		(t_v3d){1.0L, 0.0L, 0.0L},
-		(t_v3d){0.0L, 1.0L, 0.0L},
-		(t_v3d){0.0L, 0.0L, 1.0L}};
+		(t_v3d){1.0F, 0.0F, 0.0F},
+		(t_v3d){0.0F, 1.0F, 0.0F},
+		(t_v3d){0.0F, 0.0F, 1.0F}};
 
 	return (idt[axis]);
 }

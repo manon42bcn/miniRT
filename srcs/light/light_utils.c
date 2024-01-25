@@ -50,7 +50,7 @@ t_v3d	refraction(t_v3d from, t_v3d dir, t_obj *obj)
 	if (coef_disc < 0)
 		return (reflect_ray(ft_scalar_v3d(-1, from), dir));
 	return (ft_plus_v3d(ft_scalar_v3d(refr_relative, from),
-			ft_scalar_v3d(refr_relative * cos_theta - sqrtl(coef_disc),
+			ft_scalar_v3d(refr_relative * cos_theta - sqrt(coef_disc),
 				dir)));
 }
 
@@ -94,10 +94,10 @@ t_dec	specular_transform(t_ray ray, t_inter inter, t_light *scn_light)
 	direction = ft_minus_v3d(scn_light->origin, inter.hit);
 	p_to_cam = ft_minus_v3d(ray.from, inter.hit);
 	reflected = reflect_ray(direction, inter.normal);
-	light = 0.0L;
+	light = 0.0F;
 	if (ft_dot_v3d(reflected, p_to_cam) > 0)
 		light = scn_light->bright
-			* powl(ft_cos_v3d(reflected, p_to_cam), inter.specular);
+			* pow(ft_cos_v3d(reflected, p_to_cam), inter.specular);
 	return (light);
 }
 

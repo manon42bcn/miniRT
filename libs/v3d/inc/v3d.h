@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:00:05 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/19 22:33:38 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:48:25 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ typedef enum e_coor
 #  define NO_MATCH -1
 # endif
 
-typedef int			t_bool;
-typedef long double	t_dec;
+typedef int		t_bool;
+typedef double	t_dec;
 
 typedef struct s_v3d
 {

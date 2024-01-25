@@ -32,7 +32,7 @@ t_v3d	cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 
 	local_hit = ft_minus_v3d(hit, inter->obj->elm.cyl.centre);
 	dot = ft_dot_v3d(local_hit, inter->obj->elm.cyl.dir);
-	if (dot < EPSILON || fabsl(dot - inter->obj->elm.cyl.height) < EPSILON)
+	if (dot < EPSILON || fabs(dot - inter->obj->elm.cyl.height) < EPSILON)
 	{
 		if (ft_cos_v3d(dir, inter->obj->elm.cyl.dir) > 0)
 			return (ft_scalar_v3d(-1, inter->obj->elm.cyl.dir));

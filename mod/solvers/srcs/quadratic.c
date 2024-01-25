@@ -26,7 +26,7 @@
  */
 static inline t_bool	lineal(t_dec *coef, t_dec *dist)
 {
-	if (fabsl(coef[E_B]) < EPSILON)
+	if (fabs(coef[E_B]) < EPSILON)
 	{
 		dist[T_0] = INFINITY;
 		dist[T_1] = INFINITY;
@@ -83,7 +83,7 @@ t_bool	quadratic(t_dec *coef, t_dec *dist)
 	t_dec	discriminant;
 	t_dec	q;
 
-	if (fabsl(coef[E_A]) < EPSILON)
+	if (fabs(coef[E_A]) < EPSILON)
 		return (lineal(coef, dist));
 	discriminant = (coef[E_B] * coef[E_B]) - 4 * (coef[E_A] * coef[E_C]);
 	if (discriminant < 0)
@@ -93,9 +93,9 @@ t_bool	quadratic(t_dec *coef, t_dec *dist)
 		return (FALSE);
 	}
 	if (coef[E_B] > 0)
-		q = -0.5f * (coef[E_B] + sqrtl(discriminant));
+		q = -0.5f * (coef[E_B] + sqrt(discriminant));
 	else
-		q = -0.5f * (coef[E_B] - sqrtl(discriminant));
+		q = -0.5f * (coef[E_B] - sqrt(discriminant));
 	dist[T_0] = q / coef[E_A];
 	dist[T_1] = coef[E_C] / q;
 	quad_swap(&dist[0]);

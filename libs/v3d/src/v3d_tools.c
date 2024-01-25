@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:05:01 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 01:14:44 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:51:11 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_v3d	ft_rot_v3d(t_v3d vec, int axis, t_dec angle)
 	t_v3d	ax;
 	t_v3d	mtx[3];
 
-	c_the = (t_dec)cosl(angle);
-	s_the = (t_dec)sinl(angle);
+	c_the = (t_dec)cos(angle);
+	s_the = (t_dec)sin(angle);
 	ax = ft_v3d_identity(axis);
-	one = 1.0L - c_the;
+	one = 1.0F - c_the;
 	mtx[0] = (t_v3d){c_the + one * ax.x * ax.x,
 		one * ax.x * ax.y - s_the * ax.z,
 		one * ax.x * ax.z + s_the * ax.y};
@@ -92,9 +92,9 @@ t_v3d	ft_perp_v3d(t_v3d vec)
 t_bool	ft_is_idt_v3d(t_v3d vec)
 {
 	static const t_v3d	idt[3] = {
-		(t_v3d){1.0L, 0.0L, 0.0L},
-		(t_v3d){0.0L, 1.0L, 0.0L},
-		(t_v3d){0.0L, 0.0L, 1.0L}};
+		(t_v3d){1.0F, 0.0F, 0.0F},
+		(t_v3d){0.0F, 1.0F, 0.0F},
+		(t_v3d){0.0F, 0.0F, 1.0F}};
 	int					axis;
 	t_v3d				cmp;
 

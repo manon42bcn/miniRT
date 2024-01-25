@@ -117,7 +117,7 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 	t_dec	light;
 	double	rgb[3];
 
-	light = 0.0L;
+	light = 0.0F;
 	ft_memset(rgb, 0, 3 * sizeof(double));
 	brightness(&rgb[0], mrt->scn.bright, mrt->scn.amb_rgb);
 	node = mrt->scn.light;

@@ -42,14 +42,14 @@ void	inp_cone(t_mrt *mrt)
 	mrt->obj->elm.con.dir = get_v3d(mrt, mrt->tab[CON_ORIENTATION],
 			V3D_NORM);
 	diam = ft_atolf(mrt->tab[CON_DIAM]);
-	mrt->obj->elm.con.radius = diam / 2.00L;
+	mrt->obj->elm.con.radius = diam / 2.00F;
 	if (!check_range(mrt->obj->elm.con.radius, 0, INFINITY))
 		msg_error_parsing("Cone radius out of range", mrt);
 	mrt->obj->elm.con.height = ft_atolf(mrt->tab[CON_HEIGHT]);
 	if (!check_range(mrt->obj->elm.con.height, 0, INFINITY))
 		msg_error_parsing("Cone height out of range", mrt);
 	get_common(mrt, CON_HEIGHT, "Cone", mode);
-	mrt->obj->elm.con.alpha = diam / (2.0L * mrt->obj->elm.con.height);
+	mrt->obj->elm.con.alpha = diam / (2.0F * mrt->obj->elm.con.height);
 }
 
 #else

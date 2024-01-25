@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:00:05 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/25 10:28:38 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:48:47 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ typedef enum e_rgb_indx
 	B_I=2
 }	t_rgb_indx;
 
-typedef int			t_rgb;
-typedef long double	t_dec;
+typedef int		t_rgb;
+typedef double	t_dec;
 
 t_rgb	ft_rgb_dot(t_rgb color, double alpha);
 t_rgb	ft_rgb_add(t_rgb ca, t_rgb cb);

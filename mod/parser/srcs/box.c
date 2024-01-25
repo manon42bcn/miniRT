@@ -35,9 +35,9 @@ t_rectangle	build_box_face(t_box *box, int axis, double direction)
 	t_rectangle	face;
 	t_dec		off[3];
 
-	off[0] = 0.5L * direction * box->depth;
-	off[1] = 0.5L * direction * box->height;
-	off[2] = 0.5L * direction * box->width;
+	off[0] = 0.5F * direction * box->depth;
+	off[1] = 0.5F * direction * box->height;
+	off[2] = 0.5F * direction * box->width;
 	if (axis == 0)
 	{
 		face.height = box->height;

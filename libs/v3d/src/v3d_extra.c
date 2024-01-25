@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 13:12:03 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/19 23:00:43 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:50:47 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_v3d	ft_plus_real(t_v3d vec, t_dec real)
  */
 t_dec	ft_distance_v3d(t_v3d a, t_v3d b)
 {
-	return ((t_dec)sqrtl(((b.x - a.x) * (b.x - a.x))
+	return ((t_dec)sqrt(((b.x - a.x) * (b.x - a.x))
 			+ ((b.y - a.y) * (b.y - a.y))
 			+ ((b.z - a.z) * (b.z - a.z))));
 }
@@ -63,7 +63,7 @@ t_bool	ft_is_normal_v3d(t_v3d *v)
 	t_dec	mag;
 
 	mag = ft_mag_v3d(*v);
-	if (mag >= 0.99L && mag <= 1.01L)
+	if (mag >= 0.99F && mag <= 1.01F)
 		return (TRUE);
 	return (FALSE);
 }

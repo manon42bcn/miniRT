@@ -28,8 +28,8 @@ static inline void	uv_mapping(t_v3d local, t_dec *uv)
 	t_dec	phi;
 	t_dec	theta;
 
-	phi = atan2l(local.x, local.z);
-	theta = asinl(local.y);
+	phi = atan2(local.x, local.z);
+	theta = asin(local.y);
 	uv[E_U] = 0.5 + phi / (2 * M_PI);
 	uv[E_V] = 0.5 - theta / M_PI;
 }

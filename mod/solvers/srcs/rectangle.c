@@ -36,8 +36,8 @@ t_bool	is_point_inside_rect(t_v3d point, t_rectangle rc)
 	uv[E_V] = ft_cross_v3d(rc.orient, uv[E_U]);
 	proy[E_U] = ft_dot_v3d(oc, uv[E_U]);
 	proy[E_V] = ft_dot_v3d(oc, uv[E_V]);
-	if (fabsl(proy[E_U]) <= rc.width * 0.5
-		&& fabsl(proy[E_V]) <= rc.height * 0.5)
+	if (fabs(proy[E_U]) <= rc.width * 0.5
+		&& fabs(proy[E_V]) <= rc.height * 0.5)
 		return (TRUE);
 	return (FALSE);
 }

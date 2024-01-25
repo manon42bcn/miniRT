@@ -59,16 +59,16 @@ t_v3d	ft_scalar_v3d(t_dec scalar, t_v3d vec)
 {
 	t_v3d	rst;
 
-	if (vec.x == 0.0L || scalar == 0.0L)
-		rst.x = 0.0;
+	if (vec.x == 0.0F || scalar == 0.0F)
+		rst.x = 0.0F;
 	else
 		rst.x = vec.x * scalar;
-	if (vec.y == 0.0L || scalar == 0.0L)
-		rst.y = 0.0;
+	if (vec.y == 0.0F || scalar == 0.0F)
+		rst.y = 0.0F;
 	else
 		rst.y = vec.y * scalar;
-	if (vec.z == 0.0L || scalar == 0.0L)
-		rst.z = 0.0;
+	if (vec.z == 0.0F || scalar == 0.0F)
+		rst.z = 0.0F;
 	else
 		rst.z = vec.z * scalar;
 	return (rst);
