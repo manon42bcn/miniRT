@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:43:11 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/18 23:19:29 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:33:34 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
  * @param coef The brightness coefficient.
  * @param color The color value.
  */
-static inline void	brightness(t_dec *rgb, t_dec coef, int color)
+static inline void	brightness(double *rgb, t_dec coef, int color)
 {
 	unsigned int	mask;
 
 	mask = 255 << 16;
-	rgb[0] += (t_dec)coef * ((color & mask) >> 16) / 255;
+	rgb[0] += (double)coef * ((color & mask) >> 16) / 255;
 	mask >>= 8;
-	rgb[1] += (t_dec)coef * ((color & mask) >> 8) / 255;
+	rgb[1] += (double)coef * ((color & mask) >> 8) / 255;
 	mask >>= 8;
-	rgb[2] += (t_dec)coef * (color & mask) / 255;
+	rgb[2] += (double)coef * (color & mask) / 255;
 }
 
 /**
@@ -79,7 +79,7 @@ static inline void	brightness(t_dec *rgb, t_dec coef, int color)
  * @param rgb The RGB color array to accumulate lighting effects.
  */
 static inline void	is_lighted(t_inter inter, t_mrt *mrt,
-							t_light node, t_dec *rgb)
+							t_light node, double *rgb)
 {
 	t_bool	shadowed;
 	t_v3d	dir;
@@ -115,7 +115,7 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
 	t_light	*node;
 	t_dec	light;
-	t_dec	rgb[3];
+	double	rgb[3];
 
 	light = 0.0L;
 	ft_memset(rgb, 0, 3 * sizeof(double));
@@ -150,7 +150,7 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
  */
 t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
-	t_dec	rgb[3];
+	double	rgb[3];
 
 	(void)ray;
 	ft_memset(rgb, 0, 3 * sizeof(double));

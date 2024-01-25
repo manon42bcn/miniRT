@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:39:11 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/15 01:57:11 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:28:51 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
  * @param alpha Scalar value.
  * @return t_rgb The resulting scaled RGB color.
  */
-t_rgb	ft_rgb_dot(t_rgb color, t_dec alpha)
+t_rgb	ft_rgb_dot(t_rgb color, double alpha)
 {
 	t_rgb	r;
 	t_rgb	g;
@@ -71,7 +71,7 @@ t_rgb	ft_rgb_add(t_rgb ca, t_rgb cb)
  * @param rgb Lighting array with adjustments for each RGB component.
  * @return t_rgb The resulting adjusted RGB color.
  */
-t_rgb	ft_rgb_light(t_rgb color, t_dec rgb[3])
+t_rgb	ft_rgb_light(t_rgb color, double rgb[3])
 {
 	int				mask;
 	unsigned int	r;
