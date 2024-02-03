@@ -6,7 +6,7 @@
 #    By: vaguilar <vaguilar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 16:42:10 by mporras-          #+#    #+#              #
-#    Updated: 2024/02/03 18:27:18 by vaguilar         ###   ########.fr        #
+#    Updated: 2024/02/03 18:36:54 by vaguilar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,6 +92,7 @@ INCLUDES_HEAD	:=	$(patsubst %,-I%,$(dir $(HEAD_FILES)))
 SRCS 			=	$(addprefix $(SRC_DIR)/,$(SRCS_FILES))
 OBJS			=	$(addprefix $(OBJ_DIR)/,$(SRCS_FILES:.c=.o))
 CFLAGS			=	-Wall -Wextra -Werror
+CFLAGS 			+=	-Wno-deprecated-declarations
 LIBRARIES		=	$(LIBS_LIBS) $(MODS_MODULES)
 INCLUDES		=	-Icommon $(INCLUDES_LIBS) $(INCLUDES_MODS) $(INCLUDES_HEAD)
 LIB_LINKS		=	-L./$(LIB_FT) -lft -L./$(LIB_V3D) -lv3d -L./$(LIB_RGB) -lrgb -L./$(MODS_PARSER) -lparser -L./$(MODS_SOLVERS) -lsolvers -L./$(MODS_HOOKS) -lhooks -Lmlx -lmlx -framework OpenGL -framework AppKit
@@ -150,7 +151,6 @@ modules:
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
-#	@echo "$(GREEN)$(patsubst $(SRCS_DIR)/%,%, $<)				\tcompiled ✓$(DEF_COLOR)"
 	@echo "$(GREEN)$(patsubst $(SRCS_DIR)/%,%, $<)" | awk '{printf "%-50s\tcompiled ✓$(DEF_COLOR)\n", $$0;}'
 
 
