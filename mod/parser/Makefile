@@ -48,7 +48,6 @@ HEADER		=	inc/parse.h \
 				../../common/defines.h
 BONUS_FILE	= .bonus
 CFLAGS 		=	-Wall -Wextra -Werror
-#INCLUDES	:=	$(patsubst %,-I%,$(dir $(HEADER)))
 INCLUDES	= -Iinc -I../../libs/v3d/inc -I../../libs/rgb/inc -I../../libs/lib/inc -I../../common
 
 all: version $(NAME) $(HEADER)

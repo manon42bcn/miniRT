@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/07 21:39:11 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/07 22:58:33 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:28:51 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_rgb	ft_rgb_add(t_rgb ca, t_rgb cb)
  * @return t_rgb The resulting adjusted RGB color.
  */
 t_rgb	ft_rgb_light(t_rgb color, double rgb[3])
-{	
+{
 	int				mask;
 	unsigned int	r;
 	unsigned int	g;

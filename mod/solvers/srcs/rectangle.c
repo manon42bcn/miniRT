@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:03:22 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/27 19:03:25 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:52:35 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_bool	is_point_inside_rect(t_v3d point, t_rectangle rc)
 	t_v3d	oc;
 	t_v3d	disc;
 	t_v3d	uv[2];
-	double	proy[2];
+	t_dec	proy[2];
 
 	oc = ft_minus_v3d(point, rc.centre);
 	disc = ft_perp_v3d(rc.orient);
@@ -57,9 +57,9 @@ t_bool	is_point_inside_rect(t_v3d point, t_rectangle rc)
  * @return The distance from the ray origin to the intersection point or INFINITY
  * if there is no intersection with the rectangle.
  */
-double	rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc)
+t_dec	rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc)
 {
-	double	dist;
+	t_dec	dist;
 	t_v3d	hit;
 
 	dist = plane_hit(origin, dir, rc.centre, rc.orient);

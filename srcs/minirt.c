@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vaguilar <vaguilar@student.42barcelona.    +#+  +:+       +#+        */
+/*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 08:39:55 by mgarcia-          #+#    #+#             */
-/*   Updated: 2023/12/01 17:55:53 by vaguilar         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:28:58 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ static inline void	after_parse_process(t_mrt *mrt)
 	mrt->main_cam = node;
 	if (mrt->scn.res_init == FALSE)
 		my_mlx_getScreenSize(&(mrt->scn.w_x), &(mrt->scn.w_y));
-//	mrt->scn.w_x /= 3;
-//	mrt->scn.w_y /= 3;
 	mrt->scn.ratio = (double)mrt->scn.w_x / (double)mrt->scn.w_y;
 	while (node)
 	{
@@ -113,19 +111,10 @@ static inline void	after_parse_process(t_mrt *mrt)
  * @param mrt A pointer to the general properties of the scene.
  * @return Always returns TRUE. Used for hook functions in MiniLibX.
  */
-int	to_win(t_mrt *mrt)
+t_bool	to_win(t_mrt *mrt)
 {
-//	t_obj *obj;
 	if (mrt->to_img == TO_RENDER)
 	{
-//		obj = mrt->obj;
-//		while (obj)
-//		{
-//			printf("%f diam %f x %f y %f z [%s]\n", obj->elm.sph.radius, obj->elm.sph.centre.x, obj->elm.sph.centre.y,obj->elm.sph.centre.z, obj->xpm.path);
-//			obj = obj->next;
-//		}
-//		printf("Cam [%f x %f y %f z] ORIENT [%f x %f y %f z]\n", mrt->cmr->position.x, mrt->cmr->position.y, mrt->cmr->position.z, mrt->cmr->dir.x, mrt->cmr->dir.y, mrt->cmr->dir.z);
-
 		if (mrt->window == TRUE)
 			render_main(mrt);
 		mlx_put_image_to_window(mrt->mlx, mrt->mlx_win,
@@ -134,19 +123,6 @@ int	to_win(t_mrt *mrt)
 		mrt->window = TRUE;
 	}
 	return (TRUE);
-}
-
-int	print_help(void)
-{
-	printf("miniRT, version 1.0\n\n");
-	printf("miniRT is a simple RayTracer program that generates images using the Raytracing protocol.\n");
-    printf("This program is an introduction to the beautiful world of Raytracing.\n\n");
-	printf("Usage: ./miniRT <scene_file.rt>\n\n");
-    printf("Options:\n");
-    printf("  --help\t\tShow this help message and exit.\n\n");
-	printf("Arguments:\n");
-    printf("  <scene_file.rt>\t\tA scene description file in the .rt format that describes the objects, lights, and camera.\n\n");
-	return (1);
 }
 
 /**
@@ -166,20 +142,20 @@ int	main(int argc, char const *argv[])
 	t_mrt	*mrt;
 
 	if (argc < 2 || argc > 3)
-		msg_error_exit("Args error. Type --help for instructions.\n"); // VICTOR: Agregar salto de linea
+		msg_error_exit("Args error. Type --help for instructions.\n");
 	if (argc == 3)
 		msg_error_exit("invalid argument\n");
-	if (ft_strncmp("--help", (char *)argv[1], 7) == 0 && print_help()) // Siento que esta comparacion es sucia con otra que quizas pueda realizar manuel
-		return(SUCCESS);
-	mrt = readfile_parser(argv[1]); // parseo de objetos
-	after_parse_process(mrt); // Iniciacion de mlx, y bumps textures
+	if (ft_match_cmp("--help", (char *)argv[1]))
+		return (print_help());
+	mrt = readfile_parser(argv[1]);
+	after_parse_process(mrt);
 	render_main(mrt);
 	mrt->mlx_win = mlx_new_window(mrt->mlx, mrt->scn.w_x,
 			mrt->scn.w_y, "miniRT");
 	mlx_key_hook(mrt->mlx_win, key_main, mrt);
-	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt); // DestroyNotify, NoEventMask
-	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_select, mrt); // ButtonPress, ButtonPressMask
-	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_select, mrt); // ButtonRelease, ButtonReleaseMask
+	mlx_hook(mrt->mlx_win, 17, 0L, window_handler, mrt);
+	mlx_hook(mrt->mlx_win, 4, 1L << 2, mouse_select, mrt);
+	mlx_hook(mrt->mlx_win, 5, 1L << 3, mouse_select, mrt);
 	mlx_loop_hook(mrt->mlx, to_win, mrt);
 	mlx_loop(mrt->mlx);
 	clear_all(mrt, SUCCESS, NULL, NULL);

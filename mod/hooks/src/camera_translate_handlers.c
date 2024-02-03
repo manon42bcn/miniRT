@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 20:19:23 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:13:14 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:02:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
  * @param key Keycode representing the desired direction of translation.
  * @param mrt Main runtime structure containing the scene's camera and
  * other data.
- * @return int Always returns TRUE to indicate successful translation.
+ * @return t_bool Always returns TRUE to indicate successful translation.
  */
-int	cam_translate(int key, t_mrt *mrt)
+t_bool	cam_translate(int key, t_mrt *mrt)
 {
 	t_cmr	*node;
 
@@ -56,14 +56,17 @@ int	cam_translate(int key, t_mrt *mrt)
  *
  * @param mrt Main runtime structure which holds the current mode
  * of the camera.
- * @return int Returns TRUE when entering camera translation mode,
+ * @return t_bool Returns TRUE when entering camera translation mode,
  * and FALSE when exiting it.
  */
 int	camera_translate_mode(t_mrt *mrt)
 {
+	if (mrt->sel_obj)
+		return (FALSE);
 	if (mrt->mode == TO_EYE)
 	{
 		mrt->mode = NORMAL;
+		ft_putstr_fd("[BACK TO NORMAL MODE]\n", STDOUT_FILENO);
 		return (FALSE);
 	}
 	mrt->mode = TO_EYE;

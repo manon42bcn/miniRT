@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 17:04:06 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/26 22:07:26 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 02:14:37 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef SOLVERS_H
 # define SOLVERS_H
 
@@ -42,29 +42,28 @@ enum e_dist
 
 typedef t_v3d	(*t_normal)(t_v3d, t_v3d, t_inter *);
 
-t_bool			quadratic(double *vars, double *dist);
-double			get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter);
-double			plane_solver(t_v3d origin, t_v3d dir, t_plane pl);
-double			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
+t_bool			quadratic(t_dec *vars, t_dec *dist);
+t_dec			get_solver(t_v3d origin, t_v3d dir, t_obj *obj, t_inter *inter);
+t_dec			plane_solver(t_v3d origin, t_v3d dir, t_plane pl);
+t_dec			plane_hit(t_v3d origin, t_v3d dir, t_v3d plane_centre,
 					t_v3d plane_dir);
-double			cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl,
+t_dec			cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl,
 					t_inter *inter);
-double			top_intersect(t_v3d o, t_v3d d, t_cylinder lst);
-double			sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph);
+t_dec			top_intersect(t_v3d o, t_v3d d, t_cylinder lst);
+t_dec			sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph);
 t_v3d			get_normal(t_inter *inter, t_v3d dir, t_v3d hit);
 t_v3d			sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 t_v3d			cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter);
-double			rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc);
+t_dec			rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc);
+t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # ifdef BONUS
 
-double			triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg);
-double			box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter);
-double			cone_solver(t_v3d origin, t_v3d dir, t_cone con);
-
+t_dec			triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg);
+t_dec			box_solver(t_v3d origin, t_v3d dir, t_box box, t_inter *inter);
+t_dec			cone_solver(t_v3d origin, t_v3d dir, t_cone con);
 t_v3d			box_normal(t_v3d dir, t_v3d hit, t_inter *obj);
 t_v3d			cone_normal(t_v3d dir, t_v3d hit, t_inter *obj);
-t_v3d			common_normal(t_v3d dir, t_v3d hit, t_inter *inter);
 
 # endif
 

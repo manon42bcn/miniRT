@@ -6,10 +6,10 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/24 17:26:37 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/09 09:14:46 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/17 23:49:02 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-# define BONUS 1
+
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
@@ -18,8 +18,6 @@ typedef int				t_pixel;
 typedef struct s_mrt	t_mrt;
 # define TO_RENDER 0
 # define RENDERED 1
-# define RIGHT_CLICK 1
-# define LEFT_CLICK 2
 
 typedef struct s_ray
 {
@@ -39,7 +37,7 @@ enum e_fig
 	CONE=6
 };
 
-typedef	struct s_img
+typedef struct s_img
 {
 	void	*img;
 	char	*addr;
@@ -57,9 +55,9 @@ typedef struct s_cmr
 	t_v3d			position;
 	t_v3d			dir;
 	int				inp_fov;
-	double			fov;
-	double			orbit;
-	double			ratio;
+	t_dec			fov;
+	t_dec			orbit;
+	t_dec			ratio;
 	void			*img_ptr;
 	int				*addr;
 	int				bpp;
@@ -84,9 +82,9 @@ typedef struct s_scene
 	int				w_y;
 	t_light			*light;
 	t_light			*sel_light;
-	double			bright;
+	t_dec			bright;
 	t_rgb			amb_rgb;
-	double			ratio;
+	t_dec			ratio;
 	t_rgb			bgr;
 }					t_scene;
 
@@ -99,30 +97,30 @@ typedef struct s_obj
 	t_rgb			orig_color;
 	t_rgb			sel_color;
 	int				specular;
-	double			reflex;
-	double			refract;
+	t_dec			reflex;
+	t_dec			refract;
 	int				texture;
-	double			wavelength;
+	t_dec			wavelength;
 	t_bool			bump;
 	t_img			xpm;
 	t_bool			selected;
 	union u_figures	elm;
 }					t_obj;
 
-typedef struct		s_inter
+typedef struct s_inter
 {
 	t_ray			ray;
 	t_obj			*obj;
-	double			dist;
+	t_dec			dist;
 	t_rgb			color;
 	t_rgb			ref_color;
 	t_bool			specular;
-	double			reflex;
-	double			refract;
+	t_dec			reflex;
+	t_dec			refract;
 	t_bool			inside;
 	t_v3d			normal;
 	t_v3d			hit;
-	int 			face;
+	int				face;
 }					t_inter;
 
 typedef struct s_mrt
@@ -145,11 +143,11 @@ typedef struct s_mrt
 	int			mode;
 	int			(*clean_window)(void *, void *);
 	int			(*clean_image)(void *, void *);
-	t_v3d		(*ray_pixel)(int, int, t_mrt *);
-	double		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
+	t_v3d		(*ray_pixel)(int x, int y, t_mrt *);
+	t_dec		(*get_solver)(t_v3d, t_v3d, t_obj *, t_inter *);
 }					t_mrt;
 
-typedef	struct s_info
+typedef struct s_info
 {
 	t_mrt	*mrt;
 	t_pixel	x;
@@ -157,7 +155,5 @@ typedef	struct s_info
 	t_pixel	end_y;
 	t_pixel	max_y;
 }				t_info;
-
-
 
 #endif

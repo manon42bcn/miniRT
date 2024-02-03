@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 00:41:04 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/24 20:43:05 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/16 22:16:27 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,16 +59,16 @@ static inline t_obj	*get_selected(t_ray ray, t_obj *obj, t_mrt *mrt)
  * @param mrt Pointer to the main renderer structure, which contains
  * scene details and settings.
  *
- * @return int Returns TRUE if an object was successfully selected,
+ * @return t_bool Returns TRUE if an object was successfully selected,
  * FALSE otherwise.
  */
-int	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
+t_bool	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
 {
 	t_ray	rfp;
 	t_obj	*obj_hit;
 
 	(void)mouse_code;
-	if (mrt->mode == NORMAL || mrt->mode > TO_HEIGHT)
+	if (mrt->mode != TO_SELECT)
 		return (FALSE);
 	mlx_mouse_get_pos(mrt->mlx_win, &x, &y);
 	if (x < 0 || y < 0)
@@ -83,9 +83,8 @@ int	mouse_select(int mouse_code, int x, int y, t_mrt *mrt)
 		mrt->sel_obj->color = mrt->sel_obj->orig_color;
 	mrt->sel_obj = obj_hit;
 	obj_hit->color = obj_hit->sel_color;
-	if (mrt->mode == TO_SELECT)
-		mrt->mode = TO_TRANSLATE;
+	mrt->mode = TO_SELECTED;
 	mrt->to_img = TO_RENDER;
-	ft_putstr_fd("[OBJECT SELECTED - TRANSLATION MODE]\n", STDOUT_FILENO);
+	ft_putstr_fd("[OBJECT SELECTED - SELECT HOOK MODE]\n", STDOUT_FILENO);
 	return (TRUE);
 }

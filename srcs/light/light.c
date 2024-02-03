@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:43:11 by mporras-          #+#    #+#             */
-/*   Updated: 2023/11/26 01:55:35 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/26 09:51:45 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,19 @@
  * @param mrt The main ray tracing data structure.
  * @return TRUE if the point is illuminated, FALSE if it's in shadow.
  */
-static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
+static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt,
+					t_inter *light_inter)
 {
-	t_inter		new_inter;
-	double		discriminant;
+	double	attenuation;
 
-	new_inter.ray.from = inter.hit;
-	new_inter.ray.to = dir;
-	get_hits(&new_inter, mrt->obj, mrt);
-	if (!new_inter.obj)
+	light_inter->ray.from = inter.hit;
+	light_inter->ray.to = dir;
+	get_hits(light_inter, mrt->obj, mrt);
+	if (!light_inter->obj)
 		return (FALSE);
-	discriminant = (dir.x * dir.x)
-				   + (dir.y * dir.y)
-				   + (dir.z * dir.z)
-				   - 2 * ((dir.x * inter.hit.x)
-						  + (dir.y * inter.hit.y)
-						  + (dir.z * inter.hit.z));
-	if (discriminant < EPSILON)
-		return (FALSE);
-	if (new_inter.dist > EPSILON && new_inter.dist < 1)
-		return (TRUE);
+	attenuation = 1.0 / (light_inter->dist * light_inter->dist);
+	if (light_inter->dist > EPSILON && light_inter->dist < 1.00F)
+		return (attenuation > EPSILON);
 	return (FALSE);
 }
 
@@ -57,7 +50,7 @@ static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
  * @param coef The brightness coefficient.
  * @param color The color value.
  */
-static inline void	brightness(double *rgb, double coef, int color)
+static inline void	brightness(double *rgb, t_dec coef, int color)
 {
 	unsigned int	mask;
 
@@ -86,15 +79,19 @@ static inline void	is_lighted(t_inter inter, t_mrt *mrt,
 {
 	t_bool	shadowed;
 	t_v3d	dir;
-	double	light;
+	t_dec	light;
+	t_inter	light_inter;
 
-	dir = ft_normal_v3d(ft_minus_v3d(node.origin, inter.hit));
-	shadowed = on_shadow(dir, inter, mrt);
+	ft_memset(&light_inter, 0, sizeof(t_inter));
+	dir = ft_minus_v3d(node.origin, inter.hit);
+	shadowed = on_shadow(dir, inter, mrt, &light_inter);
 	if (!shadowed)
 	{
 		if (ft_dot_v3d(inter.normal, dir) <= 0)
 			return ;
-		light = node.bright * ft_cos_v3d(inter.normal, dir);
+		light = node.bright * ft_cos_v3d(dir, inter.normal);
+		if (light_inter.obj && light_inter.dist > EPSILON)
+			light *= 1 / (light_inter.dist * light_inter.dist);
 		brightness(rgb, light, node.color);
 	}
 }
@@ -116,11 +113,11 @@ static inline void	is_lighted(t_inter inter, t_mrt *mrt,
  */
 t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
-	t_light			*node;
-	double			light;
-	double			rgb[3];
+	t_light	*node;
+	t_dec	light;
+	double	rgb[3];
 
-	light = 0.0;
+	light = 0.0F;
 	ft_memset(rgb, 0, 3 * sizeof(double));
 	brightness(&rgb[0], mrt->scn.bright, mrt->scn.amb_rgb);
 	node = mrt->scn.light;
@@ -153,7 +150,7 @@ t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
  */
 t_rgb	light_hit(t_ray ray, t_inter inter, t_mrt *mrt)
 {
-	double			rgb[3];
+	double	rgb[3];
 
 	(void)ray;
 	ft_memset(rgb, 0, 3 * sizeof(double));

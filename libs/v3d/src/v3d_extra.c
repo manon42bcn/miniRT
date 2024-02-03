@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 13:12:03 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/08 00:07:11 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/25 10:50:47 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param real The real number to subtract.
  * @return The resulting vector after subtraction.
  */
-t_v3d	ft_subs_real(t_v3d vec, double real)
+t_v3d	ft_subs_real(t_v3d vec, t_dec real)
 {
 	return ((t_v3d){vec.x - real, vec.y - real, vec.z - real});
 }
@@ -31,7 +31,7 @@ t_v3d	ft_subs_real(t_v3d vec, double real)
  * @param real The real number to add.
  * @return The resulting vector after addition.
  */
-t_v3d	ft_plus_real(t_v3d vec, double real)
+t_v3d	ft_plus_real(t_v3d vec, t_dec real)
 {
 	return ((t_v3d){vec.x + real, vec.y + real, vec.z + real});
 }
@@ -43,27 +43,27 @@ t_v3d	ft_plus_real(t_v3d vec, double real)
  * @param b The second 3D vector.
  * @return The distance between the two vectors.
  */
-double	ft_distance_v3d(t_v3d a, t_v3d b)
+t_dec	ft_distance_v3d(t_v3d a, t_v3d b)
 {
-	return (sqrt(((b.x - a.x) * (b.x - a.x))
+	return ((t_dec)sqrt(((b.x - a.x) * (b.x - a.x))
 			+ ((b.y - a.y) * (b.y - a.y))
 			+ ((b.z - a.z) * (b.z - a.z))));
 }
 
 /**
  * @brief Check if a given 3D vector is normalized
- * (its components lie between -1 and 1).
+ * (its components magnitude is equal to 1). Some magnitudes
+ * can be approximate 1.
  *
  * @param v Pointer to the 3D vector.
  * @return TRUE if the vector is normalized, FALSE otherwise.
  */
 t_bool	ft_is_normal_v3d(t_v3d *v)
 {
-	if (v->x < -1.0 && v->x > 1.0)
-		return (FALSE);
-	if (v->y < -1.0 && v->y > 1.0)
-		return (FALSE);
-	if (v->z < -1.0 && v->z > 1.0)
-		return (FALSE);
-	return (TRUE);
+	t_dec	mag;
+
+	mag = ft_mag_v3d(*v);
+	if (mag >= 0.99F && mag <= 1.01F)
+		return (TRUE);
+	return (FALSE);
 }

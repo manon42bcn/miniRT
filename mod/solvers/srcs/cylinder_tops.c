@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:40:01 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/04 17:40:03 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 01:13:10 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 t_v3d	cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter)
 {
 	t_v3d	local_hit;
-	double	dot;
+	t_dec	dot;
 
 	local_hit = ft_minus_v3d(hit, inter->obj->elm.cyl.centre);
 	dot = ft_dot_v3d(local_hit, inter->obj->elm.cyl.dir);
@@ -56,8 +56,8 @@ t_v3d	cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter)
  *
  * @return 1 if the point is within the specified range, 0 otherwise.
  */
-static inline int	is_within_range(double id, t_v3d point,
-			t_v3d centre, double radius)
+static inline int	is_within_range(t_dec id, t_v3d point,
+			t_v3d centre, t_dec radius)
 {
 	return (id < INFINITY && ft_distance_v3d(point, centre) <= radius);
 }
@@ -77,7 +77,7 @@ static inline int	is_within_range(double id, t_v3d point,
  * @return The closest intersection distance or INFINITY if there is no
  * intersection.
  */
-static inline double	handle_intersection(double id1, double id2,
+static inline t_dec	handle_intersection(t_dec id1, t_dec id2,
 											t_v3d p[], t_cylinder cyl)
 {
 	if (is_within_range(id1, p[IP1], cyl.centre, cyl.radius)
@@ -109,10 +109,10 @@ static inline double	handle_intersection(double id1, double id2,
  * @return The distance from the ray origin to the intersection point or
  * INFINITY if there is no intersection with the top cap.
  */
-double	top_intersect(t_v3d o, t_v3d d, t_cylinder cyl)
+t_dec	top_intersect(t_v3d o, t_v3d d, t_cylinder cyl)
 {
-	double	id1;
-	double	id2;
+	t_dec	id1;
+	t_dec	id2;
 	t_v3d	p[3];
 	t_v3d	o_d[2];
 

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/22 23:17:58 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/22 23:18:00 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:04:11 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@
  * @param mrt Pointer to the main ray-tracing structure, holding information
  * about the scene.
  *
- * @return int Returns TRUE if a light was unselected, otherwise returns FALSE.
+ * @return t_bool Returns TRUE if a light was unselected, otherwise returns
+ * FALSE.
  */
-int	normal_light(t_mrt *mrt)
+t_bool	normal_light(t_mrt *mrt)
 {
 	if (mrt->scn.sel_light == NULL)
 		return (FALSE);
@@ -49,9 +50,10 @@ int	normal_light(t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure, holding information
  * about the scene.
  *
- * @return int Returns TRUE if an object was unselected, otherwise returns FALSE.
+ * @return t_bool Returns TRUE if an object was unselected, otherwise returns
+ * FALSE.
  */
-int	normal_object(t_mrt *mrt)
+t_bool	normal_object(t_mrt *mrt)
 {
 	if (mrt->sel_obj == NULL)
 		return (FALSE);
@@ -72,10 +74,10 @@ int	normal_object(t_mrt *mrt)
  * @param mrt Pointer to the main ray-tracing structure, holding information
  * about the scene and current mode.
  *
- * @return int Returns TRUE if the mode was switched to NORMAL,
+ * @return t_bool Returns TRUE if the mode was switched to NORMAL,
  * otherwise returns FALSE.
  */
-int	normal_mode(t_mrt *mrt)
+t_bool	normal_mode(t_mrt *mrt)
 {
 	if (mrt->mode == NORMAL)
 		return (FALSE);

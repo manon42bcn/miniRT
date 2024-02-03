@@ -16,45 +16,45 @@ Some resources to better understanding of the solvers library:
 
 ### Sphere Solver
 
-- **Function:** `double sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph)`
+- **Function:** `t_dec sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph)`
 - **Description:** Calculates the intersection point of a ray with a sphere defined by its center and radius.
 - **Normal:** `t_v3d sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter)`
 - **Description:** Calculates the normal vector at the point of intersection on the sphere's surface.
 
 ### Cylinder Solver
 
-- **Function:** `double cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl, t_inter *inter)`
+- **Function:** `t_dec cylinder_solver(t_v3d from, t_v3d dir, t_cylinder cyl, t_inter *inter)`
 - **Description:** Calculates the intersection point of a ray with a cylinder, accounting for its height and caps.
 - **Normal:** `t_v3d cylinder_normal(t_v3d dir, t_v3d hit, t_inter *inter)`
 - **Description:** Calculates the normal vector at the point of intersection on the cylinder's surface.
 
 ### Plane Solver
 
-- **Function:** `double plane_solver(t_v3d origin, t_v3d dir, t_plane pl)`
+- **Function:** `t_dec plane_solver(t_v3d origin, t_v3d dir, t_plane pl)`
 - **Description:** Calculates the intersection point of a ray with a plane defined by its center and orientation.
 - **Normal:** `t_v3d plane_normal(t_v3d dir, t_v3d hit, t_inter *inter)`
 - **Description:** Calculates the normal vector for a point of intersection on the plane's surface.
 
 ### Rectangle Solver
 
-- **Function:** `double rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc)`
+- **Function:** `t_dec rectangle_solver(t_v3d origin, t_v3d dir, t_rectangle rc)`
 - **Description:** Calculates the intersection point of a ray with a rectangle defined by its center, orientation, width, and height.
 - **Normal:** `t_v3d rectangle_normal(t_v3d dir, t_v3d hit, t_inter *inter)`
 - **Description:** Calculates the normal vector at the point of intersection on the rectangle's surface.
 
 ### Triangle Solver
 
-- **Function:** `double triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg)`
+- **Function:** `t_dec triangle_solver(t_v3d origin, t_v3d dir, t_triangle trg)`
 - **Description:** Calculates the intersection point of a ray with a triangle defined by its vertices and normal direction.
 - **Normal:** `t_v3d triangle_normal(t_v3d dir, t_v3d hit, t_inter *inter)`
 - **Description:** Calculates the normal vector at the point of intersection on the triangle's surface.
 
-### Ellipsoid Solver
+### Cube Solver
 
-- **Function:** `double ellipsoid_solver(t_v3d origin, t_v3d dir, t_ellip elp)`
-- **Description:** Calculates the intersection point of a ray with an ellipsoid defined by its center and radii.
-- **Normal:** `t_v3d ellipsoid_normal(t_v3d dir, t_v3d hit, t_inter *inter)`
-- **Description:** Calculates the normal vector at the point of intersection on the ellipsoid's surface.
+- **Function:** `t_dec box_solver(t_v3d origin, t_v3d dir, t_ellip elp)`
+- **Description:** Calculates the intersection point of a ray with an cube defined by its faces.
+- **Normal:** `t_v3d box_normal(t_v3d dir, t_v3d hit, t_inter *inter)`
+- **Description:** Calculates the normal vector at the point of intersection on the cube surface.
 
 ## How Solvers Work
 
@@ -81,14 +81,5 @@ Understanding and correctly computing normals is essential for achieving high-qu
 - The `t_inter` structure is used to store information about the intersection, including the normal vector at the intersection point, whether the ray is inside or outside the object, and other relevant data.
 
 - Some solvers also handle special cases based on object properties, such as caps for cylinders or specific textures.
-
-- These solvers are an essential part of the MiniRT project, which aims to create a simple ray tracing renderer.
-
-
-## Additional Information
-
-- The `t_inter` structure is used to store information about the intersection, including the normal vector at the intersection point and whether the ray is inside or outside the object.
-
-- Some solvers check for specific object properties, such as caps for cylinders or the texture flag, to handle special cases or materials.
 
 - These solvers are an essential part of the MiniRT project, which aims to create a simple ray tracing renderer.

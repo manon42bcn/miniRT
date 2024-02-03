@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/06 14:24:09 by mporras-          #+#    #+#             */
-/*   Updated: 2023/09/03 18:41:51 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/19 23:27:09 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ static inline t_rgb	texture_checkboard(t_inter *inter)
 
 	black = 0x000000;
 	white = 0xffffff;
-	coords.x = abs((int)floor(inter->hit.x));
-	coords.y = abs((int)floor(inter->hit.y));
-	coords.z = abs((int)floor(inter->hit.z));
+	coords.x = abs((int)floorl(inter->hit.x));
+	coords.y = abs((int)floorl(inter->hit.y));
+	coords.z = abs((int)floorl(inter->hit.z));
 	val.x = (int)coords.x % 2;
 	val.y = (int)coords.y % 2;
 	val.z = (int)coords.z % 2;
@@ -53,12 +53,12 @@ static inline t_rgb	texture_checkboard(t_inter *inter)
  */
 static inline t_v3d	texture_waves(t_inter *inter, t_obj *lst)
 {
-	double	wl_value;
-	double	wl_factor;
+	t_dec	wl_value;
+	t_dec	wl_factor;
 
 	wl_factor = lst->wavelength;
 	wl_value = sin(inter->hit.z * wl_factor) + sin(inter->hit.y * wl_factor);
-	return (ft_rot_v3d_x(inter->normal, wl_value));
+	return (ft_rot_v3d(inter->normal, X_C, wl_value));
 }
 
 /**

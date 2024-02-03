@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 21:49:23 by mporras-          #+#    #+#             */
-/*   Updated: 2023/10/24 21:49:28 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:05:52 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
  * that all resources are appropriately freed.
  *
  * @param mrt The main struct with cleanup routines.
- * @return int Always returns 0.
+ * @return t_bool Always returns 0.
  */
-int	window_handler(t_mrt *mrt)
+t_bool	window_handler(t_mrt *mrt)
 {
 	exit(clear_all(mrt, 0, mrt->clean_window, mrt->clean_image));
 }
@@ -36,10 +36,10 @@ int	window_handler(t_mrt *mrt)
  *
  * @param mrt Pointer to the main runtime structure containing the
  * application's state, including the current active camera.
- * @return int Returns TRUE if the active camera was successfully switched,
+ * @return t_bool Returns TRUE if the active camera was successfully switched,
  * otherwise returns FALSE.
  */
-int	change_camera(t_mrt *mrt)
+t_bool	change_camera(t_mrt *mrt)
 {
 	if (mrt->cmr->next == NULL && mrt->cmr == mrt->main_cam)
 		return (FALSE);

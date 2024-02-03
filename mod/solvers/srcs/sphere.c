@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 21:40:59 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/23 15:59:08 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 00:54:18 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ t_v3d	sphere_normal(t_v3d dir, t_v3d hit, t_inter *inter)
  * @param dir The direction vector of the ray.
  * @param sph The sphere structure representing the sphere.
  */
-static inline void	sphere_hit_area(double points[2], t_v3d origin,
+static inline void	sphere_hit_area(t_dec points[2], t_v3d origin,
 		t_v3d dir, t_sphere sph)
 {
 	t_v3d	dist_from_centre;
-	double	p[3];
+	t_dec	p[3];
 
 	dist_from_centre = ft_minus_v3d(origin, sph.centre);
 	p[0] = ft_length_v3d(dir);
@@ -78,7 +78,7 @@ static inline void	sphere_hit_area(double points[2], t_v3d origin,
  * @return The nearest valid intersection distance or INFINITY if no valid
  * intersection exists.
  */
-static inline double	hit_between_points(double points[2])
+static inline t_dec	hit_between_points(t_dec points[2])
 {
 	if (points[0] < points[1])
 		return (points[0]);
@@ -100,10 +100,10 @@ static inline double	hit_between_points(double points[2])
  * @return The distance from the ray origin to the intersection point or
  * INFINITY if there is no intersection with the sphere.
  */
-double	sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph)
+t_dec	sphere_solver(t_v3d origin, t_v3d dir, t_sphere sph)
 {
-	double	distance;
-	double	points[2];
+	t_dec	distance;
+	t_dec	points[2];
 	t_v3d	p1;
 	t_v3d	p2;
 

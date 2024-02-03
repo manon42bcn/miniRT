@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:05:03 by mporras-          #+#    #+#             */
-/*   Updated: 2023/06/25 23:22:20 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:31:43 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@
  */
 static inline t_v3d	camera_eye(int n, t_pix pix, t_mrt *mrt)
 {
-	double	x_ofs;
-	double	y_ofs;
+	t_dec	x_ofs;
+	t_dec	y_ofs;
 	t_v3d	p;
 
-	x_ofs = ((n % 3) * 0.5);
-	y_ofs = ((n / 3) * 0.5);
+	x_ofs = ((n % 3) * 0.5F);
+	y_ofs = ((n / 3) * 0.5F);
 	p.x = ((2 * ((pix.x + x_ofs) / pix.w_x)) - 1)
 		* mrt->scn.ratio * mrt->cmr->fov;
 	p.y = (1 - (2 * ((pix.y + y_ofs) / pix.w_y))) * mrt->cmr->fov;
@@ -48,10 +48,10 @@ static inline t_v3d	camera_eye(int n, t_pix pix, t_mrt *mrt)
 
 /**
  * @brief Transform a given direction vector to align with the camera's
- * rientation.
+ * orientation.
  *
  * The function adjusts the given direction to be relative to the
- * camera'sorientation. This is achieved by constructing a local coordinate
+ * camera's orientation. This is achieved by constructing a local coordinate
  * system (or a basis) at the camera's position. The `cam_dir` represents
  * the forward direction (or z-axis) of the camera. The function computes
  * the right (x-axis) and up (y-axis) directions based on the camera's
