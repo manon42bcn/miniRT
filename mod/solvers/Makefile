@@ -97,8 +97,9 @@ version_bonus:
     fi
 
 $(BONUS_FILE): $(OBJS_DIR) $(OBJS)
-	ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
-	touch $(BONUS_FILE)
+	@ar rcs $(NAME) $(OBJS) $(OBJS_BNS)
+	@touch $(BONUS_FILE)
+	@echo "$(MAGENTA)Library $@ compiled$(DEF_COLOR)"
 
 re:	fclean $(NAME)
 

@@ -6,7 +6,7 @@
 #    By: vaguilar <vaguilar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 16:42:10 by mporras-          #+#    #+#              #
-#    Updated: 2024/02/03 18:36:54 by vaguilar         ###   ########.fr        #
+#    Updated: 2024/02/03 19:14:13 by vaguilar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,7 +121,7 @@ version_bonus:
     fi
 
 $(BONUS_FILE):
-	touch .bonus
+	@touch .bonus
 
 $(NAME): $(OBJS) $(HEAD_FILES) $(LIBRARIES)
 	@$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
