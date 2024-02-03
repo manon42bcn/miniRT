@@ -1,39 +1,16 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
+#    OLD-Makefile                                       :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: vaguilar <vaguilar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/27 16:42:10 by mporras-          #+#    #+#              #
-#    Updated: 2024/02/03 18:27:18 by vaguilar         ###   ########.fr        #
+#    Updated: 2024/02/03 17:41:15 by vaguilar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#=-=-=-=-=-=-=- COLORS DEFINITION =-=-=-=-=-=-=-=-=-#
-
-DEL_LINE		=	\033[2K
-ITALIC			=	\033[3m
-BOLD			=	\033[1m
-DEF_COLOR		=	\033[0;39m
-GRAY			=	\033[0;90m
-RED				=	\033[0;91m
-GREEN			=	\033[0;92m
-YELLOW			=	\033[0;93m
-BLUE			=	\033[0;94m
-MAGENTA			=	\033[0;95m
-CYAN			=	\033[0;96m
-WHITE			=	\033[0;97m
-BLACK			=	\033[0;99m
-ORANGE			=	\033[38;5;209m
-BROWN			=	\033[38;2;184;143;29m
-DARK_GRAY		=	\033[38;5;234m
-MID_GRAY		=	\033[38;5;245m
-DARK_GREEN		=	\033[38;2;75;179;82
-DARK_YELLOW		=	\033[38;5;143m
-
 NAME			= 	miniRT
-
 SRC_DIR			= 	srcs
 OBJ_DIR			= 	objs
 OBJ_SUBS		= 	objs \
@@ -98,7 +75,6 @@ LIB_LINKS		=	-L./$(LIB_FT) -lft -L./$(LIB_V3D) -lv3d -L./$(LIB_RGB) -lrgb -L./$(
 RM				=	rm -rf
 BONUS_FILE		=	.bonus
 CC				=	gcc
-MAKE 			=	make --no-print-directory
 
 all: version library modules $(OBJ_SUBS) $(NAME)
 
@@ -123,69 +99,62 @@ $(BONUS_FILE):
 	touch .bonus
 
 $(NAME): $(OBJS) $(HEAD_FILES) $(LIBRARIES)
-	@$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
-	@echo "$(MAGENTA)Executable $@ compiled$(DEF_COLOR)"
+	$(CC) $(OBJS) $(CFLAGS) $(LIB_LINKS) -g -lm -o $(NAME)
 
 library:
-	@echo "$(YELLOW)Building LIBRARIES$(DEF_COLOR)"
-	@echo "$(YELLOW)------------------$(DEF_COLOR)"
-	@echo "$(YELLOW)Building LIBFT$(DEF_COLOR)" ; echo
+	@echo "\033[1;34mBuilding LIBRARIES\033[0m"
+	@echo "\033[1;34m------------------\033[0m"
+	@echo -n  Building LIBFT --' '
 	@$(MAKE) -C $(LIB_FT)
-	@echo "$(YELLOW)Building V3D$(DEF_COLOR)"
+	@echo  -n  Building V3D --' '
 	@$(MAKE) -C $(LIB_V3D)
-	@echo "$(YELLOW)Building RGB$(DEF_COLOR)"
+	@echo -n  Building RGB --' '
 	@$(MAKE) -C $(LIB_RGB)
-	@echo "$(YELLOW)Building MLX$(DEF_COLOR)"
-#	$(MAKE) -C $(LIB_MLX)
+	@echo -n  Building MLX --' '
+	# $(MAKE) -C $(LIB_MLX)
 
 modules:
-	@echo "$(YELLOW)Building MODULES" $(LIB_DET) "$(DEF_COLOR)"
-	@echo "$(YELLOW)----------------------$(DEF_COLOR)"
-	@echo "$(YELLOW)Building PARSER MODULE$(DEF_COLOR)"
+	@echo "\033[1;97mBuilding MODULES" $(LIB_DET) "\033[0m"
+	@echo "\033[1;97m----------------------\033[0m"
+	@echo -n  Building PARSER MODULE --' '
 	@$(MAKE) -C $(MODS_PARSER) $(LIB_DET)
-	@echo "$(YELLOW)Building HOOKS MODULE$(DEF_COLOR)"
+	@echo -n  Building HOOKS MODULE --' '
 	@$(MAKE) -C $(MODS_HOOKS) $(LIB_DET)
-	@echo "$(YELLOW)Building SOLVERS MODULE$(DEF_COLOR)"
+	@echo -n  Building SOLVERS MODULE --' '
 	@$(MAKE) -C $(MODS_SOLVERS) $(LIB_DET)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
-#	@echo "$(GREEN)$(patsubst $(SRCS_DIR)/%,%, $<)				\tcompiled ✓$(DEF_COLOR)"
-	@echo "$(GREEN)$(patsubst $(SRCS_DIR)/%,%, $<)" | awk '{printf "%-50s\tcompiled ✓$(DEF_COLOR)\n", $$0;}'
-
+	$(CC) $(CFLAGS) $(INCLUDES) -g -c $< -o $@
 
 $(OBJ_SUBS):
-	@-mkdir $(OBJ_SUBS)
+	-mkdir $(OBJ_SUBS)
 
 clean:
-	@$(MAKE) -C $(LIB_FT) clean
-	@$(MAKE) -C $(LIB_V3D) clean
-	@$(MAKE) -C $(LIB_RGB) clean
-	@$(MAKE) -C $(MODS_SOLVERS) clean
-	@$(MAKE) -C $(MODS_PARSER) clean
-	@$(MAKE) -C $(MODS_HOOKS) clean
-#	@$(MAKE) -C $(LIB_MLX) clean
-	@$(RM) $(MLX)
-	@$(RM) $(OBJS)
-	@echo "$(RED)All temporary objects removed successfully${DEF_COLOR}"
+	$(MAKE) -C $(LIB_FT) clean
+	$(MAKE) -C $(LIB_V3D) clean
+	$(MAKE) -C $(LIB_RGB) clean
+	$(MAKE) -C $(MODS_SOLVERS) clean
+	# $(MAKE) -C $(LIB_MLX) clean
+	$(MAKE) -C $(MODS_PARSER) clean
+	$(MAKE) -C $(MODS_HOOKS) clean
+	$(RM) $(MLX)
+	$(RM) $(OBJS)
 
 fclean: clean
-	@$(MAKE) -C $(LIB_FT) fclean
-	@$(MAKE) -C $(LIB_V3D) fclean
-	@$(MAKE) -C $(LIB_RGB) fclean
-	@$(MAKE) -C $(MODS_SOLVERS) fclean
-	@$(MAKE) -C $(MODS_PARSER) fclean
-	@$(MAKE) -C $(MODS_HOOKS) fclean
-#	@$(MAKE) -C $(LIB_MLX) clean
-	@$(RM) $(NAME)
-	@$(RM) $(OBJ_SUBS)
-	@$(RM) $(BONUS_FILE)
-	@echo "$(RED)Executable have been fully cleaned${DEF_COLOR}"
+	$(MAKE) -C $(LIB_FT) fclean
+	$(MAKE) -C $(LIB_V3D) fclean
+	$(MAKE) -C $(LIB_RGB) fclean
+	$(MAKE) -C $(MODS_SOLVERS) fclean
+	$(MAKE) -C $(MODS_PARSER) fclean
+	$(MAKE) -C $(MODS_HOOKS) fclean
+	# $(MAKE) -C $(LIB_MLX) clean
+	$(RM) $(NAME)
+	$(RM) $(OBJ_SUBS)
+	$(RM) $(BONUS_FILE)
 
 memory: $(OBJ_SUBS) $(OBJS) $(HEAD_FILES)
-	@$(MAKE) CFLAGS+=-fsanitize=address re
-	@echo "$(RED)Executable have been fully cleaned${DEF_COLOR}"
-	
+	$(MAKE) CFLAGS+=-fsanitize=address re
+
 re:	fclean all
 
 .PHONY: all clean fclean re

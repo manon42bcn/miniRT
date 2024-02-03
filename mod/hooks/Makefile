@@ -11,6 +11,28 @@
 #                                                                              #
 # **************************************************************************** #
 
+#=-=-=-=-=-=-=- COLORS DEFINITION =-=-=-=-=-=-=-=-=-#
+
+DEL_LINE		=	\033[2K
+ITALIC			=	\033[3m
+BOLD			=	\033[1m
+DEF_COLOR		=	\033[0;39m
+GRAY			=	\033[0;90m
+RED				=	\033[0;91m
+GREEN			=	\033[0;92m
+YELLOW			=	\033[0;93m
+BLUE			=	\033[0;94m
+MAGENTA			=	\033[0;95m
+CYAN			=	\033[0;96m
+WHITE			=	\033[0;97m
+BLACK			=	\033[0;99m
+ORANGE			=	\033[38;5;209m
+BROWN			=	\033[38;2;184;143;29m
+DARK_GRAY		=	\033[38;5;234m
+MID_GRAY		=	\033[38;5;245m
+DARK_GREEN		=	\033[38;2;75;179;82
+DARK_YELLOW		=	\033[38;5;143m
+
 SRCS		=	camera_handlers.c \
 				camera_translate_handlers.c \
 				keys_handlers.c \
@@ -41,10 +63,12 @@ INCLUDES	= -Iinc -I../../libs/v3d/inc -I../../libs/rgb/inc -I../../libs/lib/inc 
 all: $(NAME)
 
 $(NAME): $(OBJS_DIR) $(HEADER) $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
+	@echo "$(MAGENTA)Library $@ compiled$(DEF_COLOR)"
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(HEADER)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@echo "$(GREEN)$(patsubst $(SRCS_DIR)/%,%, $<)" | awk '{printf "%-50s\tcompiled ✓$(DEF_COLOR)\n", $$0;}'
 
 $(OBJS_DIR):
 	-@mkdir $(OBJS_DIR)
