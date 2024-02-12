@@ -6,3 +6,4 @@ miniRT.dSYM/
 .bonus
 *.o
 *.log
+.idea

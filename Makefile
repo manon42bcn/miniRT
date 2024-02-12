@@ -137,7 +137,7 @@ library:
 	@echo "$(YELLOW)Building RGB$(DEF_COLOR)"
 	@$(MAKE) -C $(LIB_RGB)
 	@echo "$(YELLOW)Building MLX$(DEF_COLOR)"
-#	$(MAKE) -C $(LIB_MLX)
+	$(MAKE) -C $(LIB_MLX)
 
 modules:
 	@echo "$(YELLOW)Building MODULES" $(LIB_DET) "$(DEF_COLOR)"
@@ -164,7 +164,7 @@ clean:
 	@$(MAKE) -C $(MODS_SOLVERS) clean
 	@$(MAKE) -C $(MODS_PARSER) clean
 	@$(MAKE) -C $(MODS_HOOKS) clean
-#	@$(MAKE) -C $(LIB_MLX) clean
+	@$(MAKE) -C $(LIB_MLX) clean
 	@$(RM) $(MLX)
 	@$(RM) $(OBJS)
 	@echo "$(RED)All temporary objects removed successfully${DEF_COLOR}"
@@ -176,7 +176,7 @@ fclean: clean
 	@$(MAKE) -C $(MODS_SOLVERS) fclean
 	@$(MAKE) -C $(MODS_PARSER) fclean
 	@$(MAKE) -C $(MODS_HOOKS) fclean
-#	@$(MAKE) -C $(LIB_MLX) clean
+	@$(MAKE) -C $(LIB_MLX) clean
 	@$(RM) $(NAME)
 	@$(RM) $(OBJ_SUBS)
 	@$(RM) $(BONUS_FILE)

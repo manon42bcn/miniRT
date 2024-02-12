@@ -87,6 +87,7 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 	$(RM) $(OBJS_SUBS)
+	$(RM) $(BONUS_FILES)
 
 bonus: CFLAGS += -DBONUS
 bonus: version_bonus $(BONUS_FILE) $(HEADER)
