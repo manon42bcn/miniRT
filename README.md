@@ -26,7 +26,14 @@ Feel free to write!
 # miniRT #
 A simple Ray Tracing engine created in C. This project uses the MiniLibX, a simple graphics library, to showcase the fundamentals of ray tracing with some bonus features like textures and supersampling.
 
-[Important]
+### Evaluation: 125% ###
+
+## Usage ##
+
+clone: git clone git@github.com:manon42bcn/miniRT.git
+submodules: git submodule update --init --recursive --remote
+
+### [Important] ###
 This project was made as part of 42 Barcelona Cursus. You are welcome to clone it and use it as reference, but copy it without understand it is cheat yourself. All project is documented and commented to make it easy to understand.
 
 It's important to us say thanks to other projects than were helpful to understand the subject.
