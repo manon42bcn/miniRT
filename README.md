@@ -23,6 +23,8 @@ whoAmI(campus=42barcelona, login=vaguilar-, mail=veaz.24@gmail.com)
 Feel free to write!                  
 ```
 
+![Preview](./cornelbox.png)
+
 # miniRT #
 A simple Ray Tracing engine created in C. This project uses the MiniLibX, a simple graphics library, to showcase the fundamentals of ray tracing with some bonus features like textures and supersampling.
 
