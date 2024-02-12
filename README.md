@@ -19,6 +19,7 @@
      ,@@@    @@@    @@@/  %@@@   @@@@   @@@@   @@@   
 
 whoAmI(campus=42barcelona, login=mporras-, mail=manuel.porras.ojeda@gmail.com)
+whoAmI(campus=42barcelona, login=vaguilar-, mail=veaz.24@gmail.com)
 Feel free to write!                  
 ```
 
