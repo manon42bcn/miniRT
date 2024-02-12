@@ -4,3 +4,6 @@
 [submodule "libs/v3d"]
 	path = libs/v3d
 	url = git@github.com:manon42bcn/v3d.git
+[submodule "libs/rgb"]
+	path = libs/rgb
+	url = git@github.com:manon42bcn/rgb.git

@@ -6,7 +6,7 @@
 /*   By: mporras- <manon42bcn@yahoo.com>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:43:11 by mporras-          #+#    #+#             */
-/*   Updated: 2024/01/26 09:51:45 by mporras-         ###   ########.fr       */
+/*   Updated: 2024/02/12 10:59:05 by mporras-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@
  * @param mrt The main ray tracing data structure.
  * @return TRUE if the point is illuminated, FALSE if it's in shadow.
  */
-static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt,
-					t_inter *light_inter)
+static inline t_bool	on_shadow(t_v3d dir, t_inter inter, t_mrt *mrt)
 {
 	double	attenuation;
+	t_inter	light_inter;
 
-	light_inter->ray.from = inter.hit;
-	light_inter->ray.to = dir;
-	get_hits(light_inter, mrt->obj, mrt);
-	if (!light_inter->obj)
+	light_inter.ray.from = inter.hit;
+	light_inter.ray.to = dir;
+	get_hits(&light_inter, mrt->obj, mrt);
+	if (!light_inter.obj)
 		return (FALSE);
-	attenuation = 1.0 / (light_inter->dist * light_inter->dist);
-	if (light_inter->dist > EPSILON && light_inter->dist < 1.00F)
+	attenuation = 1.0 / (light_inter.dist * light_inter.dist);
+	if (light_inter.dist > EPSILON && light_inter.dist < 1.00F)
 		return (attenuation > EPSILON);
 	return (FALSE);
 }
@@ -84,14 +84,12 @@ static inline void	is_lighted(t_inter inter, t_mrt *mrt,
 
 	ft_memset(&light_inter, 0, sizeof(t_inter));
 	dir = ft_minus_v3d(node.origin, inter.hit);
-	shadowed = on_shadow(dir, inter, mrt, &light_inter);
+	shadowed = on_shadow(dir, inter, mrt);
 	if (!shadowed)
 	{
 		if (ft_dot_v3d(inter.normal, dir) <= 0)
 			return ;
 		light = node.bright * ft_cos_v3d(dir, inter.normal);
-		if (light_inter.obj && light_inter.dist > EPSILON)
-			light *= 1 / (light_inter.dist * light_inter.dist);
 		brightness(rgb, light, node.color);
 	}
 }
